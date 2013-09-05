@@ -1,0 +1,513 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <dcadmin module="dcadmin">
+            <label>LDAP Configuration</label>
+            <tab>utilitiestab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>340</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <ldapadminlogin translate="label">
+                    <label>Admin LDAP Login Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <activeldap translate="label">
+                            <label>Enable LDAP admin login</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </activeldap>
+                        <host translate="label">
+                            <label>Host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ldap.example.com ]]></comment>
+                        </host>
+                        <version translate="label">
+                            <label>Protocol version</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 3 ]]></comment>
+                        </version>
+                        <port translate="label">
+                            <label>Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS  ]]></comment>
+                        </port>
+                        <tls translate="label">
+                            <label>Enable TLS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </tls>
+                        <rootdn translate="label">
+                            <label>rootDn</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=diva,dc=com ]]></comment>
+                        </rootdn>
+                        <rootpassword translate="label">
+                            <label>rootPassword</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> YourP455w0Rd ]]></comment>
+                        </rootpassword>
+                        <userdn translate="label">
+                            <label>userDn</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=diva,dc=com ]]></comment>
+                        </userdn>
+                        <filter translate="label">
+                            <label>Filter</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=DiVA-magento-1)) ]]></comment>
+                        </filter>
+                        <cmpattr translate="label">
+                            <label>Login attribute</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn ]]></comment>
+                        </cmpattr>
+                        <passattr translate="label">
+                            <label>Password attribute</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> userPassword ]]></comment>
+                        </passattr>
+                        <attr translate="label">
+                            <label>Compliant attributes</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword ]]></comment>
+                        </attr>
+                        <defaultroleid translate="label">
+                            <label>Default role_id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 20 ]]></comment>
+                        </defaultroleid>
+						
+						
+						<autocreate translate="label">
+                            <label>Create admin user if in LDAP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment><![CDATA[<b>Note: </b> in order to user this there must be one of two conditions met.  1.) the user login in must have search rights or 2.) the search user information must be entered  ]]></comment>
+                        </autocreate>
+					
+						
+                        <testusername translate="label">
+                            <label>A test user name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> user.name ]]></comment>
+                        </testusername>
+                        <testuserpass translate="label">
+                            <label>The test user's password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ***** ]]></comment>
+                        </testuserpass>
+						
+						
+						<api_wizard translate="button_label">
+							<label></label>
+							<button_label>Test configuration</button_label>
+							<!--<button_url><![CDATA[/dcadmin/test/]]></button_url>-->
+							<frontend_model>dcadmin/adminhtml_system_config_apiWizard</frontend_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+						</api_wizard>
+                    </fields>
+                </ldapadminlogin>
+				<ldapsearcher translate="label">
+                    <label>LDAP searcher Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<comment><![CDATA[<b>Note: </b> in some systems you can only use a user that has been granted access to search instead of the user that is trying to log in.  In this case you may enter this user in here.  ]]></comment>
+                    <fields>
+                        <activeldap translate="label">
+                            <label>Enable Searcher</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </activeldap>
+                        <host translate="label">
+                            <label>Host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ldap.example.com ]]></comment>
+                        </host>
+                        <version translate="label">
+                            <label>Protocol version</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 3 ]]></comment>
+                        </version>
+                        <port translate="label">
+                            <label>Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS  ]]></comment>
+                        </port>
+                        <tls translate="label">
+                            <label>Enable TLS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </tls>
+                        <rootdn translate="label">
+                            <label>rootDn</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=diva,dc=com ]]></comment>
+                        </rootdn>
+                        <rootpassword translate="label">
+                            <label>rootPassword</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> YourP455w0Rd ]]></comment>
+                        </rootpassword>
+                        <userdn translate="label">
+                            <label>userDn</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=diva,dc=com ]]></comment>
+                        </userdn>
+                        <filter translate="label">
+                            <label>Filter</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=DiVA-magento-1)) ]]></comment>
+                        </filter>
+                        <cmpattr translate="label">
+                            <label>Login attribute</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn ]]></comment>
+                        </cmpattr>
+                        <passattr translate="label">
+                            <label>Password attribute</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> userPassword ]]></comment>
+                        </passattr>
+                        <attr translate="label">
+                            <label>Compliant attributes</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword ]]></comment>
+                        </attr>
+                        <defaultroleid translate="label">
+                            <label>Default role_id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 20 ]]></comment>
+                        </defaultroleid>
+
+						<searcherusername translate="label">
+                            <label>The Searcher user's name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Note:</b> this is a user that can search for information on the user loging in. 
+							If the users trying to login, can auto add them selfs adn have search 
+							rights then this would not be needed.<b>Ex: </b> user.name ]]></comment>
+                        </searcherusername>
+                        <searcheruserpass translate="label">
+                            <label>The Searcher user's password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ***** ]]></comment>
+                        </searcheruserpass>
+                    </fields>
+                </ldapsearcher>
+				
+                <ldapcustomerlogin translate="label">
+                    <label>Customer LDAP Login Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <activeldap translate="label">
+                            <label>Enable LDAP Customer login</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </activeldap>
+                        <restricttoldap translate="label">
+                            <label>Restrict to LDAP Users only</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </restricttoldap>
+                        <host translate="label">
+                            <label>Host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ldap.example.com ]]></comment>
+                        </host>
+                        <version translate="label">
+                            <label>Protocol version</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 3 ]]></comment>
+                        </version>
+                        <port translate="label">
+                            <label>Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS  ]]></comment>
+                        </port>
+                        <tls translate="label">
+                            <label>Enable TLS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </tls>
+                        <rootdn translate="label">
+                            <label>rootDn</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=diva,dc=com ]]></comment>
+                        </rootdn>
+                        <rootpassword translate="label">
+                            <label>rootPassword</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> YourP455w0Rd ]]></comment>
+                        </rootpassword>
+                        <userdn translate="label">
+                            <label>userDn</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=diva,dc=com ]]></comment>
+                        </userdn>
+                        <filter translate="label">
+                            <label>Filter</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=DiVA-magento-1)) ]]></comment>
+                        </filter>
+                        <cmpattr translate="label">
+                            <label>Login attribute</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn ]]></comment>
+                        </cmpattr>
+                        <passattr translate="label">
+                            <label>Password attribute</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> userPassword ]]></comment>
+                        </passattr>
+                        <attr translate="label">
+                            <label>Compliant attributes</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword ]]></comment>
+                        </attr>
+                        <defaultroleid translate="label">
+                            <label>Default role_id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> 20 ]]></comment>
+                        </defaultroleid>
+						
+						
+						<autocreate translate="label">
+                            <label>Create admin user if in LDAP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment><![CDATA[<b>Note: </b> in order to user this there must be one of two conditions met.  1.) the user login in must have search rights or 2.) the search user information must be entered  ]]></comment>
+                        </autocreate>
+					
+						
+                        <testusername translate="label">
+                            <label>A test user name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> user.name ]]></comment>
+                        </testusername>
+                        <testuserpass translate="label">
+                            <label>The test user's password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Ex: </b> ***** ]]></comment>
+                        </testuserpass>
+						
+						
+						<api_wizard translate="button_label">
+							<label></label>
+							<button_label>Test configuration</button_label>
+							<!--<button_url><![CDATA[/dcadmin/test/]]></button_url>-->
+							<frontend_model>dcadmin/adminhtml_system_config_apiWizard</frontend_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+						</api_wizard>
+                    </fields>
+                </ldapcustomerlogin>
+				
+				
+				
+            </groups>
+        </dcadmin>
+    </sections>
+</config>
