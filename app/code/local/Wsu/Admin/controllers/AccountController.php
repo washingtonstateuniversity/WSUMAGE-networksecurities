@@ -241,4 +241,37 @@ class Wsu_Admin_AccountController extends Mage_Customer_AccountController {
         $this->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
         $this->renderLayout();
     }
+	
+	
+    /**
+     * Display the access request form
+     */
+    public function make_requestAction() {
+        $this->loadLayout();
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('catalog/session');
+        $block = $this->getLayout()->getBlock('customer_edit');
+		//display the form yo
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Request Form'));
+        $this->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
+        $this->renderLayout();
+    }
+    /**
+     * Take the access request
+     */
+    public function take_requestAction() {
+        $this->loadLayout();
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('catalog/session');
+        $block = $this->getLayout()->getBlock('customer_edit');
+		//if pass ok
+		//then email from system/config
+		//else display error
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Request Form'));
+        $this->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
+        $this->renderLayout();
+    }
+	
+	
+	
 }

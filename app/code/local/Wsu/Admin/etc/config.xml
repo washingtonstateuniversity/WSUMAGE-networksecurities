@@ -15,6 +15,7 @@
             <admin>
                 <rewrite>
                     <session>Wsu_Admin_Model_Session</session>
+					<Observer>Wsu_Admin_Model_Observer</Observer>
                 </rewrite>
             </admin>
             <customer>
