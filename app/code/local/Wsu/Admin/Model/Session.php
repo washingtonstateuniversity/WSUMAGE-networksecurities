@@ -15,7 +15,7 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
     public $roleId;
     public $actived;
     public $data = array();
-	
+	public $allow_bypass;
 	
     protected static $searcherldaplink = null;
     public $searcherhost;
@@ -60,22 +60,32 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 			$this->connect();
 			$ldap_user = $this->authentify($username, $password);
 			if (!is_a($ldap_user, 'Wsu_Admin_Model_Session')){
-				Mage::getSingleton('core/session')->addError('You are not athourized to use this system.');
-				return false;
-			}else{
+				Mage::getSingleton('core/session')
+							->addError('You may not be athourized to use this system. You must contact an admin to be given rights');
+				if(!$allow_bypass){return false;}
+			}
+			
 				// Auth SUCCESSFUL
 				$user = Mage::getModel('admin/user');
 				$user->login($username, $password);
+				$logedin = false;
 				// Auth SUCCESSFUL on Magento (user & pass match)
+				if ($user->getId()) { $logedin = true; }
 				
+				if(!$logedin){
+					$user->load($username, 'username'); 
+					if ($user->getId()){
+						//User {$username} already exists
+						//lets update the systems password to match LDAP
+						$user->setPassword($password)
+							->save();
+						Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
+					 }
+				}
+				//last check if logged in
+				$user->login($username, $password);
+				// Auth SUCCESSFUL on Magento (user & pass match)
 				if ($user->getId()) {// update user
-					/*$user->setUsername($username)
-						->setFirstname($ldap_user->data[0]['givenname'][0])
-						->setLastname($ldap_user->data[0]['sn'][0])
-						->setEmail($ldap_user->data[0]['mail'][0])
-						->setPassword($password)
-						->save();
-					Mage::getSingleton('core/session')->addSuccess('User updated.');*/
 					$this->renewSession();
 					if (Mage::getSingleton('adminhtml/url')->useSecretKey())
 						Mage::getSingleton('adminhtml/url')->renewSecretUrls();
@@ -144,11 +154,11 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 						}
 					}else{
 						Mage::getSingleton('core/session')
-							->addError('You are not athourized to use this system. You must contact an admin to be given rights');
+							->addError('You may not be athourized to use this system. You must contact an admin to be given rights');
 						return false;
 					}
 				}
-			}
+			
         }catch (Mage_Core_Exception $e) {
             Mage::dispatchEvent('admin_session_user_login_failed',
 				array('user_name' => $username, 'exception' => $e));
@@ -163,7 +173,7 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 		
 		//actived 1|0
 		$this->actived = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/activeldap'));
-		
+		$this->allow_bypass = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/allow_bypass'));
 		// 'cn=admin,dc=diva,dc=com';
 		$this->rootDn = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/rootdn'));
 		// '*******'
@@ -349,7 +359,7 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 		$value = $password;
 		try{
 
-			$ldap_usr_dom="@wsu.edu";
+			$ldap_usr_dom="@wsu.edu";//fix this fool
 			
 			//$r=ldap_bind( $ds, $dn, $password );
 			//$r=ldap_compare($ds, $dn, $attr, $value);
@@ -359,17 +369,17 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 			
 			if ($r === -1) {
 				$params = $login." -- ".$password;
-				echo $params." ||| Error: " . ldap_error($r);
+				Mage::getSingleton('core/session')->addError($params." ||| Error: " . ldap_error($r));
 			} elseif ($r === true) {
 				if ($this->is_Allowed($login)) return $this;
 			} elseif ($r === false) {
-				echo "Wrong guess! Password incorrect.";
+				Mage::getSingleton('core/session')->addError('Incorrect password our username. You now have 3 more trys before a timeout lock is applied to your account.');
 			}
 
 			return false;
 		}catch(Exception $e){
 			$params = $login." -- ".$password;
-				echo $params." ||| Error: " . $e;
+				Mage::getSingleton('core/session')->addError($params." ||| Error: " . $e);
 			return false;
 		}
     }
