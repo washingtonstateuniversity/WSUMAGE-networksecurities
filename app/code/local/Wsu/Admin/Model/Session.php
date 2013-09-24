@@ -60,104 +60,109 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 			$this->connect();
 			$ldap_user = $this->authentify($username, $password);
 			if (!is_a($ldap_user, 'Wsu_Admin_Model_Session')){
-				Mage::getSingleton('core/session')
-							->addError('You may not be athourized to use this system. You must contact an admin to be given rights');
-				if(!$allow_bypass){return false;}
+				if(!$this->allow_bypass){
+					Mage::getSingleton('core/session')
+							->addError('Incorrect password our username.<br/> <strong>You now have %s trys before a timeout lock is applied.</strong>');
+					Mage::getSingleton('core/session')
+							->addError('<em>You may not be athourized to use this system to which you must request access.</em>');
+					return false;
+				}
+				return parent::login($username, $password, $request);//process normally with out ldap
 			}
 			
-				// Auth SUCCESSFUL
-				$user = Mage::getModel('admin/user');
-				$user->login($username, $password);
-				$logedin = false;
-				// Auth SUCCESSFUL on Magento (user & pass match)
-				if ($user->getId()) { $logedin = true; }
-				
-				if(!$logedin){
-					$user->load($username, 'username'); 
-					if ($user->getId()){
-						//User {$username} already exists
-						//lets update the systems password to match LDAP
-						$user->setPassword($password)
-							->save();
-						Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
-					 }
+			// Auth SUCCESSFUL
+			$user = Mage::getModel('admin/user');
+			$user->login($username, $password);
+			$logedin = false;
+			// Auth SUCCESSFUL on Magento (user & pass match)
+			if ($user->getId()) { $logedin = true; }
+			
+			if(!$logedin){
+				$user->load($username, 'username'); 
+				if ($user->getId()){
+					//User {$username} already exists
+					//lets update the systems password to match LDAP
+					$user->setPassword($password)
+						->save();
+					Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
+				 }
+			}
+			//last check if logged in
+			$user->login($username, $password);
+			// Auth SUCCESSFUL on Magento (user & pass match)
+			if ($user->getId()) {// update user
+				$this->renewSession();
+				if (Mage::getSingleton('adminhtml/url')->useSecretKey())
+					Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+				$this->setIsFirstPageAfterLogin(true);
+				$this->setUser($user);
+				$this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+				Mage::getSingleton('adminhtml/session')->addNotice("You loged in with LDAP");
+				if ($requestUri = $this->_getRequestUri($request)) {
+					Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
+					header('Location: ' . $requestUri);
+					exit;
 				}
-				//last check if logged in
-				$user->login($username, $password);
-				// Auth SUCCESSFUL on Magento (user & pass match)
-				if ($user->getId()) {// update user
-					$this->renewSession();
-					if (Mage::getSingleton('adminhtml/url')->useSecretKey())
-						Mage::getSingleton('adminhtml/url')->renewSecretUrls();
-					$this->setIsFirstPageAfterLogin(true);
-					$this->setUser($user);
-					$this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-					Mage::getSingleton('adminhtml/session')->addNotice("You loged in with LDAP");
-					if ($requestUri = $this->_getRequestUri($request)) {
-						Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
-						header('Location: ' . $requestUri);
-						exit;
-					}
-				}else{// Does not exist in magento, exists on Ldap
-					if($this->autocreate){
-						try {
-							$exist = false;
-							//$admin->loadByEmail($email);
-							// test if a user already exists (check username)
-							$users = Mage::getModel('admin/user')->getCollection()->getData();
-							foreach($users as $userData=>$val){
-								if($val['username'] == $username)
-									$exist = true;
-							}
-							if ($exist){// update user
-								$user = Mage::getModel('admin/user')->load($val['user_id']);
-								$user->setUsername($username)
-									->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])
-									->setLastname($ldap_user->data[0][$this->attr['lastname']][0])
-									->setEmail($ldap_user->data[0][$this->attr['mail']][0])
-									->setPassword($password)
-									->save();
-								Mage::getSingleton('core/session')->addSuccess('Password not updated, wrong password');
-							}else{
-								// create user
-								$user = Mage::getModel('admin/user')
-									->setData(array(
-										'username'  => $username,
-										'firstname' => $ldap_user->data[0][$this->attr['firstname']][0],
-										'lastname'  => $ldap_user->data[0][$this->attr['lastname']][0],
-										'email'     => $ldap_user->data[0][$this->attr['mail']][0],
-										'password'  => $password,
-										'is_active' => 1
-									))->save();
-								Mage::getSingleton('core/session')->addSuccess('User created on');
-								$user->setRoleIds(array($this->roleId))
-									->setRoleUserId($user->getUserId())
-									->saveRelations();
-							}
-							// alter session
-							$user->login($username, $password);
-							$this->renewSession();
-							if (Mage::getSingleton('adminhtml/url')->useSecretKey())
-								Mage::getSingleton('adminhtml/url')->renewSecretUrls();
-							$this->setIsFirstPageAfterLogin(true);
-							$this->setUser($user);
-							$this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-							if ($requestUri = $this->_getRequestUri($request)) {
-								Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
-								header('Location: ' . $requestUri);
-								exit;
-							}
-						
-						} catch (Exception $e) {
-							echo $e->getMessage();
+			}else{// Does not exist in magento, exists on Ldap
+				if($this->autocreate){
+					try {
+						$exist = false;
+						//$admin->loadByEmail($email);
+						// test if a user already exists (check username)
+						$users = Mage::getModel('admin/user')->getCollection()->getData();
+						foreach($users as $userData=>$val){
+							if($val['username'] == $username)
+								$exist = true;
+						}
+						if ($exist){// update user
+							$user = Mage::getModel('admin/user')->load($val['user_id']);
+							$user->setUsername($username)
+								->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])
+								->setLastname($ldap_user->data[0][$this->attr['lastname']][0])
+								->setEmail($ldap_user->data[0][$this->attr['mail']][0])
+								->setPassword($password)
+								->save();
+							Mage::getSingleton('core/session')->addSuccess('Password not updated, wrong password');
+						}else{
+							// create user
+							$user = Mage::getModel('admin/user')
+								->setData(array(
+									'username'  => $username,
+									'firstname' => $ldap_user->data[0][$this->attr['firstname']][0],
+									'lastname'  => $ldap_user->data[0][$this->attr['lastname']][0],
+									'email'     => $ldap_user->data[0][$this->attr['mail']][0],
+									'password'  => $password,
+									'is_active' => 1
+								))->save();
+							Mage::getSingleton('core/session')->addSuccess('User created on');
+							$user->setRoleIds(array($this->roleId))
+								->setRoleUserId($user->getUserId())
+								->saveRelations();
+						}
+						// alter session
+						$user->login($username, $password);
+						$this->renewSession();
+						if (Mage::getSingleton('adminhtml/url')->useSecretKey())
+							Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+						$this->setIsFirstPageAfterLogin(true);
+						$this->setUser($user);
+						$this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+						if ($requestUri = $this->_getRequestUri($request)) {
+							Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
+							header('Location: ' . $requestUri);
 							exit;
 						}
-					}else{
-						Mage::getSingleton('core/session')
-							->addError('You may not be athourized to use this system. You must contact an admin to be given rights');
-						return false;
+					
+					} catch (Exception $e) {
+						echo $e->getMessage();
+						exit;
 					}
+				}else{
+					Mage::getSingleton('core/session')
+						->addError('You may not be athourized to use this system. You must contact an admin to be given rights');
+					return false;
 				}
+			}
 			
         }catch (Mage_Core_Exception $e) {
             Mage::dispatchEvent('admin_session_user_login_failed',
@@ -373,7 +378,7 @@ class Wsu_Admin_Model_Session extends Mage_Admin_Model_Session
 			} elseif ($r === true) {
 				if ($this->is_Allowed($login)) return $this;
 			} elseif ($r === false) {
-				Mage::getSingleton('core/session')->addError('Incorrect password our username. You now have 3 more trys before a timeout lock is applied to your account.');
+				//error message to be passed later
 			}
 
 			return false;
