@@ -3,6 +3,7 @@
 This module provides LDAP service for both the admin and customer areas.  There are options to allow for creation of users and the a choic in the handling.  
 
 You have 3 combo's to do
+
 1. LDAP only
 1. LDAP fall back to system
 1. System fall back to LDAP
