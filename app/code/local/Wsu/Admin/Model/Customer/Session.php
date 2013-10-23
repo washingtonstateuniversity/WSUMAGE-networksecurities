@@ -283,7 +283,8 @@ class Wsu_Admin_Model_Customer_Session extends Mage_Customer_Model_Session {
 	
 	
 	
-	
+	//@TODO this really shouldn't be left like this.
+	//the object of param
     private function load_Parameters(){
 		// 'cn=admin,dc=diva,dc=com';
 		$this->rootDn = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/rootdn'));
