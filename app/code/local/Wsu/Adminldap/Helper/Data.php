@@ -1,5 +1,5 @@
 <?php
-class Wsu_Admin_Helper_Data extends Mage_Core_Helper_Abstract {
+class Wsu_Adminldap_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getConfig($field, $default = null) {
         $value = Mage::getStoreConfig('localeselector/option/' . $field);
         if (!isset($value) or trim($value) == '') {
@@ -12,6 +12,6 @@ class Wsu_Admin_Helper_Data extends Mage_Core_Helper_Abstract {
         if (is_array($data) || is_object($data)) {
             $data = print_r($data, true);
         }
-        Mage::log($data, null, 'wsu-ldap.log');
+        Mage::log($data, null, 'wsu-adminldap.log');
     }
 }

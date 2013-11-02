@@ -2,7 +2,7 @@
 /**
  * Custom renderer for WSU Admin LDAP test popup
  */
-class Wsu_Admin_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml_Block_System_Config_Form_Field {
+class Wsu_Adminldap_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml_Block_System_Config_Form_Field {
     /**
      * Get the session model to test on
      */
@@ -14,8 +14,8 @@ class Wsu_Admin_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml_B
      */
     public function test_config() {
         $model_obj = $this->get_session_Model();
-        $username  = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/testusername'));
-        $password  = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/testuserpass'));
+        $username  = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/testusername'));
+        $password  = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/testuserpass'));
         $result    = $model_obj->authentify($username, $password);
         if (!$result) {
             echo "failed";
@@ -29,7 +29,7 @@ class Wsu_Admin_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml_B
     protected function _prepareLayout() {
         parent::_prepareLayout();
         if (!$this->getTemplate()) {
-            $this->setTemplate('admin/system/config/api_wizard.phtml');
+            $this->setTemplate('adminldap/system/config/api_wizard.phtml');
         }
         return $this;
     }
@@ -57,9 +57,10 @@ class Wsu_Admin_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml_B
         $originalData = $element->getOriginalData();
         $this->addData(array(
             'button_label' => Mage::helper('admin')->__($originalData['button_label']),
-            'button_url' => $this->getUrl('*/system_config/edit/section/dcadmin'), //$originalData['button_url'],
+            'button_url' => $this->getUrl('*/system_config/edit/section/adminldap'), //$originalData['button_url'],
             'html_id' => $element->getHtmlId()
         ));
         return $this->_toHtml();
     }
 }
+

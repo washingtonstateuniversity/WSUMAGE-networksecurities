@@ -6,7 +6,7 @@
  * @package     Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Wsu_Admin_Model_Customer_Customer extends Mage_Customer_Model_Customer {
+class Wsu_Adminldap_Model_Customer_Customer extends Mage_Customer_Model_Customer {
     /**
      * Authenticate customer
      *
@@ -18,7 +18,7 @@ class Wsu_Admin_Model_Customer_Customer extends Mage_Customer_Model_Customer {
      */
     public function authenticate($login, $password){
 		
-		$actived = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/activeldap'));
+		$actived = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/activeldap'));
 		if (!$actived) //CHECK MAGENTO CONNECT
 				return parent::authenticate($username, $password);
 

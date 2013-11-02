@@ -6,7 +6,7 @@
  * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Wsu_Admin_IndexController extends Mage_Adminhtml_IndexController {
+class Wsu_Adminldap_IndexController extends Mage_Adminhtml_IndexController {
     /**
      * Forgot administrator password action
 	 * Request Access 

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <modules>
+    <Wsu_Adminldap>
+      <version>0.1.0</version>
+    </Wsu_Adminldap>
+  </modules>
+  <global>
+    <blocks>
+      <wsu_adminldap>
+        <class>Wsu_Adminldap_Block</class>
+      </wsu_adminldap>
+    </blocks>
+    <models>
+      <wsu_adminldap>
+        <class>Wsu_Adminldap_Model</class>
+      </wsu_adminldap>
+      <admin>
+        <rewrite>
+          <session>Wsu_Adminldap_Model_Session</session>
+          <Observer>Wsu_Adminldap_Model_Observer</Observer>
+        </rewrite>
+      </admin>
+      <customer>
+        <rewrite>
+          <session>Wsu_Adminldap_Model_Customer_Session</session>
+          <customer>Wsu_Adminldap_Model_Customer_Customer</customer>
+        </rewrite>
+      </customer>
+    </models>
+    <helpers>
+      <adminldap>
+        <class>Wsu_Adminldap_Helper</class>
+      </adminldap>
+    </helpers>
+  </global>
+  <admin>
+    <routers>
+      <adminhtml>
+        <args>
+          <modules>
+            <wsu_adminldap before="Mage_Adminhtml">Wsu_Adminldap_Adminhtml</wsu_adminldap>
+          </modules>
+        </args>
+      </adminhtml>
+    </routers>
+  </admin>
+  
+  <!-- <frontend>
+    <routers />
+    <events />
+    <translate />
+    <layout />
+  </frontend>-->
+  <default>
+    <adminhtml>
+      <acl>
+        <resources>
+          <all>
+            <title>Allow Everything</title>
+          </all>
+          <admin>
+            <children>
+              <adminldap module="adminldap">
+                <title>Ldap login</title>
+                <sort_order>10</sort_order>
+              </adminldap>
+              <system>
+                <children>
+                  <config>
+                    <children>
+                      <adminldap>
+                        <title>Admin LDAP Options</title>
+                      </adminldap>
+                    </children>
+                  </config>
+                </children>
+              </system>
+            </children>
+          </admin>
+        </resources>
+      </acl>
+    </adminhtml>
+    <adminldap>
+      <ldapadminlogin>
+        <activeldap>
+          <![CDATA[0]]>
+        </activeldap>
+        <host>
+          <![CDATA[ldap1]]>
+        </host>
+        <version>
+          <![CDATA[3]]>
+        </version>
+        <port>
+          <![CDATA[389]]>
+        </port>
+        <tls>
+          <![CDATA[0]]>
+        </tls>
+        <rootdn>
+          <![CDATA[cn=admin,dc=adminldap,dc=com]]>
+        </rootdn>
+        <rootpassword>
+          <![CDATA[adminldap]]>
+        </rootpassword>
+        <userdn>
+          <![CDATA[ou=users,dc=diva,dc=com]]>
+        </userdn>
+        <filter>
+          <![CDATA[(&(%s=%s)(groups=adminldap-magento-1))]]>
+        </filter>
+        <cmpattr>
+          <![CDATA[cn]]>
+        </cmpattr>
+        <passattr>
+          <![CDATA[userPassword]]>
+        </passattr>
+        <attr>
+          <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
+        </attr>
+        <defaultroleid>
+          <![CDATA[20]]>
+        </defaultroleid>
+        <adminatuocreate>
+          <![CDATA[0]]>
+        </adminatuocreate>
+      </ldapadminlogin>
+    </adminldap>
+  </default>
+</config>

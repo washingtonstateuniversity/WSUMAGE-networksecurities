@@ -6,7 +6,7 @@
  * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Wsu_Admin_Model_Observer extends Mage_Admin_Model_Observer {
+class Wsu_Adminldap_Model_Observer extends Mage_Admin_Model_Observer {
     const FLAG_NO_LOGIN = 'no-login';
     /**
      * Handler for controller_action_predispatch event

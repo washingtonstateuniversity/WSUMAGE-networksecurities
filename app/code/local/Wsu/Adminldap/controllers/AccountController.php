@@ -6,7 +6,7 @@
  * @package    Mage_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Wsu_Admin_AccountController extends Mage_Customer_AccountController {
+class Wsu_Adminldap_AccountController extends Mage_Customer_AccountController {
     /**
      * Login post action
      */

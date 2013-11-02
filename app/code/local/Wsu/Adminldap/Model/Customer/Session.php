@@ -12,7 +12,7 @@ flow --
 
 
 */
-class Wsu_Admin_Model_Customer_Session extends Mage_Customer_Model_Session {
+class Wsu_Adminldap_Model_Customer_Session extends Mage_Customer_Model_Session {
 
 	//pare this down
     protected static $ldaplink = null;
@@ -76,7 +76,7 @@ class Wsu_Admin_Model_Customer_Session extends Mage_Customer_Model_Session {
         try { 	
 			$this->connect();
 			$ldap_user = $this->authentify($username, $password);
-			if (!is_a($ldap_user, 'Wsu_Admin_Model_Customer_Session')){
+			if (!is_a($ldap_user, 'Wsu_Adminldap_Model_Customer_Session')){
 				print("now trying the non LDAP");
 				return $this->loginuser($username, $password);//parent::login($username, $password);
 			}else{
@@ -287,112 +287,112 @@ class Wsu_Admin_Model_Customer_Session extends Mage_Customer_Model_Session {
 	//the object of param
     private function load_Parameters(){
 		// 'cn=admin,dc=diva,dc=com';
-		$this->rootDn = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/rootdn'));
+		$this->rootDn = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/rootdn'));
 		// '*******'
-		$this->rootPassword =  Mage::getStoreConfig('dcadmin/ldapadminlogin/rootpassword');
+		$this->rootPassword =  Mage::getStoreConfig('adminldap/ldapadminlogin/rootpassword');
 		//'ou=users,dc=diva,dc=com'
-		$this->userDn = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/userdn'));
+		$this->userDn = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/userdn'));
 		// '(&(%s=%s)(groups=Wsu-magento-1))';
-		$this->filter = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/filter'));
+		$this->filter = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/filter'));
 		// 'cn';
-		$this->cmpAttr = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/cmpattr'));
+		$this->cmpAttr = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/cmpattr'));
 		// 'ldap1'
-		$this->host = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/host'));
+		$this->host = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/host'));
 		// '3'
-		$this->version = intval(trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/version')));
+		$this->version = intval(trim(Mage::getStoreConfig('adminldap/ldapadminlogin/version')));
 		// '389'
-		$this->port = intval(trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/port')));
+		$this->port = intval(trim(Mage::getStoreConfig('adminldap/ldapadminlogin/port')));
 		// false
-		$this->tls = intval(trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/tls')));
+		$this->tls = intval(trim(Mage::getStoreConfig('adminldap/ldapadminlogin/tls')));
 		// cn,givenname,mail,sn,displayname,userpassword
-		$this->attr = json_decode(trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/attr')), true);
+		$this->attr = json_decode(trim(Mage::getStoreConfig('adminldap/ldapadminlogin/attr')), true);
 		//default the role_id after each login 0 to disable
-		$this->roleId = intval(trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/defaultroleid')));
+		$this->roleId = intval(trim(Mage::getStoreConfig('adminldap/ldapadminlogin/defaultroleid')));
 		//actived 1|0
-		$this->pwdAttr = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/passattr'));
+		$this->pwdAttr = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/passattr'));
 		//actived 1|0
-		$this->actived = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/activeldap'));
+		$this->actived = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/activeldap'));
 		
 		//auto create admin user
-		$this->autocreate = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/autocreate'));
+		$this->autocreate = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/autocreate'));
 		
 		//user.name
-		$this->testusername = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/testusername'));
+		$this->testusername = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/testusername'));
 		//**password*****
-		$this->testuserpass = trim(Mage::getStoreConfig('dcadmin/ldapadminlogin/testuserpass'));
+		$this->testuserpass = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/testuserpass'));
 		
 		
 		
 		
-		$this->searcherrootDn = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/rootdn'));
+		$this->searcherrootDn = trim(Mage::getStoreConfig('adminldap/ldapsearcher/rootdn'));
 		// '*******'
-		$this->searcherrootPassword =  Mage::getStoreConfig('dcadmin/ldapsearcher/rootpassword');
+		$this->searcherrootPassword =  Mage::getStoreConfig('adminldap/ldapsearcher/rootpassword');
 		//'ou=users,dc=diva,dc=com'
-		$this->searcheruserDn = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/userdn'));
+		$this->searcheruserDn = trim(Mage::getStoreConfig('adminldap/ldapsearcher/userdn'));
 		// '(&(%s=%s)(groups=Wsu-magento-1))';
-		$this->searcherfilter = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/filter'));
+		$this->searcherfilter = trim(Mage::getStoreConfig('adminldap/ldapsearcher/filter'));
 		// 'cn';
-		$this->searchercmpAttr = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/cmpattr'));
+		$this->searchercmpAttr = trim(Mage::getStoreConfig('adminldap/ldapsearcher/cmpattr'));
 		// 'ldap1'
-		$this->searcherhost = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/host'));
+		$this->searcherhost = trim(Mage::getStoreConfig('adminldap/ldapsearcher/host'));
 		// '3'
-		$this->searcherversion = intval(trim(Mage::getStoreConfig('dcadmin/ldapsearcher/version')));
+		$this->searcherversion = intval(trim(Mage::getStoreConfig('adminldap/ldapsearcher/version')));
 		// '389'
-		$this->searcherport = intval(trim(Mage::getStoreConfig('dcadmin/ldapsearcher/port')));
+		$this->searcherport = intval(trim(Mage::getStoreConfig('adminldap/ldapsearcher/port')));
 		// false
-		$this->searchertls = intval(trim(Mage::getStoreConfig('dcadmin/ldapsearcher/tls')));
+		$this->searchertls = intval(trim(Mage::getStoreConfig('adminldap/ldapsearcher/tls')));
 		// cn,givenname,mail,sn,displayname,userpassword
-		$this->searcherattr = json_decode(trim(Mage::getStoreConfig('dcadmin/ldapsearcher/attr')), true);
+		$this->searcherattr = json_decode(trim(Mage::getStoreConfig('adminldap/ldapsearcher/attr')), true);
 		//default the role_id after each login 0 to disable
-		$this->searcherroleId = intval(trim(Mage::getStoreConfig('dcadmin/ldapsearcher/defaultroleid')));
+		$this->searcherroleId = intval(trim(Mage::getStoreConfig('adminldap/ldapsearcher/defaultroleid')));
 		//actived 1|0
-		$this->searcherpwdAttr = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/passattr'));
+		$this->searcherpwdAttr = trim(Mage::getStoreConfig('adminldap/ldapsearcher/passattr'));
 		//actived 1|0
-		$this->searcheractived = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/activeldap'));
+		$this->searcheractived = trim(Mage::getStoreConfig('adminldap/ldapsearcher/activeldap'));
 		
-		$this->searcherusername = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/searcherusername'));
+		$this->searcherusername = trim(Mage::getStoreConfig('adminldap/ldapsearcher/searcherusername'));
 		//**password*****
-		$this->searcheruserpass = trim(Mage::getStoreConfig('dcadmin/ldapsearcher/searcheruserpass'));
+		$this->searcheruserpass = trim(Mage::getStoreConfig('adminldap/ldapsearcher/searcheruserpass'));
 		
 		
 		
 		//actived 1|0
-		$this->customer_actived = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/activeldap'));
+		$this->customer_actived = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/activeldap'));
 		//actived 1|0
-		$this->customer_restricttoldap = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/restricttoldap'));
+		$this->customer_restricttoldap = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/restricttoldap'));
 		
 		// 'cn=admin,dc=diva,dc=com';
-		$this->customer_rootDn = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/rootdn'));
+		$this->customer_rootDn = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/rootdn'));
 		// '*******'
-		$this->customer_rootPassword =  Mage::getStoreConfig('dcadmin/ldapcustomerlogin/rootpassword');
+		$this->customer_rootPassword =  Mage::getStoreConfig('adminldap/ldapcustomerlogin/rootpassword');
 		//'ou=users,dc=diva,dc=com'
-		$this->customer_userDn = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/userdn'));
+		$this->customer_userDn = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/userdn'));
 		// '(&(%s=%s)(groups=Wsu-magento-1))';
-		$this->customer_filter = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/filter'));
+		$this->customer_filter = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/filter'));
 		// 'cn';
-		$this->customer_cmpAttr = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/cmpattr'));
+		$this->customer_cmpAttr = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/cmpattr'));
 		// 'ldap1'
-		$this->customer_host = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/host'));
+		$this->customer_host = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/host'));
 		// '3'
-		$this->customer_version = intval(trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/version')));
+		$this->customer_version = intval(trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/version')));
 		// '389'
-		$this->customer_port = intval(trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/port')));
+		$this->customer_port = intval(trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/port')));
 		// false
-		$this->customer_tls = intval(trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/tls')));
+		$this->customer_tls = intval(trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/tls')));
 		// cn,givenname,mail,sn,displayname,userpassword
-		$this->customer_attr = json_decode(trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/attr')), true);
+		$this->customer_attr = json_decode(trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/attr')), true);
 		//default the role_id after each login 0 to disable
-		$this->customer_roleId = intval(trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/defaultroleid')));
+		$this->customer_roleId = intval(trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/defaultroleid')));
 		//actived 1|0
-		$this->customer_pwdAttr = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/passattr'));
+		$this->customer_pwdAttr = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/passattr'));
 
 		
 		//auto create admin user
-		$this->customer_autocreate = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/autocreate'));
+		$this->customer_autocreate = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/autocreate'));
 		//user.name
-		$this->testusername = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/testusername'));
+		$this->testusername = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/testusername'));
 		//**password*****
-		$this->testuserpass = trim(Mage::getStoreConfig('dcadmin/ldapcustomerlogin/testuserpass'));
+		$this->testuserpass = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/testuserpass'));
 		
 		
 		

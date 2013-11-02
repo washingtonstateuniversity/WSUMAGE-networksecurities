@@ -8,14 +8,10 @@
                         <children>
                             <config>
                                 <children>
-                                    <dcadmin translate="title" module="dcadmin">
+                                    <wsu_adminldap>
                                         <title>Ldap configuration</title>
                                         <sort_order>100</sort_order>
-                                    </dcadmin>
-                                    <wsuinfo translate="title" module="dcadmin">
-                                        <title>Ldap infos</title>
-                                        <sort_order>100</sort_order>
-                                    </wsuinfo>
+                                    </wsu_adminldap>
                                 </children>
                             </config>
                         </children>

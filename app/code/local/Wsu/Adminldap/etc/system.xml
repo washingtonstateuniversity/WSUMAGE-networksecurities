@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config>
     <sections>
-        <dcadmin module="dcadmin">
+        <adminldap module="wsu_adminldap">
             <label>LDAP Configuration</label>
             <tab>utilitiestab</tab>
             <frontend_type>text</frontend_type>
@@ -10,6 +10,13 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
+				<!--<hint>
+				  <frontend_model>wsu_adminldap/adminhtml_system_config_fieldset_hint</frontend_model>
+				  <sort_order>0</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</hint>-->
                 <ldapadminlogin translate="label">
                     <label>Admin LDAP Login Configuration</label>
                     <frontend_type>text</frontend_type>
@@ -78,7 +85,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=diva,dc=com ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com ]]></comment>
                         </rootdn>
                         <rootpassword translate="label">
                             <label>rootPassword</label>
@@ -96,7 +103,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=diva,dc=com ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com ]]></comment>
                         </userdn>
                         <filter translate="label">
                             <label>Filter</label>
@@ -105,7 +112,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=DiVA-magento-1)) ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ldap-magento-1)) ]]></comment>
                         </filter>
                         <cmpattr translate="label">
                             <label>Login attribute</label>
@@ -179,8 +186,8 @@
 						<api_wizard translate="button_label">
 							<label></label>
 							<button_label>Test configuration</button_label>
-							<!--<button_url><![CDATA[/dcadmin/test/]]></button_url>-->
-							<frontend_model>dcadmin/adminhtml_system_config_apiWizard</frontend_model>
+							<!--<button_url><![CDATA[/adminldap/test/]]></button_url>-->
+							<frontend_model>adminldap/adminhtml_system_config_apiWizard</frontend_model>
 							<sort_order>70</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -247,7 +254,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=diva,dc=com ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com ]]></comment>
                         </rootdn>
                         <rootpassword translate="label">
                             <label>rootPassword</label>
@@ -265,7 +272,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=diva,dc=com ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com ]]></comment>
                         </userdn>
                         <filter translate="label">
                             <label>Filter</label>
@@ -274,7 +281,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=DiVA-magento-1)) ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ldap-magento-1)) ]]></comment>
                         </filter>
                         <cmpattr translate="label">
                             <label>Login attribute</label>
@@ -404,7 +411,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=diva,dc=com ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com ]]></comment>
                         </rootdn>
                         <rootpassword translate="label">
                             <label>rootPassword</label>
@@ -422,7 +429,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=diva,dc=com ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com ]]></comment>
                         </userdn>
                         <filter translate="label">
                             <label>Filter</label>
@@ -431,7 +438,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=DiVA-magento-1)) ]]></comment>
+                            <comment><![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ladp-magento-1)) ]]></comment>
                         </filter>
                         <cmpattr translate="label">
                             <label>Login attribute</label>
@@ -505,8 +512,8 @@
 						<api_wizard translate="button_label">
 							<label></label>
 							<button_label>Test configuration</button_label>
-							<!--<button_url><![CDATA[/dcadmin/test/]]></button_url>-->
-							<frontend_model>dcadmin/adminhtml_system_config_apiWizard</frontend_model>
+							<!--<button_url><![CDATA[/adminldap/test/]]></button_url>-->
+							<frontend_model>adminldap/adminhtml_system_config_apiWizard</frontend_model>
 							<sort_order>70</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -517,6 +524,6 @@
 				
 				
             </groups>
-        </dcadmin>
+        </adminldap>
     </sections>
 </config>
