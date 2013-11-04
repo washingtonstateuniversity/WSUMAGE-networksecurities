@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<adminhtml_index_requestaccess>
+			<block type="core/text_list" name="root" output="toHtml">
+				<block type="adminhtml/template" name="content" template="requestaccess.phtml">
+					<block type="core/text_list" name="form.additional.info" />
+				</block>
+			</block>
+		</adminhtml_index_requestaccess>
+        <!--<reference name="head">
+            <action method="addItem" ifconfig="wsu_adminldap/general/enable">
+                <type>js</type><name>wsu_adminldap/wsu_adminldap.js</name>
+            </action>
+            <action method="addItem" ifconfig="wsu_adminldap/general/enable">
+                <type>js</type><name>wsu_adminldap/string.score.js</name>
+            </action>
+            <action method="addItem" ifconfig="wsu_adminldap/general/enable">
+                <type>js_css</type><name>wsu_adminldap/wsu_adminldap.css</name>
+            </action>
+            <action method="addItem" ifconfig="wsu_adminldap/general/enable">
+                <type>skin_css</type><name>wsu_adminldap.css</name>
+            </action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="wsu_adminldap/adminhtml_adminldap" name="wsuadminldap" template="wsu/adminldap_requestform.phtml" />
+        </reference>-->
+    </default>
+</layout>

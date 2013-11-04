@@ -14,8 +14,8 @@ class Wsu_Adminldap_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminht
      */
     public function test_config() {
         $model_obj = $this->get_session_Model();
-        $username  = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/testusername'));
-        $password  = trim(Mage::getStoreConfig('adminldap/ldapadminlogin/testuserpass'));
+        $username  = trim(Mage::getStoreConfig('wsu_adminldap/ldapadminlogin/testusername'));
+        $password  = trim(Mage::getStoreConfig('wsu_adminldap/ldapadminlogin/testuserpass'));
         $result    = $model_obj->authentify($username, $password);
         if (!$result) {
             echo "failed";
@@ -29,7 +29,7 @@ class Wsu_Adminldap_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminht
     protected function _prepareLayout() {
         parent::_prepareLayout();
         if (!$this->getTemplate()) {
-            $this->setTemplate('adminldap/system/config/api_wizard.phtml');
+            $this->setTemplate('wsu_adminldap/system/config/api_wizard.phtml');
         }
         return $this;
     }

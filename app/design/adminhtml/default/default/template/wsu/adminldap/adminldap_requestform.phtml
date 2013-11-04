@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var $this Wsu_Launcher_Block_Adminhtml_Launcher
+ */
+?>
+<?php if ($this->isEnabled()): ?>
+    <script type="text/javascript">
+        Event.observe(window, 'load', function() {
+            $('nav').insert('<li id="wsulauncher-status"><a id="wsulauncher-icon" class="icon-stack" href="#" target="_blank" title="WsuCode"><i class="icon-sun icon-stack-base"></i><i class="icon-bolt"></i></li>');
+			$('nav').insert('<li id="wsulauncher-quickfront"><a href="<?php echo Mage::getBaseUrl() ?>" target="_blank" title="home page"><i class="icon-home"></i></li>');
+            var launcher = new WsuLauncher({
+                dataLocation: '<?php echo $this->helper('adminhtml')->getUrl('adminhtml/wsu_launcher/index') ?>',
+                onReady: function() {
+                    $('wsulauncher-status').addClassName('on');
+                },
+                onError: function(error) {
+                    $('wsulauncher-icon').title = error.replace(/"/g, '&quot;');
+                },
+                minChars: <?php echo $this->getMinChars(); ?>,
+                maxResults: <?php echo $this->getMaxResults(); ?>,
+                resetOnHide: <?php echo $this->getResetOnHide(); ?>,
+                useScope: <?php echo $this->getUseScope(); ?>,
+                showIcon: <?php echo $this->getShowIcon(); ?>,
+                showScope: <?php echo $this->getShowScope(); ?>,
+                showText: <?php echo $this->getShowText(); ?>
+            });
+            $('wsulauncher-status').observe('click', launcher.show.bind(launcher));
+        });
+    </script>
+<?php endif; ?>

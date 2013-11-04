@@ -18,7 +18,7 @@ class Wsu_Adminldap_Model_Customer_Customer extends Mage_Customer_Model_Customer
      */
     public function authenticate($login, $password){
 		
-		$actived = trim(Mage::getStoreConfig('adminldap/ldapcustomerlogin/activeldap'));
+		$actived = trim(Mage::getStoreConfig('wsu_adminldap/ldapcustomerlogin/activeldap'));
 		if (!$actived) //CHECK MAGENTO CONNECT
 				return parent::authenticate($username, $password);
 

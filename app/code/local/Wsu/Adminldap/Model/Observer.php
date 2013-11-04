@@ -25,6 +25,7 @@ class Wsu_Adminldap_Model_Observer extends Mage_Admin_Model_Observer {
             'resetpassword',
             'resetpasswordpost',
             'requestaccess',
+			'requestaccesspost',
             'logout',
             'refresh' // captcha refresh
         );

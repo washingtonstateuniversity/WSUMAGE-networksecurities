@@ -6,6 +6,11 @@
     </Wsu_Adminldap>
   </modules>
   <global>
+    <helpers>
+      <wsu_adminldap>
+        <class>Wsu_Adminldap_Helper</class>
+      </wsu_adminldap>
+    </helpers>
     <blocks>
       <wsu_adminldap>
         <class>Wsu_Adminldap_Block</class>
@@ -28,11 +33,6 @@
         </rewrite>
       </customer>
     </models>
-    <helpers>
-      <adminldap>
-        <class>Wsu_Adminldap_Helper</class>
-      </adminldap>
-    </helpers>
   </global>
   <admin>
     <routers>
@@ -45,87 +45,32 @@
       </adminhtml>
     </routers>
   </admin>
-  
-  <!-- <frontend>
-    <routers />
-    <events />
-    <translate />
-    <layout />
-  </frontend>-->
   <default>
-    <adminhtml>
-      <acl>
-        <resources>
-          <all>
-            <title>Allow Everything</title>
-          </all>
-          <admin>
-            <children>
-              <adminldap module="adminldap">
-                <title>Ldap login</title>
-                <sort_order>10</sort_order>
-              </adminldap>
-              <system>
-                <children>
-                  <config>
-                    <children>
-                      <adminldap>
-                        <title>Admin LDAP Options</title>
-                      </adminldap>
-                    </children>
-                  </config>
-                </children>
-              </system>
-            </children>
-          </admin>
-        </resources>
-      </acl>
-    </adminhtml>
-    <adminldap>
+    <wsu_adminldap>
       <ldapadminlogin>
-        <activeldap>
-          <![CDATA[0]]>
-        </activeldap>
-        <host>
-          <![CDATA[ldap1]]>
-        </host>
-        <version>
-          <![CDATA[3]]>
-        </version>
-        <port>
-          <![CDATA[389]]>
-        </port>
-        <tls>
-          <![CDATA[0]]>
-        </tls>
+        <activeldap>0</activeldap>
+        <host>ldap1</host>
+        <version>3</version>
+        <port>389</port>
+        <tls>0</tls>
         <rootdn>
           <![CDATA[cn=admin,dc=adminldap,dc=com]]>
         </rootdn>
-        <rootpassword>
-          <![CDATA[adminldap]]>
-        </rootpassword>
+        <rootpassword>adminldap</rootpassword>
         <userdn>
-          <![CDATA[ou=users,dc=diva,dc=com]]>
+          <![CDATA[ou=users,dc=adminldap,dc=com]]>
         </userdn>
         <filter>
           <![CDATA[(&(%s=%s)(groups=adminldap-magento-1))]]>
         </filter>
-        <cmpattr>
-          <![CDATA[cn]]>
-        </cmpattr>
-        <passattr>
-          <![CDATA[userPassword]]>
-        </passattr>
+        <cmpattr>cn</cmpattr>
+        <passattr>userPassword</passattr>
         <attr>
           <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
         </attr>
-        <defaultroleid>
-          <![CDATA[20]]>
-        </defaultroleid>
-        <adminatuocreate>
-          <![CDATA[0]]>
-        </adminatuocreate>
+        <defaultroleid>20</defaultroleid>
+        <adminatuocreate>0</adminatuocreate>
       </ldapadminlogin>
-    </adminldap>
+    </wsu_adminldap>
   </default>
 </config>

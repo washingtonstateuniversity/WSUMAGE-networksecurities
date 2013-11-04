@@ -1,5 +1,9 @@
-<?
-class Wsu_Adminldap_IndexController extends Mage_Adminhtml_IndexController {
+<?php
+class Wsu_Adminldap_Adminhtml_Wsu_AdminldapController extends Mage_Adminhtml_Controller_Action {
+    protected $_publicActions = array( 'index' );
+	
+	
+	
     /**
      * Forgot administrator password action
 	 * Request Access 
@@ -41,8 +45,6 @@ class Wsu_Adminldap_IndexController extends Mage_Adminhtml_IndexController {
         $this->loadLayout();
         $this->renderLayout();
     }
+	
+	
 }
-
-
-
-
