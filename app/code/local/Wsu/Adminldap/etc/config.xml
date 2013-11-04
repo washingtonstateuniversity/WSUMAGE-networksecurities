@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
   <modules>
-    <Wsu_Adminldap>
-      <version>0.1.0</version>
-    </Wsu_Adminldap>
+	<Wsu_Adminldap>
+	  <version>0.1.0</version>
+	</Wsu_Adminldap>
   </modules>
   <global>
-    <helpers>
-      <wsu_adminldap>
-        <class>Wsu_Adminldap_Helper</class>
-      </wsu_adminldap>
-    </helpers>
-    <blocks>
-      <wsu_adminldap>
-        <class>Wsu_Adminldap_Block</class>
-      </wsu_adminldap>
-    </blocks>
-    <models>
-      <wsu_adminldap>
-        <class>Wsu_Adminldap_Model</class>
-      </wsu_adminldap>
-      <admin>
-        <rewrite>
-          <session>Wsu_Adminldap_Model_Session</session>
-          <Observer>Wsu_Adminldap_Model_Observer</Observer>
-        </rewrite>
-      </admin>
-      <customer>
-        <rewrite>
-          <session>Wsu_Adminldap_Model_Customer_Session</session>
-          <customer>Wsu_Adminldap_Model_Customer_Customer</customer>
-        </rewrite>
-      </customer>
-    </models>
+	<helpers>
+	  <wsu_adminldap>
+		<class>Wsu_Adminldap_Helper</class>
+	  </wsu_adminldap>
+	</helpers>
+	<blocks>
+	  <wsu_adminldap>
+		<class>Wsu_Adminldap_Block</class>
+	  </wsu_adminldap>
+	</blocks>
+	<models>
+	  <wsu_adminldap>
+		<class>Wsu_Adminldap_Model</class>
+	  </wsu_adminldap>
+	  <admin>
+		<rewrite>
+		  <session>Wsu_Adminldap_Model_Session</session>
+		  <Observer>Wsu_Adminldap_Model_Observer</Observer>
+		</rewrite>
+	  </admin>
+	  <customer>
+		<rewrite>
+		  <session>Wsu_Adminldap_Model_Customer_Session</session>
+		  <customer>Wsu_Adminldap_Model_Customer_Customer</customer>
+		</rewrite>
+	  </customer>
+	</models>
   </global>
   <admin>
-    <routers>
-      <adminhtml>
-        <args>
-          <modules>
-            <wsu_adminldap before="Mage_Adminhtml">Wsu_Adminldap_Adminhtml</wsu_adminldap>
-          </modules>
-        </args>
-      </adminhtml>
-    </routers>
+	<routers>
+	  <adminhtml>
+		<args>
+		  <modules>
+			<wsu_adminldap before="Mage_Adminhtml">Wsu_Adminldap_Adminhtml</wsu_adminldap>
+		  </modules>
+		</args>
+	  </adminhtml>
+	</routers>
   </admin>
   <default>
-    <wsu_adminldap>
-      <ldapadminlogin>
-        <activeldap>0</activeldap>
-        <host>ldap1</host>
-        <version>3</version>
-        <port>389</port>
-        <tls>0</tls>
-        <rootdn>
-          <![CDATA[cn=admin,dc=adminldap,dc=com]]>
-        </rootdn>
-        <rootpassword>adminldap</rootpassword>
-        <userdn>
-          <![CDATA[ou=users,dc=adminldap,dc=com]]>
-        </userdn>
-        <filter>
-          <![CDATA[(&(%s=%s)(groups=adminldap-magento-1))]]>
-        </filter>
-        <cmpattr>cn</cmpattr>
-        <passattr>userPassword</passattr>
-        <attr>
-          <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
-        </attr>
-        <defaultroleid>20</defaultroleid>
-        <adminatuocreate>0</adminatuocreate>
-      </ldapadminlogin>
-    </wsu_adminldap>
+	<wsu_adminldap>
+	  <ldapadminlogin>
+		<activeldap>0</activeldap>
+		<host>ldap1</host>
+		<version>3</version>
+		<port>389</port>
+		<tls>0</tls>
+		<rootdn>
+		  <![CDATA[cn=admin,dc=adminldap,dc=com]]>
+		</rootdn>
+		<rootpassword>adminldap</rootpassword>
+		<userdn>
+		  <![CDATA[ou=users,dc=adminldap,dc=com]]>
+		</userdn>
+		<filter>
+		  <![CDATA[(&(%s=%s)(groups=adminldap-magento-1))]]>
+		</filter>
+		<cmpattr>cn</cmpattr>
+		<passattr>userPassword</passattr>
+		<attr>
+		  <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
+		</attr>
+		<defaultroleid>20</defaultroleid>
+		<adminatuocreate>0</adminatuocreate>
+	  </ldapadminlogin>
+	</wsu_adminldap>
   </default>
 </config>

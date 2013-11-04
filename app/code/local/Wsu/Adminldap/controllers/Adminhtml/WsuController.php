@@ -1,16 +1,19 @@
-<?
-class Wsu_Adminldap_IndexController extends Mage_Adminhtml_IndexController {
-
-		public function indexAction(){
-			$this->loadLayout();
-			$this->renderLayout();		
-		}
+<?php
+class Wsu_Adminldap_Adminhtml_WsuController extends Mage_Adminhtml_Controller_Action {
 
 	/**
 	 * Forgot administrator password action
 	 * Request Access 
 	 */
 	public function requestaccessAction() {
+		Mage::registry('isSecureArea'); // acting is if we are in the admin
+		Mage::app('admin')->setUseSessionInUrl(false);
+		Mage::getSingleton('core/session', array('name' => 'adminhtml'));
+
+ 
+
+		echo "test";die();
+		exit();
 		$email    = (string) $this->getRequest()->getParam('email');
 		$store_id = (string) $this->getRequest()->getParam('store');
 		$params   = $this->getRequest()->getParams();
@@ -49,6 +52,19 @@ class Wsu_Adminldap_IndexController extends Mage_Adminhtml_IndexController {
 		$this->loadLayout();
 		$this->renderLayout();
 	}
+	
+	    /**
+     * Check if user has permissions to access this controller
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return true;
+    }
+	
+	
+	
 }
 
 
