@@ -1,0 +1,4 @@
+<?php
+class Wsu_NewtworkSecurities_Adminhtml_Wsu_NewtworkSecuritiesController extends Mage_Adminhtml_Controller_Action {
+
+}
