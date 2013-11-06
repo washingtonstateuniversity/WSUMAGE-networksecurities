@@ -13,9 +13,51 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
         return $this->check($firstname, $lastname, $emailprefix, $params);
     }
 
+
+
+
+	function email_resolves($email) {
+		// Check email syntax
+		if(preg_match($this->emailpattern(), $email, $matches)) {
+			//this is a real formate for an email so it's good to go
+			$emailparts = explode('@', $params['email']);
+			$user = $emailparts[0];
+			$domain = $emailparts[1];
+	
+			// Check availability of DNS MX records
+			if(getmxrr($domain, $mxhosts, $mxweight)) {
+				for($i=0;$i<count($mxhosts);$i++){
+					$mxs[$mxhosts[$i]] = $mxweight[$i];
+				}
+	
+				// Sort the records
+				asort($mxs);
+				$mailers = array_keys($mxs);
+			} elseif(checkdnsrr($domain, 'A')) {
+				$mailers[0] = gethostbyname($domain);
+			} else {
+				$mailers = array();
+			}
+			$total = count($mailers);
+	
+			// Added to still catch domains with no MX records
+			if($total == 0 || !$total) {
+				$error = "No MX record found for the domain.";
+			}
+		} else {
+			$error = "Address syntax not correct.";
+		}
+	
+		return ($error ? $error : TRUE);
+	}
+
+
+
+
+
     ///http://www.projecthoneypot.org/httpbl_api.php
     //jradpkbwwnqd.7.1.1.127.dnsbl.httpbl.org
-    //[Access Key] [Octet-Reversed IP] dnsbl.httpbl.org 
+    //[Access Key].[Octet-Reversed IP].dnsbl.httpbl.org 
     //Query: abcdefghijkl.2.1.9.127.dnsbl.httpbl.org
     //Response: 127.3.5.1
     // The visitor verification function
