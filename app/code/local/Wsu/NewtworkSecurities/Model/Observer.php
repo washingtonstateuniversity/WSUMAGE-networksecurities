@@ -9,6 +9,20 @@
 class Wsu_NewtworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
     const FLAG_NO_LOGIN = 'no-login';
 
+
+
+	
+	public function appendHoneypot($observer){
+		echo "TEST!!!!!!!!!!!!!";
+		//$layout=Mage::getSingleton('core/layout');
+		//if($layout!=null && !empty($layout)){
+			$update = Mage::getSingleton('core/layout')->getUpdate();
+			//$update = $observer->getEvent()->getLayout()->getUpdate();
+            $update->addHandle('newtworksecurities.honeypot');
+    }
+	
+
+
     /**
      * call rules
      */
@@ -75,12 +89,7 @@ class Wsu_NewtworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
             throw $e;
         }
     }
-	
-	public function appendHoneypot()
-    {
-        echo $this->getLayout()->createBlock('wsu_newtworksecurities/newtworksecurities.honeypot')->toHtml();
-    }
-	
+
 	
 	
     /**

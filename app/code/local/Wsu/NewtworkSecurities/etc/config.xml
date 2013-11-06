@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
   <modules>
-	<Wsu_NewtworkSecurities>
-	  <version>0.1.0</version>
-	</Wsu_NewtworkSecurities>
+    <Wsu_NewtworkSecurities>
+      <version>0.1.0</version>
+    </Wsu_NewtworkSecurities>
   </modules>
   <global>
-	<helpers>
-	  <wsu_newtworksecurities>
-		<class>Wsu_NewtworkSecurities_Helper</class>
-	  </wsu_newtworksecurities>
-	</helpers>
-	<blocks>
-	  <wsu_newtworksecurities>
-		<class>Wsu_NewtworkSecurities_Block</class>
-	  </wsu_newtworksecurities>
-	</blocks>
-	<models>
-	  <wsu_newtworksecurities>
-		<class>Wsu_NewtworkSecurities_Model</class>
-	  </wsu_newtworksecurities>
-	  <admin>
-		<rewrite>
-		  <session>Wsu_NewtworkSecurities_Model_Session</session>
-		  <Observer>Wsu_NewtworkSecurities_Model_Observer</Observer>
-		</rewrite>
-	  </admin>
-	  <customer>
-		<rewrite>
-		  <session>Wsu_NewtworkSecurities_Model_Customer_Session</session>
-		  <customer>Wsu_NewtworkSecurities_Model_Customer_Customer</customer>
-		</rewrite>
-	  </customer>
-	</models>
-	 <resources>
-		<newtworksecurities_setup>
-			<setup>
-				<module>Wsu_NewtworkSecurities</module>
-			</setup>
-		</newtworksecurities_setup>
-	</resources>
-        <events>
-           <controller_action_predispatch_adminhtml_index_login>
+    <helpers>
+      <wsu_newtworksecurities>
+        <class>Wsu_NewtworkSecurities_Helper</class>
+      </wsu_newtworksecurities>
+    </helpers>
+    <blocks>
+      <wsu_newtworksecurities>
+        <class>Wsu_NewtworkSecurities_Block</class>
+      </wsu_newtworksecurities>
+    </blocks>
+    <models>
+      <wsu_newtworksecurities>
+        <class>Wsu_NewtworkSecurities_Model</class>
+      </wsu_newtworksecurities>
+      <admin>
+        <rewrite>
+          <session>Wsu_NewtworkSecurities_Model_Session</session>
+          <Observer>Wsu_NewtworkSecurities_Model_Observer</Observer>
+        </rewrite>
+      </admin>
+      <customer>
+        <rewrite>
+          <session>Wsu_NewtworkSecurities_Model_Customer_Session</session>
+          <customer>Wsu_NewtworkSecurities_Model_Customer_Customer</customer>
+        </rewrite>
+      </customer>
+    </models>
+    <resources>
+      <newtworksecurities_setup>
+        <setup>
+          <module>Wsu_NewtworkSecurities</module>
+        </setup>
+      </newtworksecurities_setup>
+    </resources>
+    <events> 
+      <!--<controller_action_layout_load_before>
                 <observers>
-                    <newtworksecurities>
-                        <class>newtworksecurities/observer</class>
+                    <adminhtml_index_login>
+                        <class>wsu_newtworksecurities/observer</class>
                         <method>appendHoneypot</method>
-                    </newtworksecurities>
+                    </adminhtml_index_login>
                 </observers>
-            </controller_action_predispatch_adminhtml_index_login>
-		
-		
-		
-<!-- put these in when ready
+            </controller_action_layout_load_before>
+--> 
+      
+      <!-- put these in when ready
             <controller_action_predispatch_customer_account_loginPost>
                 <observers>
                     <newtworksecurities>
@@ -101,93 +100,111 @@
                     </newtworksecurities_reset_attempt>
                 </observers>
             </admin_session_user_login_success>
-			-->
-        </events>
+			--> 
+    </events>
   </global>
+  <adminhtml>
+    <layout>
+      <updates>
+        <wsu_newtworksecurities>
+          <file>newtworksecurities.xml</file>
+        </wsu_newtworksecurities>
+      </updates>
+    </layout>
+  </adminhtml>
   <admin>
-	<routers>
-	  <adminhtml>
-		<args>
-		  <modules>
-			<wsu_newtworksecurities before="Mage_Adminhtml">Wsu_NewtworkSecurities_Adminhtml</wsu_newtworksecurities>
-		  </modules>
-		</args>
-	  </adminhtml>
-	</routers>
+    <layout>
+      <updates>
+        <wsu_newtworksecurities>
+          <file>newtworksecurities.xml</file>
+        </wsu_newtworksecurities>
+      </updates>
+    </layout>
+    <routers>
+      <adminhtml>
+        <args>
+          <modules>
+            <wsu_newtworksecurities before="Mage_Adminhtml">Wsu_NewtworkSecurities_Adminhtml</wsu_newtworksecurities>
+          </modules>
+        </args>
+      </adminhtml>
+    </routers>
   </admin>
-    <frontend>
-        <events>
-            <controller_action_predispatch_customer_account_createpost>
-                <observers>
-                    <wsu_newtworksecurities>
-                        <class>Wsu_newtworksecurities_Model_Observer</class>
-                        <method>controllerActionPredispatchCustomerAccountCreatepost</method>
-                    </wsu_newtworksecurities>
-                </observers>
-            </controller_action_predispatch_customer_account_createpost>
-            
-            <controller_action_predispatch_review_product_post>
-                <observers>
-                    <wsu_newtworksecurities>
-                        <class>Wsu_newtworksecurities_Model_Observer</class>
-                        <method>controllerActionPredispatchBlockReviewForm</method>
-                    </wsu_newtworksecurities>
-                </observers>
-            </controller_action_predispatch_review_product_post>
-
-            <controller_action_predispatch_customer_account_create>
-                <observers>
-                    <wsu_newtworksecurities>
-                        <class>Wsu_newtworksecurities_Model_Observer</class>
-                        <method>controllerActionPredispatchCustomerAccountCreate</method>
-                    </wsu_newtworksecurities>
-                </observers>
-            </controller_action_predispatch_customer_account_create>
-        </events>
-        <layout>
-            <updates>
-                <wsu_newtworksecurities>
-                    <file>newtworksecurities.xml</file>
-                </wsu_newtworksecurities>
-            </updates>
-        </layout>
-        <routers>
-            <wsu_newtworksecurities>
-                <use>standard</use>
-                <args>
-                    <module>Wsu_newtworksecurities</module>
-                    <frontName>newtworksecurities</frontName>
-                </args>
-            </wsu_newtworksecurities>
-        </routers>
-    </frontend>
-  
+  <frontend>
+    <events>
+      <controller_action_predispatch_customer_account_createpost>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>Wsu_newtworksecurities_Model_Observer</class>
+            <method>controllerActionPredispatchCustomerAccountCreatepost</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </controller_action_predispatch_customer_account_createpost>
+      <controller_action_predispatch_review_product_post>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>Wsu_newtworksecurities_Model_Observer</class>
+            <method>controllerActionPredispatchBlockReviewForm</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </controller_action_predispatch_review_product_post>
+      <controller_action_predispatch_customer_account_create>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>Wsu_newtworksecurities_Model_Observer</class>
+            <method>controllerActionPredispatchCustomerAccountCreate</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </controller_action_predispatch_customer_account_create>
+    </events>
+    <layout>
+      <updates>
+        <wsu_newtworksecurities>
+          <file>newtworksecurities.xml</file>
+        </wsu_newtworksecurities>
+      </updates>
+    </layout>
+    <routers>
+      <wsu_newtworksecurities>
+        <use>standard</use>
+        <args>
+          <module>Wsu_newtworksecurities</module>
+          <frontName>newtworksecurities</frontName>
+        </args>
+      </wsu_newtworksecurities>
+    </routers>
+  </frontend>
   <default>
-	<wsu_newtworksecurities>
-	  <adminlogin>
-		<activeldap>0</activeldap>
-		<host>ldap1</host>
-		<version>3</version>
-		<port>389</port>
-		<tls>0</tls>
-		<rootdn>
-		  <![CDATA[cn=admin,dc=newtworksecurities,dc=com]]>
-		</rootdn>
-		<rootpassword>newtworksecurities</rootpassword>
-		<userdn>
-		  <![CDATA[ou=users,dc=newtworksecurities,dc=com]]>
-		</userdn>
-		<filter>
-		  <![CDATA[(&(%s=%s)(groups=newtworksecurities-magento-1))]]>
-		</filter>
-		<cmpattr>cn</cmpattr>
-		<passattr>userPassword</passattr>
-		<attr>
-		  <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
-		</attr>
-		<defaultroleid>20</defaultroleid>
-		<adminatuocreate>0</adminatuocreate>
-	  </adminlogin>
-	</wsu_newtworksecurities>
+    <wsu_newtworksecurities>
+      <honeypots>
+      	<usehoneypots>1</usehoneypots>
+      </honeypots>
+      <ldap>
+        <adminlogin>
+          <activeldap>0</activeldap>
+          <host>ldap1</host>
+          <version>3</version>
+          <port>389</port>
+          <tls>0</tls>
+          <rootdn>
+            <![CDATA[cn=admin,dc=newtworksecurities,dc=com]]>
+          </rootdn>
+          <rootpassword>newtworksecurities</rootpassword>
+          <userdn>
+            <![CDATA[ou=users,dc=newtworksecurities,dc=com]]>
+          </userdn>
+          <filter>
+            <![CDATA[(&(%s=%s)(groups=newtworksecurities-magento-1))]]>
+          </filter>
+          <cmpattr>cn</cmpattr>
+          <passattr>userPassword</passattr>
+          <attr>
+            <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
+          </attr>
+          <defaultroleid>20</defaultroleid>
+          <adminatuocreate>0</adminatuocreate>
+        </adminlogin>
+      </ldap>
+    </wsu_newtworksecurities>
   </default>
 </config>

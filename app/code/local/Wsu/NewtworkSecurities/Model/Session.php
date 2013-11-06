@@ -33,11 +33,21 @@ class Wsu_NewtworkSecurities_Model_Session extends Mage_Admin_Model_Session {
      * Override admin login
      */
     public function login($username, $password, $request = null) {
-        /* if (empty($username) || empty($password)) {
-        Mage::getSingleton('core/session')->addSuccess('You have loged in.');
-        return false;
-        }
-        */
+		$helper = Mage::helper('wsu_newtworksecurities');
+		$usehoneypots    = $helper->getConfig('honeypot/usehoneypots');
+		if ($usehoneypots){
+			$HoneypotName = $helper->getHoneypotName();
+			$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
+			
+			if ($Honeypot!="") {
+				Mage::log('Honeypot Input filled. Aborted.',Zend_Log::WARN);
+				$response=Mage::app()->getFrontController()->getResponse();
+				$url = Mage::helper('adminhtml')->getUrl('adminhtml/error/index/', array('_nosecret' => true));
+				$response->setRedirect($url);
+				$response->sendResponse();
+			}
+		}
+
         if (empty($username) || empty($password)) {
             return;
         }
@@ -166,57 +176,57 @@ class Wsu_NewtworkSecurities_Model_Session extends Mage_Admin_Model_Session {
 		$HELPER = Mage::helper('wsu_newtworksecurities');
 
         //admin
-        $this->actived                 = $HELPER->getConfig('ldap/adminlogin/activeldap');// 1|0
-        $this->allow_bypass            = $HELPER->getConfig('ldap/adminlogin/allow_bypass');// 1|0
-        $this->rootDn                  = $HELPER->getConfig('ldap/adminlogin/rootdn');// 'cn=admin,dc=wsu,dc=com';
-        $this->rootPassword            = $HELPER->getConfig('ldap/adminlogin/rootpassword');// '*******'
-        $this->userDn                  = $HELPER->getConfig('ldap/adminlogin/userdn');//'ou=users,dc=wsu,dc=com'
-        $this->filter                  = $HELPER->getConfig('ldap/adminlogin/filter');// '(&(%s=%s)(groups=Wsu-magento-1))';
-        $this->cmpAttr                 = $HELPER->getConfig('ldap/adminlogin/cmpattr');// 'cn';
-        $this->host                    = $HELPER->getConfig('ldap/adminlogin/host');// 'ldap1'
-        $this->version                 = intval($HELPER->getConfig('ldap/adminlogin/version'));// '3'
-        $this->port                    = intval($HELPER->getConfig('ldap/adminlogin/port'));// '389'
-        $this->tls                     = intval($HELPER->getConfig('ldap/adminlogin/tls'));// false
-        $this->attr                    = json_decode($HELPER->getConfig('ldap/adminlogin/attr'), true);// cn,givenname,mail,sn,displayname,userpassword 
-        $this->roleId                  = intval($HELPER->getConfig('ldap/adminlogin/defaultroleid'));//default the role_id after each login 0 to disable
-        $this->pwdAttr                 = $HELPER->getConfig('ldap/adminlogin/passattr');//password
-        $this->autocreate              = $HELPER->getConfig('ldap/adminlogin/autocreate');//1|0
-        $this->testusername            = $HELPER->getConfig('ldap/adminlogin/testusername');//user.name 
-        $this->testuserpass            = $HELPER->getConfig('ldap/adminlogin/testuserpass');//**password*****
+        $this->actived                 = $HELPER->getConfig('adminlogin/activeldap');// 1|0
+        $this->allow_bypass            = $HELPER->getConfig('adminlogin/allow_bypass');// 1|0
+        $this->rootDn                  = $HELPER->getConfig('adminlogin/rootdn');// 'cn=admin,dc=wsu,dc=com';
+        $this->rootPassword            = $HELPER->getConfig('adminlogin/rootpassword');// '*******'
+        $this->userDn                  = $HELPER->getConfig('adminlogin/userdn');//'ou=users,dc=wsu,dc=com'
+        $this->filter                  = $HELPER->getConfig('adminlogin/filter');// '(&(%s=%s)(groups=Wsu-magento-1))';
+        $this->cmpAttr                 = $HELPER->getConfig('adminlogin/cmpattr');// 'cn';
+        $this->host                    = $HELPER->getConfig('adminlogin/host');// 'ldap1'
+        $this->version                 = intval($HELPER->getConfig('adminlogin/version'));// '3'
+        $this->port                    = intval($HELPER->getConfig('adminlogin/port'));// '389'
+        $this->tls                     = intval($HELPER->getConfig('adminlogin/tls'));// false
+        $this->attr                    = json_decode($HELPER->getConfig('adminlogin/attr'), true);// cn,givenname,mail,sn,displayname,userpassword 
+        $this->roleId                  = intval($HELPER->getConfig('adminlogin/defaultroleid'));//default the role_id after each login 0 to disable
+        $this->pwdAttr                 = $HELPER->getConfig('adminlogin/passattr');//password
+        $this->autocreate              = $HELPER->getConfig('adminlogin/autocreate');//1|0
+        $this->testusername            = $HELPER->getConfig('adminlogin/testusername');//user.name 
+        $this->testuserpass            = $HELPER->getConfig('adminlogin/testuserpass');//**password*****
 		//seracher
-        $this->searcherrootDn          = $HELPER->getConfig('ldap/searcher/rootdn');
-        $this->searcherrootPassword    = $HELPER->getConfig('ldap/searcher/rootpassword');
-        $this->searcheruserDn          = $HELPER->getConfig('ldap/searcher/userdn');
-        $this->searcherfilter          = $HELPER->getConfig('ldap/searcher/filter');
-        $this->searchercmpAttr         = $HELPER->getConfig('ldap/searcher/cmpattr');
-        $this->searcherhost            = $HELPER->getConfig('ldap/searcher/host');
-        $this->searcherversion         = intval($HELPER->getConfig('ldap/searcher/version'));
-        $this->searcherport            = intval($HELPER->getConfig('ldap/searcher/port'));
-        $this->searchertls             = intval($HELPER->getConfig('ldap/searcher/tls'));
-        $this->searcherattr            = json_decode($HELPER->getConfig('ldap/searcher/attr'), true);
-        $this->searcherroleId          = intval($HELPER->getConfig('ldap/searcher/defaultroleid'));
-        $this->searcherpwdAttr         = $HELPER->getConfig('ldap/searcher/passattr');
-        $this->searcheractived         = $HELPER->getConfig('ldap/searcher/activeldap');
-        $this->searcherusername        = $HELPER->getConfig('ldap/searcher/searcherusername');
-        $this->searcheruserpass        = $HELPER->getConfig('ldap/searcher/searcheruserpass');
+        $this->searcherrootDn          = $HELPER->getConfig('searcher/rootdn');
+        $this->searcherrootPassword    = $HELPER->getConfig('searcher/rootpassword');
+        $this->searcheruserDn          = $HELPER->getConfig('searcher/userdn');
+        $this->searcherfilter          = $HELPER->getConfig('searcher/filter');
+        $this->searchercmpAttr         = $HELPER->getConfig('searcher/cmpattr');
+        $this->searcherhost            = $HELPER->getConfig('searcher/host');
+        $this->searcherversion         = intval($HELPER->getConfig('searcher/version'));
+        $this->searcherport            = intval($HELPER->getConfig('searcher/port'));
+        $this->searchertls             = intval($HELPER->getConfig('searcher/tls'));
+        $this->searcherattr            = json_decode($HELPER->getConfig('searcher/attr'), true);
+        $this->searcherroleId          = intval($HELPER->getConfig('searcher/defaultroleid'));
+        $this->searcherpwdAttr         = $HELPER->getConfig('searcher/passattr');
+        $this->searcheractived         = $HELPER->getConfig('searcher/activeldap');
+        $this->searcherusername        = $HELPER->getConfig('searcher/searcherusername');
+        $this->searcheruserpass        = $HELPER->getConfig('searcher/searcheruserpass');
 		//customer
-        $this->customer_actived        = $HELPER->getConfig('ldap/customerlogin/activeldap');
-        $this->customer_restricttoldap = $HELPER->getConfig('ldap/customerlogin/restricttoldap');
-        $this->customer_rootDn         = $HELPER->getConfig('ldap/customerlogin/rootdn');
-        $this->customer_rootPassword   = $HELPER->getConfig('ldap/customerlogin/rootpassword');
-        $this->customer_userDn         = $HELPER->getConfig('ldap/customerlogin/userdn');
-        $this->customer_filter         = $HELPER->getConfig('ldap/customerlogin/filter');
-        $this->customer_cmpAttr        = $HELPER->getConfig('ldap/customerlogin/cmpattr');
-        $this->customer_host           = $HELPER->getConfig('ldap/customerlogin/host');
-        $this->customer_version        = intval($HELPER->getConfig('ldap/customerlogin/version'));
-        $this->customer_port           = intval($HELPER->getConfig('ldap/customerlogin/port'));
-        $this->customer_tls            = intval($HELPER->getConfig('ldap/customerlogin/tls'));
-        $this->customer_attr           = json_decode($HELPER->getConfig('ldap/customerlogin/attr'), true);
-        $this->customer_roleId         = intval($HELPER->getConfig('ldap/customerlogin/defaultroleid'));
-        $this->customer_pwdAttr        = $HELPER->getConfig('ldap/customerlogin/passattr');
-        $this->customer_autocreate     = $HELPER->getConfig('ldap/customerlogin/autocreate');
-        $this->testusername            = $HELPER->getConfig('ldap/customerlogin/testusername');
-        $this->testuserpass            = $HELPER->getConfig('ldap/customerlogin/testuserpass');
+        $this->customer_actived        = $HELPER->getConfig('customerlogin/activeldap');
+        $this->customer_restricttoldap = $HELPER->getConfig('customerlogin/restricttoldap');
+        $this->customer_rootDn         = $HELPER->getConfig('customerlogin/rootdn');
+        $this->customer_rootPassword   = $HELPER->getConfig('customerlogin/rootpassword');
+        $this->customer_userDn         = $HELPER->getConfig('customerlogin/userdn');
+        $this->customer_filter         = $HELPER->getConfig('customerlogin/filter');
+        $this->customer_cmpAttr        = $HELPER->getConfig('customerlogin/cmpattr');
+        $this->customer_host           = $HELPER->getConfig('customerlogin/host');
+        $this->customer_version        = intval($HELPER->getConfig('customerlogin/version'));
+        $this->customer_port           = intval($HELPER->getConfig('customerlogin/port'));
+        $this->customer_tls            = intval($HELPER->getConfig('customerlogin/tls'));
+        $this->customer_attr           = json_decode($HELPER->getConfig('customerlogin/attr'), true);
+        $this->customer_roleId         = intval($HELPER->getConfig('customerlogin/defaultroleid'));
+        $this->customer_pwdAttr        = $HELPER->getConfig('customerlogin/passattr');
+        $this->customer_autocreate     = $HELPER->getConfig('customerlogin/autocreate');
+        $this->testusername            = $HELPER->getConfig('customerlogin/testusername');
+        $this->testuserpass            = $HELPER->getConfig('customerlogin/testuserpass');
     }
     private function connect() {
         $this->load_Parameters();

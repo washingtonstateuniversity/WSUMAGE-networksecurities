@@ -6,7 +6,8 @@ class Wsu_NewtworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         return (!isset($value) || $value == '')? $default : $value ;
     }
     public function getHoneypotName(){
-        return Mage::getStoreConfig('wsu_newtworksecurities/honeypot/honeypotName');
+		$name=Mage::getStoreConfig('wsu_newtworksecurities/honeypot/honeypotName');
+        return ( (date('W')%2==1)?"email__":"username__").md5($name.date("l") );
     }	
     public function log($data) {
         if (is_array($data) || is_object($data)) {

@@ -50,6 +50,9 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </checkhoneypots>
+			
+
+			
 			<!-- note this should be groupd under the checkhoneypots  -->
             <hpp_api_key translate="label comment">
               <label>Project Honeypot http:BL Access API key</label>
@@ -59,6 +62,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
 			  <comment><![CDATA[ <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]></comment>
+			  <depends><checkhoneypots>1</checkhoneypots></depends>
             </hpp_api_key>
             <hpp_suspicious_threshold translate="label comment">
               <label>http:BL Suspicious threat score threshold</label>
@@ -68,6 +72,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
 			  <comment><![CDATA[ <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]></comment>
+			  <depends><checkhoneypots>1</checkhoneypots></depends>
             </hpp_suspicious_threshold>
             <hpp_harvester_threshold translate="label comment">
               <label>http:BL Harvester threat score threshold</label>
@@ -77,6 +82,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
 			  <comment><![CDATA[ <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]></comment>
+			  <depends><checkhoneypots>1</checkhoneypots></depends>
             </hpp_harvester_threshold>
             <hpp_comment_threshold translate="label comment">
               <label>http:BL Comment spammer threat score threshold</label>
@@ -86,6 +92,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
 			  <comment><![CDATA[ <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]></comment>
+			  <depends><checkhoneypots>1</checkhoneypots></depends>
             </hpp_comment_threshold>
             <hpp_lastseen_threshold translate="label comment">
               <label>http:BL Last seen threshold</label>
@@ -95,6 +102,7 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
 			  <comment><![CDATA[ <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]></comment>
+			  <depends><checkhoneypots>1</checkhoneypots></depends>
             </hpp_lastseen_threshold>
             <hpp_threatscore_threshold translate="label comment">
               <label>http:BL Last seen threshold</label>
@@ -104,18 +112,8 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
 			  <comment><![CDATA[ Each suspicious IP address is given a threat score. This scored is asigned by Project Honey Pot basing on various factors, such as the IPs activity or the damage done during the visits. The score is a number between 0 and 255, where 0 is no threat at all and 255 is extremely harmful. In the field above you may set the threat score threshold. IP address with a score greater than the given number will be regarded as harmful. <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a> ]]></comment>
+			  <depends><checkhoneypots>1</checkhoneypots></depends>
             </hpp_threatscore_threshold>
-			<createhoneypot>
-              <label>Check user aginst Project Honeypot</label>
-              <frontend_type>select</frontend_type>
-              <source_model>adminhtml/system_config_source_yesno</source_model>
-              <sort_order>50</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-			  <comment><![CDATA[ <a href="http://www.projecthoneypot.org/manage_honey_pots.php">read up</a>]]></comment>
-			</createhoneypot>
-
                         <honeypotName>
                             <label>Hidden field name</label>
                             <frontend_type>text</frontend_type>
@@ -123,7 +121,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enableHoneypotName>1</enableHoneypotName></depends>
+                            <depends><usehoneypots>1</usehoneypots></depends>
                         </honeypotName>
 
                         <enableHoneypotAccountCreateTime>
@@ -134,6 +132,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+							<depends><usehoneypots>1</usehoneypots></depends>
                         </enableHoneypotAccountCreateTime>
 
                         <honeypotAccountCreateTime>
@@ -154,8 +153,8 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
+							<depends><usehoneypots>1</usehoneypots></depends>
                         </enableSpamIndexing>
-
                         <spamIndexLevel>
                             <label>Set max. spam index trust level</label>
                             <comment>An index of 2.5 should be enough to block average spam logins The lower the level, the higher the level, the more spam gets through</comment>
@@ -166,15 +165,24 @@
                             <show_in_store>1</show_in_store>
                             <depends><enableSpamIndexing>1</enableSpamIndexing></depends>
                         </spamIndexLevel>
+				<createhoneypot>
+					<label>Create pots</label>
+					<frontend_type>select</frontend_type>
+					<source_model>adminhtml/system_config_source_yesno</source_model>
+					<sort_order>50</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment><![CDATA[ <a href="http://www.projecthoneypot.org/manage_honey_pots.php">read up</a>]]></comment>
+				</createhoneypot>	
           </fields>
 		</honeypot>
-		<ldap type="group" translate="label">
-			<label>LDAP</label>
-			<frontend_type>text</frontend_type>
-			<show_in_default>1</show_in_default>
-			<show_in_website>1</show_in_website>
-			<frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
-			<sort_order>20</sort_order>
+        <ldap translate="label comment">
+          <label>LDAP</label>
+          <sort_order>10</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
 			<fields>
 				<adminlogin type="group" translate="label comment">
 				  <label>Admin LDAP Login Configuration</label>
