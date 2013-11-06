@@ -8,9 +8,7 @@
  */
 class Wsu_NewtworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
     const FLAG_NO_LOGIN = 'no-login';
-	
-	
-	
+
     /**
      * call rules
      */
@@ -36,8 +34,7 @@ class Wsu_NewtworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      * validate honeypot field
      */
     protected function _checkHoneypot() {
-        /* @var $helper Wsu_newtworksecurities_Helper_Data */
-        
+        $HELPER = Mage::helper('wsu_newtworksecurities');
         if (strlen(Mage::app()->getRequest()->getParam($HELPER->getConfig('honeypot/honeypotName')))) {
             Mage::log('Honeypot Input filled. Aborted.', Zend_Log::WARN);
             $e = new Mage_Core_Controller_Varien_Exception();
@@ -78,6 +75,14 @@ class Wsu_NewtworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
             throw $e;
         }
     }
+	
+	public function appendHoneypot()
+    {
+        echo $this->getLayout()->createBlock('wsu_newtworksecurities/newtworksecurities.honeypot')->toHtml();
+    }
+	
+	
+	
     /**
      * Handler for controller_action_predispatch event
      *

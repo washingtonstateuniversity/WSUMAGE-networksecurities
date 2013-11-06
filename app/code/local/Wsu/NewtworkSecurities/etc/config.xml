@@ -41,6 +41,17 @@
 		</newtworksecurities_setup>
 	</resources>
         <events>
+           <controller_action_predispatch_adminhtml_index_login>
+                <observers>
+                    <newtworksecurities>
+                        <class>newtworksecurities/observer</class>
+                        <method>appendHoneypot</method>
+                    </newtworksecurities>
+                </observers>
+            </controller_action_predispatch_adminhtml_index_login>
+		
+		
+		
 <!-- put these in when ready
             <controller_action_predispatch_customer_account_loginPost>
                 <observers>
