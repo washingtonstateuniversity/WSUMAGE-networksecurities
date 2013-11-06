@@ -178,6 +178,13 @@
     <wsu_newtworksecurities>
       <honeypots>
       	<usehoneypots>1</usehoneypots>
+      	<hpp_lastseen_threshold>10</hpp_lastseen_threshold>
+		<hpp_threatscore_threshold>50</hpp_threatscore_threshold>
+		<hpp_suspicious_threshold>1</hpp_suspicious_threshold>
+		<hpp_harvester_threshold>1</hpp_harvester_threshold>
+		<hpp_comment_threshold>1</hpp_comment_threshold>
+		<hpp_test_mode>1</hpp_test_mode>
+		<hpp_test_ip>218.10.17.107</hpp_test_ip>
       </honeypots>
       <ldap>
         <adminlogin>

@@ -12,19 +12,7 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
         );
         return $this->check($firstname, $lastname, $emailprefix, $params);
     }
-    /* Honeypot protection goals
-    •Create a honey pot with the same name as one of the default fields. Make it look legit with a label.
-    Make it look perfectly legit with label and icon. We don’t want to alert the bot in any way 
-    that this field is special.
-    •Place the honey pot in the form in a random location. Keep moving it around between the valid fields.
-    We don’t want the spam bot writer to simply ignore the same field based on index.
-    •Rename your default fields to something random. Keep in mind you have to convert it back to it’s proper
-    name on the server side. By naming the default fields to something random, the valid fields now
-    begin to look like honey pots to the spam bot.
-    •Add an expiration to your form. This will keep spam bots from using the same fields and submitting the form later.
-    •You have to hide the honey pot to keep the valid users from filling it out. hide this field with CSS.
-    •OnPostaction Make sure to check pots for spamer junk
-    */
+
     ///http://www.projecthoneypot.org/httpbl_api.php
     //jradpkbwwnqd.7.1.1.127.dnsbl.httpbl.org
     //[Access Key] [Octet-Reversed IP] dnsbl.httpbl.org 
@@ -35,8 +23,27 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
 		$HELPER = Mage::helper('wsu_newtworksecurities');
         $key    = $HELPER->getConfig('honeypot/hpp_api_key');
         // The http:BL query
-		$query = $key . "." . implode(".", array_reverse(explode(".", $_SERVER["REMOTE_ADDR"]))) . ".dnsbl.httpbl.org";
-        $result = explode(".", gethostbyname($query));
+		
+		if($HELPER->getConfig('honeypot/hpp_test_mode')){
+			$ip=$HELPER->getConfig('honeypot/hpp_test_ip');
+		}else{
+			$ip=$_SERVER["REMOTE_ADDR"];
+		}
+
+		$OctetReversedIP = implode(".", array_reverse(explode(".",$ip)));
+		$query = $key . "." . $OctetReversedIP . ".dnsbl.httpbl.org";
+		
+		echo $query.'</br>';
+
+		$response = gethostbyname($query);
+
+		if ($response == $query) {
+			//if the domain does not resolve then it will be the same thing we passed to gethostbyname
+			return false;
+		}
+		
+		$result = explode(".", $response);
+		
         // If the response is positive,
         if ($result[0] == 127) {
             // Get thresholds
@@ -45,11 +52,13 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
             $suspicious_threshold 	= $HELPER->getConfig('honeypot/hpp_suspicious_threshold');
             $harvester_threshold 	= $HELPER->getConfig('honeypot/hpp_harvester_threshold');
             $comment_threshold 		= $HELPER->getConfig('honeypot/hpp_comment_threshold');
-            for ($i = 0; pow(2, $i) <= 4; $i++) {
+            /*
+			for ($i = 0; pow(2, $i) <= 4; $i++) {
                 $value          = pow(2, $i);
                 $denied[$value] = get_option('httpbl_deny_' . $value);
             }
             $hp      = get_option('httpbl_hp');
+
             // Assume that visitor's OK
             $age     = false;
             $threat  = false;
@@ -86,21 +95,25 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
                     if ($result[2] > $threatscore_threshold)
                         $threat = true;
                 }
-            }
-            foreach ($denied as $key => $value) {
-                if (($result[3] - $result[3] % $key) > 0 and $value)
-                    $deny = true;
-            }
-            // If he's not OK
-            if ($deny && $age && $threat) {
-                $blocked = true;
-                // If we've got a Honey Pot link
-                if ($hp) {
-                    header("HTTP/1.1 301 Moved Permanently ");
-                    header("Location: $hp");
-                }
-            }
-            // Are we logging?
+            }			*/
+            /*
+				foreach ($denied as $key => $value) {
+					if (($result[3] - $result[3] % $key) > 0 and $value)
+						$deny = true;
+				}
+				// If he's not OK
+				if ($deny && $age && $threat) {
+					$blocked = true;
+					// If we've got a Honey Pot link
+					if ($hp) {
+						header("HTTP/1.1 301 Moved Permanently ");
+						header("Location: $hp");
+					}
+				}
+			*/			
+			$blocked=false;
+			return $_SERVER["REMOTE_ADDR"].'--'.$_SERVER["HTTP_USER_AGENT"].'--'.implode(".",$result).'--'.$blocked;
+            /*// Are we logging?
             if (get_option("httpbl_log") == true) {
                 // At first we assume that the visitor
                 // should be logged
@@ -122,9 +135,7 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
                 // If he can be logged, we log him
                 if ($log)
                     httpbl_add_log($_SERVER["REMOTE_ADDR"], $_SERVER["HTTP_USER_AGENT"], implode($result, "."), $blocked);
-            }
-            if ($blocked)
-                die(); // send to block form, but die for now
+            }*/
         }
     }
     public function simplecheck($firstname, $lastname, $emailprefix, $params) {
