@@ -14,11 +14,17 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
     }
 
 
-
+	function email_isValid($email) {
+		if(preg_match($this->emailpattern(), $email, $matches)) {
+			return true;
+		}else{
+			return false;	
+		}
+	}
 
 	function email_resolves($email) {
 		// Check email syntax
-		if(preg_match($this->emailpattern(), $email, $matches)) {
+		if($this->email_isValid($email)) {
 			//this is a real formate for an email so it's good to go
 			$emailparts = explode('@', $params['email']);
 			$user = $emailparts[0];
@@ -39,16 +45,12 @@ class Wsu_NewtworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
 				$mailers = array();
 			}
 			$total = count($mailers);
-	
 			// Added to still catch domains with no MX records
 			if($total == 0 || !$total) {
 				$error = "No MX record found for the domain.";
 			}
-		} else {
-			$error = "Address syntax not correct.";
 		}
-	
-		return ($error ? $error : TRUE);
+		return ($error ? $error : true);
 	}
 
 
