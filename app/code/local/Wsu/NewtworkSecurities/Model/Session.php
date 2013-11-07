@@ -36,7 +36,8 @@ class Wsu_NewtworkSecurities_Model_Session extends Mage_Admin_Model_Session {
 		$helper = Mage::helper('wsu_newtworksecurities');
 		$usehoneypots    = $helper->getConfig('honeypot/usehoneypots');
 		if ($usehoneypots){
-			$HoneypotName = $helper->getHoneypotName();
+			$id = $helper->getHoneypotId();
+			$HoneypotName = $helper->getHoneypotName($id);
 			$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
 			
 			if ($Honeypot!="") {
@@ -45,9 +46,9 @@ class Wsu_NewtworkSecurities_Model_Session extends Mage_Admin_Model_Session {
 				$url = Mage::helper('adminhtml')->getUrl('adminhtml/error/index/', array('_nosecret' => true));
 				$response->setRedirect($url);
 				$response->sendResponse();
+				return;
 			}
 		}
-
         if (empty($username) || empty($password)) {
             return;
         }

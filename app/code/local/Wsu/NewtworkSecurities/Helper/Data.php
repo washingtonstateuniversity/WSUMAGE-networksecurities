@@ -5,9 +5,12 @@ class Wsu_NewtworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         $value = trim(Mage::getStoreConfig("wsu_newtworksecurities/$path", $store));
         return (!isset($value) || $value == '')? $default : $value ;
     }
-    public function getHoneypotName(){
+	public function getHoneypotId(){
+		return ( (date('W')%2==1)?"useremail":"userdomain");	
+	}
+    public function getHoneypotName($theme=""){
 		$name=Mage::getStoreConfig('wsu_newtworksecurities/honeypot/honeypotName');
-        return ( (date('W')%2==1)?"email__":"username__").md5($name.date("l") );
+        return $theme."__".md5($name.date("l") );
     }	
     public function log($data) {
         if (is_array($data) || is_object($data)) {

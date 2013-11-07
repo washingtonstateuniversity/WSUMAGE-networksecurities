@@ -1,11 +1,10 @@
 <?php
-
 class Wsu_NewtworkSecurities_Adminhtml_Block_Honeypot extends Mage_Core_Block_Template {
-	protected function _construct(){
-        parent::_construct();
-    }
-    public function getHoneypotName(){
+    public function getHoneypotTheme(){
         $helper = Mage::helper('wsu_newtworksecurities');
-        return $helper->getHoneypotName();
+		$id = $helper->getHoneypotId();
+		$theme['name']=$helper->getHoneypotName($id);
+		$theme['ids']=$id;
+        return $theme;
     }
 }
