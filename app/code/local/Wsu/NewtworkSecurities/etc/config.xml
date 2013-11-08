@@ -19,6 +19,7 @@
     <models>
       <wsu_newtworksecurities>
         <class>Wsu_NewtworkSecurities_Model</class>
+        <resourceModel>wsu_newtworksecurities_resource</resourceModel>
       </wsu_newtworksecurities>
       <admin>
         <rewrite>
@@ -32,15 +33,98 @@
           <customer>Wsu_NewtworkSecurities_Model_Customer_Customer</customer>
         </rewrite>
       </customer>
+      <wsu_newtworksecurities_resource>
+        <class>Wsu_NewtworkSecurities_Model_Resource</class>
+        <entities>
+          <!--<stockhistory>
+            <table>wsu_stockhistory</table>
+          </stockhistory>-->
+        </entities>
+      </wsu_newtworksecurities_resource>
+      <!--<cataloginventory>
+        <rewrite>
+          <stock>Wsu_NewtworkSecurities_Model_CatalogInventory_Stock</stock>
+        </rewrite>
+      </cataloginventory>-->
     </models>
     <resources>
-      <newtworksecurities_setup>
+      <wsu_newtworksecurities_setup>
         <setup>
           <module>Wsu_NewtworkSecurities</module>
+          <class>Mage_Catalog_Model_Resource_Setup</class>
         </setup>
-      </newtworksecurities_setup>
+        <connection>
+          <use>core_setup</use>
+        </connection>
+      </wsu_newtworksecurities_setup>
+      <wsu_newtworksecurities_write>
+        <connection>
+          <use>core_write</use>
+        </connection>
+      </wsu_newtworksecurities_write>
+      <wsu_newtworksecurities_read>
+        <connection>
+          <use>core_read</use>
+        </connection>
+      </wsu_newtworksecurities_read>
     </resources>
-    <events> 
+    <events>
+      
+      <!-- stock history logging
+      <checkout_submit_all_after>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>wsu_newtworksecurities/stock_observer</class>
+            <method>checkoutAllSubmitAfter</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </checkout_submit_all_after>
+      <cataloginventory_stock_item_save_after>
+        <observers>
+          <wsu_newtworksecurities>
+            <type>singleton</type>
+            <class>wsu_newtworksecurities/stock_observer</class>
+            <method>saveStockItemAfter</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </cataloginventory_stock_item_save_after>
+      <cataloginventory_stock_revert_products_sale>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>wsu_newtworksecurities/stock_observer</class>
+            <method>stockRevertProductsSale</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </cataloginventory_stock_revert_products_sale>
+      <catalog_product_import_finish_before>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>wsu_newtworksecurities/stock_observer</class>
+            <method>catalogProductImportFinishBefore</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </catalog_product_import_finish_before>
+      <controller_action_layout_render_before_adminhtml_catalog_product_edit>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>wsu_newtworksecurities/stock_observer</class>
+            <method>addNewtworkSecuritiesTab</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </controller_action_layout_render_before_adminhtml_catalog_product_edit>
+      <sales_order_item_cancel>
+        <observers>
+          <inventory>
+            <type>disabled</type>
+          </inventory>
+          <wsu_newtworksecurities>
+            <class>wsu_newtworksecurities/stock_observer</class>
+            <method>cancelOrderItem</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </sales_order_item_cancel> -->
+      <!-- ENDOF stock history logging -->
+      
       <!--<controller_action_layout_load_before>
                 <observers>
                     <adminhtml_index_login>
@@ -49,7 +133,7 @@
                     </adminhtml_index_login>
                 </observers>
             </controller_action_layout_load_before>
---> 
+-->
       
       <!-- put these in when ready
             <controller_action_predispatch_customer_account_loginPost>
@@ -100,7 +184,7 @@
                     </newtworksecurities_reset_attempt>
                 </observers>
             </admin_session_user_login_success>
-			--> 
+			-->
     </events>
   </global>
   <adminhtml>
@@ -177,14 +261,14 @@
   <default>
     <wsu_newtworksecurities>
       <honeypots>
-      	<usehoneypots>1</usehoneypots>
-      	<hpp_lastseen_threshold>10</hpp_lastseen_threshold>
-		<hpp_threatscore_threshold>50</hpp_threatscore_threshold>
-		<hpp_suspicious_threshold>1</hpp_suspicious_threshold>
-		<hpp_harvester_threshold>1</hpp_harvester_threshold>
-		<hpp_comment_threshold>1</hpp_comment_threshold>
-		<hpp_test_mode>1</hpp_test_mode>
-		<hpp_test_ip>218.10.17.107</hpp_test_ip>
+        <usehoneypots>1</usehoneypots>
+        <hpp_lastseen_threshold>10</hpp_lastseen_threshold>
+        <hpp_threatscore_threshold>50</hpp_threatscore_threshold>
+        <hpp_suspicious_threshold>1</hpp_suspicious_threshold>
+        <hpp_harvester_threshold>1</hpp_harvester_threshold>
+        <hpp_comment_threshold>1</hpp_comment_threshold>
+        <hpp_test_mode>1</hpp_test_mode>
+        <hpp_test_ip>218.10.17.107</hpp_test_ip>
       </honeypots>
       <ldap>
         <adminlogin>

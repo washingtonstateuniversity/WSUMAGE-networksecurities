@@ -23,13 +23,15 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/* @var $installer Mage_Core_Model_Resource_Setup */
-$installer = $this;
 
+$installer = $this;
+/* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
 
+
+/* Admin logging */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('newtworksecurities/log'))
+    ->newTable($installer->getTable('newtworksecurities/wsu_spamlog'))
     ->addColumn('type', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
         'nullable'  => false,
         'primary'   => true,
@@ -78,4 +80,49 @@ $table = $installer->getConnection()
     ->setComment('Count Login Attempts');
 $installer->getConnection()->createTable($table);
 
+
+
+/* STOCK LOGGING
+$tableHistory  = $installer->getTable('stockhistory');
+$tableItem      = $installer->getTable('cataloginventory_stock_item');
+$tableUser      = $installer->getTable('admin/user');
+
+$installer->run("
+	DROP TABLE IF EXISTS {$tableHistory};
+	CREATE TABLE {$tableHistory} (
+	`history_id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+	`item_id` INT( 10 ) UNSIGNED NOT NULL ,
+	`user` varchar(40) NOT NULL DEFAULT '',
+	`user_id` mediumint(9) unsigned DEFAULT NULL,
+	`qty` DECIMAL( 12, 4 ) NOT NULL default '0',
+	`is_in_stock` TINYINT( 1 ) UNSIGNED NOT NULL default '0',
+	`message` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+	`created_at` DATETIME NOT NULL ,
+	INDEX ( `item_id` )
+	) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
+");
+
+$installer->getConnection()->addConstraint('FK_STOCK_HISTORY_ITEM', $tableHistory, 'item_id', $tableItem, 'item_id');
+$installer->run("
+    ALTER TABLE `{$tableHistory}`
+        ADD COLUMN `is_admin` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 AFTER `user_id`;
+");
+ */
+
 $installer->endSetup();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
