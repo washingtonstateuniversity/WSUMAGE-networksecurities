@@ -216,6 +216,14 @@
   </admin>
   <frontend>
     <events>
+      <controller_action_predispatch>
+        <observers>
+          <wsu_newtworksecurities>
+            <class>Wsu_newtworksecurities_Model_Customer_Observer</class>
+            <method>requireLogin</method>
+          </wsu_newtworksecurities>
+        </observers>
+      </controller_action_predispatch>
       <controller_action_predispatch_customer_account_createpost>
         <observers>
           <wsu_newtworksecurities>
@@ -260,6 +268,12 @@
   </frontend>
   <default>
     <wsu_newtworksecurities>
+      <startup>
+        <require_login>0</require_login>
+        <require_login_whitelist>
+          <![CDATA[#(customer\/account\/(log(in|out)|forgotpassword|resetpassword|create))#]]>
+        </require_login_whitelist>
+      </startup>
       <honeypots>
         <usehoneypots>1</usehoneypots>
         <hpp_lastseen_threshold>10</hpp_lastseen_threshold>
