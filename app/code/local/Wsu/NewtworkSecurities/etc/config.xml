@@ -270,9 +270,7 @@
     <wsu_newtworksecurities>
       <startup>
         <require_login>0</require_login>
-        <require_login_whitelist>
-          <![CDATA[#(customer\/account\/(log(in|out)|forgotpassword|resetpassword|create))#]]>
-        </require_login_whitelist>
+        <require_login_whitelist><![CDATA[#(customer\/account\/(log(in|out)|forgotpassword|resetpassword|create))#]]></require_login_whitelist>
       </startup>
       <honeypots>
         <usehoneypots>1</usehoneypots>
@@ -291,21 +289,13 @@
           <version>3</version>
           <port>389</port>
           <tls>0</tls>
-          <rootdn>
-            <![CDATA[cn=admin,dc=newtworksecurities,dc=com]]>
-          </rootdn>
+          <rootdn><![CDATA[cn=admin,dc=newtworksecurities,dc=com]]></rootdn>
           <rootpassword>newtworksecurities</rootpassword>
-          <userdn>
-            <![CDATA[ou=users,dc=newtworksecurities,dc=com]]>
-          </userdn>
-          <filter>
-            <![CDATA[(&(%s=%s)(groups=newtworksecurities-magento-1))]]>
-          </filter>
+          <userdn><![CDATA[ou=users,dc=newtworksecurities,dc=com]]></userdn>
+          <filter><![CDATA[(&(%s=%s)(groups=newtworksecurities-magento-1))]]></filter>
           <cmpattr>cn</cmpattr>
           <passattr>userPassword</passattr>
-          <attr>
-            <![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]>
-          </attr>
+          <attr><![CDATA[{"login":"cn","firstname":"givenname","mail":"mail","lastname":"sn"}]]></attr>
           <defaultroleid>20</defaultroleid>
           <adminatuocreate>0</adminatuocreate>
         </adminlogin>

@@ -29,7 +29,7 @@ class Wsu_NewtworkSecurities_Block_Adminhtml_System_Config_ApiWizard extends Mag
     protected function _prepareLayout() {
         parent::_prepareLayout();
         if (!$this->getTemplate()) {
-            $this->setTemplate('wsu_newtworksecurities/system/config/api_wizard.phtml');
+            $this->setTemplate('wsu/newtworksecurities/system/config/api_wizard.phtml');
         }
         return $this;
     }
@@ -57,7 +57,7 @@ class Wsu_NewtworkSecurities_Block_Adminhtml_System_Config_ApiWizard extends Mag
         $originalData = $element->getOriginalData();
         $this->addData(array(
             'button_label' => Mage::helper('admin')->__($originalData['button_label']),
-            'button_url' => $this->getUrl('*/system_config/edit/section/newtworksecurities'), //$originalData['button_url'],
+            'button_url' => $this->getUrl('*/system_config/edit/section/wsu_newtworksecuritie'), //$originalData['button_url'],
             'html_id' => $element->getHtmlId()
         ));
         return $this->_toHtml();
