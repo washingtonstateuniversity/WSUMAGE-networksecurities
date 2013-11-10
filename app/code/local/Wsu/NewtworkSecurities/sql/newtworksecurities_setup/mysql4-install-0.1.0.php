@@ -29,6 +29,8 @@ $installer = $this;
 $installer->startSetup();
 
 
+$installer->run("ALTER TABLE {$this->getTable('review')} ADD `spam` int(11) DEFAULT '0';");
+
 /* Admin logging */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('newtworksecurities/wsu_spamlog'))
