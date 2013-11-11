@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<layout>
+    <honeypot>
+        <reference name="head">
+            <action method="addJs">
+                <script>wsu/networksecurities/networksecurities.js</script>
+            </action>
+        </reference>
+    </honeypot>
+
+    <customer_account_create>
+        <update handle="honeypot" />
+        <reference name="form.additional.info">
+            <block type="wsu_networksecurities/honeypot" name="networksecurities.honeypot"
+                   template="wsu/networksecurities/honeypot.phtml" />
+        </reference>
+    </customer_account_create>
+
+    <review_product_list>
+        <update handle="honeypot" />
+        <reference name="product.review.form.fields.before">
+                   
+            <block type="wsu_networksecurities/honeypot" name="networksecurities.honeypot"
+                   template="wsu/networksecurities/honeypot.phtml" />
+        </reference>
+    </review_product_list>
+    <networksecurities_adminhtml_failedlogintracker_index>
+        <reference name="content">
+            <block type="networksecurities/adminhtml_failedLoginTracker" name="failedlogintracker" />
+        </reference>
+    </networksecurities_adminhtml_failedlogintracker_index>
+    <wsu_networksecurities_error_index>
+        <reference name="content">
+            <block type="core/template" name="networksecurities.error" template="wsu/networksecurities/error.phtml"/>
+        </reference>
+    </wsu_networksecurities_error_index>
+
+</layout>

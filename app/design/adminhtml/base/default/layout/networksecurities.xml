@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <honeypot>
+        <reference name="head">
+            <action method="addJs">
+                <script>wsu/networksecurities/networksecurities.js</script>
+            </action>
+        </reference>
+        <reference name="form.additional.info">
+			<block type="wsu_networksecurities/honeypot" name="networksecurities.honeypot">
+				<action method="setTemplate" ifconfig="wsu_networksecurities/honeypot/usehoneypots">
+					<template>wsu/networksecurities/honeypot.phtml</template> 
+				</action>
+			</block>
+        </reference>
+    </honeypot>
+	
+    <adminhtml_index_login>
+        <update handle="honeypot"/>
+    </adminhtml_index_login>
+    <wsu_networksecurities_error_index>
+        <reference name="content">
+            <block type="core/template" name="networksecurities.error" template="wsu/networksecurities/error.phtml"/>
+        </reference>
+    </wsu_networksecurities_error_index>
+</layout>

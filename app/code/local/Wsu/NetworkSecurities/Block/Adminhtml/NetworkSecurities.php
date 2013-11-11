@@ -1,0 +1,3 @@
+<?php
+class Wsu_NetworkSecurities_Block_Adminhtml_NetworkSecurities extends Mage_Core_Block_Template {
+}
