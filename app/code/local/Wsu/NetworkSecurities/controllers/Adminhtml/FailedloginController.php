@@ -1,8 +1,8 @@
 <?php
-class Wsu_NetworkSecurities_Adminhtml_FailedlogintrackerController extends Mage_Adminhtml_Controller_Action {
+class Wsu_NetworkSecurities_Adminhtml_FailedloginController extends Mage_Adminhtml_Controller_Action {
 	protected function _initAction() {
 		$this->loadLayout()
-			->_setActiveMenu('customer/failedlogintracker')
+			->_setActiveMenu('customer/failedlogin')
 			->_addBreadcrumb(Mage::helper('adminhtml')->__('Items Manager'), Mage::helper('adminhtml')->__('Item Manager'));
 		return $this;
 	}

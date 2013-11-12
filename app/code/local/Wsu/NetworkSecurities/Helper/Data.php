@@ -26,14 +26,15 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 	
 	public function setFailedLogin($login,$password=""){
-	        $failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
-        	$failed_log->setLoginId($login);
-        	$failed_log->setPassword($password);
+	        $failed_log = Mage::getModel('networksecurities/failedlogin');
+        	$failed_log->setLogin($login);
+        	$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
 			$failed_log->setIp($_SERVER['REMOTE_ADDR']);
 			$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 			$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
         	$failed_log->save();
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Invalid login or password.'), self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD );	
+			Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+            //throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Invalid login or password.'), self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD );	
 	}
 	
 	

@@ -36,9 +36,9 @@
       <networksecurities_resource>
         <class>Wsu_NetworkSecurities_Model_Resource</class>
         <entities>
-          <failedlogin_log>
+          <failedlogin>
             <table>wsu_failedlogin_log</table>
-          </failedlogin_log>
+          </failedlogin>
           <spam_log>
             <table>wsu_spamlog</table>
           </spam_log>
