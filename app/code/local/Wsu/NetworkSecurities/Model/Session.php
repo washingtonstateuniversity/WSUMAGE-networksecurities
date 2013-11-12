@@ -34,24 +34,10 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
      */
     public function login($username, $password, $request = null) {
 		$helper = Mage::helper('wsu_networksecurities');
-		$usehoneypots    = $helper->getConfig('honeypot/usehoneypots');
-		if ($usehoneypots){
-			$id = $helper->getHoneypotId();
-			$HoneypotName = $helper->getHoneypotName($id);
-			$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
-			if ($Honeypot!="") {
-				Mage::log('Honeypot Input filled. Aborted.',Zend_Log::WARN);
-				Mage::helper('wsu_networksecurities')->setFailedLogin($username,$password);
-				$response=Mage::app()->getFrontController()->getResponse();
-				$url = Mage::helper('adminhtml')->getUrl('adminhtml/error/index/', array('_nosecret' => true));
-				$response->setRedirect($url);
-				$response->sendResponse();
-				return;
-			}
-		}
-        if (empty($username) || empty($password)) {
-            return;
-        }
+
+		if(!$helper->testLogin($username,$password))
+			return;
+
         $this->load_Parameters();
         if (!$this->actived) //CHECK MAGENTO CONNECT
             return parent::login($username, $password, $request);

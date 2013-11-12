@@ -14,7 +14,6 @@
 			</block>
         </reference>
     </honeypot>
-	
     <adminhtml_index_login>
         <update handle="honeypot"/>
     </adminhtml_index_login>
