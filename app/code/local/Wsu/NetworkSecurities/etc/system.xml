@@ -291,9 +291,33 @@
 				</err404_local>
 			  </fields>
 			</err404>
-			
-			
-
+			<honeypage type="group" translate="label comment">
+			  <label>Honeypot pages</label>
+			  <sort_order>10</sort_order>
+			  <show_in_default>1</show_in_default>
+			  <show_in_website>1</show_in_website>
+			  <show_in_store>1</show_in_store>
+			  <fields>
+				<honeypage_pot translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+				  <label>Auto Honeypot Pages</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>40</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				  <comment><![CDATA[ create a few pages to use as honey pots.  <b>CSV</b> ]]></comment>
+				</honeypage_pot>
+				<honeypage_error translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+				  <label>Error page for that accidental triggered, .0001% guy that was poking around and got caught in the pot.</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>40</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				  <comment><![CDATA[ just pas the url/path, and this will be used for all pots. ]]></comment>
+				</honeypage_error>
+			  </fields>
+			</honeypage>
           </fields>
 		</errorpages>
 		
