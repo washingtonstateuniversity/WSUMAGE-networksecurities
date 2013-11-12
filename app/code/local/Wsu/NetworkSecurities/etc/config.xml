@@ -225,6 +225,7 @@
       <ldap>
         <adminlogin>
           <activeldap>0</activeldap>
+		  <allow_request>1</allow_request>
           <host>ldap1</host>
           <version>3</version>
           <port>389</port>

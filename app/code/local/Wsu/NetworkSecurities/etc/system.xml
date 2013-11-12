@@ -207,6 +207,100 @@
 				</createhoneypot>	
           </fields>
 		</honeypot>
+        <errorpages translate="label comment">
+          <label>Error and Warning Handling</label>
+          <sort_order>40</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+            <activeerror translate="label comment">
+              <label>Use Active Error Pages</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+			  <comment><![CDATA[<b>NOTE THIS PART OF THE MODULE IF NOT ACTIVE IT'S SELF</b>]]></comment>
+            </activeerror>
+			<err500 type="group" translate="label comment">
+			  <label>5XX Pages</label>
+			  <sort_order>10</sort_order>
+			  <show_in_default>1</show_in_default>
+			  <show_in_website>1</show_in_website>
+			  <show_in_store>1</show_in_store>
+			  <fields>
+				<active_err500 translate="label comment">
+				  <label>Use active 500 pages</label>
+				  <frontend_type>select</frontend_type>
+				  <source_model>adminhtml/system_config_source_yesno</source_model>
+				  <sort_order>1</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</active_err500>
+				<err500_fake404 translate="label comment">
+				  <label>Fake a 404</label>
+				  <frontend_type>select</frontend_type>
+				  <source_model>adminhtml/system_config_source_yesno</source_model>
+				  <sort_order>1</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				  <comment><![CDATA[ The goal in using this is to not display a crack in the system, but quitely report it to someone and 404 the user.]]></comment>
+				  <depends><active_err500>1</active_err500></depends>
+				</err500_fake404>
+				<err500_local translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+				  <label>Url/path</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>40</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				  <comment><![CDATA[ Use a Url of path for the 500 Page you wish to use.  <b>NOTE</b> that one example is to use a CMSPage]]></comment>
+				  <depends><active_err500>1</active_err500></depends>
+				</err500_local>
+			  </fields>
+			</err500>
+			<err404 type="group" translate="label comment">
+			  <label>5XX Pages</label>
+			  <sort_order>10</sort_order>
+			  <show_in_default>1</show_in_default>
+			  <show_in_website>1</show_in_website>
+			  <show_in_store>1</show_in_store>
+			  <fields>
+				<active_err404 translate="label comment">
+				  <label>Use active 404 pages</label>
+				  <frontend_type>select</frontend_type>
+				  <source_model>adminhtml/system_config_source_yesno</source_model>
+				  <sort_order>1</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				</active_err404>
+				<err404_local translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+				  <label>Url/path</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>40</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+				  <comment><![CDATA[ Use a Url of path for the 404 Page you wish to use.  <b>NOTE</b> that one example is to use a CMSPage]]></comment>
+				  <depends><active_err404>1</active_err404></depends>
+				</err404_local>
+			  </fields>
+			</err404>
+			
+			
+
+          </fields>
+		</errorpages>
+		
+		
+		
+		
+		
         <ldap translate="label comment">
           <label>LDAP</label>
           <sort_order>10</sort_order>
@@ -225,11 +319,32 @@
 					  <label>Enable LDAP admin login</label>
 					  <frontend_type>select</frontend_type>
 					  <source_model>adminhtml/system_config_source_yesno</source_model>
-					  <sort_order>10</sort_order>
+					  <sort_order>1</sort_order>
 					  <show_in_default>1</show_in_default>
 					  <show_in_website>1</show_in_website>
 					  <show_in_store>1</show_in_store>
 					</activeldap>
+					<allow_request translate="label comment">
+					  <label>Allow users to request Admin access</label>
+					  <frontend_type>select</frontend_type>
+					  <source_model>adminhtml/system_config_source_yesno</source_model>
+					  <sort_order>2</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+					</allow_request>
+					<requestemail translate="label comment">
+					  <label>Email to notify</label>
+					  <frontend_type>text</frontend_type><!-- this will need to be the drop down of the contacts +other -->
+					  <sort_order>3</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+					  <comment>
+						<![CDATA[<b>NOTE:</b> This is where a request will be going for.  It is worth noting that auto-create wouldn't negate the need for requests. ]]>
+					  </comment>
+					  <depends><allow_request>1</allow_request></depends>
+					</requestemail>
 					<allow_bypass translate="label comment">
 					  <label>Allow bypass of LDAP if a user</label>
 					  <frontend_type>select</frontend_type>
