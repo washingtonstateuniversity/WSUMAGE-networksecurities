@@ -1,11 +1,4 @@
 <?php
-/**
- * Customer model
- *
- * @category    Mage
- * @package     Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 class Wsu_NetworkSecurities_Model_Customer_Customer extends Mage_Customer_Model_Customer {
     /**
      * Authenticate customer
