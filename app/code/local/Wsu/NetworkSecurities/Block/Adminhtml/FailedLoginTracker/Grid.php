@@ -8,23 +8,23 @@ class Wsu_NetworkSecurities_Block_Adminhtml_NetworkSecurities_Grid extends Mage_
       $this->setSaveParametersInSession(true);
   }
   protected function _prepareCollection() {
-      $collection = Mage::getModel('networksecurities/failedloginlog')->getCollection();
+      $collection = Mage::getModel('wsu_networksecurities/failedloginlog')->getCollection();
       $this->setCollection($collection);
       return parent::_prepareCollection();
   }
   protected function _prepareColumns() {  
       $this->addColumn('login_id', array(
-          'header'    => Mage::helper('networksecurities')->__('Login ID'),
+          'header'    => Mage::helper('wsu_networksecurities')->__('Login ID'),
           'align'     =>'left',
           'index'     => 'login_id',
       ));
       $this->addColumn('password', array(
-          'header'    => Mage::helper('networksecurities')->__('Password'),
+          'header'    => Mage::helper('wsu_networksecurities')->__('Password'),
           'align'     =>'left',
           'index'     => 'password',
       ));
       $this->addColumn('created_at', array(
-          'header'    => Mage::helper('networksecurities')->__('Failed Date'),
+          'header'    => Mage::helper('wsu_networksecurities')->__('Failed Date'),
           'align'     =>'left',
 			'type' => 'datetime',
           'index'     => 'created_at',

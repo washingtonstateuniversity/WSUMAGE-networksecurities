@@ -8,7 +8,7 @@ class Wsu_NetworkSecurities_RefreshController extends Mage_Core_Controller_Front
      */
     public function indexAction() {
         $formId = $this->getRequest()->getPost('formId');
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         $this->getLayout()->createBlock($networksecuritiesModel->getBlockName())->setFormId($formId)->setIsAjax(true)->toHtml();
         $this->getResponse()->setBody(json_encode(array('imgSrc' => $networksecuritiesModel->getImgSrc())));
         $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
