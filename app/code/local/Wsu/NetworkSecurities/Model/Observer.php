@@ -357,4 +357,35 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
         $networksecuritiesParams = $request->getPost(Wsu_NetworkSecurities_Helper_Data::INPUT_NAME_FIELD_VALUE);
         return $networksecuritiesParams[$formId];
     }
+	
+	
+	
+	
+	// called directed and also from the event admin_session_user_login_failed
+	// should be called with the customer too	
+	public function setFailedLogin($login,$password=""){
+		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
+		//$pastatempts = $failed_log ->getCollection();
+		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
+		if(is_object($login)){
+			$login=$login->getUsername();	
+		}
+		if($login==null){
+			if(isset($_POST['login'])){
+				$login=$_POST['login']['username'];
+			}
+		}
+		$failed_log->setLogin($login);
+		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
+		$failed_log->setIp($_SERVER['REMOTE_ADDR']);
+		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
+		$failed_log->save();
+		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+	}
+	
+	
+	
+	
+	
 }
