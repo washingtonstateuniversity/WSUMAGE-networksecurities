@@ -62,10 +62,11 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 	}
 	
-	// called directed and also from the event admin_session_user_login_failed
+	/*// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
 	public function setFailedLogin($login,$password=""){
-		$failed_log = Mage::getModel('networksecurities/failedlogin');
+		die('GOT TO FAILED - ready to log');
+		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		//$pastatempts = $failed_log ->getCollection();
 		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
 
@@ -76,7 +77,7 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
 		$failed_log->save();
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
-	}
+	}*/
 	
 	
 

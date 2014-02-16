@@ -2,7 +2,7 @@
 class Wsu_NetworkSecurities_Model_Failedlogin extends Mage_Core_Model_Abstract {
     public function _construct(){
         parent::_construct();
-        $this->_init('networksecurities/failedlogin');
+        $this->_init('wsu_networksecurities/failedlogin');
     }
 /*    
 	public function _beforeSave(){

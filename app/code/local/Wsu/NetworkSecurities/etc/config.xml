@@ -29,10 +29,10 @@
           <customer>Wsu_NetworkSecurities_Model_Customer_Customer</customer>
         </rewrite>
       </customer>
-      <networksecurities>
+      <wsu_networksecurities>
         <class>Wsu_NetworkSecurities_Model</class>
         <resourceModel>networksecurities_resource</resourceModel>
-      </networksecurities>
+      </wsu_networksecurities>
       <networksecurities_resource>
         <class>Wsu_NetworkSecurities_Model_Resource</class>
         <entities>
@@ -118,7 +118,7 @@
       <admin_session_user_login_failed>
         <observers>
           <networksecurities_setFailedLogin>
-            <class>networksecurities/helper</class>
+            <class>wsu_networksecurities/observer</class>
             <method>setFailedLogin</method>
           </networksecurities_setFailedLogin>
         </observers>

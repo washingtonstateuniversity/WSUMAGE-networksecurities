@@ -49,7 +49,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
                 if (!$this->allow_bypass) {
                     Mage::getSingleton('core/session')->addError('Incorrect password our username.<br/> <strong>You now have %s trys before a timeout lock is applied.</strong>');
                     Mage::getSingleton('core/session')->addError('<em>You may not be athourized to use this system to which you must request access.</em>');
-					Mage::helper('networksecurities')->setFailedLogin($login,$password);
+					Mage::helper('wsu_networksecurities')->setFailedLogin($login,$password);
                     return false;
                 }
                 return parent::login($username, $password, $request); //process normally with out ldap

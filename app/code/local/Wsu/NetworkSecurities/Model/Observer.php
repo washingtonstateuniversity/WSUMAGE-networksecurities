@@ -149,11 +149,11 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkForgotpassword($observer) {
         $formId         = 'user_forgotpassword';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         if ($networksecuritiesModel->isRequired()) {
             $controller = $observer->getControllerAction();
             if (!$networksecuritiesModel->isCorrect($this->_getNetworkSecuritiesString($controller->getRequest(), $formId))) {
-                Mage::getSingleton('customer/session')->addError(Mage::helper('networksecurities')->__('Incorrect CAPTCHA.'));
+                Mage::getSingleton('customer/session')->addError(Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
             }
@@ -168,14 +168,14 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkUserLogin($observer) {
         $formId         = 'user_login';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         $controller     = $observer->getControllerAction();
         $loginParams    = $controller->getRequest()->getPost('login');
         $login          = array_key_exists('username', $loginParams) ? $loginParams['username'] : null;
         if ($networksecuritiesModel->isRequired($login)) {
             $word = $this->_getNetworkSecuritiesString($controller->getRequest(), $formId);
             if (!$networksecuritiesModel->isCorrect($word)) {
-                Mage::getSingleton('customer/session')->addError(Mage::helper('networksecurities')->__('Incorrect CAPTCHA.'));
+                Mage::getSingleton('customer/session')->addError(Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('customer/session')->setUsername($login);
                 $beforeUrl = Mage::getSingleton('customer/session')->getBeforeAuthUrl();
@@ -194,11 +194,11 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkUserCreate($observer) {
         $formId         = 'user_create';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         if ($networksecuritiesModel->isRequired()) {
             $controller = $observer->getControllerAction();
             if (!$networksecuritiesModel->isCorrect($this->_getNetworkSecuritiesString($controller->getRequest(), $formId))) {
-                Mage::getSingleton('customer/session')->addError(Mage::helper('networksecurities')->__('Incorrect CAPTCHA.'));
+                Mage::getSingleton('customer/session')->addError(Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('customer/session')->setCustomerFormData($controller->getRequest()->getPost());
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/create'));
@@ -214,7 +214,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkGuestCheckout($observer) {
         $formId         = 'guest_checkout';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
         if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
             if ($networksecuritiesModel->isRequired()) {
@@ -223,7 +223,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                     $result = array(
                         'error' => 1,
-                        'message' => Mage::helper('networksecurities')->__('Incorrect CAPTCHA.')
+                        'message' => Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.')
                     );
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 }
@@ -239,7 +239,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkRegisterCheckout($observer) {
         $formId         = 'register_during_checkout';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
         if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER) {
             if ($networksecuritiesModel->isRequired()) {
@@ -248,7 +248,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                     $result = array(
                         'error' => 1,
-                        'message' => Mage::helper('networksecurities')->__('Incorrect CAPTCHA.')
+                        'message' => Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.')
                     );
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 }
@@ -264,13 +264,13 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkUserLoginBackend($observer) {
         $formId         = 'backend_login';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         $loginParams    = Mage::app()->getRequest()->getPost('login', array());
         $login          = array_key_exists('username', $loginParams) ? $loginParams['username'] : null;
         if ($networksecuritiesModel->isRequired($login)) {
             if (!$networksecuritiesModel->isCorrect($this->_getNetworkSecuritiesString(Mage::app()->getRequest(), $formId))) {
                 $networksecuritiesModel->logAttempt($login);
-                Mage::throwException(Mage::helper('networksecurities')->__('Incorrect CAPTCHA.'));
+                Mage::throwException(Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.'));
             }
         }
         $networksecuritiesModel->logAttempt($login);
@@ -292,7 +292,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      */
     public function checkUserForgotPasswordBackend($observer) {
         $formId         = 'backend_forgotpassword';
-        $networksecuritiesModel = Mage::helper('networksecurities')->getNetworkSecurities($formId);
+        $networksecuritiesModel = Mage::helper('wsu_networksecurities')->getNetworkSecurities($formId);
         $controller     = $observer->getControllerAction();
         $email          = (string) $observer->getControllerAction()->getRequest()->getParam('email');
         $params         = $observer->getControllerAction()->getRequest()->getParams();
@@ -301,7 +301,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
                 if (!$networksecuritiesModel->isCorrect($this->_getNetworkSecuritiesString($controller->getRequest(), $formId))) {
                     $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $this->_getBackendSession()->addError(Mage::helper('networksecurities')->__('Incorrect CAPTCHA.'));
+                    $this->_getBackendSession()->addError(Mage::helper('wsu_networksecurities')->__('Incorrect CAPTCHA.'));
                     $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
                 }
             }
@@ -332,7 +332,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      * @return Wsu_NetworkSecurities_Model_Observer
      */
     public function deleteOldAttempts() {
-        Mage::getResourceModel('networksecurities/log')->deleteOldAttempts();
+        Mage::getResourceModel('wsu_networksecurities/log')->deleteOldAttempts();
         return $this;
     }
 
@@ -343,7 +343,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
      * @return Wsu_NetworkSecurities_Model_Observer
      */
     protected function _resetAttempt($login) {
-        Mage::getResourceModel('networksecurities/log')->deleteUserAttempts($login);
+        Mage::getResourceModel('wsu_networksecurities/log')->deleteUserAttempts($login);
         return $this;
     }
     /**
@@ -357,4 +357,43 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
         $networksecuritiesParams = $request->getPost(Wsu_NetworkSecurities_Helper_Data::INPUT_NAME_FIELD_VALUE);
         return $networksecuritiesParams[$formId];
     }
+	
+	
+	
+	
+	// called directed and also from the event admin_session_user_login_failed
+	// should be called with the customer too	
+	public function setFailedLogin($login,$password=""){
+		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
+		//$pastatempts = $failed_log ->getCollection();
+		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
+		if(is_object($login)){
+			$login=$login->getUsername();	
+		}
+		if($login==null){
+			if(isset($_POST['login'])){
+				$login=$_POST['login']['username'];
+			}
+		}
+		$failed_log->setLogin($login);
+		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
+		$failed_log->setIp($_SERVER['REMOTE_ADDR']);
+		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
+		$failed_log->save();
+		$cookie = Mage::getSingleton('core/cookie');
+		$count=1;
+		if(isset($_COOKIE['userpasshash'])){
+			$old=explode(':',$_COOKIE['userpasshash']);
+			$count=(int)end($old)+1;
+		}
+		#this is to send wouldbe level hackers on a runaround
+		$cookie->set('userpasshash', md5(time()).":".$count ,time()+86400,'/');
+		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+	}
+	
+	
+	
+	
+	
 }

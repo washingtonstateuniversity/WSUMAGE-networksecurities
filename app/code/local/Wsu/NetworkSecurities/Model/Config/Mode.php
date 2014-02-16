@@ -15,11 +15,11 @@ class Wsu_NetworkSecurities_Model_Config_Mode {
     public function toOptionArray() {
         return array(
             array(
-                'label' => Mage::helper('networksecurities')->__('Always'),
+                'label' => Mage::helper('wsu_networksecurities')->__('Always'),
                 'value' => Wsu_NetworkSecurities_Helper_Data::MODE_ALWAYS
             ),
             array(
-                'label' => Mage::helper('networksecurities')->__('After number of attempts to login'),
+                'label' => Mage::helper('wsu_networksecurities')->__('After number of attempts to login'),
                 'value' => Wsu_NetworkSecurities_Helper_Data::MODE_AFTER_FAIL
             ),
         );
