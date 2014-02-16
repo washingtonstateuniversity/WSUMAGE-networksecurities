@@ -382,8 +382,13 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
 		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
 		$failed_log->save();
 		$cookie = Mage::getSingleton('core/cookie');
-		$count= isset($_COOKIE['userpasshash']) ? end(split(':',$_COOKIE['userpasshash'])) : 1;
-		$cookie->set('userpasshash', md5(time())+":"+$count ,time()+86400,'/');#this is to send wouldbe level hackers on a runaround
+		$count=1;
+		if(isset($_COOKIE['userpasshash'])){
+			$old=explode(':',$_COOKIE['userpasshash']);
+			$count=(int)end($old)+1;
+		}
+		#this is to send wouldbe level hackers on a runaround
+		$cookie->set('userpasshash', md5(time()).":".$count ,time()+86400,'/');
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
 	
