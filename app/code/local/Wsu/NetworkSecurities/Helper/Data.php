@@ -100,7 +100,7 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
 	public function captchaAvailable() {
 		if (Mage::helper('core')->isModuleEnabled('Wsu_NetworkSecurities')){
-			return class_exists('Zend_Service_ReCaptcha') && Mage::getStoreConfig('wsu_networksecurities/captcha/public_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/private_key');
+			return class_exists('Zend_Service_ReCaptcha') && Mage::getStoreConfig('wsu_networksecurities/captcha/public_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/private_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/mode') != "off";
 		}
 		return false;
 	}
