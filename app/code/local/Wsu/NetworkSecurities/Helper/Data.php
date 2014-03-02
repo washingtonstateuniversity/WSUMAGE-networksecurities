@@ -33,6 +33,24 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getWhitelist($store = null) {
         return Mage::getStoreConfig('wsu_networksecurities/startup/require_login_whitelist', $store);
     }
+
+	public function testpot(){
+		$id = $this->getHoneypotId();
+		$HoneypotName = $this->getHoneypotName($id);
+		$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
+		if ($Honeypot!="") {
+			/*Mage::log('Honeypot Input filled. Aborted.',Zend_Log::WARN);
+			$response=Mage::app()->getFrontController()->getResponse();
+			$url = Mage::helper('adminhtml')->getUrl('adminhtml/error/index/', array('_nosecret' => true));
+			$response->setRedirect($url);
+			$response->sendResponse();*/
+			return false;
+		}
+		return true;
+	}
+
+
+
 	
 	public function testLogin($username,$password){
 		$helper = Mage::helper('wsu_networksecurities');
