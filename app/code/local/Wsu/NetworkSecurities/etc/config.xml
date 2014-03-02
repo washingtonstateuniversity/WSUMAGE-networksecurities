@@ -212,6 +212,12 @@
           <![CDATA[#(customer\/account\/(log(in|out)|forgotpassword|resetpassword|create))#]]>
         </require_login_whitelist>
       </startup>
+		<captcha>
+			<mode>default</mode>
+			<api>standard</api>
+			<theme>red</theme>
+			<language>en</language>
+		</captcha>
       <honeypots>
         <usehoneypots>1</usehoneypots>
         <hpp_lastseen_threshold>10</hpp_lastseen_threshold>

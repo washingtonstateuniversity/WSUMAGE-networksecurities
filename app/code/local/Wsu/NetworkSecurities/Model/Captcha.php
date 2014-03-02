@@ -6,7 +6,7 @@ class Wsu_NetworkSecurities_Model_Captcha extends Zend_Service_ReCaptcha {
 		$return = "";
 		$div_id = "webform_recaptcha";
 		if (Mage::registry('webform')) {
-			$div_id = "webform_" . Mage::registry('webform')->getId() . "_recaptcha";
+			$div_id = "webform_" . Mage::registry('wsu_networksecurities')->getId() . "_recaptcha";
 		}
 		$return .= <<<HTML
 		<div id="{$div_id}"></div>
