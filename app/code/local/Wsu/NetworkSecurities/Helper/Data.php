@@ -42,12 +42,12 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 		$usehoneypots    = $helper->getConfig('honeypot/usehoneypots');
 		if ($usehoneypots){
-			$helper->testPots($username,$password);
+			$helper->testloginPots($username,$password);
 		}
 		return true;
 	}
 	
-	public function testPots($username="",$password=""){
+	public function testloginPots($username="",$password=""){
 		$id = $this->getHoneypotId();
 		$HoneypotName = $this->getHoneypotName($id);
 		$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
