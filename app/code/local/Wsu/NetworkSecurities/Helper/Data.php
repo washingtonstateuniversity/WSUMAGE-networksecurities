@@ -96,24 +96,23 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 		return true;
 	}
-	/*// called directed and also from the event admin_session_user_login_failed
-	// should be called with the customer too	
-	public function setFailedLogin($login,$password=""){
-		die('GOT TO FAILED - ready to log');
-		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
-		//$pastatempts = $failed_log ->getCollection();
-		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
-
-		$failed_log->setLogin($login);
-		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
-		$failed_log->setIp($_SERVER['REMOTE_ADDR']);
-		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
-		$failed_log->save();
-		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
-	}*/
 	
 	
-
-
+	
+	public function getCaptcha() {
+		$pubKey  = Mage::getStoreConfig('wsu_networksecurities/captcha/public_key');
+		$privKey = Mage::getStoreConfig('wsu_networksecurities/captcha/private_key');
+		if ($pubKey && $privKey) {
+			$recaptcha = Mage::getModel('wsu_networksecurities/captcha');
+			$recaptcha->setPublicKey($pubKey);
+			$recaptcha->setPrivateKey($privKey);
+			$theme = Mage::getStoreConfig('wsu_networksecurities/captcha/theme');
+			if ($theme)
+				$recaptcha->setOption('theme', $theme);
+			$language = Mage::getStoreConfig('wsu_networksecurities/captcha/language');
+			if ($language)
+				$recaptcha->setOption('lang', $language);
+		}
+		return $recaptcha;
+	}
 }
