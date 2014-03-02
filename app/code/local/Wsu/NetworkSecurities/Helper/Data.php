@@ -107,11 +107,13 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			$recaptcha->setPublicKey($pubKey);
 			$recaptcha->setPrivateKey($privKey);
 			$theme = Mage::getStoreConfig('wsu_networksecurities/captcha/theme');
-			if ($theme)
+			if ($theme){
 				$recaptcha->setOption('theme', $theme);
+			}
 			$language = Mage::getStoreConfig('wsu_networksecurities/captcha/language');
-			if ($language)
+			if ($language){
 				$recaptcha->setOption('lang', $language);
+			}
 		}
 		return $recaptcha;
 	}
