@@ -6,24 +6,47 @@
                 <script>wsu/networksecurities/networksecurities.js</script>
             </action>
         </reference>
-    </honeypot>
-
-    <customer_account_create>
-        <update handle="honeypot" />
         <reference name="form.additional.info">
-            <block type="wsu_networksecurities/honeypot" name="networksecurities.honeypot"
-                   template="wsu/networksecurities/honeypot.phtml" />
+			<block type="wsu_networksecurities/honeypot" name="networksecurities.honeypot">
+				<action method="setTemplate" ifconfig="wsu_networksecurities/honeypot/usehoneypots">
+					<template>wsu/networksecurities/honeypot.phtml</template> 
+				</action>
+			</block>
         </reference>
+    </honeypot>
+<!-- honeypot forms -->	
+	<!-- contact forms -->
+	<contacts_index_index>
+		<update handle="honeypot"/>
+	</contacts_index_index>
+	<!-- customer forms -->
+	<customer_account_login>
+		<update handle="honeypot"/>
+	</customer_account_login>
+    <customer_account_create>
+		<update handle="honeypot"/>
     </customer_account_create>
-
     <review_product_list>
-        <update handle="honeypot" />
-        <reference name="product.review.form.fields.before">
-                   
-            <block type="wsu_networksecurities/honeypot" name="networksecurities.honeypot"
-                   template="wsu/networksecurities/honeypot.phtml" />
-        </reference>
+		<update handle="honeypot"/>
     </review_product_list>
+    <customer_account_forgotpassword>
+		<update handle="honeypot"/>
+    </customer_account_forgotpassword>
+    <customer_account_resetpassword>
+		<update handle="honeypot"/>
+    </customer_account_resetpassword>
+    <customer_account_confirmation>
+		<update handle="honeypot"/>
+    </customer_account_confirmation>
+    <customer_account_edit>
+		<update handle="honeypot"/>
+    </customer_account_edit>
+	<!-- cart forms -->
+    <checkout_onepage_index>
+		<update handle="honeypot"/>
+    </checkout_onepage_index>
+
+<!-- tracking forms -->
     <networksecurities_adminhtml_failedlogintracker_index>
         <reference name="content">
             <block type="networksecurities/adminhtml_failedLoginTracker" name="failedlogintracker" />
