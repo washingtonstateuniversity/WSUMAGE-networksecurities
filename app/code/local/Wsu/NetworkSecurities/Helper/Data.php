@@ -33,6 +33,24 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getWhitelist($store = null) {
         return Mage::getStoreConfig('wsu_networksecurities/startup/require_login_whitelist', $store);
     }
+
+	public function testpot(){
+		$id = $this->getHoneypotId();
+		$HoneypotName = $this->getHoneypotName($id);
+		$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
+		if ($Honeypot!="") {
+			/*Mage::log('Honeypot Input filled. Aborted.',Zend_Log::WARN);
+			$response=Mage::app()->getFrontController()->getResponse();
+			$url = Mage::helper('adminhtml')->getUrl('adminhtml/error/index/', array('_nosecret' => true));
+			$response->setRedirect($url);
+			$response->sendResponse();*/
+			return false;
+		}
+		return true;
+	}
+
+
+
 	
 	public function testLogin($username,$password){
 		$helper = Mage::helper('wsu_networksecurities');
@@ -42,12 +60,12 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 		$usehoneypots    = $helper->getConfig('honeypot/usehoneypots');
 		if ($usehoneypots){
-			$helper->testPots($username,$password);
+			$helper->testloginPots($username,$password);
 		}
 		return true;
 	}
 	
-	public function testPots($username="",$password=""){
+	public function testloginPots($username="",$password=""){
 		$id = $this->getHoneypotId();
 		$HoneypotName = $this->getHoneypotName($id);
 		$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
@@ -62,24 +80,64 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 	}
 	
-	/*// called directed and also from the event admin_session_user_login_failed
-	// should be called with the customer too	
-	public function setFailedLogin($login,$password=""){
-		die('GOT TO FAILED - ready to log');
-		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
-		//$pastatempts = $failed_log ->getCollection();
-		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
-
-		$failed_log->setLogin($login);
-		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
-		$failed_log->setIp($_SERVER['REMOTE_ADDR']);
-		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
-		$failed_log->save();
-		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
-	}*/
+	public function get_ip_address() {
+		$ip_keys = array(
+			'HTTP_CLIENT_IP',
+			'HTTP_X_FORWARDED_FOR',
+			'HTTP_X_FORWARDED',
+			'HTTP_X_CLUSTER_CLIENT_IP',
+			'HTTP_FORWARDED_FOR',
+			'HTTP_FORWARDED',
+			'REMOTE_ADDR'
+		);
+		foreach ($ip_keys as $key) {
+			if (array_key_exists($key, $_SERVER) === true) {
+				foreach (explode(',', $_SERVER[$key]) as $ip) {
+					// trim for safety measures
+					$ip = trim($ip);
+					// attempt to validate IP
+					if (validate_ip($ip)) {
+						return $ip;
+					}
+				}
+			}
+		}
+		return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : false;
+	}
+	/**
+	 * Ensures an ip address is both a valid IP and does not fall within
+	 * a private network range.
+	 */
+	public function validate_ip($ip) {
+		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+			return false;
+		}
+		return true;
+	}
 	
 	
-
-
+	public function captchaAvailable() {
+		if (Mage::helper('core')->isModuleEnabled('Wsu_NetworkSecurities')){
+			return class_exists('Zend_Service_ReCaptcha') && Mage::getStoreConfig('wsu_networksecurities/captcha/public_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/private_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/mode') != "off";
+		}
+		return false;
+	}
+	public function getCaptcha() {
+		$pubKey  = Mage::getStoreConfig('wsu_networksecurities/captcha/public_key');
+		$privKey = Mage::getStoreConfig('wsu_networksecurities/captcha/private_key');
+		if ($pubKey && $privKey) {
+			$recaptcha = Mage::getModel('wsu_networksecurities/captcha');
+			$recaptcha->setPublicKey($pubKey);
+			$recaptcha->setPrivateKey($privKey);
+			$theme = Mage::getStoreConfig('wsu_networksecurities/captcha/theme');
+			if ($theme){
+				$recaptcha->setOption('theme', $theme);
+			}
+			$language = Mage::getStoreConfig('wsu_networksecurities/captcha/language');
+			if ($language){
+				$recaptcha->setOption('lang', $language);
+			}
+		}
+		return $recaptcha;
+	}
 }
