@@ -242,6 +242,7 @@
         <hpp_test_ip>218.10.17.107</hpp_test_ip>
       </honeypots>
       <blacklist>
+	  	<useblacklist>1</useblacklist>
         <limiter>3</limiter>
       </blacklist>
       <ldap>
