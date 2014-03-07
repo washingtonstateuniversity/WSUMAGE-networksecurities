@@ -5,9 +5,14 @@ $installer = $this;
 $installer->startSetup();
 
 
+$installer->getConnection()->dropTable($this->getTable('wsu_spamlog'));
+$installer->getConnection()->dropTable($this->getTable('wsu_failedlogin_log'));
+$installer->getConnection()->dropTable($this->getTable('wsu_blacklist'));
+
+
+
 $table_spamlog = $installer->getTable('wsu_spamlog');
 $installer->run("
-    DROP TABLE IF EXISTS `{$table_spamlog}`;
     CREATE TABLE `{$table_spamlog}` (
   `spamlog_id` int(10) NOT NULL AUTO_INCREMENT,
   `updated_at` timestamp,
@@ -32,7 +37,6 @@ $connection->addColumn($this->getTable('review'), "spam","TINYINT(1) UNSIGNED DE
 
 $table_failedlogin = $installer->getTable('wsu_failedlogin_log');
 $installer->run("
-    DROP TABLE IF EXISTS `{$table_failedlogin}`;
     CREATE TABLE `{$table_failedlogin}` (
   `failedlogin_id` int(10) NOT NULL AUTO_INCREMENT,
   `log_at` timestamp,
@@ -44,5 +48,19 @@ $installer->run("
   PRIMARY KEY (`failedlogin_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     ");
+
+$table_blacklist = $installer->getTable('wsu_blacklist');
+$installer->run("
+    CREATE TABLE `{$table_blacklist}` (
+  `blacklist_id` int(10) NOT NULL AUTO_INCREMENT,
+  `log_at` timestamp,
+  `admin` TINYINT(1) UNSIGNED DEFAULT 0,
+  `ip` varchar(255) NOT NULL DEFAULT '0.0.0.0',
+  PRIMARY KEY (`blacklist_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    ");
+
+
+	
 $installer->endSetup();
 

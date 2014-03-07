@@ -2,32 +2,32 @@
 class Wsu_NetworkSecurities_Block_Adminhtml_NetworkSecurities_Grid extends Mage_Adminhtml_Block_Widget_Grid {
   public function __construct() {
       parent::__construct();
-      $this->setId('networksecuritiesGrid');
+      $this->setId('Blacklist');
       $this->setDefaultSort('created_at');
       $this->setDefaultDir('DESC');
       $this->setSaveParametersInSession(true);
   }
   protected function _prepareCollection() {
-      $collection = Mage::getModel('wsu_networksecurities/failedloginlog')->getCollection();
+      $collection = Mage::getModel('wsu_networksecurities/blacklist')->getCollection();
       $this->setCollection($collection);
       return parent::_prepareCollection();
   }
   protected function _prepareColumns() {  
-      $this->addColumn('failedlogin_id', array(
-          'header'    => Mage::helper('wsu_networksecurities')->__('Login ID'),
+      $this->addColumn('blacklist_id', array(
+          'header'    => Mage::helper('wsu_networksecurities')->__('ID'),
           'align'     =>'left',
-          'index'     => 'failedlogin_id',
+          'index'     => 'blacklist_id',
       ));
-      $this->addColumn('password', array(
-          'header'    => Mage::helper('wsu_networksecurities')->__('Password'),
+      $this->addColumn('ip', array(
+          'header'    => Mage::helper('wsu_networksecurities')->__('IP'),
           'align'     =>'left',
-          'index'     => 'password',
+          'index'     => 'ip',
       ));
-      $this->addColumn('created_at', array(
+      $this->addColumn('log_at', array(
           'header'    => Mage::helper('wsu_networksecurities')->__('Failed Date'),
           'align'     =>'left',
-			'type' => 'datetime',
-          'index'     => 'created_at',
+		'type' => 'datetime',
+          'index'     => 'log_at',
       ));
       return parent::_prepareColumns();
   }

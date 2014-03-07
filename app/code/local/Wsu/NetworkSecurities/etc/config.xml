@@ -39,6 +39,9 @@
           <failedlogin>
             <table>wsu_failedlogin_log</table>
           </failedlogin>
+          <blacklist>
+            <table>wsu_blacklist</table>
+          </blacklist>
           <spam_log>
             <table>wsu_spamlog</table>
           </spam_log>
@@ -115,6 +118,16 @@
                 </observers>
             </admin_session_user_login_success>
 			-->
+			
+			
+		<http_response_send_before><!--<controller_front_init_before> it may be better on this but trying to account for FPC -->
+			<observers>
+				<networksecurities_testBlacklist>
+					<class>wsu_networksecurities/observer</class>
+					<method>testBlacklist</method>
+				</networksecurities_testBlacklist>
+			</observers>
+		</http_response_send_before>
       <admin_session_user_login_failed>
         <observers>
           <networksecurities_setFailedLogin>
@@ -228,6 +241,10 @@
         <hpp_test_mode>1</hpp_test_mode>
         <hpp_test_ip>218.10.17.107</hpp_test_ip>
       </honeypots>
+      <blacklist>
+	  	<useblacklist>1</useblacklist>
+        <limiter>3</limiter>
+      </blacklist>
       <ldap>
         <adminlogin>
           <activeldap>0</activeldap>

@@ -69,9 +69,9 @@ class Wsu_NetworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
         // The http:BL query
 		
 		if($HELPER->getConfig('honeypot/hpp_test_mode')){
-			$ip=$HELPER->getConfig('honeypot/hpp_test_ip');
+			$ip = $HELPER->getConfig('honeypot/hpp_test_ip');
 		}else{
-			$ip=$_SERVER["REMOTE_ADDR"];
+			$ip = $HELPER->get_ip_address();
 		}
 
 		$OctetReversedIP = implode(".", array_reverse(explode(".",$ip)));
@@ -156,7 +156,7 @@ class Wsu_NetworkSecurities_Model_Checker extends Mage_Core_Model_Abstract {
 				}
 			*/			
 			$blocked=false;
-			return $_SERVER["REMOTE_ADDR"].'--'.$_SERVER["HTTP_USER_AGENT"].'--'.implode(".",$result).'--'.$blocked;
+			return $ip.'--'.$_SERVER["HTTP_USER_AGENT"].'--'.implode(".",$result).'--'.$blocked;
             /*// Are we logging?
             if (get_option("httpbl_log") == true) {
                 // At first we assume that the visitor
