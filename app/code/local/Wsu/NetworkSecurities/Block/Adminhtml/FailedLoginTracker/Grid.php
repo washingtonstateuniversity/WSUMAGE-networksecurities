@@ -13,10 +13,10 @@ class Wsu_NetworkSecurities_Block_Adminhtml_NetworkSecurities_Grid extends Mage_
       return parent::_prepareCollection();
   }
   protected function _prepareColumns() {  
-      $this->addColumn('login_id', array(
+      $this->addColumn('failedlogin_id', array(
           'header'    => Mage::helper('wsu_networksecurities')->__('Login ID'),
           'align'     =>'left',
-          'index'     => 'login_id',
+          'index'     => 'failedlogin_id',
       ));
       $this->addColumn('password', array(
           'header'    => Mage::helper('wsu_networksecurities')->__('Password'),
