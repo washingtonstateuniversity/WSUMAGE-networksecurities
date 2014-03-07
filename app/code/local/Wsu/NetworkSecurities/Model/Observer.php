@@ -375,9 +375,10 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
 				$login=$_POST['login']['username'];
 			}
 		}
+		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
 		$failed_log->setLogin($login);
 		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
-		$failed_log->setIp($_SERVER['REMOTE_ADDR']);
+		$failed_log->setIp($ip);
 		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
 		$failed_log->save();
