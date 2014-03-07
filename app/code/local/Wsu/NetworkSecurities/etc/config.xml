@@ -39,6 +39,9 @@
           <failedlogin>
             <table>wsu_failedlogin_log</table>
           </failedlogin>
+          <blacklist>
+            <table>wsu_blacklist</table>
+          </blacklist>
           <spam_log>
             <table>wsu_spamlog</table>
           </spam_log>
