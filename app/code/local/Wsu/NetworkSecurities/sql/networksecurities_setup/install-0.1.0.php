@@ -49,14 +49,14 @@ $installer->run("
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     ");
 
-$table_failedlogin = $installer->getTable('wsu_blacklist');
+$table_blacklist = $installer->getTable('wsu_blacklist');
 $installer->run("
-    CREATE TABLE `{$table_failedlogin}` (
+    CREATE TABLE `{$table_blacklist}` (
   `blacklist_id` int(10) NOT NULL AUTO_INCREMENT,
   `log_at` timestamp,
   `admin` TINYINT(1) UNSIGNED DEFAULT 0,
   `ip` varchar(255) NOT NULL DEFAULT '0.0.0.0',
-  PRIMARY KEY (`failedlogin_id`)
+  PRIMARY KEY (`blacklist_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     ");
 
