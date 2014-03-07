@@ -75,6 +75,8 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			$response=Mage::app()->getFrontController()->getResponse();
 			$url = Mage::helper('adminhtml')->getUrl('adminhtml/error/index/', array('_nosecret' => true));
 			$response->setRedirect($url);
+			//$this->setBlacklist(Mage::helper('wsu_networksecurities')->get_ip_address());
+			//note this needs to be done affter the honeypot level check.
 			$response->sendResponse();
 			return false;
 		}
