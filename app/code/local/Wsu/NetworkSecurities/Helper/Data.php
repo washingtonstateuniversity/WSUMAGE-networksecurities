@@ -96,7 +96,7 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 					// trim for safety measures
 					$ip = trim($ip);
 					// attempt to validate IP
-					if (validate_ip($ip)) {
+					if ($this->validate_ip($ip)) {
 						return $ip;
 					}
 				}
