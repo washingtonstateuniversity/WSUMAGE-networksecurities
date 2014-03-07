@@ -52,7 +52,7 @@ $installer->run("
 $table_failedlogin = $installer->getTable('wsu_blacklist');
 $installer->run("
     CREATE TABLE `{$table_failedlogin}` (
-  `failedlogin_id` int(10) NOT NULL AUTO_INCREMENT,
+  `blacklist_id` int(10) NOT NULL AUTO_INCREMENT,
   `log_at` timestamp,
   `admin` TINYINT(1) UNSIGNED DEFAULT 0,
   `ip` varchar(255) NOT NULL DEFAULT '0.0.0.0',
