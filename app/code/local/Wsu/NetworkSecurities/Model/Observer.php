@@ -396,9 +396,14 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
     		->addFieldToFilter('ip', $ip)
 			->getSize();
 		//var_dump($pastatempts);die();
-		$limit = $HELPER->getConfig('blacklist/limiter');
-		if($pastatempts>$limit){
-			$this->setBlacklist($ip);
+		
+		
+		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
+		if($useblacklist){
+			$limit = $HELPER->getConfig('blacklist/limiter');
+			if($pastatempts>$limit){
+				$this->setBlacklist($ip);
+			}
 		}
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
