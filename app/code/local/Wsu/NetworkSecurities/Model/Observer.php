@@ -419,7 +419,20 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
 		$cookie->set('userBLhash', md5(time()).":".$count ,time()+86400,'/');
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
-	
+	// called directed and also from the event admin_session_user_login_failed
+	// should be called with the customer too	
+	public function testBlacklist(){
+		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
+		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
+		$status = $blacklist ->getCollection()
+			->addFieldToSelect('*')
+    		->addFieldToFilter('ip', $ip)
+			->getSize();
+		if($status>1){
+			die('You must contact an admin to get unblocked.  There is no time limit');
+		}
+		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+	}	
 	
 	
 }
