@@ -241,6 +241,9 @@
         <hpp_test_mode>1</hpp_test_mode>
         <hpp_test_ip>218.10.17.107</hpp_test_ip>
       </honeypots>
+      <blacklist>
+        <limiter>3</limiter>
+      </blacklist>
       <ldap>
         <adminlogin>
           <activeldap>0</activeldap>
