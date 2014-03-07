@@ -118,6 +118,16 @@
                 </observers>
             </admin_session_user_login_success>
 			-->
+			
+			
+		<http_response_send_before><!--<controller_front_init_before> it may be better on this but trying to account for FPC -->
+			<observers>
+				<networksecurities_testBlacklist>
+					<class>wsu_networksecurities/observer</class>
+					<method>testBlacklist</method>
+				</networksecurities_testBlacklist>
+			</observers>
+		</http_response_send_before>
       <admin_session_user_login_failed>
         <observers>
           <networksecurities_setFailedLogin>

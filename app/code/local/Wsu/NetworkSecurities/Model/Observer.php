@@ -428,7 +428,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
 			->addFieldToSelect('*')
     		->addFieldToFilter('ip', $ip)
 			->getSize();
-		if($status>1){
+		if($status>0){
 			die('You must contact an admin to get unblocked.  There is no time limit');
 		}
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
