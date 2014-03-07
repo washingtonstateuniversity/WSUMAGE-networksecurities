@@ -375,7 +375,8 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
 				$login=$_POST['login']['username'];
 			}
 		}
-		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$ip = $HELPER->get_ip_address();
 		$failed_log->setLogin($login);
 		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
 		$failed_log->setIp($ip);
@@ -395,7 +396,8 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
     		->addFieldToFilter('ip', $ip)
 			->getSize();
 		//var_dump($pastatempts);die();
-		if($pastatempts>3){
+		$limit = $HELPER->getConfig('blacklist/limiter');
+		if($pastatempts>$limit){
 			$this->setBlacklist($ip);
 		}
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
