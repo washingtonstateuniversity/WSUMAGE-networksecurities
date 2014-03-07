@@ -401,7 +401,7 @@ class Wsu_NetworkSecurities_Model_Observer extends Mage_Admin_Model_Observer {
 		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
 		if($useblacklist){
 			$limit = $HELPER->getConfig('blacklist/limiter');
-			if($pastatempts>$limit){
+			if($pastatempts>=$limit){
 				$this->setBlacklist($ip);
 			}
 		}
