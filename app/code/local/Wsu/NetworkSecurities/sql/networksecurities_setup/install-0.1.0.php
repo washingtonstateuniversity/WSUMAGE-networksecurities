@@ -5,9 +5,11 @@ $installer = $this;
 $installer->startSetup();
 
 
+$installer->getConnection()->dropTable($this->getTable('wsu_spamlog'));
+$installer->getConnection()->dropTable($this->getTable('wsu_failedlogin_log'));
+
 $table_spamlog = $installer->getTable('wsu_spamlog');
 $installer->run("
-    DROP TABLE IF EXISTS `{$table_spamlog}`;
     CREATE TABLE `{$table_spamlog}` (
   `spamlog_id` int(10) NOT NULL AUTO_INCREMENT,
   `updated_at` timestamp,
@@ -32,7 +34,6 @@ $connection->addColumn($this->getTable('review'), "spam","TINYINT(1) UNSIGNED DE
 
 $table_failedlogin = $installer->getTable('wsu_failedlogin_log');
 $installer->run("
-    DROP TABLE IF EXISTS `{$table_failedlogin}`;
     CREATE TABLE `{$table_failedlogin}` (
   `failedlogin_id` int(10) NOT NULL AUTO_INCREMENT,
   `log_at` timestamp,
@@ -44,5 +45,6 @@ $installer->run("
   PRIMARY KEY (`failedlogin_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     ");
+	
 $installer->endSetup();
 
