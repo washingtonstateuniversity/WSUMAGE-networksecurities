@@ -281,7 +281,7 @@
           <cron_expr>* * * * *</cron_expr>
         </schedule>
         <run>
-          <model>networksecurities/cron::deleteExpiredLog</model>
+          <model>wsu_networksecurities/cron::deleteExpiredLog</model>
         </run>
       </delete_expired_log>
     </jobs>
