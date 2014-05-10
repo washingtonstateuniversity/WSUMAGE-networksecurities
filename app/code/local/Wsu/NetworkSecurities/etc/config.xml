@@ -170,7 +170,7 @@
       <controller_action_predispatch>
         <observers>
           <wsu_networksecurities>
-            <class>Wsu_networksecurities_Model_Customer_Observer</class>
+            <class>Wsu_NetworkSecurities_Model_Customer_Observer</class>
             <method>requireLogin</method>
           </wsu_networksecurities>
         </observers>
@@ -178,7 +178,7 @@
       <controller_action_predispatch_customer_account_createpost>
         <observers>
           <wsu_networksecurities>
-            <class>Wsu_networksecurities_Model_Observer</class>
+            <class>Wsu_NetworkSecurities_Model_Observer</class>
             <method>controllerActionPredispatchCustomerAccountCreatepost</method>
           </wsu_networksecurities>
         </observers>
@@ -186,7 +186,7 @@
       <controller_action_predispatch_review_product_post>
         <observers>
           <wsu_networksecurities>
-            <class>Wsu_networksecurities_Model_Observer</class>
+            <class>Wsu_NetworkSecurities_Model_Observer</class>
             <method>controllerActionPredispatchBlockReviewForm</method>
           </wsu_networksecurities>
         </observers>
@@ -194,7 +194,7 @@
       <controller_action_predispatch_customer_account_create>
         <observers>
           <wsu_networksecurities>
-            <class>Wsu_networksecurities_Model_Observer</class>
+            <class>Wsu_NetworkSecurities_Model_Observer</class>
             <method>controllerActionPredispatchCustomerAccountCreate</method>
           </wsu_networksecurities>
         </observers>
@@ -211,7 +211,7 @@
       <wsu_networksecurities>
         <use>standard</use>
         <args>
-          <module>Wsu_networksecurities</module>
+          <module>Wsu_NetworkSecurities</module>
           <frontName>networksecurities</frontName>
         </args>
       </wsu_networksecurities>
