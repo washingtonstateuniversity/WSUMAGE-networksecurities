@@ -167,14 +167,14 @@
   </admin>
   <frontend>
     <events>
-      <controller_action_predispatch>
+      <!--<controller_action_predispatch>
         <observers>
           <wsu_networksecurities>
             <class>Wsu_NetworkSecurities_Model_Customer_Observer</class>
             <method>requireLogin</method>
           </wsu_networksecurities>
         </observers>
-      </controller_action_predispatch>
+      </controller_action_predispatch>-->
       <controller_action_predispatch_customer_account_createpost>
         <observers>
           <wsu_networksecurities>
