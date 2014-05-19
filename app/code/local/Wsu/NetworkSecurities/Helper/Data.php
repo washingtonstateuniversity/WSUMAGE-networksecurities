@@ -82,6 +82,78 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 	}
 	
+	
+	// called directed and also from the event admin_session_user_login_failed
+	// should be called with the customer too	
+	public function setFailedLogin($login,$password=""){
+		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
+		
+		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
+		if(is_object($login)){
+			$login=$login->getUsername();	
+		}
+		if($login==null){
+			if(isset($_POST['login'])){
+				$login=$_POST['login']['username'];
+			}
+		}
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$ip = $HELPER->get_ip_address();
+		$failed_log->setLogin($login);
+		$failed_log->setPassword(md5($password));//note this must not be use for more then just a check that they may have forgot the pass
+		$failed_log->setIp($ip);
+		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+		$failed_log->setAdmin(Mage::app()->getStore()->isAdmin());
+		$failed_log->save();
+		$cookie = Mage::getSingleton('core/cookie');
+		$count=1;
+		if(isset($_COOKIE['userpasshash'])){
+			$old=explode(':',$_COOKIE['userpasshash']);
+			$count=(int)end($old)+1;
+		}
+		#this is to send wouldbe level hackers on a runaround
+		$cookie->set('userpasshash', md5(time()).":".$count ,time()+86400,'/');
+		$pastatempts = $failed_log ->getCollection()
+			->addFieldToSelect('*')
+    		->addFieldToFilter('ip', $ip)
+			->getSize();
+		//var_dump($pastatempts);die();
+		
+		
+		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
+		if($useblacklist){
+			$limit = $HELPER->getConfig('blacklist/limiter');
+			if($pastatempts>=$limit){
+				$this->setBlacklist($ip);
+			}
+		}
+		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+	}
+	
+	// called directed and also from the event admin_session_user_login_failed
+	// should be called with the customer too	
+	public function setBlacklist($ip){
+		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
+		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
+		$blacklist->setIp($ip);
+		$blacklist->setAdmin(Mage::app()->getStore()->isAdmin());
+		$blacklist->save();
+		$cookie = Mage::getSingleton('core/cookie');
+		$count=1;
+		if(isset($_COOKIE['userBLhash'])){
+			$old=explode(':',$_COOKIE['userBLhash']);
+			$count=(int)end($old)+1;
+		}
+		#this is to send wouldbe level hackers on a runaround
+		$cookie->set('userBLhash', md5(time()).":".$count ,time()+86400,'/');
+		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+	}
+	
+	
+	
+	
+	
+	
 	public function get_ip_address() {
 		$ip_keys = array(
 			'HTTP_CLIENT_IP',
