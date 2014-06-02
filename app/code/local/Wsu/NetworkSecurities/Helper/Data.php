@@ -48,7 +48,7 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			$redirection=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_redirection_frontend');
 			
 			$match=preg_match('/'.$ipfilter.'/',$ip);
-			if(count($match)>0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_INCLUDE){
+			if($match>0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_INCLUDE){
 				if(strpos(Mage::helper('core/url')->getCurrentUrl(),$redirection)===false){
 					$controllerAction->getResponse()->setRedirect(Mage::getUrl($redirection));
 					$controllerAction->getResponse()->sendResponse();
