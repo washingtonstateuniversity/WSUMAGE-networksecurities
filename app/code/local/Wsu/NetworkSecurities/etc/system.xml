@@ -108,7 +108,19 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 								<use_ipfilter_frontend>1</use_ipfilter_frontend>
 							</depends>
 						</ipfilter_frontend>
-
+						<ipfilter_redirection_frontend translate="label comment">
+							<label>Redirect location</label>
+							<comment><![CDATA[Where to send the filtered users]]>
+</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_frontend>1</use_ipfilter_frontend>
+							</depends>
+						</ipfilter_redirection_frontend>
 					</fields>
 				</startup>
 				<captcha translate="label comment">
