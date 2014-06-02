@@ -7,7 +7,10 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
      * Show networksecurities only after certain number of unsuccessful attempts
      */
     const MODE_AFTER_FAIL = 'after_fail';
-
+    const MODE_ALWAYSL = 'always';
+	const IPMODE_EXCLUDE = 'exclude';
+	const IPMODE_INCLUDE = 'include';
+	
     protected $_networksecurities = array();	
 
     public function getConfig($path,$store = null,$default = null) {
