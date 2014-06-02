@@ -37,6 +37,27 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         return Mage::getStoreConfig('wsu_networksecurities/startup/require_login_whitelist', $store);
     }
 
+    public function filterFrontIp($controllerAction) {
+		$use_ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/use_ipfilter_frontend');
+		if($use_ipfilter==1){
+			$HELPER = Mage::helper('wsu_networksecurities');
+			$ip = $HELPER->get_ip_address();
+			$ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_frontend');
+			$mode=Mage::getStoreConfig('wsu_networksecurities/startup/ipfiltermode_frontend');
+			$redirection=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_redirection_frontend');
+			
+			$match=preg_match($ipfilter,$ip);
+			if(count($match)>0 && $mode==IPMODE_EXCLUDE || count($match)<=0 && $mode==IPMODE_INCLUDE){
+			    $controllerAction->getResponse()->setRedirect(Mage::getUrl($redirection));
+                $controllerAction->getResponse()->sendResponse();
+                exit;
+			}	
+		}
+    }
+
+
+
+
 	public function testpot(){
 		$id = $this->getHoneypotId();
 		$HoneypotName = $this->getHoneypotName($id);
