@@ -7,7 +7,10 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
      * Show networksecurities only after certain number of unsuccessful attempts
      */
     const MODE_AFTER_FAIL = 'after_fail';
-
+    const MODE_ALWAYSL = 'always';
+	const IPMODE_EXCLUDE = 'exclude';
+	const IPMODE_INCLUDE = 'include';
+	
     protected $_networksecurities = array();	
 
     public function getConfig($path,$store = null,$default = null) {
@@ -33,6 +36,30 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getWhitelist($store = null) {
         return Mage::getStoreConfig('wsu_networksecurities/startup/require_login_whitelist', $store);
     }
+
+    public function filterFrontIp($controllerAction) {
+		$use_ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/use_ipfilter_frontend');
+		
+		if($use_ipfilter==1){
+			$HELPER = Mage::helper('wsu_networksecurities');
+			$ip = $HELPER->get_ip_address();
+			$ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_frontend');
+			$mode=Mage::getStoreConfig('wsu_networksecurities/startup/ipfiltermode_frontend');
+			$redirection=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_redirection_frontend');
+			
+			$match=preg_match('/'.$ipfilter.'/',$ip);
+			if($match>0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_INCLUDE){
+				if(strpos(Mage::helper('core/url')->getCurrentUrl(),$redirection)===false){
+					$controllerAction->getResponse()->setRedirect(Mage::getUrl($redirection));
+					$controllerAction->getResponse()->sendResponse();
+					exit;
+				}
+			}
+		}
+    }
+
+
+
 
 	public function testpot(){
 		$id = $this->getHoneypotId();
@@ -62,6 +89,20 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		if ($usehoneypots){
 			$helper->testloginPots($username,$password);
 		}
+		
+		$use_ipfilter=Mage::getStoreConfig('wsu_networksecurities/genadmin_settings/use_ipfilter_admin');
+		
+		if($use_ipfilter==1){
+			$ip = $helper->get_ip_address();
+			$ipfilter=Mage::getStoreConfig('wsu_networksecurities/genadmin_settings/ipfilter_admin');
+			$mode=Mage::getStoreConfig('wsu_networksecurities/genadmin_settings/ipfiltermode_admin');			
+			$match=preg_match('/'.$ipfilter.'/',$ip);
+			if($match>0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_INCLUDE){
+				Mage::getSingleton('core/session')->addError('You are trying to access the admin from an unsecure connection.  You may need to VPN in.  Please contact your admin.');
+				return false;
+			}
+		}
+		
 		return true;
 	}
 	
