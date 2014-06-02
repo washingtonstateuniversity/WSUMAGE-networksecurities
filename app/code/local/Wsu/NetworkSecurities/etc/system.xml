@@ -602,6 +602,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</allow_request>
 								<requestemail translate="label comment">
 									<label>Email to notify</label>
@@ -615,6 +618,7 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 										<![CDATA[<b>NOTE:</b> This is where a request will be going for.  It is worth noting that auto-create wouldn't negate the need for requests.]]>
 									</comment>
 									<depends>
+										<activeldap>1</activeldap>
 										<allow_request>1</allow_request>
 									</depends>
 								</requestemail>
@@ -626,6 +630,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</allow_bypass>
 								<host translate="label comment">
 									<label>Host</label>
@@ -637,6 +644,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> ldap.example.com]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</host>
 								<version translate="label comment">
 									<label>Protocol version</label>
@@ -648,6 +658,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> 3]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</version>
 								<port translate="label comment">
 									<label>Port</label>
@@ -659,6 +672,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</port>
 								<tls translate="label comment">
 									<label>Enable TLS</label>
@@ -667,6 +683,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<sort_order>14</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</tls>
 								<rootdn translate="label comment">
 									<label>rootDn</label>
@@ -678,6 +697,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</rootdn>
 								<rootpassword translate="label comment">
 									<label>rootPassword</label>
@@ -689,6 +711,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> YourP455w0Rd]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</rootpassword>
 								<userdn translate="label comment">
 									<label>userDn</label>
@@ -700,6 +725,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</userdn>
 								<filter translate="label comment">
 									<label>Filter</label>
@@ -711,6 +739,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ldap-magento-1))]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</filter>
 								<cmpattr translate="label comment">
 									<label>Login attribute</label>
@@ -722,6 +753,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> cn]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</cmpattr>
 								<passattr translate="label comment">
 									<label>Password attribute</label>
@@ -733,6 +767,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> userPassword]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</passattr>
 								<attr translate="label comment">
 									<label>Compliant attributes</label>
@@ -744,6 +781,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</attr>
 								<defaultroleid translate="label comment">
 									<label>Default role_id</label>
@@ -755,6 +795,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> 20]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</defaultroleid>
 								<autocreate translate="label comment">
 									<label>Create admin user if in LDAP</label>
@@ -766,6 +809,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Note: </b> in order to user this there must be one of two conditions met.  1.) the user login in must have search rights or 2.) the search user information must be entered]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</autocreate>
 								<testusername translate="label comment">
 									<label>A test user name</label>
@@ -777,6 +823,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> user.name]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</testusername>
 								<testuserpass translate="label comment">
 									<label>The test user's password</label>
@@ -788,6 +837,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<comment>
 										<![CDATA[<b>Ex: </b> *****]]>
 									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</testuserpass>
 								<api_wizard translate="button_label comment">
 									<label></label>
@@ -797,6 +849,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 									<sort_order>70</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
 								</api_wizard>
 								
 								<!-- securty stuff -->
