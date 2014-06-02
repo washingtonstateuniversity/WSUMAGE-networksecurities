@@ -72,6 +72,42 @@
 								<require_login>1</require_login>
 							</depends>
 						</require_login_whitelist>
+						<use_ipfilter_frontend translate="label comment">
+							<label>Filer IP address on the frontend</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</use_ipfilter_frontend>
+						<ipfilter_frontend translate="label comment">
+							<label>IP pattern</label>
+							<comment><![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
+192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
+Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
+</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_frontend>1</use_ipfilter_frontend>
+							</depends>
+						</ipfilter_frontend>
+						<ipfiltermode_frontend translate="label">
+							<label>Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/config_ipmode</source_model>
+							<sort_order>14</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_frontend>1</use_ipfilter_frontend>
+							</depends>
+						</ipfiltermode_frontend>
 					</fields>
 				</startup>
 				<captcha translate="label comment">
@@ -496,12 +532,51 @@
 					<show_in_store>1</show_in_store>
 					<fields>
 						<adminlogin type="group" translate="label comment">
-							<label>Admin LDAP Login Configuration</label>
+							<label>Admin Login Configuration</label>
 							<sort_order>10</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
 							<fields>
+							
+								<use_ipfilter_admin translate="label comment">
+									<label>Filer IP address on the frontend</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>12</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</use_ipfilter_admin>
+								<ipfilter_admin translate="label comment">
+									<label>IP pattern</label>
+									<comment><![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
+		192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
+		Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
+		</comment>
+									<frontend_type>text</frontend_type>
+									<sort_order>13</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<depends>
+										<use_ipfilter_admin>1</use_ipfilter_admin>
+									</depends>
+								</ipfilter_admin>
+								<ipfiltermode_admin translate="label">
+									<label>Mode</label>
+									<frontend_type>select</frontend_type>
+									<source_model>wsu_networksecurities/config_ipmode</source_model>
+									<sort_order>14</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<depends>
+										<use_ipfilter_admin>1</use_ipfilter_admin>
+									</depends>
+								</ipfiltermode_admin>
+								
+							
 								<activeldap translate="label comment">
 									<label>Enable LDAP admin login</label>
 									<frontend_type>select</frontend_type>
