@@ -39,6 +39,7 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function filterFrontIp($controllerAction) {
 		$use_ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/use_ipfilter_frontend');
+		
 		if($use_ipfilter==1){
 			$HELPER = Mage::helper('wsu_networksecurities');
 			$ip = $HELPER->get_ip_address();
@@ -47,11 +48,13 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			$redirection=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_redirection_frontend');
 			
 			$match=preg_match('/'.$ipfilter.'/',$ip);
-			if(count($match)>0 && $mode==IPMODE_EXCLUDE || count($match)<=0 && $mode==IPMODE_INCLUDE){
-			    $controllerAction->getResponse()->setRedirect(Mage::getUrl($redirection));
-                $controllerAction->getResponse()->sendResponse();
-                exit;
-			}	
+			if(count($match)>0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_NetworkSecurities_Helper_Data::IPMODE_INCLUDE){
+				if(strpos(Mage::helper('core/url')->getCurrentUrl(),$redirection)===false){
+					$controllerAction->getResponse()->setRedirect(Mage::getUrl($redirection));
+					$controllerAction->getResponse()->sendResponse();
+					exit;
+				}
+			}
 		}
     }
 
