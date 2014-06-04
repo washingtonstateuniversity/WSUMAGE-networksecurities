@@ -182,6 +182,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
         $this->autocreate              = $HELPER->getConfig('adminlogin/autocreate');//1|0
         $this->testusername            = $HELPER->getConfig('adminlogin/testusername');//user.name 
         $this->testuserpass            = $HELPER->getConfig('adminlogin/testuserpass');//**password*****
+		$this->ldap_usr_dom            = $HELPER->getConfig('adminlogin/ldap_usr_dom');//@wsu.edu
 		//seracher
         $this->searcherrootDn          = $HELPER->getConfig('searcher/rootdn');
         $this->searcherrootPassword    = $HELPER->getConfig('searcher/rootpassword');
@@ -198,6 +199,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
         $this->searcheractived         = $HELPER->getConfig('searcher/activeldap');
         $this->searcherusername        = $HELPER->getConfig('searcher/searcherusername');
         $this->searcheruserpass        = $HELPER->getConfig('searcher/searcheruserpass');
+		$this->searcherldap_usr_dom    = $HELPER->getConfig('searcher/ldap_usr_dom');
 		//customer
         $this->customer_actived        = $HELPER->getConfig('customerlogin/activeldap');
         $this->customer_restricttoldap = $HELPER->getConfig('customerlogin/restricttoldap');
@@ -214,8 +216,9 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
         $this->customer_roleId         = intval($HELPER->getConfig('customerlogin/defaultroleid'));
         $this->customer_pwdAttr        = $HELPER->getConfig('customerlogin/passattr');
         $this->customer_autocreate     = $HELPER->getConfig('customerlogin/autocreate');
-        $this->testusername            = $HELPER->getConfig('customerlogin/testusername');
-        $this->testuserpass            = $HELPER->getConfig('customerlogin/testuserpass');
+        $this->customer_testusername   = $HELPER->getConfig('customerlogin/testusername');
+        $this->customer_testuserpass   = $HELPER->getConfig('customerlogin/testuserpass');
+		$this->customerldap_usr_dom    = $HELPER->getConfig('customerlogin/ldap_usr_dom');
     }
     private function connect() {
         $this->load_Parameters();
@@ -279,7 +282,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
         $attr  = $this->pwdAttr;
         $value = $password;
         try {
-            $ldap_usr_dom = "@wsu.edu"; //fix this fool
+            $ldap_usr_dom = $this->ldap_usr_dom;//"@wsu.edu"; //fix this fool
             //$r=ldap_bind( $ds, $dn, $password );
             //$r=ldap_compare($ds, $dn, $attr, $value);
             $ldap         = self::$ldaplink;
