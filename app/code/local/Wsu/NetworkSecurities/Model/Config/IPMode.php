@@ -1,11 +1,4 @@
 <?php
-/**
- * NetworkSecurities image model
- *
- * @category   Mage
- * @package    Wsu_NetworkSecurities
- * @author     Magento Core Team <core@magentocommerce.com>
- */
 class Wsu_NetworkSecurities_Model_Config_IPMode {
     /**
      * Get options for networksecurities mode selection field
