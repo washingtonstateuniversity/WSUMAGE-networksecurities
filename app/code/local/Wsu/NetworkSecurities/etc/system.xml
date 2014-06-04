@@ -43,6 +43,7 @@
 				</general>
 				<startup translate="label">
 					<label>Store access options</label>
+					<comment>You are able to set a store up so that you must login in order to view any products.  In a network setup, this is store by store.</comment>
 					<sort_order>2</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
@@ -588,6 +589,19 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 				</genadmin_settings>
 				<ldap translate="label comment">
 					<label>LDAP</label>
+					<comment><![CDATA[
+						<p>There are options to allow for creation of users and the a choice in the handling.</p>
+						<div style="padding-left:15px;">
+							<p><b>You have 3 combo's to do</b></p>
+							<ol>
+								<li>1.) LDAP only</li>
+								<li>2.) LDAP fall back to system</li>
+								<li>3.) System fall back to LDAP</li>
+								<li>4.) System only <em>(but this is the extension turned off so 3 combos :))</em></li>
+							</ol>
+						</div>
+						<p>Remember to not open up holes by using real users for test users, and reading how LDAP works is your best bet.  Here is a nice <a href="http://oreilly.com/perl/excerpts/system-admin-with-perl/ten-minute-ldap-utorial.html" target="_blank">10-Minute LDAP Tutorial from O’Reilly</a> <em>(Written for Perl but it's a good read to bootstrap)</em>. </p>
+					]]></comment>
 					<sort_order>5</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
@@ -595,6 +609,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 					<fields>
 						<adminlogin type="group" translate="label comment">
 							<label>Admin Login Configuration</label>
+							<comment><![CDATA[
+								
+							]]></comment>
 							<sort_order>10</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
