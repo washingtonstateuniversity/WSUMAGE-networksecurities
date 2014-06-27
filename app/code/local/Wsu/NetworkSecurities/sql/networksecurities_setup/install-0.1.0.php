@@ -15,7 +15,7 @@ $setup->addAttribute('customer', 'ldap_user', array(
 	'user_defined' => 1,
 	'default' => '0',
 	'visible_on_front' => 1,
-    'source' =>	 'profile/entity_ldap',
+    'source' =>	 'wsu_networksecurities/entity_ldap',
 ));
 
 
