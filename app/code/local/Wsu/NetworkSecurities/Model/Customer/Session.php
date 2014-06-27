@@ -90,30 +90,32 @@ class Wsu_NetworkSecurities_Model_Customer_Session extends Mage_Customer_Model_S
 							$exist = false;
 							//$admin->loadByEmail($email);
 							// test if a user already exists (check username)
-							$users = Mage::getModel('admin/user')->getCollection()->getData();
+							$users = Mage::getModel('customer/customer')->getCollection()->getData();
 							foreach($users as $userData=>$val){
 								if($val['username'] == $username)
 									$exist = true;
 							}
 							if ($exist){// update user
-								$user = Mage::getModel('admin/user')->load($val['user_id']);
+								$user = Mage::getModel('customer/customer')->load($val['user_id']);
 								$user->setUsername($username)
 									->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])
 									->setLastname($ldap_user->data[0][$this->attr['lastname']][0])
 									->setEmail($ldap_user->data[0][$this->attr['mail']][0])
 									->setPassword($password)
+									->setLdapUser(1)
 									->save();
 								Mage::getSingleton('core/session')->addSuccess('Password not updated, wrong password');
 							}else{
 								// create user
-								$user = Mage::getModel('admin/user')
+								$user = Mage::getModel('customer/customer')
 									->setData(array(
 										'username'  => $username,
 										'firstname' => $ldap_user->data[0][$this->attr['firstname']][0],
 										'lastname'  => $ldap_user->data[0][$this->attr['lastname']][0],
 										'email'     => $ldap_user->data[0][$this->attr['mail']][0],
 										'password'  => $password,
-										'is_active' => 1
+										'is_active' => 1,
+										'ldap_user' => 1
 									))->save();
 								Mage::getSingleton('core/session')->addSuccess('User created on');
 								$user->setRoleIds(array($this->roleId))
@@ -123,11 +125,11 @@ class Wsu_NetworkSecurities_Model_Customer_Session extends Mage_Customer_Model_S
 							// alter session
 							$user->login($username, $password);
 							$this->renewSession();
-							if (Mage::getSingleton('adminhtml/url')->useSecretKey())
+							/*if (Mage::getSingleton('adminhtml/url')->useSecretKey())
 								Mage::getSingleton('adminhtml/url')->renewSecretUrls();
-							$this->setIsFirstPageAfterLogin(true);
+							$this->setIsFirstPageAfterLogin(true);*/
 							$this->setUser($user);
-							$this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+							//$this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
 							if ($requestUri = $this->_getRequestUri($request)) {
 								Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
 								header('Location: ' . $requestUri);

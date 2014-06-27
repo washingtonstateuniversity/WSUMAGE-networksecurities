@@ -137,6 +137,18 @@
         </observers>
       </admin_session_user_login_failed>
     </events>
+	
+        <fieldsets>
+            <customer_account>
+                <ldap_user><to_quote>customer_ldap_user</to_quote></ldap_user>
+            </customer_account>
+            <checkout_onepage_quote>
+                <customer_ldap_user><to_customer>ldap_user</to_customer></customer_ldap_user>
+            </checkout_onepage_quote>
+        </fieldsets>
+	
+	
+	
   </global>
   <adminhtml>
     <layout>

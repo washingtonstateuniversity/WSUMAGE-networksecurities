@@ -1,15 +1,29 @@
 <?php
 
-$installer = $this;
+$installer=new  Mage_Customer_Model_Entity_Setup ('core_setup');
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
 
+/* ATTR SETUP */
+$installer->addAttribute('customer', 'ldap_user', array(
+    'type'         => 'int',
+    'input'        => 'select',
+    'source'       => 'eav/entity_attribute_source_boolean',
+	'label'				=> 'Has AD account',
+	'visible'			=> true,
+	'required'			=> false,
+));
+$attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'ldap_user' );
+$attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
+$attr->save();
 
+
+
+
+/* TABLE SETUP */
 $installer->getConnection()->dropTable($this->getTable('wsu_spamlog'));
 $installer->getConnection()->dropTable($this->getTable('wsu_failedlogin_log'));
 $installer->getConnection()->dropTable($this->getTable('wsu_blacklist'));
-
-
 
 $table_spamlog = $installer->getTable('wsu_spamlog');
 $installer->run("
