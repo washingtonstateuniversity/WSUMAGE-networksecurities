@@ -1,23 +1,21 @@
 <?php
 
-$installer = $this;
+$installer=new  Mage_Customer_Model_Entity_Setup ('core_setup');
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
 
 /* ATTR SETUP */
-$setup = Mage::getModel('customer/entity_setup');
-$setup->addAttribute('customer', 'ldap_user', array(
-	'type' => 'int',
-	'input' => 'select',
-	'label' => 'Has AD account',
-	'global' => 1,
-	'visible' => 1,
-	'required' => 0,
-	'user_defined' => 1,
-	'default' => '0',
-	'visible_on_front' => 1,
-    'source' =>	 'adminhtml/system_config_source_yesno',
+$installer->addAttribute('customer', 'ldap_user', array(
+    'type'         => 'int',
+    'input'        => 'select',
+    'source'       => 'eav/entity_attribute_source_boolean',
+	'label'				=> 'Has AD account',
+	'visible'			=> true,
+	'required'			=> false,
 ));
+$attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'ldap_user' );
+$attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
+$attr->save();
 
 
 
