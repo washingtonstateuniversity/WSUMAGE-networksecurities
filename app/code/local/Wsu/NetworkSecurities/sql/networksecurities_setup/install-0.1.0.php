@@ -4,12 +4,27 @@ $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer->startSetup();
 
+/* ATTR SETUP */
+$setup->addAttribute('customer', 'ldap_user', array(
+	'type' => 'int',
+	'input' => 'select',
+	'label' => 'Has AD account',
+	'global' => 1,
+	'visible' => 1,
+	'required' => 0,
+	'user_defined' => 1,
+	'default' => '0',
+	'visible_on_front' => 1,
+    'source' =>	 'profile/entity_ldap',
+));
 
+
+
+
+/* TABLE SETUP */
 $installer->getConnection()->dropTable($this->getTable('wsu_spamlog'));
 $installer->getConnection()->dropTable($this->getTable('wsu_failedlogin_log'));
 $installer->getConnection()->dropTable($this->getTable('wsu_blacklist'));
-
-
 
 $table_spamlog = $installer->getTable('wsu_spamlog');
 $installer->run("
