@@ -5,7 +5,8 @@ $installer = $this;
 $installer->startSetup();
 
 /* ATTR SETUP */
-$installer->addAttribute('customer', 'ldap_user', array(
+$setup = Mage::getModel('customer/entity_setup');
+$setup->addAttribute('customer', 'ldap_user', array(
 	'type' => 'int',
 	'input' => 'select',
 	'label' => 'Has AD account',
