@@ -15,6 +15,12 @@
       <wsu_networksecurities>
         <class>Wsu_NetworkSecurities_Block</class>
       </wsu_networksecurities>
+		<adminhtml>
+			<rewrite>
+				<permissions_user_edit_tab_main>Wsu_NetworkSecurities_Block_Adminhtml_Permissions_User_Edit_Tab_Main</permissions_user_edit_tab_main>
+			</rewrite>
+		</adminhtml>
+
     </blocks>
     <models>
       <admin>
