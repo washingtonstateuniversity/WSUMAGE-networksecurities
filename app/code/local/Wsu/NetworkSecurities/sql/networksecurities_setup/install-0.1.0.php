@@ -17,7 +17,13 @@ $attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'ldap_user
 $attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
 $attr->save();
 
-
+$installer->getConnection()->addColumn($installer->getTable('admin/user'), 'ldap_user', array(
+    'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+    'length' => 256,
+    'nullable' => true,
+    'default' => null,
+    'comment' => 'Ldap user'
+)); 
 
 
 /* TABLE SETUP */
