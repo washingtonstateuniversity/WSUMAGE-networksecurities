@@ -2,14 +2,19 @@
 /**
  * @var $this Wsu_NetworkSecuritiesTheme_Block_Adminhtml_System_Config_Fieldset_Hint
  */
+ $helper=$this->helper('wsu_networksecurities');
 ?>
 <div class="box">
     <div style="background:url('<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>wsu-brand/bug-logotype.svg') no-repeat left top;padding-left:59px;min-height:59px;">
         <a href="https://github.com/washingtonstateuniversity/WSUMAGE-networksecurities" target="_blank" style="float:right;">
             <img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>wsu-brand/Github-fork-icon.svg" alt="Fork me on GitHub" title="Fork me on GitHub" />
         </a>
-        <h4><?php echo $this->helper('wsu_networksecurities')->__('Network and Securities will help add everything you need to advoid spam and harvesting.'); ?></h4>
-        <p style="margin-bottom:0;"><?php echo $this->helper('wsu_networksecurities')->__('Full overview available'); ?> <a href="<?php echo $this->escapeHtml($this->helper('wsu_networksecurities')->__('#')); ?>" target="_blank"><?php echo $this->helper('wsu_networksecurities')->__('here'); ?></a>.</p>
+        <h4><?=$helper->__('Network and Securities will help add everything you need to advoid spam and harvesting.'); ?></h4>
+        <p style="margin-bottom:0;"><?=$helper->__('Full overview available'); ?> <a href="<?=$this->escapeHtml($this->helper('wsu_networksecurities')->__('#')); ?>" target="_blank"><?=$helper->__('here'); ?></a>.</p>
     </div>
     <p>It should be noted that if you try to trun this module on and you are using a local development environment then you must be with in the network accessable to the LDAP services.  You may need to VPN to to use this LDAP correctly if you are outside the network.</p>
+	<p>Just to help here is some useful information.</p>
+	<ul>
+	<li><b>Your IP:</b><?=$helper->get_ip_address()?></li>
+	</ul>
 </div>
