@@ -68,6 +68,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
                     //User {$username} already exists
                     //lets update the systems password to match LDAP
                     $user->setPassword($password)->save();
+					$user->setLdapUser(1)->save();
                     Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
                 }
             }
@@ -80,8 +81,10 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
+				
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 Mage::getSingleton('adminhtml/session')->addNotice("You loged in with LDAP");
+				$user->setLdapUser(1)->save();
                 if ($requestUri = $this->_getRequestUri($request)) {
                     Mage::dispatchEvent('admin_session_user_login_success', array(
                         'user' => $user
@@ -102,7 +105,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
                         }
                         if ($exist) { // update user
                             $user = Mage::getModel('admin/user')->load($val['user_id']);
-                            $user->setUsername($username)->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])->setLastname($ldap_user->data[0][$this->attr['lastname']][0])->setEmail($ldap_user->data[0][$this->attr['mail']][0])->setPassword($password)->save();
+                            $user->setUsername($username)->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])->setLastname($ldap_user->data[0][$this->attr['lastname']][0])->setEmail($ldap_user->data[0][$this->attr['mail']][0])->setPassword($password)->setLdapUser(1)->save();
                             Mage::getSingleton('core/session')->addSuccess('Password not updated, wrong password');
                         } else {
                             // create user
@@ -112,6 +115,7 @@ class Wsu_NetworkSecurities_Model_Session extends Mage_Admin_Model_Session {
                                 'lastname' => $ldap_user->data[0][$this->attr['lastname']][0],
                                 'email' => $ldap_user->data[0][$this->attr['mail']][0],
                                 'password' => $password,
+								'ldap_user' => 1,
                                 'is_active' => 1
                             ))->save();
                             Mage::getSingleton('core/session')->addSuccess('User created on');
