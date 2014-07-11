@@ -190,34 +190,60 @@ class Wsu_NetworkSecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$cookie->set('userBLhash', md5(time()).":".$count ,time()+86400,'/');
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
-	
-	
-	
+
+	public function getFailed($ip){
+		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
+		$list = $failed_log ->getCollection()
+			->addFieldToSelect('*')
+    		->addFieldToFilter('ip', $ip);
+			
+			return $list;
+	}
+	public function getBlacklist($ip){
+		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
+		$list = $blacklist ->getCollection()
+			->addFieldToSelect('*')
+    		->addFieldToFilter('ip', $ip);
+			
+			return $list;	
+	}	
+	public function deleteFailed($params){}
+	public function deleteBlacklist($params){}
 	
 	
 	
 	public function get_ip_address() {
 		$ip_keys = array(
-			'HTTP_CLIENT_IP',
 			'HTTP_X_FORWARDED_FOR',
 			'HTTP_X_FORWARDED',
 			'HTTP_X_CLUSTER_CLIENT_IP',
 			'HTTP_FORWARDED_FOR',
 			'HTTP_FORWARDED',
+			'HTTP_CLIENT_IP',
 			'REMOTE_ADDR'
 		);
+		$foundIP=false;
+		//var_dump($_SERVER);
 		foreach ($ip_keys as $key) {
 			if (array_key_exists($key, $_SERVER) === true) {
+				//var_dump($_SERVER[$key]);var_dump($key);
 				foreach (explode(',', $_SERVER[$key]) as $ip) {
 					// trim for safety measures
 					$ip = trim($ip);
 					// attempt to validate IP
 					if ($this->validate_ip($ip)) {
-						return $ip;
+						$foundIP=$ip;
+						//var_dump($ip);
+						//print('--'.$key.'<br/>');
 					}
 				}
 			}
 		}
+		if($foundIP){
+			return $foundIP;
+		}
+		
+		
 		return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : false;
 	}
 	/**
