@@ -8,7 +8,7 @@ class Wsu_NetworkSecurities_Block_Adminhtml_NetworkSecurities_Grid extends Mage_
       $this->setSaveParametersInSession(true);
   }
   protected function _prepareCollection() {
-      $collection = Mage::getModel('wsu_networksecurities/failedloginlog')->getCollection();
+      $collection = Mage::getModel('wsu_networksecurities/failedlogin')->getCollection();
       $this->setCollection($collection);
       return parent::_prepareCollection();
   }
