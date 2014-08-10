@@ -59,6 +59,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 }
                 return parent::login($username, $password, $request); //process normally with out ldap
             }
+			Mage::log("passed Ldap",Zend_Log::NOTICE,"adminlog.txt");
 			//it is assumed that if you are here that you have passes ldap
             // Auth SUCCESSFUL
 			
