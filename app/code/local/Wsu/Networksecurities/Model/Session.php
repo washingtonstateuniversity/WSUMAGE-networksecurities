@@ -43,12 +43,15 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             return parent::login($username, $password, $request);
 			
         try {
+			Mage::log("using Ldap",Zend_Log::NOTICE,"adminlog.txt");
             //print("here");die();exit();
             $this->connect();
             $ldap_user = $this->authentify($username, $password);
 			$ldappass=false;
             if (!is_a($ldap_user, 'Wsu_Networksecurities_Model_Session')) {
+				Mage::log("not a Ldap user",Zend_Log::NOTICE,"adminlog.txt");
                 if (!$this->allow_bypass) {
+					Mage::log("not able to bypass Ldap",Zend_Log::NOTICE,"adminlog.txt");
                     Mage::getSingleton('core/session')->addError('Incorrect password our username.<br/> <strong>You now have %s trys before a timeout lock is applied.</strong>');
                     Mage::getSingleton('core/session')->addError('<em>You may not be athourized to use this system to which you must request access.</em>');
 					Mage::helper('wsu_networksecurities')->setFailedLogin($login,$password);
@@ -66,6 +69,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             
 
             if (!$logedin) {
+				Mage::log("passed Ldap but wasn't logedin",Zend_Log::NOTICE,"adminlog.txt");
                 $exitsinguser = $user->load($username, 'username');
                 if ($exitsinguser->getId()) {
                     //User {$username} already exists
@@ -74,6 +78,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     	$exitsinguser->setNewPassword($password);
 						$exitsinguser->setPasswordConfirmation($password);
 						$exitsinguser->save();
+						Mage::log("saved new LDAP password",Zend_Log::NOTICE,"adminlog.txt");
 					}
 					$exitsinguser->setLdapUser(1)->save();
                 }
@@ -85,6 +90,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 
             if ($logedin) { 
 				// Auth SUCCESSFUL on Magento (user & pass match)
+				Mage::log("User passed ldap and was logged in",Zend_Log::NOTICE,"adminlog.txt");
                 $this->renewSession();
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()){
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
