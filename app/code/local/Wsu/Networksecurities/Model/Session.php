@@ -41,10 +41,12 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
         $this->load_Parameters();
         if (!$this->actived) //CHECK MAGENTO CONNECT
             return parent::login($username, $password, $request);
+			
         try {
             //print("here");die();exit();
             $this->connect();
             $ldap_user = $this->authentify($username, $password);
+			$ldappass=false;
             if (!is_a($ldap_user, 'Wsu_Networksecurities_Model_Session')) {
                 if (!$this->allow_bypass) {
                     Mage::getSingleton('core/session')->addError('Incorrect password our username.<br/> <strong>You now have %s trys before a timeout lock is applied.</strong>');
@@ -53,7 +55,9 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     return false;
                 }
                 return parent::login($username, $password, $request); //process normally with out ldap
-            }
+            }else{
+				$ldappass=true;	
+			}
             // Auth SUCCESSFUL
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
@@ -63,18 +67,20 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 $logedin = true;
             }
             if (!$logedin) {
-                $user->load($username, 'username');
-                if ($user->getId()) {
+                $exitsinguser = $user->load($username, 'username');
+                if ($exitsinguser->getId()) {
                     //User {$username} already exists
                     //lets update the systems password to match LDAP
-                    $user->setPassword($password)->save();
-					$user->setLdapUser(1)->save();
-                    Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
+					if( $exitsinguser->getPassword() != $password ){
+                    	$exitsinguser->setPassword($password)->save();
+					}
+					$exitsinguser->setLdapUser(1)->save();
                 }
             }
             //last check if logged in
             $user->login($username, $password);
             // Auth SUCCESSFUL on Magento (user & pass match)
+
             if ($user->getId()) { // update user
                 $this->renewSession();
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey())
@@ -85,6 +91,9 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 Mage::getSingleton('adminhtml/session')->addNotice("You loged in with LDAP");
 				$user->setLdapUser(1)->save();
+				if($ldappass){
+					Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
+				}
                 if ($requestUri = $this->_getRequestUri($request)) {
                     Mage::dispatchEvent('admin_session_user_login_success', array(
                         'user' => $user
