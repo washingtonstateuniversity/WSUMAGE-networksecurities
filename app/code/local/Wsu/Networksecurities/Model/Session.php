@@ -252,11 +252,15 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             self::$ldaplink = ldap_connect($url, $this->port) or die("Could not connect to $ldaphost");
         }
         if (!ldap_set_option(self::$ldaplink, LDAP_OPT_PROTOCOL_VERSION, $this->version)) {
-            Mage::getSingleton('adminhtml/session')->addError("Wsu" . ldap_errno(self::$ldaplink));
+			$err=ldap_errno(self::$ldaplink);
+			Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
+            Mage::getSingleton('adminhtml/session')->addError($err);
         }
         //die('AUTH_ADMIN ERROR : VERSION ERROR');
         if (!ldap_set_option(self::$ldaplink, LDAP_OPT_REFERRALS, 0)) {
-            Mage::getSingleton('adminhtml/session')->addError("Wsu" . ldap_errno(self::$ldaplink));
+			$err=ldap_errno(self::$ldaplink);
+			Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
+            Mage::getSingleton('adminhtml/session')->addError($err);
         }
         //die('AUTH_ADMIN ERROR : VERSION ERROR');
         if ($this->rootDn == "")
@@ -267,11 +271,14 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 			
 		$ldaped = @ldap_bind(self::$ldaplink, $this->rootDn, $this->rootPassword);
         if (!$ldaped) {
-            Mage::getSingleton('adminhtml/session')->addError("Wsu" . ldap_errno(self::$ldaplink));
+			$err=ldap_errno(self::$ldaplink);
+			Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
+            Mage::getSingleton('adminhtml/session')->addError($err);
         }
         if (self::$ldaplink) {
         } else {
-            echo "Unable to connect to LDAP server";
+            //echo "Unable to connect to LDAP server";
+			Mage::log("Unable to connect to LDAP server",Zend_Log::ERROR,"adminlog.txt");
             die();
         }
         //die('AUTH_ADMIN ERROR : BIND ERROR');
@@ -311,10 +318,15 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             $r            = ldap_bind($ldap, $login . $ldap_usr_dom, $password);
             if ($r === -1) {
                 $params = $login . " -- " . $password;
-                Mage::getSingleton('core/session')->addError(ldap_error($r));
+				
+				$err=ldap_error($r);
+				Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
+				Mage::getSingleton('adminhtml/session')->addError($err);
+
             } elseif ($r === true) {
-                if ($this->is_Allowed($login))
+                if ($this->is_Allowed($login)){
                     return $this;
+				}
             } elseif ($r === false) {
                 //error message to be passed later
             }
@@ -322,6 +334,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
         }
         catch (Exception $e) {
             //Mage::getSingleton('core/session')->addError("Error: " . $e);
+			Mage::log($e,Zend_Log::ERROR,"adminlog.txt");
             return false;
         }
     }
