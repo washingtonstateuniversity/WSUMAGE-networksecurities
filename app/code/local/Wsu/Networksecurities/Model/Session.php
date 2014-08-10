@@ -55,24 +55,25 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     return false;
                 }
                 return parent::login($username, $password, $request); //process normally with out ldap
-            }else{
-				$ldappass=true;	
-			}
+            }
+			//it is assumed that if you are here that you have passes ldap
             // Auth SUCCESSFUL
+			
+			
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
-            $logedin = false;
-            // Auth SUCCESSFUL on Magento (user & pass match)
-            if ($user->getId()) {
-                $logedin = true;
-            }
+            $logedin = ($user->getId())?true:false;
+            
+
             if (!$logedin) {
                 $exitsinguser = $user->load($username, 'username');
                 if ($exitsinguser->getId()) {
                     //User {$username} already exists
                     //lets update the systems password to match LDAP
 					if( $exitsinguser->getPassword() != $password ){
-                    	$exitsinguser->setPassword($password)->save();
+                    	$exitsinguser->setNewPassword($password);
+						$exitsinguser->setPasswordConfirmation($password);
+						$exitsinguser->save();
 					}
 					$exitsinguser->setLdapUser(1)->save();
                 }
@@ -81,23 +82,20 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 					$logedin = true;
 				}
             }
-            //last check if logged in
-            
-            // Auth SUCCESSFUL on Magento (user & pass match)
 
-            if ($logedin) { // update user
+            if ($logedin) { 
+				// Auth SUCCESSFUL on Magento (user & pass match)
                 $this->renewSession();
-                if (Mage::getSingleton('adminhtml/url')->useSecretKey())
+                if (Mage::getSingleton('adminhtml/url')->useSecretKey()){
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+				}
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
 				
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 Mage::getSingleton('adminhtml/session')->addNotice("You loged in with LDAP");
-				$user->setLdapUser(1)->save();
-				if($ldappass){
-					Mage::getSingleton('core/session')->addSuccess('LDAP Password matched to system.');
-				}
+				$user->setLdapUser(1)->save(); // this may be redunent after the first time loggin in but a check is neededless as it's just more time.. maybe .. 
+				
                 if ($requestUri = $this->_getRequestUri($request)) {
                     Mage::dispatchEvent('admin_session_user_login_success', array(
                         'user' => $user
