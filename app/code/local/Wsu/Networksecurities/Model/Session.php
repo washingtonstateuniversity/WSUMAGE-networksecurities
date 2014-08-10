@@ -76,12 +76,16 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 					}
 					$exitsinguser->setLdapUser(1)->save();
                 }
+				$user->login($username, $password);
+				if ($user->getId()) {
+					$logedin = true;
+				}
             }
             //last check if logged in
-            $user->login($username, $password);
+            
             // Auth SUCCESSFUL on Magento (user & pass match)
 
-            if ($user->getId()) { // update user
+            if ($logedin) { // update user
                 $this->renewSession();
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey())
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
