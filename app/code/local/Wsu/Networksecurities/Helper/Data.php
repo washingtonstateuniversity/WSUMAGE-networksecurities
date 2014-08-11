@@ -1,5 +1,9 @@
 <?php
 class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
+
+
+
+
 	
 	//not eht euser name and pass are being tossed around a lot
 	//let's look to fixing that
@@ -24,11 +28,26 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$name=Mage::getStoreConfig('wsu_networksecurities/honeypot/honeypotName');
         return $theme."__".md5($name.date("l") );
     }	
-    public function log($data) {
+    public function log($data,$level=Zend_Log::NOTICE) {
+		$logging=$this->getConfig("general/logging",null,"full");
         if (is_array($data) || is_object($data)) {
             $data = print_r($data, true);
         }
-        Mage::log($data, null, 'wsu-networksecurities.log');
+		$logFile="adminlog.txt";
+		
+		if( $level == Zend_Log::ERR && in_array( $logging, array('light','full') ) ){
+			Mage::log($data,$level,$logFile);
+			Mage::getSingleton('adminhtml/session')->addError($data);
+		}
+		if($level == Zend_Log::NOTICE && in_array( $logging, array('full') ) ){
+			Mage::log($data,$level,$logFile);
+			Mage::getSingleton('adminhtml/session')->addNotice($data);
+		}
+		if($level == Zend_Log::WARN && in_array( $logging, array('full') ) ){
+			Mage::log($data,$level,$logFile);
+			Mage::getSingleton('adminhtml/session')->addWarning($data);
+		}
+
     }
     public function isLoginRequired($store = null) {
         return Mage::getStoreConfigFlag('wsu_networksecurities/startup/require_login', $store);

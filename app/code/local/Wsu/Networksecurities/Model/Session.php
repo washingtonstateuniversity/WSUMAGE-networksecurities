@@ -43,15 +43,16 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             return parent::login($username, $password, $request);
 			
         try {
-			Mage::log("using Ldap",Zend_Log::NOTICE,"adminlog.txt");
+			Mage::helper('wsu_networksecurities')->log("using Ldap",Zend_Log::NOTICE);
             //print("here");die();exit();
             $this->connect();
             $ldap_user = $this->authentify($username, $password);
 			$ldappass=false;
             if (!is_a($ldap_user, 'Wsu_Networksecurities_Model_Session')) {
-				Mage::log("not a Ldap user",Zend_Log::NOTICE,"adminlog.txt");
+				Mage::helper('wsu_networksecurities')->log("not a Ldap user",Zend_Log::NOTICE);
                 if (!$this->allow_bypass) {
-					Mage::log("not able to bypass Ldap",Zend_Log::NOTICE,"adminlog.txt");
+					Mage::helper('wsu_networksecurities')->log("not able to bypass Ldap",Zend_Log::NOTICE);
+					
                     Mage::getSingleton('core/session')->addError('Incorrect password our username.<br/> <strong>You now have %s trys before a timeout lock is applied.</strong>');
                     Mage::getSingleton('core/session')->addError('<em>You may not be athourized to use this system to which you must request access.</em>');
 					Mage::helper('wsu_networksecurities')->setFailedLogin($login,$password);
@@ -59,7 +60,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 }
                 return parent::login($username, $password, $request); //process normally with out ldap
             }
-			Mage::log("passed Ldap",Zend_Log::NOTICE,"adminlog.txt");
+			Mage::helper('wsu_networksecurities')->log("passed Ldap",Zend_Log::NOTICE);
 			//it is assumed that if you are here that you have passes ldap
             // Auth SUCCESSFUL
 			
@@ -70,7 +71,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             
 
             if (!$logedin) {
-				Mage::log("passed Ldap but wasn't logedin",Zend_Log::NOTICE,"adminlog.txt");
+				Mage::helper('wsu_networksecurities')->log("passed Ldap but wasn't logedin",Zend_Log::NOTICE);
                 $exitsinguser = $user->load($username, 'username');
                 if ($exitsinguser->getId()) {
                     //User {$username} already exists
@@ -79,7 +80,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     	$exitsinguser->setNewPassword($password);
 						$exitsinguser->setPasswordConfirmation($password);
 						$exitsinguser->save();
-						Mage::log("saved new LDAP password",Zend_Log::NOTICE,"adminlog.txt");
+						Mage::helper('wsu_networksecurities')->log("saved new LDAP password",Zend_Log::NOTICE);
 					}
 					$exitsinguser->setLdapUser(1)->save();
                 }
@@ -91,7 +92,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 
             if ($logedin) { 
 				// Auth SUCCESSFUL on Magento (user & pass match)
-				Mage::log("User passed ldap and was logged in",Zend_Log::NOTICE,"adminlog.txt");
+				Mage::helper('wsu_networksecurities')->log("User passed ldap and was logged in",Zend_Log::NOTICE);
                 $this->renewSession();
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()){
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
@@ -272,8 +273,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 		$ldaped = @ldap_bind(self::$ldaplink, $this->rootDn, $this->rootPassword);
         if (!$ldaped) {
 			$err=ldap_errno(self::$ldaplink);
-			Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
-            Mage::getSingleton('adminhtml/session')->addError($err);
+			Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERROR);
         }
         if (self::$ldaplink) {
         } else {
@@ -320,9 +320,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 $params = $login . " -- " . $password;
 				
 				$err=ldap_error($r);
-				Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
-				Mage::getSingleton('adminhtml/session')->addError($err);
-
+				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERROR);
             } elseif ($r === true) {
                 if ($this->is_Allowed($login)){
                     return $this;
@@ -333,8 +331,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             return false;
         }
         catch (Exception $e) {
-            //Mage::getSingleton('core/session')->addError("Error: " . $e);
-			Mage::log($e,Zend_Log::ERROR,"adminlog.txt");
+			Mage::helper('wsu_networksecurities')->log($e,Zend_Log::ERROR);
             return false;
         }
     }

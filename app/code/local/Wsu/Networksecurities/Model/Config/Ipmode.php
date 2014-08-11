@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Model_Config_IPMode {
+class Wsu_Networksecurities_Model_Config_Ipmode {
     /**
      * Get options for networksecurities mode selection field
      *
@@ -9,11 +9,11 @@ class Wsu_Networksecurities_Model_Config_IPMode {
         return array(
             array(
                 'label' => Mage::helper('wsu_networksecurities')->__('Exclude'),
-                'value' => Wsu_Networksecurities_Helper_Data::IPMODE_EXCLUDE
+                'value' => 'exclude'
             ),
             array(
                 'label' => Mage::helper('wsu_networksecurities')->__('Include'),
-                'value' => Wsu_Networksecurities_Helper_Data::IPMODE_INCLUDE
+                'value' => 'include'
             ),
         );
     }
