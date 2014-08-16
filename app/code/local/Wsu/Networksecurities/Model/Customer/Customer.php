@@ -41,6 +41,35 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
         return true;
     }
 
+	/**
+	 * Load customer by username
+	 *
+	 * @param   string $customerUsername
+	 * @return  Mage_Customer_Model_Customer
+	 */
+	public function loadByUsername($customerUsername) {
+		$this->_getResource()->loadByUsername($this, $customerUsername);
+		return $this;
+	}
+
+    /**
+     * Test if username already exists
+     * 
+     * @param string $username
+     * @param int $websiteId
+     * @return boolean
+     */
+    public function customerUsernameExists($username, $websiteId = null) {
+        if(!is_null($websiteId)){
+            $this->setWebsiteId($websiteId);
+        }
+        
+        $this->loadByUsername($username);
+        if ($this->getId()) {
+            return $this;
+        }
+        return false;
+    }
 
 
 }
