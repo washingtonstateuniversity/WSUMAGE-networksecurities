@@ -10,7 +10,21 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		return $collection->getFirstItem();
 	}
 	
-	
+	public function createCustomer($data){
+		$customer = Mage::getModel('customer/customer');
+		$customer->setFirstname($data['firstname']);
+		//$customer->setFirstname($data['firstname']);
+		$customer->setLastname($data['lastname']);
+		$customer->setEmail($data['email']);
+						
+		$newPassword = $customer->generatePassword();
+		$customer->setPassword($newPassword);
+		try{
+			$customer->save();
+		}catch(Exception $e){}
+        		
+		return $customer;
+	}	
 	
 	
 	
