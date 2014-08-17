@@ -10,8 +10,7 @@ class Wsu_Networksecurities_Model_Networksecurities extends Mage_Core_Model_Abst
         $data    = Mage::app()->loadCache( $cacheId );
         if ( false !== $data ) {
             $data = unserialize( $data );
-        } else {
-            $xml  = Mage::getConfig()->loadModulesConfiguration( 'networksecurities.xml' )->getNode();
+        }else{ $xml  = Mage::getConfig()->loadModulesConfiguration( 'networksecurities.xml' )->getNode();
             $data = $xml->asArray();
             Mage::app()->saveCache( serialize( $data ), $cacheId );
         }

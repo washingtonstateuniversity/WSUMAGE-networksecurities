@@ -7,7 +7,7 @@ class Wsu_Networksecurities_Block_Adminhtml_Permissions_User_Edit_Tab_Main exten
 		
 		$HELPER = Mage::helper('wsu_networksecurities');
 
-        if($HELPER->getConfig('adminlogin/activeldap')){
+        if($HELPER->getConfig('adminlogin/activeldap')) {
 			$form = $this->getForm();
 	
 			$fieldset = $form->addFieldset('LDAP', array(

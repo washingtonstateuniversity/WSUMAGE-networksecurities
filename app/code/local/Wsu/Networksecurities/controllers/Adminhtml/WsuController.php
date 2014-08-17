@@ -33,16 +33,14 @@ class Wsu_Networksecurities_Adminhtml_WsuController extends Mage_Core_Controller
 				if ($found) {
 					//email the user	
 					$this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('A request for this email, %s, to be added to the admin users.', Mage::helper('adminhtml')->escapeHtml($email)));
-				} else {
-					$this->_getSession()->addError($this->__('This account already exists.'));	
+				}else{ $this->_getSession()->addError($this->__('This account already exists.'));	
 				}
 				
 				$this->_redirect('*/*/requestaccess');
 				return;
-			} else {
-				$this->_getSession()->addError($this->__('Invalid email address.'));
+			}else{ $this->_getSession()->addError($this->__('Invalid email address.'));
 			}
-		} elseif (!empty($params)) {
+		}elseif (!empty($params)) {
 			$this->_getSession()->addError(Mage::helper('adminhtml')->__('The email address is empty.'));
 		}
 		$this->loadLayout();
@@ -54,7 +52,7 @@ class Wsu_Networksecurities_Adminhtml_WsuController extends Mage_Core_Controller
      *
      * @return boolean
      */
-    protected function _isAllowed(){
+    protected function _isAllowed() {
         return true;
     }
 	

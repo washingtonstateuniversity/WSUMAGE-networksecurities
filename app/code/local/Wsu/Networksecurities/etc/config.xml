@@ -31,10 +31,28 @@
       </admin>
       <customer>
         <rewrite>
-          <session>Wsu_Networksecurities_Model_Customer_Session</session>
-          <customer>Wsu_Networksecurities_Model_Customer_Customer</customer>
+			<session>Wsu_Networksecurities_Model_Customer_Session</session>
+			<customer>Wsu_Networksecurities_Model_Customer_Customer</customer>
+			<form>Wsu_Networksecurities_Model_Form</form>
+			<setup>Wsu_Networksecurities_Model_Setup</setup>
+			<config_share>Wsu_Networksecurities_Model_Config_Share</config_share>
         </rewrite>
       </customer>
+		<customer_entity>
+			<rewrite>
+				<customer>Wsu_Networksecurities_Model_Entity_Customer</customer>
+			</rewrite>
+		</customer_entity>
+		<customer_resource>
+			<rewrite>
+				<customer>Wsu_Networksecurities_Model_Entity_Customer</customer>
+			</rewrite>
+		</customer_resource>
+		<importexport>
+			<rewrite>
+				<import_entity_customer>Wsu_Networksecurities_Model_Import_Entity_Customer</import_entity_customer>
+			</rewrite>
+		</importexport>
       <wsu_networksecurities>
         <class>Wsu_Networksecurities_Model</class>
         <resourceModel>networksecurities_resource</resourceModel>
@@ -51,6 +69,12 @@
           <spam_log>
             <table>wsu_spamlog</table>
           </spam_log>
+			<customer>
+				<table>twlogin_customer</table>
+			</customer>
+			<authorlogin>
+				<table>authorlogin_customer</table>
+			</authorlogin>
         </entities>
       </networksecurities_resource>
     </models>
@@ -142,17 +166,39 @@
           </networksecurities_setFailedLogin>
         </observers>
       </admin_session_user_login_failed>
+            <customer_customer_authenticated>
+                <observers>
+                    <customer_observer>
+                        <type>singleton</type>
+                        <class>wsu_networksecurities/observer</class>
+                        <method>isActive</method>
+                    </customer_observer>
+                </observers>
+            </customer_customer_authenticated>
     </events>
 	
-        <fieldsets>
-            <customer_account>
-                <ldap_user><to_quote>customer_ldap_user</to_quote></ldap_user>
-            </customer_account>
-            <checkout_onepage_quote>
-                <customer_ldap_user><to_customer>ldap_user</to_customer></customer_ldap_user>
-            </checkout_onepage_quote>
-        </fieldsets>
-	
+	<fieldsets>
+		<customer_account>
+			<ldap_user><to_quote>customer_ldap_user</to_quote></ldap_user>
+			<username><create>1</create><update>1</update><to_order>customer_username</to_order><to_quote>customer_username</to_quote></username>
+		</customer_account>
+		<checkout_onepage_quote>
+			<customer_ldap_user><to_customer>ldap_user</to_customer></customer_ldap_user>
+			<customer_username><to_customer>username</to_customer></customer_username>
+		</checkout_onepage_quote>
+		<checkout_onepage_billing>
+			<username><to_customer>*</to_customer></username>
+		</checkout_onepage_billing>
+		<sales_convert_quote>
+			<customer_username><to_order>*</to_order></customer_username>
+		</sales_convert_quote>
+		<sales_convert_quote_address>
+			<username><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></username>
+		</sales_convert_quote_address>
+		<sales_convert_order>
+			<customer_username><to_quote>*</to_quote></customer_username>
+		</sales_convert_order>
+	</fieldsets>
 	
 	
   </global>
@@ -164,6 +210,36 @@
         </wsu_networksecurities>
       </updates>
     </layout>
+	<events>
+		<admin_system_config_changed_section_username>
+			<observers>
+				<change_eav_username>
+					<class>wsu_networksecurities/observer</class>
+					<method>changeEavAttribute</method>
+				</change_eav_username>
+			</observers>
+		</admin_system_config_changed_section_username>
+
+		<eav_collection_abstract_load_before>
+			<observers>
+				<customer_load_collection>
+					<class>wsu_networksecurities/observer</class>
+					<method>addAttributeToCollection</method>
+				</customer_load_collection>
+			</observers>
+		</eav_collection_abstract_load_before>
+
+		<core_block_abstract_to_html_before>
+			<observers>
+				<username_grid>
+					<type>singleton</type>
+					<class>wsu_networksecurities/observer</class>
+					<method>addUsernameColumn</method>
+				</username_grid>
+			</observers>
+		</core_block_abstract_to_html_before>
+	</events>
+
   </adminhtml>
   <admin>
     <layout>
@@ -217,6 +293,17 @@
           </wsu_networksecurities>
         </observers>
       </controller_action_predispatch_customer_account_create>
+	  
+		<controller_action_predispatch_customer_account_edit>
+			<observers>
+				<Wsu_Networksecurities_Sociallogin_observer>
+					<type>singleton</type>
+					<class>wsu_networksecurities/observer</class>
+					<method>customer_edit</method>
+				</Wsu_Networksecurities_Sociallogin_observer>
+		   </observers>				
+		</controller_action_predispatch_customer_account_edit>
+	  
     </events>
     <layout>
       <updates>
@@ -233,6 +320,20 @@
           <frontName>networksecurities</frontName>
         </args>
       </wsu_networksecurities>
+		<sociallogin>
+			<use>standard</use>
+			<args>
+				<module>Wsu_Networksecurities_Sso</module>
+				<frontName>sociallogin</frontName>
+			</args>
+		</sociallogin>
+            <customer>
+                <args>
+                    <modules>
+                        <username before="Mage_Customer">Wsu_Networksecurities</username>
+                    </modules>
+                </args>
+            </customer>
     </routers>
   </frontend>
   <default>
@@ -290,6 +391,90 @@
           <adminatuocreate>0</adminatuocreate>
         </adminlogin>
       </ldap>
+		<sociallogin>
+			<general_sso>
+				<is_active>1</is_active>
+				<position>header,popup</position>
+				<direction>right</direction>
+				<number_show>5</number_show>
+			</general_sso>
+			<twlogin>	
+				<is_active>1</is_active>
+				<connecting_notice><![CDATA[If you have a account on {{store}}, please login else register a new account to connect twitter account]]></connecting_notice>
+				<sort_order>3</sort_order>
+			</twlogin>
+			<yalogin>	
+				<is_active>1</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>5</sort_order>
+			</yalogin>
+			<gologin>	
+				<is_active>1</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>2</sort_order>
+			</gologin>
+			<fblogin>	
+				<is_active>1</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>1</sort_order>
+			</fblogin>
+			<aollogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>6</sort_order>
+			</aollogin>
+            <wplogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>7</sort_order>
+			</wplogin>
+			<callogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>8</sort_order>
+			</callogin>
+			<orglogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>9</sort_order>
+			</orglogin>
+			<fqlogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>10</sort_order>
+			</fqlogin>
+			<livelogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>11</sort_order>
+			</livelogin>
+			<mplogin>	
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>12</sort_order>
+			</mplogin>
+			<linklogin>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>4</sort_order>
+			</linklogin>
+			<openlogin>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>13</sort_order>
+			</openlogin>
+			<ljlogin>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>14</sort_order>
+			</ljlogin>
+            <perlogin>
+                <sort_order>15</sort_order>
+            </perlogin>
+            <selogin>
+                <sort_order>16</sort_order>
+            </selogin>
+		</sociallogin>
     </wsu_networksecurities>
   </default>
   <crontab>

@@ -10,12 +10,12 @@ class Wsu_Networksecurities_Model_Spamlog extends Mage_Core_Model_Abstract {
      */
     const TYPE_LOGIN = 2;
 
-    public function _construct(){
+    public function _construct() {
         parent::_construct();
         $this->_init('wsu_networksecurities/spam_log');
     }
     
-	public function _beforeSave(){
+	public function _beforeSave() {
         parent::_beforeSave();
 		$now = Mage::getSingleton('core/date')->gmtDate();
 		if (!$this->getCreatedAt()) {
@@ -32,7 +32,7 @@ class Wsu_Networksecurities_Model_Spamlog extends Mage_Core_Model_Abstract {
      * @return Wsu_Networksecurities_Model_Resource_Log
      */
     public function logAttempt($login) {
-        if ($login != null){
+        if (!is_null($login)) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 array(
@@ -43,7 +43,7 @@ class Wsu_Networksecurities_Model_Spamlog extends Mage_Core_Model_Abstract {
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+        if (!is_null($ip)) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 array(
@@ -63,14 +63,14 @@ class Wsu_Networksecurities_Model_Spamlog extends Mage_Core_Model_Abstract {
      * @return Wsu_Networksecurities_Model_Resource_Log
      */
     public function deleteUserAttempts($login) {
-        if ($login != null) {
+        if (!is_null($login)) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
                 array('type = ?' => self::TYPE_LOGIN, 'value = ?' => $login)
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+        if (!is_null($ip)) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(), array('type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip)
             );
@@ -122,7 +122,7 @@ class Wsu_Networksecurities_Model_Spamlog extends Mage_Core_Model_Abstract {
             array('updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60*30))
         );
     }	
-	public function deleteExpiredLog(){
+	public function deleteExpiredLog() {
 		$now = Mage::getModel('core/date')->timestamp(time());
 		$now = new Zend_Date($now);
 		$now->subDay(7);

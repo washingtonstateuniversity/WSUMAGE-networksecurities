@@ -76,7 +76,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 if ($exitsinguser->getId()) {
                     //User {$username} already exists
                     //lets update the systems password to match LDAP
-					if( $exitsinguser->getPassword() != $password ){
+					if( $exitsinguser->getPassword() != $password ) {
                     	$exitsinguser->setNewPassword($password);
 						$exitsinguser->setPasswordConfirmation($password);
 						$exitsinguser->save();
@@ -94,7 +94,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 				// Auth SUCCESSFUL on Magento (user & pass match)
 				Mage::helper('wsu_networksecurities')->log("User passed ldap and was logged in",Zend_Log::NOTICE);
                 $this->renewSession();
-                if (Mage::getSingleton('adminhtml/url')->useSecretKey()){
+                if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
 				}
                 $this->setIsFirstPageAfterLogin(true);
@@ -111,7 +111,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     header('Location: ' . $requestUri);
                     exit;
                 }
-            } else { // Does not exist in magento, exists on Ldap
+            }else{ // Does not exist in magento, exists on Ldap
                 if ($this->autocreate) {
                     try {
                         $exist = false;
@@ -126,8 +126,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                             $user = Mage::getModel('admin/user')->load($val['user_id']);
                             $user->setUsername($username)->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])->setLastname($ldap_user->data[0][$this->attr['lastname']][0])->setEmail($ldap_user->data[0][$this->attr['mail']][0])->setPassword($password)->setLdapUser(1)->save();
                             Mage::getSingleton('core/session')->addSuccess('Password not updated, wrong password');
-                        } else {
-                            // create user
+                        }else{ // create user
                             $user = Mage::getModel('admin/user')->setData(array(
                                 'username' => $username,
                                 'firstname' => $ldap_user->data[0][$this->attr['firstname']][0],
@@ -162,8 +161,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                         echo $e->getMessage();
                         exit;
                     }
-                } else {
-					Mage::helper('wsu_networksecurities')->setFailedLogin($username,$password);
+                }else{ Mage::helper('wsu_networksecurities')->setFailedLogin($username,$password);
                     Mage::getSingleton('core/session')->addError('You may not be athourized to use this system. You must contact an admin to be given rights');
                     return false;
                 }
@@ -276,8 +274,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 			Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERROR);
         }
         if (self::$ldaplink) {
-        } else {
-            //echo "Unable to connect to LDAP server";
+        }else{ //echo "Unable to connect to LDAP server";
 			Mage::log("Unable to connect to LDAP server",Zend_Log::ERROR,"adminlog.txt");
             die();
         }
@@ -321,11 +318,11 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 				
 				$err=ldap_error($r);
 				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERROR);
-            } elseif ($r === true) {
-                if ($this->is_Allowed($login)){
+            }elseif ($r === true) {
+                if ($this->is_Allowed($login)) {
                     return $this;
 				}
-            } elseif ($r === false) {
+            }elseif ($r === false) {
                 //error message to be passed later
             }
             return false;

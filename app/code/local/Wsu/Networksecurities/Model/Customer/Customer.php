@@ -9,17 +9,17 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
      * @return true
      *
      */
-    public function authenticate($username, $password){
+    public function authenticate($username, $password) {
 		//$login = trim(mb_convert_kana($login, 'as'));
 		$actived = trim(Mage::getStoreConfig('wsu_networksecurities/ldap/customerlogin/activeldap'));
-		if (!$actived){ //CHECK MAGENTO CONNECT
+		if (!$actived) { //CHECK MAGENTO CONNECT
 		        if (!$this->validatePassword($password)) {
 					Mage::helper('wsu_networksecurities')->setFailedLogin($username,$password);
 				}
 				return parent::authenticate($username, $password);
 		}
 		
-		if(Zend_Validate::is($username, 'EmailAddress')){ 
+		if(Zend_Validate::is($username, 'EmailAddress')) { 
 			$this->loadByEmail($username); 
 		}else if (Mage::getStoreConfigFlag('username/general/enabled')) { 
 			$this->loadByUsername($username);    
@@ -60,7 +60,7 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
      * @return boolean
      */
     public function customerUsernameExists($username, $websiteId = null) {
-        if(!is_null($websiteId)){
+        if(!is_null($websiteId)) {
             $this->setWebsiteId($websiteId);
         }
         

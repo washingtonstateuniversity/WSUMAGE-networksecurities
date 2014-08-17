@@ -1,11 +1,11 @@
 <?php
 class Wsu_Networksecurities_Model_Failedlogin extends Mage_Core_Model_Abstract {
-    public function _construct(){
+    public function _construct() {
         parent::_construct();
         $this->_init('wsu_networksecurities/failedlogin');
     }
 /*    
-	public function _beforeSave(){
+	public function _beforeSave() {
         parent::_beforeSave();
 		$now = Mage::getSingleton('core/date')->gmtDate();
 		if (!$this->getCreatedAt()) {
@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Model_Failedlogin extends Mage_Core_Model_Abstract {
         return $this;
 	}
 	
-	public function deleteExpiredLog(){
+	public function deleteExpiredLog() {
 		$now = Mage::getModel('core/date')->timestamp(time());
 		$now = new Zend_Date($now);
 		$now->subDay(7);

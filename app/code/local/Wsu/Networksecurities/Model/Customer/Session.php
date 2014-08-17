@@ -65,7 +65,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
      * @param   string $password
      * @return  bool
      */
-    public function login($username, $password){
+    public function login($username, $password) {
 		
 		$this->load_Parameters();
 
@@ -76,26 +76,26 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
         try { 	
 			$this->connect();
 			$ldap_user = $this->authentify($username, $password);
-			if (!is_a($ldap_user, 'Wsu_Networksecurities_Model_Customer_Session')){
+			if (!is_a($ldap_user, 'Wsu_Networksecurities_Model_Customer_Session')) {
 				print("now trying the non LDAP");
 				return $this->loginuser($username, $password);//parent::login($username, $password);
 			}else{
 				
-				if($this->loginuser($username, $password)){
+				if($this->loginuser($username, $password)) {
 					return true;
 				}else{
 				// Does not exist in magento, exists on Ldap
-					if($this->autocreate){
+					if($this->autocreate) {
 						try {
 							$exist = false;
 							//$admin->loadByEmail($email);
 							// test if a user already exists (check username)
 							$users = Mage::getModel('customer/customer')->getCollection()->getData();
-							foreach($users as $userData=>$val){
+							foreach($users as $userData=>$val) {
 								if($val['username'] == $username)
 									$exist = true;
 							}
-							if ($exist){// update user
+							if ($exist) {// update user
 								$user = Mage::getModel('customer/customer')->load($val['user_id']);
 								$user->setUsername($username)
 									->setFirstname($ldap_user->data[0][$this->attr['firstname']][0])
@@ -162,7 +162,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 		
         
     }
-	private function loginuser($username, $password){
+	private function loginuser($username, $password) {
 		$customer = Mage::getModel('customer/customer')
 					->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 		if ($customer->authenticate($username, $password)) {
@@ -174,10 +174,10 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 		}
 	}
 	
-    private function connect(){
+    private function connect() {
 		$this->load_Parameters();
 		
-		if (is_null(self::$ldaplink)){
+		if (is_null(self::$ldaplink)) {
 			if ($this->tls)
 				$url = 'ldaps://'.$this->host.'/';
 			else
@@ -185,11 +185,11 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 			self::$ldaplink = ldap_connect($url, $this->port) or die("Could not connect to $ldaphost");
 		}
 		//print( "not connection issue");die();exit();//work f'er
-		if (!ldap_set_option(self::$ldaplink, LDAP_OPT_PROTOCOL_VERSION, $this->version)){
+		if (!ldap_set_option(self::$ldaplink, LDAP_OPT_PROTOCOL_VERSION, $this->version)) {
 			Mage::getSingleton('core/session')->addError("Wsu".ldap_errno(self::$ldaplink));
 		}
 		//die('AUTH_ADMIN ERROR : VERSION ERROR');
-		if (!ldap_set_option(self::$ldaplink, LDAP_OPT_REFERRALS, 0)){
+		if (!ldap_set_option(self::$ldaplink, LDAP_OPT_REFERRALS, 0)) {
 			Mage::getSingleton('core/session')->addError("Wsu".ldap_errno(self::$ldaplink));
 		}
 		//die('AUTH_ADMIN ERROR : VERSION ERROR');
@@ -210,13 +210,13 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 		*/
 		//die('AUTH_ADMIN ERROR : BIND ERROR');
     }
-    public function get_Link(){
+    public function get_Link() {
 		if(empty(self::$ldaplink)) $this->connect();
 		return self::$ldaplink;
     }
 
 
-    public function authentify($login=null, $password=null){
+    public function authentify($login=null, $password=null) {
 		if (is_null($login) || is_null($password))
 			return false;
 			
@@ -247,14 +247,14 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 				if ($r === -1) {
 					$params = $login." -- ".$password;
 					echo $params." ||| Error: " . ldap_error($r);
-				} elseif ($r === true) {
+				}elseif ($r === true) {
 					return $this;
 					//if ($this->is_Allowed($login)) return $this;
-				} elseif ($r === false) {
+				}elseif ($r === false) {
 					echo "Wrong guess! Password incorrect.";
 				}
 				print( "ldap_bind SUCCESSFUL ");die();exit();
-			}catch(Exception $e){
+			}catch(Exception $e) {
 				$message = $this->__('Email Id Already Exist.');
 				Mage::getSingleton('core/session')->addError($message);
 				throw new Exception('Already Set');
@@ -266,7 +266,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 
 	//@TODO this really shouldn't be left like this.
 	//the object of param
-    private function load_Parameters(){
+    private function load_Parameters() {
 		$HELPER = Mage::helper('wsu_networksecurities');
 
         //admin

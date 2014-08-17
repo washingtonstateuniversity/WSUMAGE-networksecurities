@@ -12,10 +12,10 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 
 
 	
-	public function appendHoneypot($observer){
+	public function appendHoneypot($observer) {
 		echo "TEST!!!!!!!!!!!!!";
 		//$layout=Mage::getSingleton('core/layout');
-		//if($layout!=null && !empty($layout)){
+		//if($layout!=null && !empty($layout)) {
 			$update = Mage::getSingleton('core/layout')->getUpdate();
 			//$update = $observer->getEvent()->getLayout()->getUpdate();
             $update->addHandle('networksecurities.honeypot');
@@ -115,8 +115,7 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
         );
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
-        } else {
-            if ($user) {
+        }else{ if ($user) {
                 $user->reload();
             }
             if (!$user || !$user->getId()) {
@@ -130,10 +129,9 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
                 if (!$request->getParam('forwarded')) {
                     if ($request->getParam('isIframe')) {
                         $request->setParam('forwarded', true)->setControllerName('index')->setActionName('deniedIframe')->setDispatched(false);
-                    } elseif ($request->getParam('isAjax')) {
+                    }elseif ($request->getParam('isAjax')) {
                         $request->setParam('forwarded', true)->setControllerName('index')->setActionName('deniedJson')->setDispatched(false);
-                    } else {
-                        $request->setParam('forwarded', true)->setRouteName('adminhtml')->setControllerName('index')->setActionName('login')->setDispatched(false);
+                    }else{ $request->setParam('forwarded', true)->setRouteName('adminhtml')->setControllerName('index')->setActionName('login')->setDispatched(false);
                     }
                     return false;
                 }
@@ -361,7 +359,7 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 	
 	// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
-	public function setFailedLogin($login,$password=""){
+	public function setFailedLogin($login,$password="") {
 		$pass=($password=="")?$_POST['login']['password']:$password;
 		Mage::helper('wsu_networksecurities')->setFailedLogin($login,$pass);
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
@@ -372,18 +370,135 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 
 	// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
-	public function testBlacklist(){
+	public function testBlacklist() {
 		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
 		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
 		$status = $blacklist ->getCollection()
 			->addFieldToSelect('*')
     		->addFieldToFilter('ip', $ip)
 			->getSize();
-		if($status>0){
+		if($status>0) {
 			die('You must contact an admin to get unblocked.  There is no time limit');
 		}
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}	
 	
+	public function customer_edit($observer) {
+		try{
+			$customerId = Mage::getSingleton('core/session')->getCustomerIdSocialLogin();
+			if ($customerId) {
+				Mage::getSingleton('customer/session')->getCustomer()->setEmail(' ');			
+			}
+			Mage::getSingleton('core/session')->setCustomerIdSocialLogin();
+		} catch(Exception $e) {		
+		}
+	}
 	
+	
+	
+	
+	
+	
+/************************************************************************
+* Username section
+*************/
+	/**
+     * Test if the customer account is enabled or not
+     *
+     * Event: customer_customer_authenticated
+     *
+     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     */
+    public function isActive($observer) {   
+        $customer = $observer->getEvent()->getModel();
+        // Add the inactive option
+        if($customer->getIsActive () != '1' ){
+            throw new Mage_Core_Exception(Mage::helper('customer')->__('This account is disabled.'), 0);
+        }
+    }
+
+    /**
+     * Add on the fly the username attribute to the customer collection
+     *
+     * Event: eav_collection_abstract_load_before
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function addAttributeToCollection ($observer) {
+        /* @var $collection Mage_Eav_Model_Entity_Collection_Abstract */
+        $collection = $observer->getEvent()->getCollection();
+        $entity = $collection->getEntity();
+        if (!empty($entity) && $entity->getType() == 'customer') {
+            $collection->addAttributeToSelect('username');
+        }
+
+    }
+    
+    /**
+     * Change the attribute of username after the configuration
+     * has been changed
+     *
+     * Event: admin_system_config_changed_section_username
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function changeEavAttribute (Varien_Event_Observer $observer) {
+        $minLength = Mage::getStoreConfig('wsu_networksecurities/general_customer/min_length');
+        $maxLength = Mage::getStoreConfig('wsu_networksecurities/general_customer/max_length');
+        $inputValidation = Mage::getStoreConfig('wsu_networksecurities/general_customer/input_validation');
+
+        if($minLength > $maxLength) {
+            Mage::throwException(
+                Mage::helper('wsu_networksecurities')->__('Sorry but you cannot set a minimum length value %s bigger than the maximum length value %s. Please, change the values.',
+                $minLength,
+                $maxLength)
+            );
+        }
+
+        /* @var $attributeUsernameModel Mage_Customer_Model_Attribute */
+        $attributeUsernameModel = Mage::getModel('customer/attribute')->loadByCode('customer', 'username');
+        if($attributeUsernameModel->getId()) {
+			$rules = $attributeUsernameModel->getValidateRules();
+			$rules['max_text_length'] = $maxLength;
+			$rules['min_text_length'] = $minLength;
+		
+			if($inputValidation != 'default' && $inputValidation != 'custom') {
+				$rules['input_validation'] = $inputValidation;
+			}else {
+				$rules['input_validation'] = '';
+			}
+		
+			$attributeUsernameModel->setValidateRules($rules);
+			$attributeUsernameModel->save();
+        }
+    }
+
+    /**
+     * Event
+     * - block_html_before
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function addUsernameColumn(Varien_Event_Observer $observer) {
+        if (!Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/grid')) {
+            return;
+        }
+
+        $grid = $observer->getBlock();
+
+        /**
+         * Mage_Adminhtml_Block_Customer_Grid
+         */
+        if ($grid instanceof Mage_Adminhtml_Block_Customer_Grid) {
+            $grid->addColumnAfter(
+                'username',
+                array(
+                    'header' => Mage::helper('wsu_networksecurities')->__('Username'),
+                    'index'  => 'username'
+                ),
+                'email'
+            );
+        }
+    }
 }

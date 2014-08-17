@@ -17,14 +17,23 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
     protected $_networksecurities = array();	
 
+    public function isPersistentMustBeEnabled () {
+        return Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')
+            && Mage::helper('core')->isModuleEnabled('persistent')
+            && Mage::helper('core')->isModuleOutputEnabled('persistent')
+            && Mage::helper('persistent')->isEnabled();
+    }
+
+
+
     public function getConfig($path,$store = null,$default = null) {
         $value = trim(Mage::getStoreConfig("wsu_networksecurities/$path", $store));
         return (!isset($value) || $value == '')? $default : $value ;
     }
-	public function getHoneypotId(){
+	public function getHoneypotId() {
 		return ( (date('W')%2==1)?"useremail":"userdomain");	
 	}
-    public function getHoneypotName($theme=""){
+    public function getHoneypotName($theme="") {
 		$name=Mage::getStoreConfig('wsu_networksecurities/honeypot/honeypotName');
         return $theme."__".md5($name.date("l") );
     }	
@@ -35,15 +44,15 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 		$logFile="adminlog.txt";
 		
-		if( $level == Zend_Log::ERR && in_array( $logging, array('light','full') ) ){
+		if( $level == Zend_Log::ERR && in_array( $logging, array('light','full') ) ) {
 			Mage::log($data,$level,$logFile);
 			Mage::getSingleton('adminhtml/session')->addError($data);
 		}
-		if($level == Zend_Log::NOTICE && in_array( $logging, array('full') ) ){
+		if($level == Zend_Log::NOTICE && in_array( $logging, array('full') ) ) {
 			Mage::log($data,$level,$logFile);
 			Mage::getSingleton('adminhtml/session')->addNotice($data);
 		}
-		if($level == Zend_Log::WARN && in_array( $logging, array('full') ) ){
+		if($level == Zend_Log::WARN && in_array( $logging, array('full') ) ) {
 			Mage::log($data,$level,$logFile);
 			Mage::getSingleton('adminhtml/session')->addWarning($data);
 		}
@@ -59,7 +68,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     public function filterFrontIp($controllerAction) {
 		$use_ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/use_ipfilter_frontend');
 		
-		if($use_ipfilter==1){
+		if($use_ipfilter==1) {
 			$HELPER = Mage::helper('wsu_networksecurities');
 			$ip = $HELPER->get_ip_address();
 			$ipfilter=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_frontend');
@@ -67,8 +76,8 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			$redirection=Mage::getStoreConfig('wsu_networksecurities/startup/ipfilter_redirection_frontend');
 			
 			$match=preg_match('/'.$ipfilter.'/',$ip);
-			if($match>0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_INCLUDE){
-				if(strpos(Mage::helper('core/url')->getCurrentUrl(),$redirection)===false){
+			if($match>0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_INCLUDE) {
+				if(strpos(Mage::helper('core/url')->getCurrentUrl(),$redirection)===false) {
 					$controllerAction->getResponse()->setRedirect(Mage::getUrl($redirection));
 					$controllerAction->getResponse()->sendResponse();
 					exit;
@@ -80,7 +89,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 
 
 
-	public function testpot(){
+	public function testpot() {
 		$id = $this->getHoneypotId();
 		$HoneypotName = $this->getHoneypotName($id);
 		$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
@@ -98,25 +107,25 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 
 
 	
-	public function testLogin($username,$password){
+	public function testLogin($username,$password) {
 		$helper = Mage::helper('wsu_networksecurities');
 		if (empty($username) || empty($password)) {
 			$helper->setFailedLogin($username,$password);
             return false;
         }
 		$usehoneypots    = $helper->getConfig('honeypot/usehoneypots');
-		if ($usehoneypots){
+		if ($usehoneypots) {
 			$helper->testloginPots($username,$password);
 		}
 		
 		$use_ipfilter=Mage::getStoreConfig('wsu_networksecurities/genadmin_settings/use_ipfilter_admin');
 		
-		if($use_ipfilter==1){
+		if($use_ipfilter==1) {
 			$ip = $helper->get_ip_address();
 			$ipfilter=Mage::getStoreConfig('wsu_networksecurities/genadmin_settings/ipfilter_admin');
 			$mode=Mage::getStoreConfig('wsu_networksecurities/genadmin_settings/ipfiltermode_admin');			
 			$match=preg_match('/'.$ipfilter.'/',$ip);
-			if($match>0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_INCLUDE){
+			if($match>0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_EXCLUDE || $match==0 && $mode==Wsu_Networksecurities_Helper_Data::IPMODE_INCLUDE) {
 				Mage::getSingleton('core/session')->addError('You are trying to access the admin from an unsecure connection.  You may need to VPN in.  Please contact your admin.');
 				return false;
 			}
@@ -125,7 +134,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		return true;
 	}
 	
-	public function testloginPots($username="",$password=""){
+	public function testloginPots($username="",$password="") {
 		$id = $this->getHoneypotId();
 		$HoneypotName = $this->getHoneypotName($id);
 		$Honeypot    = (string) Mage::app()->getRequest()->getParam($HoneypotName);
@@ -145,15 +154,15 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
 	// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
-	public function setFailedLogin($login,$password=""){
+	public function setFailedLogin($login,$password="") {
 		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		
 		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
-		if(is_object($login)){
+		if(is_object($login)) {
 			$login=$login->getUsername();	
 		}
-		if($login==null){
-			if(isset($_POST['login'])){
+		if(is_null($login)) {
+			if(isset($_POST['login'])) {
 				$login=$_POST['login']['username'];
 			}
 		}
@@ -168,7 +177,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$failed_log->save();
 		$cookie = Mage::getSingleton('core/cookie');
 		$count=1;
-		if(isset($_COOKIE['userpasshash'])){
+		if(isset($_COOKIE['userpasshash'])) {
 			$old=explode(':',$_COOKIE['userpasshash']);
 			$count=(int)end($old)+1;
 		}
@@ -182,9 +191,9 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		
 		
 		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
-		if($useblacklist){
+		if($useblacklist) {
 			$limit = $HELPER->getConfig('blacklist/limiter');
-			if($pastatempts>=$limit){
+			if($pastatempts>=$limit) {
 				$this->setBlacklist($ip);
 			}
 		}
@@ -193,7 +202,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
 	// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
-	public function setBlacklist($ip){
+	public function setBlacklist($ip) {
 		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
 		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
 		$blacklist->setIp($ip);
@@ -201,7 +210,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$blacklist->save();
 		$cookie = Mage::getSingleton('core/cookie');
 		$count=1;
-		if(isset($_COOKIE['userBLhash'])){
+		if(isset($_COOKIE['userBLhash'])) {
 			$old=explode(':',$_COOKIE['userBLhash']);
 			$count=(int)end($old)+1;
 		}
@@ -210,7 +219,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
 
-	public function getFailed($ip){
+	public function getFailed($ip) {
 		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		$list = $failed_log ->getCollection()
 			->addFieldToSelect('*')
@@ -218,7 +227,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			
 			return $list;
 	}
-	public function getBlacklist($ip){
+	public function getBlacklist($ip) {
 		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
 		$list = $blacklist ->getCollection()
 			->addFieldToSelect('*')
@@ -226,8 +235,8 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			
 			return $list;	
 	}	
-	public function deleteFailed($params){}
-	public function deleteBlacklist($params){}
+	public function deleteFailed($params) {}
+	public function deleteBlacklist($params) {}
 	
 	
 	
@@ -258,7 +267,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 				}
 			}
 		}
-		if($foundIP){
+		if($foundIP) {
 			return $foundIP;
 		}
 		
@@ -278,7 +287,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
 	
 	public function captchaAvailable() {
-		if (Mage::helper('core')->isModuleEnabled('Wsu_Networksecurities')){
+		if (Mage::helper('core')->isModuleEnabled('Wsu_Networksecurities')) {
 			return class_exists('Zend_Service_ReCaptcha') && Mage::getStoreConfig('wsu_networksecurities/captcha/public_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/private_key') && Mage::getStoreConfig('wsu_networksecurities/captcha/mode') != "off";
 		}
 		return false;
@@ -291,11 +300,11 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			$recaptcha->setPublicKey($pubKey);
 			$recaptcha->setPrivateKey($privKey);
 			$theme = Mage::getStoreConfig('wsu_networksecurities/captcha/theme');
-			if ($theme){
+			if ($theme) {
 				$recaptcha->setOption('theme', $theme);
 			}
 			$language = Mage::getStoreConfig('wsu_networksecurities/captcha/language');
-			if ($language){
+			if ($language) {
 				$recaptcha->setOption('lang', $language);
 			}
 		}

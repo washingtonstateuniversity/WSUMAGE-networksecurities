@@ -1,7 +1,7 @@
 <?php
 class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	
-	public function getCustomerByEmail($email, $website_id=null){ //edit
+	public function getCustomerByEmail($email, $website_id=null) { //edit
 		$collection = Mage::getModel('customer/customer')->getCollection()
 					->addFieldToFilter('email', $email);
 		if (Mage::getStoreConfig('customer/account_share/scope') && $website_id!=null) {
@@ -10,22 +10,22 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		return $collection->getFirstItem();
 	}
 	
-	public function createCustomer($data){
+	public function createCustomer($data) {
 		$customer = Mage::getModel('customer/customer');
 		$customer->setFirstname($data['firstname']);
 		$customer->setLastname($data['lastname']);
 		$customer->setEmail($data['email']);
-						
+
 		$newPassword = $customer->generatePassword();
 		$customer->setPassword($newPassword);
 		try{
 			$customer->save();
-		}catch(Exception $e){}
-        		
+		}catch(Exception $e) {}
+
 		return $customer;
 	}	
 	//create customer login multisite
-	public function createCustomerMultiWebsite($data, $website_id, $store_id){
+	public function createCustomerMultiWebsite($data, $website_id, $store_id) {
 		$customer = Mage::getModel('customer/customer')->setId(null);
 		
 		$customer->setFirstname($data['firstname']);
@@ -38,9 +38,131 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$customer->setPassword($newPassword);
 		try{
 			$customer->save();
-		}catch(Exception $e){}
+		}catch(Exception $e) {}
 		return $customer;
 	}	
+    public function getResponseBody($url) {
+		if(ini_get('allow_url_fopen') != 1) {
+			@ini_set('allow_url_fopen', '1');
+		}
+		if(ini_get('allow_url_fopen') == 1) {
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$url);
+			curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);           
+			$contents = curl_exec($ch);            
+			curl_close($ch);
+		}else{
+		   	$contents=file_get_contents($url);
+		}
+		return $contents;
+	}
+	public function getShownPositions() {
+			$shownpositions = Mage::getStoreConfig('wsu_networksecurities/general_sso/position',Mage::app()->getStore()->getId());
+			$shownpositions = explode(',',$shownpositions);
+			return $shownpositions;
+	}
+	public function getPerResultStatus($result) {
+		$result = str_replace( array('{','}','"',':'),array( '','','',','), $result );
+		$rs = explode(",", $result);
+		if($rs[10]) {
+			return $rs[10];
+		}else{
+			return "";
+		}
+	}
+	public function getPerEmail($result) {
+		$result = str_replace( array('"',':'),array( '',','), $result );
+		$rs = explode(",", $result);
+		if($rs[8]) {
+			return $rs[8];
+		}else{
+			return "";
+		}
+	}	
 	
-	
+	//get config values
+	public function getTwConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/twlogin/consumer_key'));
+	}
+	public function getTwConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/twlogin/consumer_secret'));
+	}
+	public function getTwConnectingNotice() {
+		return Mage::getStoreConfig('wsu_networksecurities/twlogin/connecting_notice');
+	}
+	public function getYaAppId() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/app_id'));
+	}
+	public function getYaConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/consumer_key'));
+	}
+	public function getYaConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/consumer_secret'));
+	}
+	public function getGoConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/gologin/consumer_key'));
+	}
+	public function getGoConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/gologin/consumer_secret'));
+	}
+	public function getFbAppId() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/fblogin/app_id'));
+	}
+	public function getFbAppSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/fblogin/app_secret'));
+	}
+	public function getAuthUrl() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('sociallogin/fblogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+	}
+	public function getDirectLoginUrl() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('sociallogin/fblogin/login', array('_secure'=>$isSecure));
+	}
+	public function getLoginUrl() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('customer/account/login', array('_secure'=>$isSecure));
+	}
+	public function getEditUrl() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('customer/account/edit', array('_secure'=>$isSecure));
+	}
+	public function getFqAppkey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/fqlogin/consumer_key'));
+	}
+	public function getFqAppSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/fqlogin/consumer_secret'));
+	}
+	public function getLiveAppkey() {	
+		return trim(Mage::getStoreConfig('wsu_networksecurities/livelogin/consumer_key'));
+	}
+	public function getLiveAppSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/livelogin/consumer_secret'));
+	}
+	public function getMpConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/mplogin/consumer_key'));
+	}
+	public function getMpConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/mplogin/consumer_secret'));
+	}
+	public function getAuthUrlFq() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('sociallogin/fqlogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+	}
+    public function getAuthUrlLive() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('sociallogin/livelogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+	}
+	public function getAuthUrlMp() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return $this->_getUrl('sociallogin/mplogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+	}
+	public function getLinkedConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/linklogin/app_id'));
+	}
+	public function getLinkedConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/linklogin/secret_key'));
+	}
 }

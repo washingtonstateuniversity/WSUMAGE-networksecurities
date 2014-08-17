@@ -1,0 +1,30 @@
+<form action="<?php echo $this->getLoginUrl(); ?>" method="post" id="form-validate">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $this->__('Login with Live Journal') ?></h2>
+        <ul class="form-list">
+            <li>
+                <label for="identity" class="required"><em>*</em><?php echo $this->__('Enter your Live Journal username') ?></label>
+                <div class="input-box">
+                    <input type="text" name="identity" id="identity" title="<?php echo $this->__('Enter my username') ?>" class="input-text required-entry" />
+					<div id="advice-required-entry-identity" style="display:none" class="validation-advice" style="">This is a required field.</div>
+				</div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Sumbit') ?>" onClick="return checkForm();" class="button"><span><span><?php echo $this->__('Sumbit') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+	function checkForm(){
+		if(!$('identity').value){
+			$('advice-required-entry-identity').show();
+			return false;
+		}else{
+			$('advice-required-entry-identity').hide();
+			return true;
+		}
+	}
+</script>

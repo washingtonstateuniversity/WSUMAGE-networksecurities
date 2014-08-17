@@ -4,6 +4,9 @@
         <Wsu_Networksecurities>
             <active>true</active>
             <codePool>local</codePool>
+			<depends>
+				<Mage_Customer />
+			</depends>
         </Wsu_Networksecurities>
     </modules>
 </config> 

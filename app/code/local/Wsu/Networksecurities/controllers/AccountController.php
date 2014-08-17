@@ -1,11 +1,6 @@
 <?php
-/**
- * Customer account controller
- *
- * @category   Mage
- * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
- */
+
+require_once 'Mage/Customer/controllers/AccountController.php';
 class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountController {
     /**
      * Login post action
@@ -43,8 +38,7 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                 catch (Exception $e) {
                 // Mage::logException($e); // PA DSS violation: this exception log can disclose customer password
                 }
-            } else {
-                $session->addError($this->__('Login and password are required.'));
+            }else{ $session->addError($this->__('Login and password are required.'));
             }
         }
         $this->_loginPostRedirect();
@@ -91,16 +85,14 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                     if (is_array($addressErrors)) {
                         $errors = array_merge($errors, $addressErrors);
                     }
-                } else {
-                    $errors = array_merge($errors, $addressErrors);
+                }else{ $errors = array_merge($errors, $addressErrors);
                 }
             }
             try {
                 $customerErrors = $customerForm->validateData($customerData);
                 if ($customerErrors !== true) {
                     $errors = array_merge($customerErrors, $errors);
-                } else {
-                    $customerForm->compactData($customerData);
+                }else{ $customerForm->compactData($customerData);
                     $customer->setPassword($this->getRequest()->getPost('password'));
                     $customer->setConfirmation($this->getRequest()->getPost('confirmation'));
                     $customerErrors = $customer->validate();
@@ -122,20 +114,17 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                             '_secure' => true
                         )));
                         return;
-                    } else {
-                        $session->setCustomerAsLoggedIn($customer);
+                    }else{ $session->setCustomerAsLoggedIn($customer);
                         $url = $this->_welcomeCustomer($customer);
                         $this->_redirectSuccess($url);
                         return;
                     }
-                } else {
-                    $session->setCustomerFormData($this->getRequest()->getPost());
+                }else{ $session->setCustomerFormData($this->getRequest()->getPost());
                     if (is_array($errors)) {
                         foreach ($errors as $errorMessage) {
                             $session->addError($errorMessage);
                         }
-                    } else {
-                        $session->addError($this->__('Invalid customer data'));
+                    }else{ $session->addError($this->__('Invalid customer data'));
                     }
                 }
             }
@@ -145,8 +134,7 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                     $url     = Mage::getUrl('customer/account/forgotpassword');
                     $message = $this->__('There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url);
                     $session->setEscapeMessages(false);
-                } else {
-                    $message = $e->getMessage();
+                }else{ $message = $e->getMessage();
                 }
                 $session->addError($message);
             }
@@ -160,19 +148,25 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
     }
     /**
      * Forgot customer password action
-     * This should be sent to a IT or something due to LDAP
      */
     public function forgotPasswordPostAction() {
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+			/** @var $customer Wsu_Networksecurties_Model_Customer */
+            $customer = Mage::getModel('customer/customer')
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                ->loadByUsername($email);
+            /** @var $customer Mage_Customer_Model_Customer */
+			if (!$customer->getId() && !Zend_Validate::is($email, 'EmailAddress')) {
                 $this->_getSession()->setForgottenEmail($email);
                 $this->_getSession()->addError($this->__('Invalid email address.'));
                 $this->_redirect('*/*/forgotpassword');
                 return;
+            } else if (!$customer->getId()) {
+                $customer = Mage::getModel('customer/customer')
+					->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+					->loadByEmail($email);
             }
-            /** @var $customer Mage_Customer_Model_Customer */
-            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($email);
             if ($customer->getId()) {
                 try {
                     $newResetPasswordLinkToken = Mage::helper('customer')->generateResetPasswordLinkToken();
@@ -185,11 +179,11 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                     return;
                 }
             }
-            $this->_getSession()->addSuccess(Mage::helper('customer')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('customer')->htmlEscape($email)));
+            $this->_getSession()
+				->addSuccess(Mage::helper('customer')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('customer')->htmlEscape($email)));
             $this->_redirect('*/*/');
             return;
-        } else {
-            $this->_getSession()->addError($this->__('Please enter your email.'));
+        }else{ $this->_getSession()->addError($this->__('Please enter your email.'));
             $this->_redirect('*/*/forgotpassword');
             return;
         }
