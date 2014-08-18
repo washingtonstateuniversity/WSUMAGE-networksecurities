@@ -53,7 +53,8 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
             return;
         }
         $session->setEscapeMessages(true); // prevent XSS injection in user input
-        if ($this->getRequest()->isPost()) {
+		$request = $this->getRequest();
+        if ($request->isPost()) {
             $errors = array();
             if (!$customer = Mage::registry('current_customer')) {
                 $customer = Mage::getModel('customer/customer')->setId(null);
@@ -61,24 +62,24 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
             /* @var $customerForm Mage_Customer_Model_Form */
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setFormCode('customer_account_create')->setEntity($customer);
-            $customerData = $customerForm->extractData($this->getRequest());
-            if ($this->getRequest()->getParam('is_subscribed', false)) {
+            $customerData = $customerForm->extractData($request);
+            if ($request->getParam('is_subscribed', false)) {
                 $customer->setIsSubscribed(1);
             }
             /**
              * Initialize customer group id
              */
             $customer->getGroupId();
-            if ($this->getRequest()->getPost('create_address')) {
+            if ($request->getPost('create_address')) {
                 /* @var $address Mage_Customer_Model_Address */
                 $address     = Mage::getModel('customer/address');
                 /* @var $addressForm Mage_Customer_Model_Form */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('customer_register_address')->setEntity($address);
-                $addressData   = $addressForm->extractData($this->getRequest(), 'address', false);
+                $addressData   = $addressForm->extractData($request, 'address', false);
                 $addressErrors = $addressForm->validateData($addressData);
                 if ($addressErrors === true) {
-                    $address->setId(null)->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false));
+                    $address->setId(null)->setIsDefaultBilling($request->getParam('default_billing', false))->setIsDefaultShipping($request->getParam('default_shipping', false));
                     $addressForm->compactData($addressData);
                     $customer->addAddress($address);
                     $addressErrors = $address->validate();
@@ -93,8 +94,8 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                 if ($customerErrors !== true) {
                     $errors = array_merge($customerErrors, $errors);
                 }else{ $customerForm->compactData($customerData);
-                    $customer->setPassword($this->getRequest()->getPost('password'));
-                    $customer->setConfirmation($this->getRequest()->getPost('confirmation'));
+                    $customer->setPassword($request->getPost('password'));
+                    $customer->setConfirmation($request->getPost('confirmation'));
                     $customerErrors = $customer->validate();
                     if (is_array($customerErrors)) {
                         $errors = array_merge($customerErrors, $errors);
@@ -119,7 +120,7 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                         $this->_redirectSuccess($url);
                         return;
                     }
-                }else{ $session->setCustomerFormData($this->getRequest()->getPost());
+                }else{ $session->setCustomerFormData($request->getPost());
                     if (is_array($errors)) {
                         foreach ($errors as $errorMessage) {
                             $session->addError($errorMessage);
@@ -129,7 +130,7 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                 }
             }
             catch (Mage_Core_Exception $e) {
-                $session->setCustomerFormData($this->getRequest()->getPost());
+                $session->setCustomerFormData($request->getPost());
                 if ($e->getCode() === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {
                     $url     = Mage::getUrl('customer/account/forgotpassword');
                     $message = $this->__('There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url);
@@ -139,7 +140,7 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                 $session->addError($message);
             }
             catch (Exception $e) {
-                $session->setCustomerFormData($this->getRequest()->getPost())->addException($e, $this->__('Cannot save the customer.'));
+                $session->setCustomerFormData($request->getPost())->addException($e, $this->__('Cannot save the customer.'));
             }
         }
         $this->_redirectError(Mage::getUrl('*/*/create', array(
