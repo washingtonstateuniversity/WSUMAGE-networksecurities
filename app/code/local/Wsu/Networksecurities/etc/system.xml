@@ -16,7 +16,7 @@
 					<show_in_website>1</show_in_website>
 					<show_in_store>1</show_in_store>
 				</hint>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 general
 ******************-->
 				<general translate="label comment">
@@ -54,99 +54,119 @@ general
 						</logging>
 					</fields>
 				</general>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 general_customer
 ******************-->
-                <general_customer translate="label">
-                    <label>General Customer configuration</label>
-                        <frontend_type>text</frontend_type>
-                        <sort_order>1</sort_order>
-                        <show_in_default>1</show_in_default>
-                        <show_in_website>1</show_in_website>
-                        <show_in_store>1</show_in_store>
-                        <fields>
-                            <enabled  translate="label comment">
-                                <label>Enable Username Support</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_yesno</source_model>
-                                <sort_order>1</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                                <comment><![CDATA[Enable username support in your store]]></comment>
-                            </enabled>
-                            <frontend translate="label comment">
-                                <label>Allow frontend edit</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_yesno</source_model>
-                                <sort_order>10</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <show_in_website>1</show_in_website>
-                                <show_in_store>1</show_in_store>
-                                <comment><![CDATA[Allow the customer to edit his username in "My Account"]]></comment>
-                            </frontend>
-                            <grid translate="label comment">
-                                <label><![CDATA[Display username in "Manage Customers" Grid]]></label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_yesno</source_model>
-                                <sort_order>20</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[Do you want to display the field 'Username' in the Manage Customer Grid?]]></comment>
-                            </grid>
-                            <max_length translate="label comment">
-                            	<label>Maximum length of the username</label>
-                                <frontend_type>text</frontend_type>
-                                <sort_order>30</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[What is the maximum length of the string username that you want to accept? By default, it's 30 characters ]]></comment>
-                            </max_length>
-                            <min_length model="username" translate="label comment">
-                            	<label>Minimum length of the username</label>
-                                <frontend_type>text</frontend_type>
-                                <sort_order>40</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[What is the minimum length of the string username that you want to accept? By default, it's 6 characters ]]></comment>
-                            </min_length>
-                            <input_validation translate="label comment">
-								<label>Input Validation</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>wsu_networksecurities/config_source_inputvalidation</source_model>
-                                <sort_order>50</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[What kind of username do you want to accept? You can set the value 'Default' which accept letters, digits and the special characters '_-' ]]></comment>                            	
-                            </input_validation>
-                            <input_validation_custom translate="label comment">
-                                <label>Custom Input Validation</label>
-                                <frontend_type>text</frontend_type>
-                                <sort_order>60</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[Provide here a PCRE regex. e.g. <strong>/^[\w-]*$/</strong>. More info at <a href="http://php.net/manual/en/reference.pcre.pattern.syntax.php">PHP Manual</a>]]></comment>
-                                <depends>
-                                    <input_validation>custom</input_validation>
-                                </depends>
-                            </input_validation_custom>
-                            <input_validation_custom_message translate="label comment">
-                                <label>Custom Input Validation - Error Message</label>
-                                <frontend_type>text</frontend_type>
-                                <sort_order>70</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[Message to show to the user in case of error</a>]]></comment>
-                                <depends>
-                                    <input_validation>custom</input_validation>
-                                </depends>
-                            </input_validation_custom_message>
-                            <case_sensitive translate="label comment">
-                                 <label>Case Sensitive Username</label>
-                                <frontend_type>select</frontend_type>
-                                <source_model>adminhtml/system_config_source_yesno</source_model>
-                                <sort_order>80</sort_order>
-                                <show_in_default>1</show_in_default>
-                                <comment><![CDATA[Do you want to make the username case sensitive? If not case sensitive, the username will be saved in lowercase and test as such.]]></comment>
-                            </case_sensitive>
-                        </fields>
-                </general_customer>
-
-<!--******************************************************************************************************************
+				<general_customer translate="label">
+					<label>General Customer configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled  translate="label comment">
+							<label>Enable Username Support</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Enable username support in your store]]>
+							</comment>
+						</enabled>
+						<frontend translate="label comment">
+							<label>Allow frontend edit</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Allow the customer to edit his username in "My Account"]]>
+							</comment>
+						</frontend>
+						<grid translate="label comment">
+							<label>
+								<![CDATA[Display username in "Manage Customers" Grid]]>
+							</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Do you want to display the field 'Username' in the Manage Customer Grid?]]>
+							</comment>
+						</grid>
+						<max_length translate="label comment">
+							<label>Maximum length of the username</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[What is the maximum length of the string username that you want to accept? By default, it is 30 characters]]>
+							</comment>
+						</max_length>
+						<min_length model="username" translate="label comment">
+							<label>Minimum length of the username</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[What is the minimum length of the string username that you want to accept? By default, it is 6 characters]]>
+							</comment>
+						</min_length>
+						<input_validation translate="label comment">
+							<label>Input Validation</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/config_source_inputvalidation</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[What kind of username do you want to accept? You can set the value 'Default' which accept letters, digits and the special characters '_-']]>
+							</comment>
+						</input_validation>
+						<input_validation_custom translate="label comment">
+							<label>Custom Input Validation</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Provide here a PCRE regex. e.g. <strong>/^[\w-]*$/</strong>. More info at <a href="http://php.net/manual/en/reference.pcre.pattern.syntax.php">PHP Manual</a>]]>
+							</comment>
+							<depends>
+								<input_validation>custom</input_validation>
+							</depends>
+						</input_validation_custom>
+						<input_validation_custom_message translate="label comment">
+							<label>Custom Input Validation - Error Message</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Message to show to the user in case of error</a>]]>
+							</comment>
+							<depends>
+								<input_validation>custom</input_validation>
+							</depends>
+						</input_validation_custom_message>
+						<case_sensitive translate="label comment">
+							<label>Case Sensitive Username</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Do you want to make the username case sensitive? If not case sensitive, the username will be saved in lowercase and test as such.]]>
+							</comment>
+						</case_sensitive>
+					</fields>
+				</general_customer>
+				
+				<!--******************************************************************************************************************
 startup
 ******************-->
 				<startup translate="label comment">
@@ -204,10 +224,11 @@ startup
 						</ipfiltermode_frontend>
 						<ipfilter_frontend translate="label comment">
 							<label>IP pattern</label>
-							<comment><![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
-192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
-Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
-</comment>
+							<comment>
+								<![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
+									192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
+									Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
+							</comment>
 							<frontend_type>text</frontend_type>
 							<sort_order>14</sort_order>
 							<show_in_default>1</show_in_default>
@@ -219,8 +240,9 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 						</ipfilter_frontend>
 						<ipfilter_redirection_frontend translate="label comment">
 							<label>Redirect location</label>
-							<comment><![CDATA[Where to send the filtered users]]>
-</comment>
+							<comment>
+								<![CDATA[Where to send the filtered users]]>
+							</comment>
 							<frontend_type>text</frontend_type>
 							<sort_order>15</sort_order>
 							<show_in_default>1</show_in_default>
@@ -229,10 +251,10 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 							<depends>
 								<use_ipfilter_frontend>1</use_ipfilter_frontend>
 							</depends>
-						</ipfilter_redirection_frontend><!-- -->
+						</ipfilter_redirection_frontend>
 					</fields>
 				</startup>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 captcha
 ******************-->
 				<captcha translate="label comment">
@@ -300,7 +322,7 @@ captcha
 						</private_key>
 					</fields>
 				</captcha>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 blacklist
 ******************-->
 				<blacklist translate="label comment">
@@ -332,7 +354,7 @@ blacklist
 						</limiter>
 					</fields>
 				</blacklist>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 honeypot
 ******************-->
 				<honeypot translate="label comment">
@@ -527,7 +549,7 @@ honeypot
 						</createhoneypot>
 					</fields>
 				</honeypot>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 errorpages
 ******************-->
 				<errorpages translate="label comment">
@@ -661,7 +683,7 @@ errorpages
 						</honeypage>
 					</fields>
 				</errorpages>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 genadmin_settings
 ******************-->
 				<genadmin_settings translate="label comment">
@@ -694,9 +716,10 @@ genadmin_settings
 						</ipfiltermode_admin>
 						<ipfilter_admin translate="label comment">
 							<label>IP pattern</label>
-							<comment><![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
-192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
-Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
+							<comment>
+								<![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
+									192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
+									Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
 							</comment>
 							<frontend_type>text</frontend_type>
 							<sort_order>14</sort_order>
@@ -706,28 +729,29 @@ Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.1
 							<depends>
 								<use_ipfilter_admin>1</use_ipfilter_admin>
 							</depends>
-						</ipfilter_admin><!-- -->
-
+						</ipfilter_admin>
+						<!-- -->
+						
 					</fields>
 				</genadmin_settings>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 ldap
 ******************-->
 				<ldap translate="label comment">
 					<label>LDAP</label>
-					<comment><![CDATA[
-						<p>There are options to allow for creation of users and the a choice in the handling.</p>
-						<div style="padding-left:15px;">
+					<comment>
+						<![CDATA[<p>There are options to allow for creation of users and the a choice in the handling.</p>
+							<div style="padding-left:15px;">
 							<p><b>You have 3 combo's to do</b></p>
 							<ol>
-								<li>1.) LDAP only</li>
-								<li>2.) LDAP fall back to system</li>
-								<li>3.) System fall back to LDAP</li>
-								<li>4.) System only <em>(but this is the extension turned off so 3 combos :))</em></li>
+							<li>1.) LDAP only</li>
+							<li>2.) LDAP fall back to system</li>
+							<li>3.) System fall back to LDAP</li>
+							<li>4.) System only <em>(but this is the extension turned off so 3 combos :))</em></li>
 							</ol>
-						</div>
-						<p>Remember to not open up holes by using real users for test users, and reading how LDAP works is your best bet.  Here is a nice <a href="http://oreilly.com/perl/excerpts/system-admin-with-perl/ten-minute-ldap-utorial.html" target="_blank">10-Minute LDAP Tutorial from O’Reilly</a> <em>(Written for Perl but it's a good read to bootstrap)</em>. </p>
-					]]></comment>
+							</div>
+							<p>Remember to not open up holes by using real users for test users, and reading how LDAP works is your best bet.  Here is a nice <a href="http://oreilly.com/perl/excerpts/system-admin-with-perl/ten-minute-ldap-utorial.html" target="_blank">10-Minute LDAP Tutorial from O’Reilly</a> <em>(Written for Perl but it's a good read to bootstrap)</em>. </p>]]>
+					</comment>
 					<sort_order>5</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
@@ -735,9 +759,9 @@ ldap
 					<fields>
 						<adminlogin type="group" translate="label comment">
 							<label>Admin Login Configuration</label>
-							<comment><![CDATA[
-								
-							]]></comment>
+							<comment>
+								<![CDATA[]]>
+							</comment>
 							<sort_order>10</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -1550,12 +1574,14 @@ ldap
 						</customerlogin>
 					</fields>
 				</ldap>
-<!--******************************************************************************************************************
+				<!--******************************************************************************************************************
 sociallogin
 ******************-->
 				<sociallogin translate="label comment">
 					<label>Social Account Access</label>
-					<comment><![CDATA[]]></comment>
+					<comment>
+						<![CDATA[]]>
+					</comment>
 					<sort_order>5</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
@@ -1563,7 +1589,9 @@ sociallogin
 					<fields>
 						<general_sso type="group" translate="label comment">
 							<label>General Configuration</label>
-							<comment><![CDATA[ ]]></comment>
+							<comment>
+								<![CDATA[]]>
+							</comment>
 							<sort_order>0</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
@@ -1571,45 +1599,49 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<comment><![CDATA[]]></comment>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>	
+								</is_active>
 								<position translate="label comment">
 									<label>Shown Position</label>
-									<frontend_type>multiselect</frontend_type>              
-									<source_model>wsu_networksecurities/config_position</source_model>              
+									<frontend_type>multiselect</frontend_type>
+									<source_model>wsu_networksecurities/config_position</source_model>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment>Position of Social login buttons on front-end</comment>
-								</position>							
+								</position>
 								<direction translate="label comment">
 									<label>Shown Direction</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>wsu_networksecurities/config_direction</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>wsu_networksecurities/config_direction</source_model>
 									<sort_order>20</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment>Direction of Social login buttons on front-end</comment>
-								</direction>	
+								</direction>
 								<number_show>
 									<label>Number of visible buttons</label>
-									<frontend_type>text</frontend_type>                                          
+									<frontend_type>text</frontend_type>
 									<sort_order>40</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[This is the number of button visible, others will be shown only when customer hovers "other login"]]></comment>
+									<comment>
+										<![CDATA[This is the number of button visible, others will be shown only when customer hovers "other login"]]>
+									</comment>
 								</number_show>
-							</fields>	
-						</general_sso>							
+							</fields>
+						</general_sso>
 						<twlogin type="group" translate="label comment">
 							<label>Twitter Login Configuration</label>
 							<frontend_type>text</frontend_type>
@@ -1620,18 +1652,22 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<comment><![CDATA[]]></comment>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>					
+								</is_active>
 								<consumer_key translate="label comment">
 									<label>Client ID</label>
-									<comment><![CDATA[<a href="http://twitter.com/apps/new" target="_bank">Register</a>]]></comment>
-									<frontend_type>text</frontend_type>              
+									<comment>
+										<![CDATA[<a href="http://twitter.com/apps/new" target="_bank">Register</a>]]>
+									</comment>
+									<frontend_type>text</frontend_type>
 									<sort_order>1</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1639,8 +1675,10 @@ sociallogin
 								</consumer_key>
 								<consumer_secret translate="label comment">
 									<label>Client Secret</label>
-									<comment><![CDATA[]]></comment>
-									<frontend_type>text</frontend_type>              
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>text</frontend_type>
 									<sort_order>3</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1648,8 +1686,10 @@ sociallogin
 								</consumer_secret>
 								<connecting_notice translate="label comment">
 									<label>Login Notice</label>
-									<comment><![CDATA[ Notice connect twitter account to customer ]]></comment>
-									<frontend_type>textarea</frontend_type>                      
+									<comment>
+										<![CDATA[Notice connect twitter account to customer]]>
+									</comment>
+									<frontend_type>textarea</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1657,15 +1697,17 @@ sociallogin
 								</connecting_notice>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<comment><![CDATA[]]></comment>
-									<frontend_type>text</frontend_type>                      
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
-							</fields>	
-						</twlogin>				
+							</fields>
+						</twlogin>
 						<gologin type="group" translate="label comment">
 							<label>Google Login Configuration</label>
 							<frontend_type>text</frontend_type>
@@ -1676,26 +1718,30 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<comment><![CDATA[]]></comment>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>		
+								</is_active>
 								<consumer_key translate="label comment">
 									<label>Client ID</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="https://cloud.google.com/console" target="_bank">Register</a>]]></comment>
+									<comment>
+										<![CDATA[<a href="https://cloud.google.com/console" target="_bank">Register</a>]]>
+									</comment>
 								</consumer_key>
 								<consumer_secret translate="label comment">
 									<label>Client Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1704,13 +1750,15 @@ sociallogin
 								</consumer_secret>
 								<redirect_url translate="label comment">
 									<label>Redirect Url</label>
-									<frontend_type>text</frontend_type>  
-									<frontend_model>wsu_networksecurities/config_redirecturl</frontend_model>							
+									<frontend_type>text</frontend_type>
+									<frontend_model>wsu_networksecurities/config_redirecturl</frontend_model>
 									<sort_order>7</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>0</show_in_store>
-									<comment><![CDATA[Please use this link for redirect url field when registering with google API]]></comment>
+									<comment>
+										<![CDATA[Please use this link for redirect url field when registering with google API]]>
+									</comment>
 								</redirect_url>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
@@ -1723,14 +1771,14 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
 							</fields>
-						</gologin>			
+						</gologin>
 						<fblogin type="group" translate="label comment">
 							<label>Facebook Login Configuration</label>
 							<frontend_type>text</frontend_type>
@@ -1741,25 +1789,27 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>							
+								</is_active>
 								<app_id translate="label comment">
 									<label>Application ID</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="http://developers.facebook.com/setup/" target="_bank">Register</a>]]></comment>
+									<comment>
+										<![CDATA[<a href="http://developers.facebook.com/setup/" target="_bank">Register</a>]]>
+									</comment>
 								</app_id>
 								<app_secret translate="label comment">
 									<label>Application Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1777,14 +1827,14 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>40</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
 							</fields>
-						</fblogin>			
+						</fblogin>
 						<yalogin type="group" translate="label comment">
 							<label>Yahoo Login Configuration</label>
 							<frontend_type>text</frontend_type>
@@ -1795,40 +1845,42 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>							
+								</is_active>
 								<app_id translate="label comment">
 									<label>Application ID</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>3</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="https://developer.apps.yahoo.com/dashboard/createKey.html" target="_bank">Register</a>]]></comment>
+									<comment>
+										<![CDATA[<a href="https://developer.apps.yahoo.com/dashboard/createKey.html" target="_bank">Register</a>]]>
+									</comment>
 								</app_id>
 								<consumer_key translate="label comment">
 									<label>Consumer Key</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</consumer_key>					
+								</consumer_key>
 								<consumer_secret translate="label comment">
 									<label>Consumer Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</consumer_secret>						
+								</consumer_secret>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -1840,7 +1892,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1858,13 +1910,13 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>														
+								</is_active>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -1876,7 +1928,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1894,13 +1946,13 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>														
+								</is_active>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -1912,7 +1964,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1930,13 +1982,13 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>														
+								</is_active>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -1948,7 +2000,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -1966,13 +2018,13 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>														
+								</is_active>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -1984,7 +2036,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2002,31 +2054,33 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>													
+								</is_active>
 								<consumer_key translate="label comment">
 									<label>Client Key</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="https://foursquare.com/login?continue=%2Fdevelopers%2Fapps" target="_bank">Register</a>]]></comment>
-								</consumer_key>					
+									<comment>
+										<![CDATA[<a href="https://foursquare.com/login?continue=%2Fdevelopers%2Fapps" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
 								<consumer_secret translate="label comment">
 									<label>Client Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</consumer_secret>						
+								</consumer_secret>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -2047,7 +2101,7 @@ sociallogin
 								</is_customer_confirm_password>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2065,31 +2119,33 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>													
+								</is_active>
 								<consumer_key translate="label comment">
 									<label>Client ID</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="http://msdn.microsoft.com/en-us/live//default.aspx" target="_bank">Register</a>]]></comment>
-								</consumer_key>					
+									<comment>
+										<![CDATA[<a href="http://msdn.microsoft.com/en-us/live//default.aspx" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
 								<consumer_secret translate="label comment">
 									<label>Client Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</consumer_secret>						
+								</consumer_secret>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -2101,14 +2157,14 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
 							</fields>
-						</livelogin>	
+						</livelogin>
 						<mplogin type="group" translate="label comment">
 							<label>MySpace Login Configuration</label>
 							<frontend_type>text</frontend_type>
@@ -2119,31 +2175,33 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>													
+								</is_active>
 								<consumer_key translate="label comment">
 									<label>Consumer Key</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>5</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="http://developer.myspace.com/" target="_bank">Register</a>]]></comment>
-								</consumer_key>					
+									<comment>
+										<![CDATA[<a href="http://developer.myspace.com/" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
 								<consumer_secret translate="label comment">
 									<label>Consumer Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</consumer_secret>						
+								</consumer_secret>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -2155,7 +2213,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2173,31 +2231,33 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>							
+								</is_active>
 								<app_id translate="label comment">
 									<label>Client API</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>3</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-									<comment><![CDATA[<a href="https://www.linkedin.com/secure/developer" target="_bank">Register</a>]]></comment>
+									<comment>
+										<![CDATA[<a href="https://www.linkedin.com/secure/developer" target="_bank">Register</a>]]>
+									</comment>
 								</app_id>
 								<secret_key translate="label comment">
 									<label>Client Secret</label>
-									<frontend_type>text</frontend_type>              
+									<frontend_type>text</frontend_type>
 									<sort_order>10</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</secret_key>					
+								</secret_key>
 								<!--<user_token translate="label comment">
 									<label>Autho User Token</label>
 									<frontend_type>text</frontend_type>              
@@ -2215,7 +2275,7 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment></comment>
-								</user_secret>-->							
+								</user_secret>-->
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -2236,7 +2296,7 @@ sociallogin
 								</is_customer_confirm_password>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2254,13 +2314,13 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>														
+								</is_active>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -2272,7 +2332,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2290,13 +2350,13 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>0</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
-								</is_active>														
+								</is_active>
 								<is_send_password_to_customer translate="label comment">
 									<label>Send Password To Customer</label>
 									<frontend_type>select</frontend_type>
@@ -2308,7 +2368,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2326,8 +2386,8 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>1</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2344,7 +2404,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2362,12 +2422,11 @@ sociallogin
 							<fields>
 								<is_active translate="label comment">
 									<label>Active</label>
-									<frontend_type>select</frontend_type>              
-									<source_model>adminhtml/system_config_source_yesno</source_model>              
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
 									<sort_order>1</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
-		
 									<show_in_store>1</show_in_store>
 								</is_active>
 								<is_send_password_to_customer translate="label comment">
@@ -2381,7 +2440,7 @@ sociallogin
 								</is_send_password_to_customer>
 								<sort_order translate="label comment">
 									<label>Sort Order</label>
-									<frontend_type>text</frontend_type>                      
+									<frontend_type>text</frontend_type>
 									<sort_order>30</sort_order>
 									<show_in_default>1</show_in_default>
 									<show_in_website>1</show_in_website>
@@ -2390,9 +2449,7 @@ sociallogin
 							</fields>
 						</selogin>
 					</fields>
-				</sociallogin>  
-						
-				
+				</sociallogin>
 			</groups>
 		</wsu_networksecurities>
 	</sections>

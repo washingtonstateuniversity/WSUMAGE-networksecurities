@@ -1,15 +1,5 @@
 <?php
 class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
-
-
-
-
-	
-	//not eht euser name and pass are being tossed around a lot
-	//let's look to fixing that
-	/**
-     * Show networksecurities only after certain number of unsuccessful attempts
-     */
     const MODE_AFTER_FAIL = 'after_fail';
     const MODE_ALWAYSL = 'always';
 	const IPMODE_EXCLUDE = 'exclude';
@@ -23,9 +13,6 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
             && Mage::helper('core')->isModuleOutputEnabled('persistent')
             && Mage::helper('persistent')->isEnabled();
     }
-
-
-
     public function getConfig($path,$store = null,$default = null) {
         $value = trim(Mage::getStoreConfig("wsu_networksecurities/$path", $store));
         return (!isset($value) || $value == '')? $default : $value ;
@@ -130,7 +117,6 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	
