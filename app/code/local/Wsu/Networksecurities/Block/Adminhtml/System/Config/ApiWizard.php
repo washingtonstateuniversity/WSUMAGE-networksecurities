@@ -50,7 +50,8 @@ class Wsu_Networksecurities_Block_Adminhtml_System_Config_ApiWizard extends Mage
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element) {
-        if (isset($_REQUEST['testing'])) {
+		$request = Mage::app()->getRequest();
+        if (isset($request->getParam('testing'))) {
             if ($this->test_config())
                 echo "pass";
         }
