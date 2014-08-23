@@ -143,13 +143,17 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	public function setFailedLogin($login,$password="") {
 		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		
+		$request = Mage::app()->getRequest();
+		
+		
 		//$pastatempts->addFieldToFilter('ip',$_SERVER['REMOTE_ADDR']);
 		if(is_object($login)) {
 			$login=$login->getUsername();	
 		}
 		if(is_null($login)) {
-			if(isset($_POST['login'])) {
-				$login=$_POST['login']['username'];
+			$r_login = $request->getParam('login');
+			if(isset($r_login)) {
+				$login=$r_login['username'];
 			}
 		}
 		$HELPER = Mage::helper('wsu_networksecurities');
@@ -163,8 +167,8 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$failed_log->save();
 		$cookie = Mage::getSingleton('core/cookie');
 		$count=1;
-		if(isset($_COOKIE['userpasshash'])) {
-			$old=explode(':',$_COOKIE['userpasshash']);
+		if( isset( $cookie->get('userpasshash') ) ) {
+			$old=explode(':',$cookie->get('userpasshash'));
 			$count=(int)end($old)+1;
 		}
 		#this is to send wouldbe level hackers on a runaround
@@ -179,7 +183,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
 		if($useblacklist) {
 			$limit = $HELPER->getConfig('blacklist/limiter');
-			if($pastatempts>=$limit) {
+			if( $pastatempts>=$limit ) {
 				$this->setBlacklist($ip);
 			}
 		}
@@ -196,8 +200,8 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$blacklist->save();
 		$cookie = Mage::getSingleton('core/cookie');
 		$count=1;
-		if(isset($_COOKIE['userBLhash'])) {
-			$old=explode(':',$_COOKIE['userBLhash']);
+		if( isset( $cookie->get('userBLhash') ) ) {
+			$old=explode(':',$cookie->get('userBLhash'));
 			$count=(int)end($old)+1;
 		}
 		#this is to send wouldbe level hackers on a runaround
