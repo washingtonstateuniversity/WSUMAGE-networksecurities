@@ -4,7 +4,7 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 	* getToken and call profile user myspace
 	**/
     public function loginAction() {
-		
+		$customerHelper = Mage::helper('wsu_networksecurities/customer'); 
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken();
 		
 		$mp = Mage::getModel('wsu_networksecurities/sso_mplogin')->newMp($requestToken);
@@ -15,8 +15,8 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 		$data = $mp->get( 'http://api.myspace.com/v1/users/' . $userId . '/profile.json' );		
 		if ( ! is_object( $data ) ) {			
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
-		}				
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
+		}
 		
 		$customerId = $this->getCustomerId($userId);
 		
@@ -29,10 +29,10 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 			//get website_id and sote_id of each stores
 			$store_id = Mage::app()->getStore()->getStoreId();
 			$website_id = Mage::app()->getStore()->getWebsiteId();
-			$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($user['email'], $website_id);//add edtition
+			$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);//add edtition
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
 			}	
 				// fix confirmation
 			if ($customer->getConfirmation()) {
@@ -48,12 +48,13 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 			if (Mage::getStoreConfig('wsu_networksecurities/mplogin/is_send_password_to_customer')) {
 				$customer->sendPasswordReminderEmail();
 			} 
-			$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();
+			$nextUrl = $customerHelper->getEditUrl();
 			Mage::getSingleton('core/session')->addNotice('Please enter your contact detail.');
 			
 			$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 					->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
-		}else{ $customer = $this->getCustomer($customerId);	
+		}else{ 
+			$customer = $this->getCustomer($customerId);	
 				// fix confirmation
 			if ($customer->getConfirmation()) {
 				try {
@@ -63,7 +64,7 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 				}
 	  		}								
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 		}		
     }
 	
@@ -74,10 +75,11 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 		$user = Mage::getModel('wsu_networksecurities/sso_authorlogin')->getCollection()
 						->addFieldToFilter('author_id', $mpId)
 						->getFirstItem();
-		if($user)
+		if($user){
 			return $user->getCustomerId();
-		else
+		}else{
 			return NULL;
+		}
 	}
 	
 	/**

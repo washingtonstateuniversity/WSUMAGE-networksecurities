@@ -3,7 +3,7 @@
 class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_Front_Action{
 	
     public function loginAction() {
-		// url de xac nhan
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$url = 'https://verifier.login.persona.org/verify';
 		$assert=$this->getRequest()->getParam('assertion');// lay ma xac nhan	
 		//Url+port
@@ -21,7 +21,7 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 		curl_setopt_array($ch, $options);
 		$result = curl_exec($ch);
 		curl_close($ch);
-		$status=Mage::helper('wsu_networksecurities/customer')->getPerResultStatus($result);
+		$status = $customerHelper->getPerResultStatus($result);
 		if($status=='okay') {
 		
 			//get website_id and sote_id of each stores
@@ -31,10 +31,10 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 			$email= Mage::helper('wsu_networksecurities/customer')->getPerEmail($result);
 			$name=explode("@", $email);
 			$data =  array('firstname'=>$name[0], 'lastname'=>$name[0], 'email'=>$email);
-			$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($email, $website_id);
+			$customer = $customerHelper->getCustomerByEmail($email, $website_id);
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($data, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 				if(Mage::getStoreConfig('wsu_networksecurities/perlogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
@@ -50,10 +50,9 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 			
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 			/*die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");*/
-			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+			//$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 			$this->_redirectUrl($this->_loginPostRedirect());
-		}else{ //Mage::getSingleton('sociallogin')->addError('Sorry! You can not login');
-			// echo "----------------------------------";
+		}else{
 			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
 			$this->_redirect();
 			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());

@@ -1,7 +1,7 @@
 <?php
 class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_Front_Action{
-   
-   public function loginAction() {     
+	public function loginAction() {  
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');    
 		$identity = $this->getRequest()->getPost('identity');
 		Mage::getSingleton('core/session')->setData('identity',$identity);
 		$my = Mage::getModel('wsu_networksecurities/sso_ljlogin')->newMy();
@@ -21,7 +21,7 @@ class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_F
 				$url = $my->authUrl();
 			}catch(Exception $e) {
 				$coreSession->addError('Username not exacted');
-				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 			exit;
@@ -31,7 +31,7 @@ class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_F
 					$url = $my->authUrl();
 				}catch(Exception $e) {
 					$coreSession->addError('Username not exacted');			
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
                 echo "<script type='text/javascript'>top.location.href = '$url';</script>";
                 exit;
@@ -54,10 +54,10 @@ class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_F
 					//get website_id and sote_id of each stores
 					$store_id = Mage::app()->getStore()->getStoreId();//add
 					$website_id = Mage::app()->getStore()->getWebsiteId();//add	
-					$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($user['email'], $website_id);//add edtition
+					$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);//add edtition
 					if(!$customer || !$customer->getId()) {
 						//Login multisite
-						$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+						$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
 					}
 					Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($authorId);
  					if (Mage::getStoreConfig('wsu_networksecurities/ljlogin/is_send_password_to_customer')) {
@@ -72,11 +72,10 @@ class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_F
 						}
 					}
 					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
-					
-                }else{ $coreSession->addError('User has not shared information so login fail!');			
-                   Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+                }else{ 
+					$coreSession->addError('User has not shared information so login fail!');			
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }

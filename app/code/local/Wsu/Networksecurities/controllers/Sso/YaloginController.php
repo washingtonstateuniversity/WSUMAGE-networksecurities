@@ -4,7 +4,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 	
 	// url to login
     public function loginAction() {
-		
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$yalogin = Mage::getModel('wsu_networksecurities/sso_yalogin');
 		$hasSession = $yalogin->hasSession();
 		if($hasSession == FALSE) {
@@ -17,8 +17,9 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 			$emails = $profile->emails;
 			$user = array();
 			foreach($emails as $email) {
-				if($email->primary == 1)
+				if($email->primary == 1){
 					$user['email'] = $email->handle;
+				}
 			}
 			$user['firstname'] = $profile->givenName;
 			$user['lastname'] = $profile->familyName;
@@ -27,10 +28,10 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 			$store_id = Mage::app()->getStore()->getStoreId();
 			$website_id = Mage::app()->getStore()->getWebsiteId();
 			
-			$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($user['email'], $website_id);
+			$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
 				if (Mage::getStoreConfig('wsu_networksecurities/yalogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
@@ -44,7 +45,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 			//$this->_redirectUrl(Mage::helper('customer')->getDashboardUrl());
 		}
 		

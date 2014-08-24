@@ -2,13 +2,13 @@
 class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controller_Front_Action{
 	
 	public function loginAction() {
-		
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		if (!$this->getAuthorizedToken()) {
 			try{
 				$token = $this->getAuthorization();
 			}catch(Exception $e) {
 				Mage::getSingleton('core/session')->addError('Htpp not request.Please input api key on config again');
-				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());	
+				$customerHelper->setJsRedirect(Mage::getBaseUrl());	
 			}
 		}else{
 			$token = $this->getAuthorizedToken();
@@ -17,6 +17,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
     }
 	
 	public function userAction() {
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$linkedlogin = Mage::getModel('wsu_networksecurities/sso_linkedlogin');
 		
 		$oauth_data = array(
@@ -29,24 +30,24 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 			$accessToken = $linkedlogin ->getAccessToken($oauth_data, unserialize($requestToken));
 		}catch(Exception $e) {
 			Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());	
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());	
 		}
 		$oauthOptions = $linkedlogin->getOptions();
 		$options = $oauthOptions;
 		$client = $accessToken->getHttpClient($options);
-		$client -> setUri('http://api.linkedin.com/v1/people/~');
+		$client->setUri('http://api.linkedin.com/v1/people/~');
 		$client->setMethod(Zend_Http_Client::GET);
-		$response = $client -> request ();
-		$content =  $response -> getBody ();
+		$response = $client->request();
+		$content =  $response->getBody();
 		$xml = simplexml_load_string ($content);
 		$user = array();
 		$firstname = (string) $xml->{'first-name'};
 		$lastname = (string) $xml->{'last-name'};
 		$client2 = $accessToken->getHttpClient($options);
-		$client2 -> setUri('http://api.linkedin.com/v1/people/~/email-address');
+		$client2->setUri('http://api.linkedin.com/v1/people/~/email-address');
 		$client2->setMethod(Zend_Http_Client::GET);
-		$response2 = $client2 -> request ();
-		$content2 =  $response2 -> getBody ();
+		$response2 = $client2->request();
+		$content2 =  $response2->getBody();
 		$xml2 = simplexml_load_string ($content2);
 		$email = (string) $xml2->{0};
 		if(!$email) {
@@ -61,10 +62,10 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 		$store_id = Mage::app()->getStore()->getStoreId();
 		$website_id = Mage::app()->getStore()->getWebsiteId();
 		
-		$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($email,$website_id);//add edition
+		$customer = $customerHelper->getCustomerByEmail($email,$website_id);//add edition
 		if(!$customer || !$customer->getId()) {
 			//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
 				if (Mage::getStoreConfig('wsu_networksecurities/linklogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
@@ -78,7 +79,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 		}else{
 			$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/linklogin/is_customer_confirm_password');
 			if($getConfirmPassword) {
@@ -93,7 +94,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 					}
 				}
 				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+				$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 			}
 		}
 	}

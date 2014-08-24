@@ -5,7 +5,7 @@ class Wsu_Networksecurities_Sso_OrgloginController extends Mage_Core_Controller_
 	* getToken and call profile user Orange
 	**/
     public function loginAction() {     
-		
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$org = Mage::getModel('wsu_networksecurities/sso_orglogin')->newOrg();            
 		$coreSession = Mage::getSingleton('core/session');                      
 		$user_info = $org->data;                 
@@ -20,10 +20,10 @@ class Wsu_Networksecurities_Sso_OrgloginController extends Mage_Core_Controller_
 			
 			$data = array('firstname'=>$frist_name, 'lastname'=>$last_name, 'email'=>$email);
 			
-			$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($data['email'],$website_id);
+			$customer = $customerHelper->getCustomerByEmail($data['email'],$website_id);
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($data, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 				if (Mage::getStoreConfig('wsu_networksecurities/orglogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
@@ -37,9 +37,10 @@ class Wsu_Networksecurities_Sso_OrgloginController extends Mage_Core_Controller_
 				}
 			}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
-		}else{ $coreSession->addError('Login failed as you have not granted access.');			
-		   Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+		}else{ 
+			$coreSession->addError('Login failed as you have not granted access.');			
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}           
     }
 }

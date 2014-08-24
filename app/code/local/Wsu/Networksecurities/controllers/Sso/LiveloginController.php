@@ -1,7 +1,8 @@
 <?php
 class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller_Front_Action{
 
-    public function loginAction() {  
+	public function loginAction() {
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
         $code = $this->getRequest()->getParam('code');
         $live = Mage::getModel('wsu_networksecurities/sso_livelogin')->newLive();        
@@ -10,7 +11,7 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
 			$user = $live->get("me", $live->param);	
 		}catch(Exception $e) {
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}		
         $first_name = $user->first_name;
 		$last_name = $user->last_name;
@@ -21,10 +22,10 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
 		
 		if ($isAuth) {
 			$data =  array('firstname'=>$first_name, 'lastname'=>$last_name, 'email'=>$email);		
-			$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($data['email'], $website_id);//add edtition
+			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);//add edtition
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($data, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 				if (Mage::getStoreConfig('wsu_networksecurities/livelogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
@@ -38,7 +39,7 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
     	}
 	}          
 }

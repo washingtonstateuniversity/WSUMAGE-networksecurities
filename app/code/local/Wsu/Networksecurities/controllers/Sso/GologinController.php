@@ -12,12 +12,13 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
     }
 	
 	public function userAction() {
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$gologin = Mage::getModel('wsu_networksecurities/sso_gologin');
 		$oauth2 = new Google_Oauth2Service($gologin);
 		$code = $this->getRequest()->getParam('code');
 		if(!$code) {
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());	
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());	
 		}
 		$accessToken = $gologin->authenticate($code);						
 		$client = $oauth2->userinfo->get();
@@ -34,10 +35,10 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 		$store_id = Mage::app()->getStore()->getStoreId();//add
 		$website_id = Mage::app()->getStore()->getWebsiteId();//add
 		
-		$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($user['email'],$website_id );//add edition
+		$customer = $customerHelper->getCustomerByEmail($user['email'],$website_id );//add edition
 		if(!$customer || !$customer->getId()) {
 			//Login multisite
-			$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+			$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
 			if (Mage::getStoreConfig('wsu_networksecurities/gologin/is_send_password_to_customer')) {
 				$customer->sendPasswordReminderEmail();
 			}
@@ -51,7 +52,7 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 			}
 		}
 		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-		Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());	
+		$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());	
     }
 	
 	// if exit access token

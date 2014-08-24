@@ -53,7 +53,7 @@ class Wsu_Networksecurities_Sso_PopupController extends Mage_Core_Controller_Fro
         $this->getResponse()->setBody(Zend_Json::encode($result));
     }		
 	
-	public function createAccAction() { 		
+	public function createAccAction() {	
 		$session = Mage::getSingleton('customer/session');
 		if ($session->isLoggedIn()) {
            $result = array('success'=>false, 'Can Not Login!');		   

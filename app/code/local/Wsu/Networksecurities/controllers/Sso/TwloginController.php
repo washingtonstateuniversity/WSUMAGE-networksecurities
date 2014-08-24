@@ -14,6 +14,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 	
 	//url after authorize
 	public function userAction() {
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$otwitter = Mage::getModel('wsu_networksecurities/sso_twlogin');
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken();
 		
@@ -26,12 +27,12 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 			 $token = $otwitter->getAccessToken($oauth_data, unserialize($requestToken));
 		}catch(Exception $e) {
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
        	//end fixed	
 		$params = array(
-			'consumerKey'=> Mage::helper('wsu_networksecurities')->getTwConsumerKey(), 
-			'consumerSecret'=>Mage::helper('wsu_networksecurities')->getTwConsumerSecret(), 
+			'consumerKey'=> $customerHelper->getTwConsumerKey(), 
+			'consumerSecret'=> $customerHelper->getTwConsumerSecret(), 
 			'accessToken'=>$token,
 		);
 		// $twitter = new Zend_Service_Twitter($params);
@@ -52,7 +53,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
+			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 			
 		}else{	// redirect to login page
 			$name = (string)$token->screen_name;		
@@ -63,10 +64,10 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 			//get website_id and sote_id of each stores
 			$store_id = Mage::app()->getStore()->getStoreId();
 			$website_id = Mage::app()->getStore()->getWebsiteId();
-			$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($user['email'], $website_id);//add edtition	
+			$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);//add edtition	
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
-				$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
 			}	
 				// fix confirmation
 			if ($customer->getConfirmation()) {
@@ -82,7 +83,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 			if (Mage::getStoreConfig('wsu_networksecurities/mplogin/is_send_password_to_customer')) {
 				$customer->sendPasswordReminderEmail();
 			}			
-			$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();	
+			$nextUrl = Mage::helper('wsu_networksecurities/customer')->getEditUrl();	
 			Mage::getSingleton('core/session')->addNotice('Please enter your contact detail.');			
 			$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 				->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
@@ -123,7 +124,8 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
             $token = $otwitter->getAccessToken($oauth_data, unserialize(Mage::getSingleton('core/session')->getRequestToken()));
             Mage::getSingleton('core/session')->setAccessToken(serialize($token));
             $otwitter->redirect();
-        }else{ $token = $otwitter->getRequestToken();
+        }else{ 
+			$token = $otwitter->getRequestToken();
             Mage::getSingleton('core/session')->setRequestToken(serialize($token));
             $otwitter->redirect();
         }

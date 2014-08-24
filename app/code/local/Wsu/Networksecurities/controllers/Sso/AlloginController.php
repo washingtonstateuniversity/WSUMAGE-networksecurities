@@ -5,6 +5,7 @@ class Wsu_Networksecurities_Sso_AlloginController extends Mage_Core_Controller_F
 	* getToken and call profile user aol
 	**/
     public function loginAction() {
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$aol = Mage::getModel('wsu_networksecurities/sso_allogin')->newAol();       
 		$userId = $aol->mode;        
 		$coreSession = Mage::getSingleton('core/session');		
@@ -42,10 +43,10 @@ class Wsu_Networksecurities_Sso_AlloginController extends Mage_Core_Controller_F
 					$website_id = Mage::app()->getStore()->getWebsiteId();//add
 					
                     $data = array('firstname'=>$frist_name, 'lastname'=>$last_name, 'email'=>$user_info['contact/email']);
-                    $customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($data['email'],$website_id);
+                    $customer = $customerHelper->getCustomerByEmail($data['email'],$website_id);
                     if(!$customer || !$customer->getId()) {
 						//login multisite 
-						$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($data, $website_id, $store_id );
+						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 						if (Mage::getStoreConfig('wsu_networksecurities/aollogin/is_send_password_to_customer')) {
 							$customer->sendPasswordReminderEmail();
 						}
@@ -59,9 +60,10 @@ class Wsu_Networksecurities_Sso_AlloginController extends Mage_Core_Controller_F
 						}
 					}
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
-                }else{ $coreSession->addError($this->__('Login failed as you have not granted access.'));
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+                }else{ 
+					$coreSession->addError($this->__('Login failed as you have not granted access.'));
+					$customerHelper->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }
