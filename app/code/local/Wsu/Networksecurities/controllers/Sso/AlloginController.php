@@ -59,11 +59,9 @@ class Wsu_Networksecurities_Sso_AlloginController extends Mage_Core_Controller_F
 						}
 					}
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-                    $this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
-						->setBody("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
                 }else{ $coreSession->addError($this->__('Login failed as you have not granted access.'));
-					$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
-						->setBody("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }
@@ -83,8 +81,9 @@ class Wsu_Networksecurities_Sso_AlloginController extends Mage_Core_Controller_F
         if($name) {            
             $url = Mage::getModel('wsu_networksecurities/sso_allogin')->getAlLoginUrl($name);			
             $this->_redirectUrl($url);
-        }else{ Mage::getSingleton('core/session')->addError('Please enter Blog name!');	
-            die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+        }else{ 
+			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
         }
     }
 	protected function _loginPostRedirect() {
