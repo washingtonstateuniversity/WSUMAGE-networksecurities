@@ -9,8 +9,8 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
 			$json = $live->authenticate($code);
 			$user = $live->get("me", $live->param);	
 		}catch(Exception $e) {
-			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
-			die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 		}		
         $first_name = $user->first_name;
 		$last_name = $user->last_name;
@@ -38,7 +38,7 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
     	}
 	}
 	protected function _loginPostRedirect() {
@@ -47,17 +47,16 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
             // Set default URL to redirect customer to
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
         }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
+        }else{ 
+			if (!$session->getAfterAuthUrl()) {
                 $session->setAfterAuthUrl($session->getBeforeAuthUrl());
             }
             if ($session->isLoggedIn()) {
                 $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
             }
         }
-		
         return $session->getBeforeAuthUrl(true);
     }           
 }
