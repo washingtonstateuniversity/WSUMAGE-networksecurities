@@ -226,7 +226,12 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     		->addFieldToFilter('ip', $ip);
 			
 			return $list;	
-	}	
+	}
+	public function getBlackListMessage(){
+		$html="You must contact an admin to get unblocked.  There is no time limit";
+		return $html;
+	}
+	
 	public function deleteFailed($params) {}
 	public function deleteBlacklist($params) {}
 	
