@@ -89,9 +89,9 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function getTwConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/twlogin/consumer_secret'));
 	}
-	public function getTwConnectingNotice() {
+	/*public function getTwConnectingNotice() {
 		return Mage::getStoreConfig('wsu_networksecurities/twlogin/connecting_notice');
-	}
+	}*/
 	public function getYaAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/app_id'));
 	}
@@ -180,7 +180,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
             // Set default URL to redirect customer to
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
+        }else if ( $session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl() ) {
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
         }else{ 
 			if (!$session->getAfterAuthUrl()) {
