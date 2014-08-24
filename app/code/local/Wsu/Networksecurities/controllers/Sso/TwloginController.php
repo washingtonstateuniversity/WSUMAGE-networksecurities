@@ -26,7 +26,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 			 $token = $otwitter->getAccessToken($oauth_data, unserialize($requestToken));
 		}catch(Exception $e) {
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
-			die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 		}
        	//end fixed	
 		$params = array(
@@ -52,7 +52,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
 			
 		}else{	// redirect to login page
 			$name = (string)$token->screen_name;		
@@ -84,9 +84,9 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 			}			
 			$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();	
 			Mage::getSingleton('core/session')->addNotice('Please enter your contact detail.');			
-			die("<script>window.close();window.opener.location = '$nextUrl';</script>");
+			$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+				->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
 		}
-			
     }
 	
 	//get customer id from twitter account if user connected
@@ -94,10 +94,11 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 		$user = Mage::getModel('wsu_networksecurities/sso_customer')->getCollection()
 						->addFieldToFilter('twitter_id', $twitterId)
 						->getFirstItem();
-		if($user)
+		if($user){
 			return $user->getCustomerId();
-		else
+		}else{
 			return NULL;
+		}
 	}
 	
 	// if exit access token
