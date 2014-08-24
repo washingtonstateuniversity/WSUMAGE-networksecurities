@@ -147,9 +147,6 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 					}
 				}
 			}
-			
-		
-		
         }catch (Mage_Core_Exception $e) {
             /*Mage::dispatchEvent('admin_session_user_login_failed',
 				array('user_name' => $username, 'exception' => $e));
@@ -158,9 +155,6 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
                 $request->setParam('messageSent', true);
             }*/
         }
-		
-		
-        
     }
 	private function loginuser($username, $password) {
 		$customer = Mage::getModel('customer/customer')
