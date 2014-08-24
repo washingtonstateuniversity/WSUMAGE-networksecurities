@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Block_Sso_Fblogin extends Mage_Core_Block_Template
 	}
 	
 	public function getDirectLoginUrl() {
-		return Mage::helper('wsu_networksecurities')->getDirectLoginUrl();
+		return Mage::helper('wsu_networksecurities/customer')->getDirectLoginUrl();
 	}
 	
 		
