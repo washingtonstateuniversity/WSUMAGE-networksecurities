@@ -302,4 +302,14 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 		return $recaptcha;
 	}
+	
+	public function setJsRedirect($url){
+		$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+			->setBody("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".$url."\"} window.close();</script>");	
+	}
+	
+	
+	
+	
+	
 }
