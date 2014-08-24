@@ -15,7 +15,7 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 		$data = $mp->get( 'http://api.myspace.com/v1/users/' . $userId . '/profile.json' );		
 		if ( ! is_object( $data ) ) {			
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
-			die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");	
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 		}				
 		
 		$customerId = $this->getCustomerId($userId);
@@ -49,8 +49,10 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 				$customer->sendPasswordReminderEmail();
 			} 
 			$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();
-			Mage::getSingleton('core/session')->addNotice('Please enter your contact detail.');			
-			die("<script>window.close();window.opener.location = '$nextUrl';</script>");
+			Mage::getSingleton('core/session')->addNotice('Please enter your contact detail.');
+			
+			$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+					->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
 		}else{ $customer = $this->getCustomer($customerId);	
 				// fix confirmation
 			if ($customer->getConfirmation()) {
@@ -60,8 +62,8 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 				}catch (Exception $e) {
 				}
 	  		}								
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);				
-			die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
 		}		
     }
 	
