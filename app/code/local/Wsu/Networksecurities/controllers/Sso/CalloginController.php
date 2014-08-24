@@ -56,7 +56,7 @@ class Wsu_Networksecurities_Sso_CalloginController extends Mage_Core_Controller_
 						}
 					}
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
                 }else{ 
 					$coreSession->addError($this->__('Login failed as you have not granted access.'));
 					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
@@ -85,23 +85,4 @@ class Wsu_Networksecurities_Sso_CalloginController extends Mage_Core_Controller_
         }
  
    }
-   protected function _loginPostRedirect() {
-        $session = Mage::getSingleton('customer/session');
-
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-            // Set default URL to redirect customer to
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
-                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
-            }
-            if ($session->isLoggedIn()) {
-                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
-            }
-        }
-		
-        return $session->getBeforeAuthUrl(true);
-    }
 }

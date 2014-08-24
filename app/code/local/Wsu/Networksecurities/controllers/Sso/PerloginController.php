@@ -50,7 +50,7 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 			
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 			/*die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");*/
-			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
+			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
 			$this->_redirectUrl($this->_loginPostRedirect());
 		}else{ //Mage::getSingleton('sociallogin')->addError('Sorry! You can not login');
 			// echo "----------------------------------";
@@ -58,24 +58,5 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 			$this->_redirect();
 			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 		}
-    }
-	protected function _loginPostRedirect() {
-        $session = Mage::getSingleton('customer/session');
-
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-            // Set default URL to redirect customer to
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
-                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
-            }
-            if ($session->isLoggedIn()) {
-                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
-            }
-        }
-		
-        return $session->getBeforeAuthUrl(true);
     }
 }

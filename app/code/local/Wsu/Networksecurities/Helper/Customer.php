@@ -175,6 +175,22 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 			->setBody($html);	
 	}
-	
+	public function _loginPostRedirect() {
+        $session = Mage::getSingleton('customer/session');
+        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
+            // Set default URL to redirect customer to
+            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
+        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
+            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
+        }else{ 
+			if (!$session->getAfterAuthUrl()) {
+                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
+            }
+            if ($session->isLoggedIn()) {
+                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
+            }
+        }
+        return $session->getBeforeAuthUrl(true);
+    }
 	
 }

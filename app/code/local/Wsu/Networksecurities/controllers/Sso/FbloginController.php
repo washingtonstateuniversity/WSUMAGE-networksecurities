@@ -38,31 +38,11 @@ class Wsu_Networksecurities_Sso_FbloginController extends Mage_Core_Controller_F
 					}
 				}
 				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-				Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect()); 
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect()); 
 			}else{
 				Mage::getSingleton('core/session')->addError('You provided a email invalid!');			
 				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 			}
 		}
 	}
-	protected function _loginPostRedirect() {
-        $session = Mage::getSingleton('customer/session');
-
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-            // Set default URL to redirect customer to
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
-                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
-            }
-            if ($session->isLoggedIn()) {
-                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
-            }
-        }
-        return $session->getBeforeAuthUrl(true);
-    }
-
-	
 }

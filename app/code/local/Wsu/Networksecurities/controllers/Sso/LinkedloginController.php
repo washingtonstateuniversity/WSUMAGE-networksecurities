@@ -78,7 +78,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
 		}else{
 			$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/linklogin/is_customer_confirm_password');
 			if($getConfirmPassword) {
@@ -93,7 +93,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 					}
 				}
 				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-				Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());
 			}
 		}
 	}
@@ -126,24 +126,5 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
             $olinked ->redirect();
         }
         return $token;
-    }
-	protected function _loginPostRedirect() {
-        $session = Mage::getSingleton('customer/session');
-
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-            // Set default URL to redirect customer to
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ 
-			if (!$session->getAfterAuthUrl()) {
-                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
-            }
-            if ($session->isLoggedIn()) {
-                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
-            }
-        }
-		
-        return $session->getBeforeAuthUrl(true);
     }
 }

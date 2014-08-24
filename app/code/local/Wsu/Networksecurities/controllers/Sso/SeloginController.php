@@ -4,7 +4,7 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
 	
 	
     public function loginAction() {
-		
+		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$se = Mage::getModel('wsu_networksecurities/sso_selogin')->newSe(); 	
 		$userId = $se->mode;
 		$coreSession = Mage::getSingleton('core/session');	
@@ -35,10 +35,10 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
 					$website_id = Mage::app()->getStore()->getWebsiteId();//add
 					
                     $data = array('firstname'=>$frist_name, 'lastname'=>$last_name, 'email'=>$user_info['contact/email']);
-                    $customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($data['email'], $website_id);
+                    $customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
                     if(!$customer || !$customer->getId()) {
 						//Login multisite
-						$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($data, $website_id, $store_id );
+						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 						if (Mage::getStoreConfig('wsu_networksecurities/selogin/is_send_password_to_customer')) {
 							$customer->sendPasswordReminderEmail();
 						}
@@ -52,30 +52,12 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
 						}
                     }
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
-                }else{ $coreSession->addError($this->__('Login failed as you have not granted access.'));
-					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+                }else{
+					$coreSession->addError($this->__('Login failed as you have not granted access.'));
+					$customerHelper->setJsRedirect(Mage::getBaseUrl());
                 }
 			}
 		}
 	}
-	protected function _loginPostRedirect() {
-        $session = Mage::getSingleton('customer/session');
-
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-            // Set default URL to redirect customer to
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
-                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
-            }
-            if ($session->isLoggedIn()) {
-                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
-            }
-        }
-		
-        return $session->getBeforeAuthUrl(true);
-    }
 }

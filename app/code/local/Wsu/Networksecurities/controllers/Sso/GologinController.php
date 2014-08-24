@@ -51,7 +51,7 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 			}
 		}
 		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-		Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());	
+		Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::helper('wsu_networksecurities/customer')->_loginPostRedirect());	
     }
 	
 	// if exit access token
@@ -75,24 +75,5 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 		$authUrl = $gologin->createAuthUrl();
 		header('Localtion: '.$authUrl);
 		die(0);
-    }
-	protected function _loginPostRedirect() {
-        $session = Mage::getSingleton('customer/session');
-
-        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
-            // Set default URL to redirect customer to
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
-        }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
-            $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
-                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
-            }
-            if ($session->isLoggedIn()) {
-                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
-            }
-        }
-		
-        return $session->getBeforeAuthUrl(true);
     }
 }
