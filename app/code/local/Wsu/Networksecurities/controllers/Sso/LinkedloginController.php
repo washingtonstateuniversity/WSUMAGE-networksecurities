@@ -7,10 +7,11 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 			try{
 				$token = $this->getAuthorization();
 			}catch(Exception $e) {
-				Mage::getSingleton('core/session')->addError('Htpp not request.Please input api key on config again');			
-				die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+				Mage::getSingleton('core/session')->addError('Htpp not request.Please input api key on config again');
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());	
 			}
-		}else{ $token = $this->getAuthorizedToken();
+		}else{
+			$token = $this->getAuthorizedToken();
 		}
         return $token;
     }
@@ -19,17 +20,16 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 		$linkedlogin = Mage::getModel('wsu_networksecurities/sso_linkedlogin');
 		
 		$oauth_data = array(
-                'oauth_token' => $this->getRequest()->getParam('oauth_token'),
-                'oauth_verifier' => $this->getRequest()->getParam('oauth_verifier')
+			'oauth_token' => $this->getRequest()->getParam('oauth_token'),
+			'oauth_verifier' => $this->getRequest()->getParam('oauth_verifier')
          );
 		 
-		
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken(array('scope' =>'r_emailaddress'));
 		try{
 			$accessToken = $linkedlogin ->getAccessToken($oauth_data, unserialize($requestToken));
 		}catch(Exception $e) {
-			Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');			
-			die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+			Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());	
 		}
 		$oauthOptions = $linkedlogin->getOptions();
 		$options = $oauthOptions;
@@ -78,32 +78,25 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
-		}else{ //session_start;
-			//Mage::getSingleton('core/session')->setEmailSession($email);
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
+		}else{
 			$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/linklogin/is_customer_confirm_password');
-			//die(var_dump($getConfirmPassword));
 			if($getConfirmPassword) {
-				die(" 
-				<script type=\"text/javascript\">
-				var email = ' $email ';
-				window.opener.opensocialLogin();
-				window.opener.document.getElementById('wsu_sso-sociallogin-popup-email').value = email;
-				window.close();</script>  ");
+				$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+					->setBody("<script type=\"text/javascript\">var email = '$email';window.opener.opensocialLogin();window.opener.document.getElementById('wsu_sso-sociallogin-popup-email').value = email;window.close();</script>  ");
 			}else{ // fix confirmation
-			if ($customer->getConfirmation()) {
-				try {
-					$customer->setConfirmation(null);
-					$customer->save();
-				}catch (Exception $e) {
+				if ($customer->getConfirmation()) {
+					try {
+						$customer->setConfirmation(null);
+						$customer->save();
+					}catch (Exception $e) {
+					}
 				}
-	  		}
-		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-		die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
 			}
 		}
-			
-		}
+	}
 
 	// if exit access token
 	public function getAuthorizedToken() {
@@ -126,8 +119,9 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
             );
             $token =  $olinked ->getAccessToken($oauth_data, unserialize(Mage::getSingleton('core/session')->getRequestToken()));
             Mage::getSingleton('core/session')->setAccessToken(serialize($token));
-             $olinked ->redirect();
-        }else{ $token = $olinked ->getRequestToken(array('scope' => $scope));
+			$olinked ->redirect();
+        }else{
+			$token = $olinked ->getRequestToken(array('scope' => $scope));
             Mage::getSingleton('core/session')->setRequestToken(serialize($token));
             $olinked ->redirect();
         }
@@ -139,10 +133,10 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
             // Set default URL to redirect customer to
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-            
         }else if ($session->getBeforeAuthUrl() == Mage::helper('customer')->getLogoutUrl()) {
             $session->setBeforeAuthUrl(Mage::helper('customer')->getDashboardUrl());
-        }else{ if (!$session->getAfterAuthUrl()) {
+        }else{ 
+			if (!$session->getAfterAuthUrl()) {
                 $session->setAfterAuthUrl($session->getBeforeAuthUrl());
             }
             if ($session->isLoggedIn()) {
