@@ -44,7 +44,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
 			//$this->_redirectUrl(Mage::helper('customer')->getDashboardUrl());
 		}
 		
