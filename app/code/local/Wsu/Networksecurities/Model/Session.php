@@ -248,7 +248,8 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 $url = 'ldaps://' . $this->host . '/';
             else
                 $url = 'ldap://' . $this->host . '/';
-            self::$ldaplink = ldap_connect($url, $this->port) or die("Could not connect to $ldaphost");
+            self::$ldaplink = ldap_connect($url, $this->port) or Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+			->setBody("Could not connect to $ldaphost");
         }
         if (!ldap_set_option(self::$ldaplink, LDAP_OPT_PROTOCOL_VERSION, $this->version)) {
 			$err=ldap_errno(self::$ldaplink);
