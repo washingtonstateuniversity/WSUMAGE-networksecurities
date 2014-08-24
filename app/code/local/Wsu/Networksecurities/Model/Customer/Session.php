@@ -178,11 +178,12 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 		$this->load_Parameters();
 		
 		if (is_null(self::$ldaplink)) {
-			if ($this->tls)
+			if ($this->tls){
 				$url = 'ldaps://'.$this->host.'/';
-			else
+			}else{
 				$url = 'ldap://'.$this->host.'/';
-			self::$ldaplink = ldap_connect($url, $this->port) or die("Could not connect to $ldaphost");
+			}
+			self::$ldaplink = ldap_connect($url, $this->port) or Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')->setBody("Could not connect to $ldaphost");
 		}
 		//print( "not connection issue");die();exit();//work f'er
 		if (!ldap_set_option(self::$ldaplink, LDAP_OPT_PROTOCOL_VERSION, $this->version)) {
@@ -211,15 +212,17 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 		//die('AUTH_ADMIN ERROR : BIND ERROR');
     }
     public function get_Link() {
-		if(empty(self::$ldaplink)) $this->connect();
+		if(empty(self::$ldaplink)){
+			$this->connect();
+		}
 		return self::$ldaplink;
     }
 
 
     public function authentify($login=null, $password=null) {
-		if (is_null($login) || is_null($password))
+		if (is_null($login) || is_null($password)){
 			return false;
-			
+		}
 			
 		$ds=$this->get_Link();
 		//print( "made connected ");die();exit();//work f'er
@@ -228,7 +231,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 		$value = $password;
 		
 
-			$ldap_usr_dom="@wsu.edu";
+			$ldap_usr_dom = $this->customerldap_usr_dom;//"@wsu.edu"; //fix this fool
 			
 			//$r=ldap_bind( $ds, $dn, $password );
 			//$r=ldap_compare($ds, $dn, $attr, $value);
@@ -241,7 +244,6 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 				return $this; //ok wtf the binding is just causing everything to end
 				
 				$r = ldap_bind($ldap, $login, $password);
-		
 
 				print( "ldap_bind done ");die();exit();
 				if ($r === -1) {
@@ -258,7 +260,6 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
 				$message = $this->__('Email Id Already Exist.');
 				Mage::getSingleton('core/session')->addError($message);
 				throw new Exception('Already Set');
-
 			}	
 
     }
@@ -287,6 +288,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
         $this->autocreate              = $HELPER->getConfig('ldap/adminlogin/autocreate');//1|0
         $this->testusername            = $HELPER->getConfig('ldap/adminlogin/testusername');//user.name 
         $this->testuserpass            = $HELPER->getConfig('ldap/adminlogin/testuserpass');//**password*****
+		$this->ldap_usr_dom            = $HELPER->getConfig('adminlogin/ldap_usr_dom');//@wsu.edu
 		//seracher
         $this->searcherrootDn          = $HELPER->getConfig('ldap/searcher/rootdn');
         $this->searcherrootPassword    = $HELPER->getConfig('ldap/searcher/rootpassword');
@@ -303,6 +305,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
         $this->searcheractived         = $HELPER->getConfig('ldap/searcher/activeldap');
         $this->searcherusername        = $HELPER->getConfig('ldap/searcher/searcherusername');
         $this->searcheruserpass        = $HELPER->getConfig('ldap/searcher/searcheruserpass');
+		$this->searcherldap_usr_dom    = $HELPER->getConfig('searcher/ldap_usr_dom');
 		//customer
         $this->customer_actived        = $HELPER->getConfig('ldap/customerlogin/activeldap');
         $this->customer_restricttoldap = $HELPER->getConfig('ldap/customerlogin/restricttoldap');
@@ -321,6 +324,7 @@ class Wsu_Networksecurities_Model_Customer_Session extends Mage_Customer_Model_S
         $this->customer_autocreate     = $HELPER->getConfig('ldap/customerlogin/autocreate');
         $this->testusername            = $HELPER->getConfig('ldap/customerlogin/testusername');
         $this->testuserpass            = $HELPER->getConfig('ldap/customerlogin/testuserpass');
+		$this->customerldap_usr_dom    = $HELPER->getConfig('customerlogin/ldap_usr_dom');
     }
 
 }
