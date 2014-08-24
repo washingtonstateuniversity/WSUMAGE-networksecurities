@@ -52,9 +52,11 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
 						}
                     }
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-                    die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+					$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+						->setBody("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
                 }else{ $coreSession->addError($this->__('Login failed as you have not granted access.'));
-                   die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+					$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+						->setBody("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
                 }
 			}
 		}
