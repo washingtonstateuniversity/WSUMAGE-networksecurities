@@ -292,11 +292,13 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             $userDn = $this->cmpAttr . '=' . $login . ',' . $this->userDn;
             $ds     = $this->get_Link();
             $data   = ldap_search($ds, $userDn, $filter, array_values($this->attr));
-            if (!$data)
+            if (!$data){
                 throw new Exception('AUTH_ADMIN ERROR : SEARCH ERROR');
+			}
             $this->data = ldap_get_entries($ds, $data);
-            if ($this->data['count'] != 1)
+            if ($this->data['count'] != 1){
                 return false;
+			}
             return true;
         }
         return true;
@@ -334,8 +336,9 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
         }
     }
     public function get_Ldap_User_Attributs() {
-        foreach ($this->attr as $attr)
+        foreach ($this->attr as $attr){
             $ret[$attr] = $this->data[0][$attr][0];
+		}
         return $ret;
     }
 }
