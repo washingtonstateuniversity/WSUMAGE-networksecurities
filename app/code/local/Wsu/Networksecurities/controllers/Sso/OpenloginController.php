@@ -12,8 +12,8 @@ class Wsu_Networksecurities_Sso_OpenloginController extends Mage_Core_Controller
 			try{
 				$url = $my->authUrl();
 			}catch(Exception $e) {
-				$coreSession->addError('Username not exacted');			
-                die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+				$coreSession->addError('Username not exacted');
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 			}
 			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 			exit;
@@ -22,8 +22,8 @@ class Wsu_Networksecurities_Sso_OpenloginController extends Mage_Core_Controller
                 try{
 					$url = $my->authUrl();
 				}catch(Exception $e) {
-					$coreSession->addError('Username not exacted');			
-					die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+					$coreSession->addError('Username not exacted');
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 				}
                 echo "<script type='text/javascript'>top.location.href = '$url';</script>";
                 exit;
@@ -46,30 +46,30 @@ class Wsu_Networksecurities_Sso_OpenloginController extends Mage_Core_Controller
 					//get website_id and sote_id of each stores
 					$store_id = Mage::app()->getStore()->getStoreId();
 					$website_id = Mage::app()->getStore()->getWebsiteId();
-						$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($email, $website_id);
-						if(!$customer || !$customer->getId()) {
-							//Login multisite
-							$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+					$customer = Mage::helper('wsu_networksecurities/customer')->getCustomerByEmail($email, $website_id);
+					if(!$customer || !$customer->getId()) {
+						//Login multisite
+						$customer = Mage::helper('wsu_networksecurities/customer')->createCustomerMultiWebsite($user, $website_id, $store_id );
+					}
+					Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($authorId);
+					if (Mage::getStoreConfig('wsu_networksecurities/oplogin/is_send_password_to_customer')) {
+						$customer->sendPasswordReminderEmail();
+					} 
+					// fix confirmation
+					if ($customer->getConfirmation()) {
+						try {
+							$customer->setConfirmation(null);
+							$customer->save();
+						}catch (Exception $e) {
 						}
-						Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($authorId);
-						if (Mage::getStoreConfig('wsu_networksecurities/oplogin/is_send_password_to_customer')) {
-							$customer->sendPasswordReminderEmail();
-						} 
-							// fix confirmation
-							if ($customer->getConfirmation()) {
-								try {
-									$customer->setConfirmation(null);
-									$customer->save();
-								}catch (Exception $e) {
-								}
-							}
-						Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-						$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();						
-						die("<script>window.close();window.opener.location = '$nextUrl';</script>");
-			
+					}
+					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+					$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();						
+					$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+						->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
                 }else{
                    $coreSession->addError('User has not shared information so login fail!');			
-                   die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+                   Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }
