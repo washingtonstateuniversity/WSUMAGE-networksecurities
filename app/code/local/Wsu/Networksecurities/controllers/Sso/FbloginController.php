@@ -38,10 +38,10 @@ class Wsu_Networksecurities_Sso_FbloginController extends Mage_Core_Controller_F
 					}
 				}
 				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-				die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");   
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect()); 
 			}else{
 				Mage::getSingleton('core/session')->addError('You provided a email invalid!');			
-				die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 			}
 		}
 	}
