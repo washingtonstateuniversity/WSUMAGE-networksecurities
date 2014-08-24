@@ -20,19 +20,19 @@ class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_F
 			try{
 				$url = $my->authUrl();
 			}catch(Exception $e) {
-				$coreSession->addError('Username not exacted');			
-                die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+				$coreSession->addError('Username not exacted');
+				Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 			}
 			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 			exit;
 		}else{ if (!$my->validate()) { 
                $my_session = Mage::getModel('wsu_networksecurities/sso_ljlogin')->setLjIdlogin($my,$identity);
                 try{
-				$url = $my->authUrl();
-			}catch(Exception $e) {
-				$coreSession->addError('Username not exacted');			
-                die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
-			}
+					$url = $my->authUrl();
+				}catch(Exception $e) {
+					$coreSession->addError('Username not exacted');			
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+				}
                 echo "<script type='text/javascript'>top.location.href = '$url';</script>";
                 exit;
             }else{ // $user_info = $my->getAttributes();
@@ -72,11 +72,11 @@ class Wsu_Networksecurities_Sso_LjloginController extends Mage_Core_Controller_F
 						}
 					}
 					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();						
-					die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+					$nextUrl = Mage::helper('wsu_networksecurities')->getEditUrl();
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
 					
                 }else{ $coreSession->addError('User has not shared information so login fail!');			
-                   die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+                   Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }
