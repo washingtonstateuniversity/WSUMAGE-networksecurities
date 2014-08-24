@@ -165,4 +165,16 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function getLinkedConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/linklogin/secret_key'));
 	}
+	
+	
+	public function setJsRedirect($url=null){
+		$html="Failed to get a proper url redirect";
+		if(!is_null($url)){
+			$html="<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".$url."\"} window.close();</script>";
+		}
+		Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+			->setBody($html);	
+	}
+	
+	
 }
