@@ -167,8 +167,9 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$failed_log->save();
 		$cookie = Mage::getSingleton('core/cookie');
 		$count=1;
-		if( isset( $cookie->get('userpasshash') ) ) {
-			$old=explode(':',$cookie->get('userpasshash'));
+		$userpasshash=$cookie->get('userpasshash');
+		if( isset( $userpasshash ) ) {
+			$old=explode(':', $userpasshash);
 			$count=(int)end($old)+1;
 		}
 		#this is to send wouldbe level hackers on a runaround
@@ -200,8 +201,9 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$blacklist->save();
 		$cookie = Mage::getSingleton('core/cookie');
 		$count=1;
-		if( isset( $cookie->get('userBLhash') ) ) {
-			$old=explode(':',$cookie->get('userBLhash'));
+		$userBLhash=$cookie->get('userBLhash');
+		if( isset( $userBLhash ) ) {
+			$old=explode(':',$userBLhash);
 			$count=(int)end($old)+1;
 		}
 		#this is to send wouldbe level hackers on a runaround
