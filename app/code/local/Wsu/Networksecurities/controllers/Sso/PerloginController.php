@@ -2,7 +2,6 @@
 
 class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_Front_Action{
 	
-	
     public function loginAction() {
 		// url de xac nhan
 		$url = 'https://verifier.login.persona.org/verify';
@@ -50,12 +49,14 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 			}
 			
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			//die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+			/*die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");*/
+			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
 			$this->_redirectUrl($this->_loginPostRedirect());
 		}else{ //Mage::getSingleton('sociallogin')->addError('Sorry! You can not login');
 			// echo "----------------------------------";
 			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
 			$this->_redirect();
+			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 		}
     }
 	protected function _loginPostRedirect() {
