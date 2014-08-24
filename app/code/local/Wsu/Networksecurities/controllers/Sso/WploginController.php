@@ -58,9 +58,9 @@ class Wsu_Networksecurities_Sso_WploginController extends Mage_Core_Controller_F
 						}
 					}
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-                    die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect($this->_loginPostRedirect());
                 }else{ $coreSession->addError('Login failed as you have not granted access.');			
-                   die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+                   Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }
@@ -81,7 +81,7 @@ class Wsu_Networksecurities_Sso_WploginController extends Mage_Core_Controller_F
             $url = Mage::getModel('wsu_networksecurities/sso_wplogin')->getWpLoginUrl($name);			
             $this->_redirectUrl($url);
         }else{ Mage::getSingleton('core/session')->addError('Please enter Blog name!');	
-            die("<script type=\"text/javascript\">try{window.opener.location.reload(true);}catch(e) {window.opener.location.href=\"".Mage::getBaseUrl()."\"} window.close();</script>");
+            Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
         }
     }
 	protected function _loginPostRedirect() {
