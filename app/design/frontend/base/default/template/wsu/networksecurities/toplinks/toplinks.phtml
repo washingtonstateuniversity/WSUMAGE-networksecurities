@@ -1,0 +1,289 @@
+<?php
+/**
+ * @see rewite template page\template\links.phtml
+ */
+?>
+<?php $check = Mage::helper('wsu_networksecurities/customer')->getShownPositions();?>
+<?php if (in_array("popup", $check)):?>
+<?php $arrayButton = $this->makeArrayButton(); $temp = $arrayButton; ?>
+<?php $numberShow = $this->getNumberShow();?>
+<?php $countAll = 0;?>
+<?php $countMain = 0;?>
+<?php $count = 0;?>	
+	<div id="wsu_sso-popup" style="display: none; text-align: left;">
+		<div id="sociallogin-close" title="Close" style="font-weight:bold;font-size:11px;color:#f18200"><?php echo "CLOSE [X]" ?></div>
+		<div id="wsu_sso-login-form" style="float: left">
+			<h3 class="wsu_sso-loign-h3"><?php echo $this->__("Sign in") ?></h3>
+			<div id="sociallogin-forgot" style="display: none">				
+				<span class="sociallogin-forgot-content"><?php echo $this->__('Please enter your email below and we will send you a new password.');?></span>
+			</div>
+			<!-- formm Login -->
+			<form id="wsu_sso-sociallogin-form" class="wsu_sso-login-form-popup">
+				<!-- email -->
+				<div class="wsu_sso-login-input-box">
+					<label class="required login-label" for="email">
+						<?php echo $this->__('Email Address ');?><em>*</em> 
+					</label>
+					<div class="sociallogin-input-box">
+						<input id="wsu_sso-sociallogin-popup-email" class="input-text required-entry validate-email" type="text" title="Email Address" value="" name="socialogin_email">						
+					</div>
+				</div>
+				<!-- password -->
+				<div id="wsu_sso-sociallogin-password" class="wsu_sso-login-input-box">
+					<label class="required login-label" for="pass">
+						<?php echo $this->__('Password ');?><em>*</em> 
+					</label>
+					<div class="sociallogin-input-box">
+						<input type="password" id="wsu_sso-sociallogin-popup-pass" class="input-text required-entry validate-password" type="text" title="Password" value="" name="socialogin_password">						
+					</div>
+				</div>
+				<!-- image ajax -->
+				<div id="progress_image_login" class="ajax-login-image" style="display: none">					
+				</div>
+				<!-- error invalid email -->
+				<div id="wsu_sso-invalid-email" class="wsu_sso-invalid-email"></div>
+				<!-- sumbit -->
+				<div class="wsu_sso-login-popup-button">
+					<a id="wsu_sso-forgot-password" href="javascript:void(0);"><?php echo $this->__('Forgot Your Password?') ?></a>
+					<button id="wsu_sso-button-sociallogin" class="button popup_click_btn" name="send" title="Login" type="button">
+						<span><span><?php echo $this->__('Login')?></span></span>
+					</button>					
+				</div>
+			</form>		
+			<!-- form forgot -->
+			<form id="wsu_sso-sociallogin-form-forgot" class="wsu_sso-login-form-popup" style="display: none">
+				<div class="wsu_sso-login-input-box">
+					<label class="required login-label" for="email">
+						<?php echo $this->__('Email Address ');?><em>*</em> 
+					</label>
+					<div class="sociallogin-input-box">
+						<input id="wsu_sso-sociallogin-popup-email-forgot" class="input-text required-entry validate-email" type="text" title="Email Address" value="" name="socialogin_email_forgot">						
+					</div>
+				</div>
+				<!-- image ajax -->
+				<div id="progress_image_login_forgot" class="ajax-login-image" style="display: none">					
+				</div>
+				<!-- error invalid email -->
+				<div id="wsu_sso-invalid-email-forgot" class="wsu_sso-invalid-email"></div>
+				<!-- sumbit -->
+				<div class="wsu_sso-login-popup-button">					
+					<a id="wsu_sso-forgot-back" href="javascript:void(0);"><?php echo $this->__('Back to Form Login') ?></a>
+					<button id="wsu_sso-button-sociallogin-forgot" class="button popup_click_btn" title="<?php echo $this->__('Send Password');?>" type="button">
+						<span><span><?php echo $this->__('Send Password')?></span></span>
+					</button>
+				</div>
+			</form>						
+		</div>		
+		<!-- create new user -->		
+		<div id="wsu_sso-create-user" style="float: left; display: none" >	
+			<h3 class="wsu_sso-loign-h3"><?php echo $this->__("Create New Account") ?></h3>
+			<form id="wsu_sso-sociallogin-form-create" class="wsu_sso-login-form-popup">		
+				<ul class="form-list">
+					<li class="fields">				
+						<div class="field name-firstname sociallogin-field">
+							<label class="required" for="firstname"><?php echo $this->__('First Name ');?><em>*</em></label>
+							<div class="input-box">
+								<input id="socialogin.firstname" class="input-text required-entry" type="text" title="First Name" value="" name="firstname">
+							</div>
+						</div>
+						<div class="field name-lastname sociallogin-field">
+							<label class="required" for="lastname"><?php echo $this->__('Last Name ');?><em>*</em></label>
+							<div class="input-box">
+								<input id="socialogin.lastname" class="input-text required-entry" type="text" title="Last Name" value="" name="lastname">
+							</div>
+						</div>
+					</li>
+					<li class="fields">
+						<div class="field sociallogin-field">
+							<label class="required" for="email"><?php echo $this->__('Email ');?><em>*</em></label>
+							<div class="input-box">
+								<input id="socialogin.email" class="input-text required-entry validate-email" type="text" title="Email" value="" name="email">
+							</div>
+						</div>
+					</li>
+					<li class="fields">
+						<div class="field sociallogin-field">
+							<label class="required" for="pass"><?php echo $this->__('New Password ');?><em>*</em></label>
+							<div class="input-box">
+								<input id="socialogin.pass" class="input-text required-entry validate-password" type="password" title="Pass" value="" name="pass">
+							</div>
+						</div>
+						<div class="field sociallogin-field">
+							<label class="required" for="pass-confirm"><?php echo $this->__('Confirm Password');?><em>*</em></label>
+							<div class="input-box">
+								<input id="socialogin.pass.confirm" class="input-text required-entry validate-cpassword" type="password" title="Pass Confirm" value="" name="passConfirm">
+							</div>
+						</div>
+					</li>
+				</ul>
+				<!-- image ajax -->
+				<div id="progress_image_login_create" class="ajax-login-image" style="display: none">					
+				</div>
+				<!-- error invalid create ACC -->
+				<div id="wsu_sso-invalid-create" class="wsu_sso-invalid-email"></div>
+				<div class="wsu_sso-create-popup-button">					
+					<a id="wsu_sso-create-back" href="javascript:void(0);"><?php echo $this->__('Back to Form Login') ?></a>
+					<button id="wsu_sso-button-sociallogin-create" class="button popup_click_btn" title="<?php echo $this->__('Submit');?>" type="button" style="margin-right: 17px">
+						<span><span><?php echo $this->__('Submit')?></span></span>
+					</button>
+				</div>
+			</form>
+		</div>
+		<!-- end code create account -->
+		<!-- social login -->
+		<div id="wsu_sso-login-social">
+			<h3 class="wsu_sso-loign-h3"><?php echo $this->__("Sign in with");?></h3>
+			<!-- default -->
+			<ul class="wsu_sso-login-social">
+			<?php foreach($arrayButton as $key => $button):?>	
+				<?php $check =$button['check'];?>
+				<?php if($check): unset($temp[$key]);?>					
+					<li class="button popup"> <?php echo $button['button']?> </li>
+					<script type="text/javascript">					
+						$('<?php echo $button['id'] ?>').addClassName('visible');				
+					</script>	
+					<?php ++$countMain ;?>			
+				<?php endif;?>
+				<?php if($countMain == $numberShow){break;} ?>
+			<?php endforeach;?>  		
+			</ul>			
+		</div>		
+		<div class="wsu_sso-sociallogin-create-new-customer"><a id="wsu_sso-sociallogin-create-new-customer" href="javascript:void(0);"><?php echo ('Create New Account') ?></a></div>
+		<?php if(count($temp)):?>
+			<?php $noEmpty = false;?>
+			<?php foreach($temp as $tem):?>
+			<?php if($tem['check']):?>
+			<?php $noEmpty = true;?>
+			<?php endif;?>
+			<?php endforeach;?>
+			<?php if($noEmpty):?>
+			<!-- other login -->
+			<div class="sociallogin-other"  style="text-align: right;">
+				<div id="sociallogin-other-div-popup">
+					<div id="sociallogin-other-div-popup-hover" style="float: right; display: block;">
+						<a id="sociallogin-other-a-popup" style="text-decoration: none;"><span class="sociallogin-other-span"><?php echo $this->__('Other Login') ?></span><span class="sociallogin-other-span-img-popup"></span></a>										
+						
+						<ul class="sociallogin-other-button-popup" id="sociallogin-other-button-popup" style="display:none;">
+						<?php foreach($temp as $button):?>				
+							<?php $check = $button['check']; ?>
+							<?php if($check): $count ++;?>				
+								<li class="button other-button" style="float: left"> <?php echo $button['button'] ?> </li>	
+								<script type="text/javascript">
+									$('<?php echo $button['id'] ?>').addClassName('non-visible');
+								</script>					
+							<?php endif;?>			
+						<?php endforeach;?>  
+						</ul>
+					</div>					
+				</div>
+			</div>	
+				<script type="text/javascript">				
+					/*$("sociallogin-other-div-popup-hover").observe('click', function() {
+						$('sociallogin-other-button-popup').setStyle({ display: 'block' });				
+					});
+					/* $("sociallogin-other-div-popup-hover").observe('mouseout', function() {
+						$('sociallogin-other-button-popup').setStyle({ display: 'none' });                
+					}); */
+					
+					$("sociallogin-other-a-popup").observe('click', function() {
+						if(this.hasClassName('active')){
+							this.removeClassName('active');
+							$('sociallogin-other-button-popup').style.display = 'none';
+						}else{ 
+							this.addClassName('active');
+							$('sociallogin-other-button-popup').style.display = 'block';
+						}
+					});
+					
+					
+				
+					
+					/*$("#bg_fade").observe('click', function() {
+						$('sociallogin-other-button-popup').setStyle({ display: 'none' });                
+					});*/
+					
+					
+				</script>
+			<?php endif; ?>
+			<?php endif; ?>
+	</div>
+
+	<script type="text/javascript">
+	try{
+		if(document.getElementById('search_mini_form'))
+		{
+			var links = document.links;
+			for (i = 0; i < links.length; i++) {
+				if (links[i].href.search('/customer/account/login/') != -1) {
+					links[i].href = 'javascript:socialLogin.open();';
+					Event.observe(links[i], 'click', function () {
+                    $('wsu_sso-login-social').style.display = "block";
+                    if ($('sociallogin-other-a-popup')) $('sociallogin-other-a-popup').style.display = "block";
+                    $('wsu_sso-popup').style.width="706px";
+                    });
+				}
+				if (links[i].href.search('/wishlist/') != -1) {
+					links[i].href = 'javascript:socialLogin.open();';
+					Event.observe(links[i], 'click', function () {
+                    $('wsu_sso-login-social').style.display = "block";
+                    if ($('sociallogin-other-a-popup')) $('sociallogin-other-a-popup').style.display = "block";
+                    $('wsu_sso-popup').style.width="706px";
+                    });
+				}
+				if (links[i].href.search('/customer/account/') != -1) {
+					links[i].href = 'javascript:socialLogin.open();';
+					Event.observe(links[i], 'click', function () {
+                    $('wsu_sso-login-social').style.display = "block";
+                    if ($('sociallogin-other-a-popup')) $('sociallogin-other-a-popup').style.display = "block";
+                    $('wsu_sso-popup').style.width="706px";
+                    });
+				}
+			}
+		}
+		if(document.getElementById('product_comparison')){
+			var links = document.links;
+			for (i = 0; i < links.length; i++) {
+				if (links[i].href.search('/wishlist/') != -1) {		
+					links[i].href = 'javascript:socialLogin.open();';
+				}
+			}
+		}
+		if(document.getElementById("checkout-step-login"))
+		{
+			$$('.col-2 .buttons-set').each(function(e) {
+			e.insert({bottom: '<div id="multilogin"> <button type="button" class="button" style="" onclick="javascript:socialLogin.open();" title="Social Login" name="headerboxLink1" id="headerboxLink1"><span><span>Social Login</span></span></button></div>'});
+			});
+		}
+	}catch(exception)
+	{ alert(exception);}		
+	</script>
+	
+	<script type="text/javascript">
+		Event.observe(window, 'load', function () {
+			socialLogin = new Lightbox('wsu_sso-popup');
+			Event.observe('bg_fade', 'click', function () {
+				socialLogin.close();
+			}); 
+		});
+		Event.observe('sociallogin-close', 'click', function () {
+			socialLogin.close();
+		}); 
+		
+		Event.observe(window, 'resize', function () { 		
+			socialLogin._centerWindow('wsu_sso-popup');
+		});	
+	</script>
+	
+	<script type="text/javascript">
+	Event.observe(window, 'load', function() {
+		var options = {					
+			email: document.getElementById('wsu_sso-sociallogin-popup-email').value,
+			pass : document.getElementById('wsu_sso-sociallogin-popup-pass').value,
+			login_url  : "<?php echo $this->getUrl().'sociallogin/popup/login';?>",
+			send_pass_url : "<?php echo $this->getUrl().'sociallogin/popup/sendPass';?>",
+			create_url : "<?php echo $this->getUrl().'sociallogin/popup/createAcc';?>",
+		};
+		Login = new LoginPopup(options);	
+	 }); 		
+	</script>
+<?php endif; ?>

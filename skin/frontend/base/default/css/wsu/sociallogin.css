@@ -1,0 +1,297 @@
+
+.clear{
+ width:100%;
+ height:0px;
+ clear:both;
+ font-size:0px;
+ line-height:0px;
+}
+
+#sociallogin_button{
+	margin-top:10px;
+}
+
+#sociallogin_button #bt-loginfb span, #bt-loginfb-popup span{
+    height:28px;
+    background: url("sociallogin/fb.png") no-repeat;
+    display: block;
+    float: left;
+}
+
+#sociallogin_button #bt-logingo span, #bt-logingo-popup span{
+    height: 28px;
+    background: url("sociallogin/google.png") no-repeat;
+    display: block;
+    float: left;
+}
+#wsu_sso-popup  .input-box{width:100%;}
+#sociallogin_button #bt-loginper span, #bt-loginper-popup span{
+    height: 28px;
+    background: url("sociallogin/persional.png") no-repeat;
+    display: block;
+    float: left;
+	color:#a34500;
+}
+#bt-logintw-popup span{
+    height: 28px;
+    background: url("sociallogin/twit.png") no-repeat;
+    display: block;
+    float: left;
+}
+#sociallogin_button #bt-loginse span, #bt-loginse-popup span{
+    height: 28px;
+    background: url("sociallogin/stack.png") no-repeat;
+    display: block;
+    float: left;
+	color:#000;
+}
+
+
+#sociallogin_button #bt-logintw span, #bt-loginaol-popup span{
+    height: 28px;
+	background: url("sociallogin/twit.png") no-repeat;
+    display: block;
+    float: left;
+}
+#sociallogin_button #bt-loginwp span, #bt-loginwp-popup span{   
+	background: url("sociallogin/wpress.png") no-repeat;  
+}
+#sociallogin_button #bt-loginya span, #bt-loginya-popup span{
+    height: 28px;
+	background: url("sociallogin/yh.png") no-repeat;
+    display: block;
+    float: left;
+	color:#fff;
+}
+/* by Hai Ta */
+#sociallogin_button #bt-loginaol span, #bt-loginaol-popup span{    
+	background: url("sociallogin/aol.png") no-repeat;  
+	color:#000;
+}
+#sociallogin_button #bt-loginwp span, #bt-loginwp-popup span{   
+	background: url("sociallogin/wpress.png") no-repeat;  
+}
+#sociallogin_button #bt-logincal span, #bt-logincal-popup span{    
+	background: url("sociallogin/clavid.png") no-repeat;    
+}
+#sociallogin_button #bt-loginorg span, #bt-loginorg-popup span{    
+	background: url("sociallogin/orange.png") no-repeat;    
+}
+#sociallogin_button #bt-loginmp span, #bt-loginmp-popup span{    
+	background: url("sociallogin/mysp.png") no-repeat;    
+}
+#sociallogin_button #bt-loginlive span, #bt-loginlive-popup span{    
+	background: url("sociallogin/live.png") no-repeat;
+	color:#000;
+}
+#sociallogin_button #bt-loginfq span, #bt-loginfq-popup span{    
+	background: url("sociallogin/fq.png") no-repeat;   
+}
+
+#sociallogin_button #bt-loginlinked span, #bt-loginlinked-popup span{    
+	background: url("sociallogin/linked.png") no-repeat;   
+}
+
+#sociallogin_button #bt-loginopen span, #bt-loginopen-popup span{    
+	background: url("sociallogin/myop.png") no-repeat;
+	color:#000;
+}
+
+#sociallogin_button #bt-loginlj span, #bt-loginlj-popup span{    
+	background: url("sociallogin/liveJ.png") no-repeat;   
+}
+
+
+#sociallogin-other-div{	
+	display: block;	
+	float: right;      
+}
+#sociallogin-other-a{
+	width: 91px;
+	display: block;
+}
+.sociallogin-other{
+	display: block;	
+	float: right;
+    position: relative;
+    width: 100%;
+}
+.sociallogin-other-span{
+	cursor: pointer;    
+	font-weight: bold;
+    white-space: nowrap;
+}
+
+.sociallogin-other-span-img-popup{	
+	float: right;
+	width: 26px;
+	height: 16px;
+	cursor: pointer;        
+	background: url("sociallogin/add.png") no-repeat right;
+}
+
+.other-button{
+	margin: 7px 3px 5px 4px;
+}
+.sociallogin-other-button{	
+    width: auto;
+	max-width:528px;
+}
+button.bt-login-social{background:none;border:none;cursor: pointer;}
+button.bt-login-social span{	
+	height:28px;
+	line-height:27px;
+	color:#fff;
+	padding:0 0 0 28px;
+	float:left;
+	}
+button.bt-login-social span span{
+	background-position:100% 0 !important;
+	padding-right:10px !important;
+	padding-left:5px !important;
+	min-width: 110px;
+	font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+}
+button.bt-login-social.visible span span {
+	min-width: 100px;
+}
+	
+/* change poppup */
+#wsu_sso-popup{
+	padding: 10px;
+    position: fixed;
+    width: 706px;
+    z-index: 9990;
+	background: #fff;
+	border: 2px;
+	border-radius: 7px;
+}
+#wsu_sso-login-social{
+	float: right;
+	width: 34%;
+	text-align: center;
+}
+#bg_fade {
+    background-color: #000000;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+    z-index: 1000;
+	opacity: 0.3;
+}
+#sociallogin-close{
+	cursor: pointer;
+    height: 26px;
+    position: absolute;
+    right: -10px;
+    top: -10px;   
+    z-index: 9999;
+	text-indent: -10000px;
+	background:url("sociallogin/close.png") no-repeat;
+}
+#sociallogin-close:hover{
+	text-decoration: underline;
+}
+#wsu_sso-login-form{
+	margin-left: 10px;
+}
+.wsu_sso-loign-h3{
+	margin-bottom: 18px;
+	border-bottom: 1px solid #CCCCCC;
+	font-family: 'tahoma',Arial,Helvetica,sans-serif;
+    font-size: 15px;
+	padding-bottom: 3px;
+}
+.wsu_sso-login-input-box{
+	margin-bottom: 12px;
+	height: 30px;
+}
+.login-label{
+	float: left;	
+	padding-top: 5px;
+    width: 35%;
+	font-weight: bold;
+	color: #666;
+}
+.login-label em{
+	color: red;
+}
+.sociallogin-input-box{
+	float: right;
+	width: 250px;
+	margin-bottom: 12px;
+}
+.sociallogin-input-box .input-text{
+	border: 1px solid #CCCCCC;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 2px 2px #E3E3E3 inset;
+    font-family: inherit;
+    font-size: 1.1em;
+    margin: 0;
+    padding: 5px 4px;
+    width: 230px;
+}
+.wsu_sso-login-popup-button{
+	float: right;
+}
+#wsu_sso-forgot-password, #wsu_sso-forgot-back{
+	margin-right: 69px;
+	font-size: 10px;
+	float: left;
+}
+#wsu_sso-forgot-back{
+	margin-right: 40px;
+}
+.popup_click_btn{
+	margin-right: 10px !important;
+	float: right;
+}
+.wsu_sso-login-input-box  .login-label em{	
+}
+.ajax-login-image{
+	background: url("sociallogin/opc-ajax-loader.gif") no-repeat scroll 0 0 transparent;
+	width: 16px;
+	height: 16px;
+	margin: 5px 0 5px 152px;
+}
+.wsu_sso-invalid-email{
+	margin-left: 152px;
+	color: red;
+}
+
+#sociallogin-forgot{
+	margin-bottom : 20px;
+}
+.wsu_sso-sociallogin-create-new-customer{
+	float: left;	
+	clear: both;
+}
+.wsu_sso-sociallogin-create-new-customer a{	
+	margin-left: 10px;
+	font-weight: bold;
+}
+.sociallogin-field{
+	width: 218px !important;
+	float: left;
+}
+.sociallogin-field .input-text{
+	width: 201px !important;
+}
+#wsu_sso-create-back{
+	font-size: 10px;
+}
+.sociallogin-other-button-popup{
+	float: left;
+}
+#wsu_sso-login-social  .wsu_sso-loign-h3{text-align:center;}

@@ -1,0 +1,103 @@
+<?php $arrayButton = $this->makeArrayButton(); $temp = $arrayButton; ?>
+<?php $numberShow = $this->getNumberShow();?>
+<?php $countAll = 0;?>
+<?php $countMain = 0;?>
+<?php $count = 0;?>
+
+<div id="sociallogin_button">	
+	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
+	<?php foreach($arrayButton as $key => $button):?>	
+		<?php $check =$button['check'];?>
+		<?php if($check): unset($temp[$key]);?>					
+			<li class="button left"> <?php echo $button['button']?> </li>
+			<script type="text/javascript">
+				$('<?php echo $button['id'] ?>').addClassName('visible');
+				$('<?php echo $button['id'] ?>' ).setStyle('min-width: 80px');
+			</script>	
+			<?php ++$countMain ;?>			
+		<?php endif;?>
+		<?php if($countMain == $numberShow){break;} ?>
+	<?php endforeach;?>  		
+	</ul>	
+	<?php if(count($temp)):?>
+	<?php $noEmpty = false;?>
+	<?php foreach($temp as $tem):?>
+	<?php if($tem['check']):?>
+	<?php $noEmpty = true;?>
+	<?php endif;?>
+	<?php endforeach;?>
+	<?php if($noEmpty):?>
+	<div class="sociallogin-other">
+	
+		<div id="sociallogin-other-div">		
+			<a id="sociallogin-other-a"> 
+			<span class="sociallogin-other-span">
+				<?php echo $this->__('Other login') ?>
+			</span>			
+			<span class="sociallogin-other-span-img-popup"></span></a>
+				<ul class="sociallogin-other-button" id="sociallogin-other-button" style="display:none">
+				<?php foreach($temp as $button):?>				
+					<?php $check = $button['check']; ?>
+					<?php if($check): $count ++;?>				
+						<li class="button left other-button"> <?php echo $button['button'] ?> </li>	
+						<script type="text/javascript">
+							$('<?php echo $button['id'] ?>').addClassName('non-visible');
+						</script>					
+					<?php endif;?>			
+				<?php endforeach;?>  
+				</ul>
+		
+		</div>
+	</div>	
+		<script type="text/javascript">
+			$("sociallogin-other-a").observe('click', function() {
+						if(this.hasClassName('active')){
+							this.removeClassName('active');
+							$('sociallogin-other-button').style.display = 'none';
+						}else{ 
+							this.addClassName('active');
+							$('sociallogin-other-button').style.display = 'block';
+						}
+					});
+			
+		</script>
+	<?php endif; ?>
+	<?php endif; ?>
+</div>
+<style type="text/css">
+<?php if($this->getDirection() == 'left'):?>
+.bt-login-social{margin:0 5px 0 0;}
+.sociallogin-other-button {
+    background: none repeat scroll 0 0 #666666;
+    border-radius: 9px 9px 9px 9px;
+    left: 0;
+    opacity: 0.96;
+    position: absolute;  
+	padding-right: 4px;
+	z-index:1000;
+}
+
+#sociallogin-other-div {
+    display: block;
+    float: left;
+	margin-left: 3px;
+}
+<?php else: ?>
+.bt-login-social{margin:0 0 0 5px;}
+#sociallogin-other-div {
+    display: block;
+    float: right;
+	margin-right: 3px;
+}
+.sociallogin-other-button{
+	background: none repeat scroll 0 0 #666666;
+    border-radius: 9px;
+    opacity: 0.96;
+    position: absolute;    
+	right:0px;
+	padding-right: 4px;
+	z-index:1000;
+}
+<?php endif;?>
+</style>
+<div class="clear"></div>

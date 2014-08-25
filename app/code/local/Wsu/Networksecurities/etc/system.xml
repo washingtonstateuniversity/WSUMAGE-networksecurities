@@ -1,0 +1,2456 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<wsu_networksecurities translate="label comment" module="wsu_networksecurities">
+			<label>Newtwork And Securities</label>
+			<tab>utilitiestab</tab>
+			<sort_order>340</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<hint>
+					<frontend_model>wsu_networksecurities/adminhtml_system_config_fieldset_hint</frontend_model>
+					<sort_order>0</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+				</hint>
+				<!--******************************************************************************************************************
+general
+******************-->
+				<general translate="label comment">
+					<label>General Settings</label>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<attemptslimit translate="label comment">
+							<label>What is the limit of tries before you time the user out?</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</attemptslimit>
+						<suspensionlength translate="label comment">
+							<label>What is the length of the user being suspended from forms?</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</suspensionlength>
+						<logging translate="label comment">
+							<label>Logging mode</label>
+							<comment>Set how the much logs are output.</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/config_logging</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</logging>
+					</fields>
+				</general>
+				<!--******************************************************************************************************************
+general_customer
+******************-->
+				<general_customer translate="label">
+					<label>General Customer configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled  translate="label comment">
+							<label>Enable Username Support</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Enable username support in your store]]>
+							</comment>
+						</enabled>
+						<frontend translate="label comment">
+							<label>Allow frontend edit</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Allow the customer to edit his username in "My Account"]]>
+							</comment>
+						</frontend>
+						<grid translate="label comment">
+							<label>
+								<![CDATA[Display username in "Manage Customers" Grid]]>
+							</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Do you want to display the field 'Username' in the Manage Customer Grid?]]>
+							</comment>
+						</grid>
+						<max_length translate="label comment">
+							<label>Maximum length of the username</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[What is the maximum length of the string username that you want to accept? By default, it is 30 characters]]>
+							</comment>
+						</max_length>
+						<min_length model="username" translate="label comment">
+							<label>Minimum length of the username</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[What is the minimum length of the string username that you want to accept? By default, it is 6 characters]]>
+							</comment>
+						</min_length>
+						<input_validation translate="label comment">
+							<label>Input Validation</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/config_source_inputvalidation</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[What kind of username do you want to accept? You can set the value 'Default' which accept letters, digits and the special characters '_-']]>
+							</comment>
+						</input_validation>
+						<input_validation_custom translate="label comment">
+							<label>Custom Input Validation</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Provide here a PCRE regex. e.g. <strong>/^[\w-]*$/</strong>. More info at <a href="http://php.net/manual/en/reference.pcre.pattern.syntax.php">PHP Manual</a>]]>
+							</comment>
+							<depends>
+								<input_validation>custom</input_validation>
+							</depends>
+						</input_validation_custom>
+						<input_validation_custom_message translate="label comment">
+							<label>Custom Input Validation - Error Message</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Message to show to the user in case of error</a>]]>
+							</comment>
+							<depends>
+								<input_validation>custom</input_validation>
+							</depends>
+						</input_validation_custom_message>
+						<case_sensitive translate="label comment">
+							<label>Case Sensitive Username</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<comment>
+								<![CDATA[Do you want to make the username case sensitive? If not case sensitive, the username will be saved in lowercase and test as such.]]>
+							</comment>
+						</case_sensitive>
+					</fields>
+				</general_customer>
+				
+				<!--******************************************************************************************************************
+startup
+******************-->
+				<startup translate="label comment">
+					<label>Store access options</label>
+					<comment>You are able to set a store up so that you must login in order to view any products.  In a network setup, this is store by store.</comment>
+					<sort_order>2</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<expanded>1</expanded>
+					<fields>
+						<require_login translate="label comment">
+							<label>Require Login</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</require_login>
+						<require_login_whitelist translate="label comment">
+							<label>Require Login Whitelist</label>
+							<frontend_type>text</frontend_type>
+							<comment>
+								<![CDATA[Regular expression that is used to match request strings that do not need customer authentication.]]>
+							</comment>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<require_login>1</require_login>
+							</depends>
+						</require_login_whitelist>
+						<use_ipfilter_frontend translate="label comment">
+							<label>Filer IP address on the frontend</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</use_ipfilter_frontend>
+						<ipfiltermode_frontend translate="label comment">
+							<label>Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/config_ipmode</source_model>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_frontend>1</use_ipfilter_frontend>
+							</depends>
+						</ipfiltermode_frontend>
+						<ipfilter_frontend translate="label comment">
+							<label>IP pattern</label>
+							<comment>
+								<![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
+									192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
+									Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>14</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_frontend>1</use_ipfilter_frontend>
+							</depends>
+						</ipfilter_frontend>
+						<ipfilter_redirection_frontend translate="label comment">
+							<label>Redirect location</label>
+							<comment>
+								<![CDATA[Where to send the filtered users]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_frontend>1</use_ipfilter_frontend>
+							</depends>
+						</ipfilter_redirection_frontend>
+					</fields>
+				</startup>
+				<!--******************************************************************************************************************
+captcha
+******************-->
+				<captcha translate="label comment">
+					<comment>
+						<![CDATA[In order for reCaptcha to work please enter valid public and private keys. You can get those by visiting <a href='http://www.google.com/recaptcha/whyrecaptcha' target='_blank'>this page</a>]]>
+					</comment>
+					<label>reCaptcha</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>14</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<mode translate="label comment">
+							<label>Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/captcha_mode</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</mode>
+						<api translate="label comment">
+							<label>API</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/captcha_api</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</api>
+						<theme translate="label comment">
+							<label>Theme</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/captcha_theme</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</theme>
+						<language translate="label comment">
+							<label>Language</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/captcha_language</source_model>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</language>
+						<public_key translate="label comment">
+							<label>Public key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</public_key>
+						<private_key translate="label comment">
+							<label>Private key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</private_key>
+					</fields>
+				</captcha>
+				<!--******************************************************************************************************************
+blacklist
+******************-->
+				<blacklist translate="label comment">
+					<label>Black Listing</label>
+					<sort_order>3</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<useblacklist translate="label comment">
+							<label>Use Black Listing</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</useblacklist>
+						<limiter translate="label comment">
+							<label>Blacklist Limit</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<useblacklist>1</useblacklist>
+							</depends>
+						</limiter>
+					</fields>
+				</blacklist>
+				<!--******************************************************************************************************************
+honeypot
+******************-->
+				<honeypot translate="label comment">
+					<label>Honey pots</label>
+					<sort_order>3</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<usehoneypots translate="label comment">
+							<label>Use honeypot protections</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</usehoneypots>
+						<reporthoneypots translate="label comment">
+							<label>Report</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</reporthoneypots>
+						<checkhoneypots translate="label comment">
+							<label>Check user against Project Honeypot</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkhoneypots>
+						
+						<!-- note this should be groupd under the checkhoneypots  -->
+						<hpp_api_key translate="label comment">
+							<label>Project Honeypot http:BL Access API key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]>
+							</comment>
+							<depends>
+								<checkhoneypots>1</checkhoneypots>
+							</depends>
+						</hpp_api_key>
+						<hpp_suspicious_threshold translate="label comment">
+							<label>http:BL Suspicious threat score threshold</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>41</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]>
+							</comment>
+							<depends>
+								<checkhoneypots>1</checkhoneypots>
+							</depends>
+						</hpp_suspicious_threshold>
+						<hpp_harvester_threshold translate="label comment">
+							<label>http:BL Harvester threat score threshold</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>42</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]>
+							</comment>
+							<depends>
+								<checkhoneypots>1</checkhoneypots>
+							</depends>
+						</hpp_harvester_threshold>
+						<hpp_comment_threshold translate="label comment">
+							<label>http:BL Comment spammer threat score threshold</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>43</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]>
+							</comment>
+							<depends>
+								<checkhoneypots>1</checkhoneypots>
+							</depends>
+						</hpp_comment_threshold>
+						<hpp_lastseen_threshold translate="label comment">
+							<label>http:BL Last seen threshold</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>44</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]>
+							</comment>
+							<depends>
+								<checkhoneypots>1</checkhoneypots>
+							</depends>
+						</hpp_lastseen_threshold>
+						<hpp_threatscore_threshold translate="label comment">
+							<label>http:BL Last seen threshold</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>45</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Each suspicious IP address is given a threat score. This scored is asigned by Project Honey Pot basing on various factors, such as the IPs activity or the damage done during the visits. The score is a number between 0 and 255, where 0 is no threat at all and 255 is extremely harmful. In the field above you may set the threat score threshold. IP address with a score greater than the given number will be regarded as harmful. <a href="http://www.projecthoneypot.org/httpbl_configure.php">read up</a>]]>
+							</comment>
+							<depends>
+								<checkhoneypots>1</checkhoneypots>
+							</depends>
+						</hpp_threatscore_threshold>
+						<honeypotName>
+							<label>Hidden field name</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<usehoneypots>1</usehoneypots>
+							</depends>
+						</honeypotName>
+						<enableHoneypotAccountCreateTime>
+							<label>Enable register time check</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<usehoneypots>1</usehoneypots>
+							</depends>
+						</enableHoneypotAccountCreateTime>
+						<honeypotAccountCreateTime>
+							<label>Minimum time for registration in seconds</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enableHoneypotAccountCreateTime>1</enableHoneypotAccountCreateTime>
+							</depends>
+						</honeypotAccountCreateTime>
+						<enableSpamIndexing>
+							<label>Enable spam indexing for input fields</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<depends>
+								<usehoneypots>1</usehoneypots>
+							</depends>
+						</enableSpamIndexing>
+						<spamIndexLevel>
+							<label>Set max. spam index trust level</label>
+							<comment>An index of 2.5 should be enough to block average spam logins The lower the level, the higher the level, the more spam gets through</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enableSpamIndexing>1</enableSpamIndexing>
+							</depends>
+						</spamIndexLevel>
+						<createhoneypot>
+							<label>Create pots</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<a href="http://www.projecthoneypot.org/manage_honey_pots.php">read up</a>]]>
+							</comment>
+						</createhoneypot>
+					</fields>
+				</honeypot>
+				<!--******************************************************************************************************************
+errorpages
+******************-->
+				<errorpages translate="label comment">
+					<label>Error and Warning Handling</label>
+					<sort_order>4</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<activeerror translate="label comment">
+							<label>Use Active Error Pages</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<b>NOTE THIS PART OF THE MODULE IF NOT ACTIVE IT'S SELF</b>]]>
+							</comment>
+						</activeerror>
+						<err500 type="group" translate="label comment">
+							<label>5XX Pages</label>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<active_err500 translate="label comment">
+									<label>Use active 500 pages</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</active_err500>
+								<err500_fake404 translate="label comment">
+									<label>Fake a 404</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[The goal in using this is to not display a crack in the system, but quitely report it to someone and 404 the user.]]>
+									</comment>
+									<depends>
+										<active_err500>1</active_err500>
+									</depends>
+								</err500_fake404>
+								<err500_local translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+									<label>Url/path</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[Use a Url of path for the 500 Page you wish to use.  <b>NOTE</b> that one example is to use a CMSPage]]>
+									</comment>
+									<depends>
+										<active_err500>1</active_err500>
+									</depends>
+								</err500_local>
+							</fields>
+						</err500>
+						<err404 type="group" translate="label comment">
+							<label>404 Page</label>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<active_err404 translate="label comment">
+									<label>Use active 404 pages</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</active_err404>
+								<err404_local translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+									<label>Url/path</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[Use a Url of path for the 404 Page you wish to use.  <b>NOTE</b> that one example is to use a CMSPage]]>
+									</comment>
+									<depends>
+										<active_err404>1</active_err404>
+									</depends>
+								</err404_local>
+							</fields>
+						</err404>
+						<honeypage type="group" translate="label comment">
+							<label>Honeypot pages</label>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<honeypage_pot translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+									<label>Auto Honeypot Pages</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[create a few pages to use as honey pots.  <b>CSV</b>]]>
+									</comment>
+								</honeypage_pot>
+								<honeypage_error translate="label comment"><!-- come back to this and pull up a block or cmspage -->
+									<label>Error page for that accidental triggered, .0001% guy that was poking around and got caught in the pot.</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[just pas the url/path, and this will be used for all pots.]]>
+									</comment>
+								</honeypage_error>
+							</fields>
+						</honeypage>
+					</fields>
+				</errorpages>
+				<!--******************************************************************************************************************
+genadmin_settings
+******************-->
+				<genadmin_settings translate="label comment">
+					<label>General admin login and access settings</label>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<use_ipfilter_admin translate="label comment">
+							<label>Filer IP address on the frontend</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</use_ipfilter_admin>
+						<ipfiltermode_admin translate="label comment">
+							<label>Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>wsu_networksecurities/config_ipmode</source_model>
+							<sort_order>13</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_admin>1</use_ipfilter_admin>
+							</depends>
+						</ipfiltermode_admin>
+						<ipfilter_admin translate="label comment">
+							<label>IP pattern</label>
+							<comment>
+								<![CDATA[Use regular expressions to set rules for different IP exclusion and inclusion scenarios. Below are some common examples:<br/><br/>
+									192\.168\.0.* - This is the most basic and common use of a regular expression. This configuration will exclude traffic from your own computer.<br/><br/>
+									Exclude or include only traffic from a range of IP addresses, e.g. from 63.212.171.1 to 63.212.171.9. Enter 63\.212\.171\.[1-9] into the 'Filter Pattern' field.]]>
+							</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>14</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<use_ipfilter_admin>1</use_ipfilter_admin>
+							</depends>
+						</ipfilter_admin>
+						<!-- -->
+						
+					</fields>
+				</genadmin_settings>
+				<!--******************************************************************************************************************
+ldap
+******************-->
+				<ldap translate="label comment">
+					<label>LDAP</label>
+					<comment>
+						<![CDATA[<p>There are options to allow for creation of users and the a choice in the handling.</p>
+							<div style="padding-left:15px;">
+							<p><b>You have 3 combo's to do</b></p>
+							<ol>
+							<li>1.) LDAP only</li>
+							<li>2.) LDAP fall back to system</li>
+							<li>3.) System fall back to LDAP</li>
+							<li>4.) System only <em>(but this is the extension turned off so 3 combos :))</em></li>
+							</ol>
+							</div>
+							<p>Remember to not open up holes by using real users for test users, and reading how LDAP works is your best bet.  Here is a nice <a href="http://oreilly.com/perl/excerpts/system-admin-with-perl/ten-minute-ldap-utorial.html" target="_blank">10-Minute LDAP Tutorial from O’Reilly</a> <em>(Written for Perl but it's a good read to bootstrap)</em>. </p>]]>
+					</comment>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<adminlogin type="group" translate="label comment">
+							<label>Admin Login Configuration</label>
+							<comment>
+								<![CDATA[]]>
+							</comment>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<activeldap translate="label comment">
+									<label>Enable LDAP admin login</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</activeldap>
+								<allow_request translate="label comment">
+									<label>Allow users to request Admin access</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>2</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</allow_request>
+								<requestemail translate="label comment">
+									<label>Email to notify</label>
+									<frontend_type>text</frontend_type>
+									<!-- this will need to be the drop down of the contacts +other -->
+									<sort_order>3</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>NOTE:</b> This is where a request will be going for.  It is worth noting that auto-create wouldn't negate the need for requests.]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+										<allow_request>1</allow_request>
+									</depends>
+								</requestemail>
+								<allow_bypass translate="label comment">
+									<label>Allow bypass of LDAP if a user</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</allow_bypass>
+								<host translate="label comment">
+									<label>Host</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>11</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> ldap.example.com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</host>
+								<version translate="label comment">
+									<label>Protocol version</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>12</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 3]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</version>
+								<port translate="label comment">
+									<label>Port</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>13</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</port>
+								<tls translate="label comment">
+									<label>Enable TLS</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>14</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</tls>
+								<rootdn translate="label comment">
+									<label>rootDn</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>15</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</rootdn>
+								<rootpassword translate="label comment">
+									<label>rootPassword</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>16</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> YourP455w0Rd]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</rootpassword>
+								<ldap_usr_dom translate="label comment">
+									<label>User Domain</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>18</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> @wsu.edu]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</ldap_usr_dom>
+								<userdn translate="label comment">
+									<label>userDn</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>17</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</userdn>
+								<filter translate="label comment">
+									<label>Filter</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>18</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ldap-magento-1))]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</filter>
+								<cmpattr translate="label comment">
+									<label>Login attribute</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>19</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</cmpattr>
+								<passattr translate="label comment">
+									<label>Password attribute</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> userPassword]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</passattr>
+								<attr translate="label comment">
+									<label>Compliant attributes</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>21</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</attr>
+								<defaultroleid translate="label comment">
+									<label>Default role_id</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>22</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 20]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</defaultroleid>
+								<autocreate translate="label comment">
+									<label>Create admin user if in LDAP</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>23</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<comment>
+										<![CDATA[<b>Note: </b> in order to user this there must be one of two conditions met.  1.) the user login in must have search rights or 2.) the search user information must be entered]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</autocreate>
+								<testusername translate="label comment">
+									<label>A test user name</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> user.name]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</testusername>
+								<testuserpass translate="label comment">
+									<label>The test user's password</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>31</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> *****]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</testuserpass>
+								<api_wizard translate="button_label comment">
+									<label></label>
+									<button_label>Test configuration</button_label>
+									<!--<button_url><![CDATA[/networksecurities/test/]]></button_url>-->
+									<frontend_model>wsu_networksecurities/adminhtml_system_config_apiWizard</frontend_model>
+									<sort_order>70</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</api_wizard>
+								
+								<!-- securty stuff -->
+								<failed_attempts_login translate="label comment">
+									<label>Number of Unsuccessful Attempts to Login</label>
+									<frontend_type>text</frontend_type>
+									<comment>If 0 is specified, Login form will be always available.</comment>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>0</show_in_website>
+									<show_in_store>0</show_in_store>
+									<depends>
+										<mode>after_fail</mode>
+										<enable>1</enable>
+									</depends>
+									<frontend_class>required-entry validate-digits</frontend_class>
+								</failed_attempts_login>
+								<timeout translate="label comment">
+									<label>Login Timeout (minutes)</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>6</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>0</show_in_website>
+									<show_in_store>0</show_in_store>
+									<depends>
+										<enable>1</enable>
+									</depends>
+									<frontend_class>required-entry validate-digits</frontend_class>
+								</timeout>
+							</fields>
+						</adminlogin>
+						<searcher type="group" translate="label comment">
+							<label>LDAP searcher Configuration</label>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[<b>Note: </b> in some systems you can only use a user that has been granted access to search instead of the user that is trying to log in.  In this case you may enter this user in here.]]>
+							</comment>
+							<fields>
+								<activeldap translate="label comment">
+									<label>Enable Searcher</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</activeldap>
+								<host translate="label comment">
+									<label>Host</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>11</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> ldap.example.com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</host>
+								<version translate="label comment">
+									<label>Protocol version</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>12</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 3]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</version>
+								<port translate="label comment">
+									<label>Port</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>13</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</port>
+								<tls translate="label comment">
+									<label>Enable TLS</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>14</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</tls>
+								<rootdn translate="label comment">
+									<label>rootDn</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>15</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</rootdn>
+								<rootpassword translate="label comment">
+									<label>rootPassword</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>16</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> YourP455w0Rd]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</rootpassword>
+								<ldap_usr_dom translate="label comment">
+									<label>User Domain</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>18</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> @wsu.edu]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</ldap_usr_dom>
+								<userdn translate="label comment">
+									<label>userDn</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>17</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</userdn>
+								<filter translate="label comment">
+									<label>Filter</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>18</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ldap-magento-1))]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</filter>
+								<cmpattr translate="label comment">
+									<label>Login attribute</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>19</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</cmpattr>
+								<passattr translate="label comment">
+									<label>Password attribute</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> userPassword]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</passattr>
+								<attr translate="label comment">
+									<label>Compliant attributes</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>21</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</attr>
+								<defaultroleid translate="label comment">
+									<label>Default role_id</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>22</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 20]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</defaultroleid>
+								<searcherusername translate="label comment">
+									<label>The Searcher user's name</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>24</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Note:</b> this is a user that can search for information on the user loging in. 
+											If the users trying to login, can auto add them selfs adn have search 
+											rights then this would not be needed.<b>Ex: </b> user.name]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</searcherusername>
+								<searcheruserpass translate="label comment">
+									<label>The Searcher user's password</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>31</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> *****]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</searcheruserpass>
+							</fields>
+						</searcher>
+						<customerlogin type="group" translate="label comment">
+							<label>Customer LDAP Login Configuration</label>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<activeldap translate="label comment">
+									<label>Enable LDAP Customer login</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</activeldap>
+								<restricttoldap translate="label comment">
+									<label>Restrict to LDAP Users only</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</restricttoldap>
+								<host translate="label comment">
+									<label>Host</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>11</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> ldap.example.com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</host>
+								<version translate="label comment">
+									<label>Protocol version</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>12</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 3]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</version>
+								<port translate="label comment">
+									<label>Port</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>13</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 389 for non ssl and 636 or 3269 for SSL/TLS]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</port>
+								<tls translate="label comment">
+									<label>Enable TLS</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>14</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</tls>
+								<rootdn translate="label comment">
+									<label>rootDn</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>15</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn=admin,dc=domain,dc=com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</rootdn>
+								<rootpassword translate="label comment">
+									<label>rootPassword</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>16</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> YourP455w0Rd]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</rootpassword>
+								<ldap_usr_dom translate="label comment">
+									<label>User Domain</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>18</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> @wsu.edu]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</ldap_usr_dom>
+								<userdn translate="label comment">
+									<label>userDn</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>17</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> ou=users,dc=domain,dc=com]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</userdn>
+								<filter translate="label comment">
+									<label>Filter</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>18</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> (&(%s=%s)(groups=ldap-magento-1))]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</filter>
+								<cmpattr translate="label comment">
+									<label>Login attribute</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>19</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</cmpattr>
+								<passattr translate="label comment">
+									<label>Password attribute</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> userPassword]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</passattr>
+								<attr translate="label comment">
+									<label>Compliant attributes</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>21</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> cn,givenname,mail,sn,displayname,userpassword]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</attr>
+								<defaultroleid translate="label comment">
+									<label>Default role_id</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>22</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> 20]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</defaultroleid>
+								<autocreate translate="label comment">
+									<label>Create admin user if in LDAP</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>23</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<comment>
+										<![CDATA[<b>Note: </b> in order to user this there must be one of two conditions met.  1.) the user login in must have search rights or 2.) the search user information must be entered]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</autocreate>
+								<testusername translate="label comment">
+									<label>A test user name</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> user.name]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</testusername>
+								<testuserpass translate="label comment">
+									<label>The test user's password</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>31</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<b>Ex: </b> *****]]>
+									</comment>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</testuserpass>
+								<api_wizard translate="button_label comment">
+									<label></label>
+									<button_label>Test configuration</button_label>
+									<!--<button_url><![CDATA[/networksecurities/test/]]></button_url>-->
+									<frontend_model>wsu_networksecurities/adminhtml_system_config_apiWizard</frontend_model>
+									<sort_order>70</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<depends>
+										<activeldap>1</activeldap>
+									</depends>
+								</api_wizard>
+							</fields>
+						</customerlogin>
+					</fields>
+				</ldap>
+				<!--******************************************************************************************************************
+sociallogin
+******************-->
+				<sociallogin translate="label comment">
+					<label>Social Account Access</label>
+					<comment>
+						<![CDATA[]]>
+					</comment>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<general_sso type="group" translate="label comment">
+							<label>General Configuration</label>
+							<comment>
+								<![CDATA[]]>
+							</comment>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<position translate="label comment">
+									<label>Shown Position</label>
+									<frontend_type>multiselect</frontend_type>
+									<source_model>wsu_networksecurities/config_position</source_model>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>Position of Social login buttons on front-end</comment>
+								</position>
+								<direction translate="label comment">
+									<label>Shown Direction</label>
+									<frontend_type>select</frontend_type>
+									<source_model>wsu_networksecurities/config_direction</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>Direction of Social login buttons on front-end</comment>
+								</direction>
+								<number_show>
+									<label>Number of visible buttons</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[This is the number of button visible, others will be shown only when customer hovers "other login"]]>
+									</comment>
+								</number_show>
+							</fields>
+						</general_sso>
+						<twlogin type="group" translate="label comment">
+							<label>Twitter Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<consumer_key translate="label comment">
+									<label>Client ID</label>
+									<comment>
+										<![CDATA[<a href="http://twitter.com/apps/new" target="_bank">Register</a>]]>
+									</comment>
+									<frontend_type>text</frontend_type>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</consumer_key>
+								<consumer_secret translate="label comment">
+									<label>Client Secret</label>
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>text</frontend_type>
+									<sort_order>3</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</consumer_secret>
+								<connecting_notice translate="label comment">
+									<label>Login Notice</label>
+									<comment>
+										<![CDATA[Notice connect twitter account to customer]]>
+									</comment>
+									<frontend_type>textarea</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</connecting_notice>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</twlogin>
+						<gologin type="group" translate="label comment">
+							<label>Google Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<comment>
+										<![CDATA[]]>
+									</comment>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<consumer_key translate="label comment">
+									<label>Client ID</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="https://cloud.google.com/console" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
+								<consumer_secret translate="label comment">
+									<label>Client Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</consumer_secret>
+								<redirect_url translate="label comment">
+									<label>Redirect Url</label>
+									<frontend_type>text</frontend_type>
+									<frontend_model>wsu_networksecurities/config_redirecturl</frontend_model>
+									<sort_order>7</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>0</show_in_store>
+									<comment>
+										<![CDATA[Please use this link for redirect url field when registering with google API]]>
+									</comment>
+								</redirect_url>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</gologin>
+						<fblogin type="group" translate="label comment">
+							<label>Facebook Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<app_id translate="label comment">
+									<label>Application ID</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="http://developers.facebook.com/setup/" target="_bank">Register</a>]]>
+									</comment>
+								</app_id>
+								<app_secret translate="label comment">
+									<label>Application Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</app_secret>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</fblogin>
+						<yalogin type="group" translate="label comment">
+							<label>Yahoo Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<app_id translate="label comment">
+									<label>Application ID</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>3</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="https://developer.apps.yahoo.com/dashboard/createKey.html" target="_bank">Register</a>]]>
+									</comment>
+								</app_id>
+								<consumer_key translate="label comment">
+									<label>Consumer Key</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</consumer_key>
+								<consumer_secret translate="label comment">
+									<label>Consumer Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</consumer_secret>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</yalogin>
+						<aollogin type="group" translate="label comment">
+							<label>Aol Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</aollogin>
+						<wplogin type="group" translate="label comment">
+							<label>Wordpress Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</wplogin>
+						<callogin type="group" translate="label comment">
+							<label>Clavid Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</callogin>
+						<orglogin type="group" translate="label comment">
+							<label>Orange Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</orglogin>
+						<fqlogin type="group" translate="label comment">
+							<label>FoursQuare Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<consumer_key translate="label comment">
+									<label>Client Key</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="https://foursquare.com/login?continue=%2Fdevelopers%2Fapps" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
+								<consumer_secret translate="label comment">
+									<label>Client Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</consumer_secret>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<is_customer_confirm_password translate="label comment">
+									<label>Confirm password</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>21</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_customer_confirm_password>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</fqlogin>
+						<livelogin type="group" translate="label comment">
+							<label>Windows Live Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<consumer_key translate="label comment">
+									<label>Client ID</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="http://msdn.microsoft.com/en-us/live//default.aspx" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
+								<consumer_secret translate="label comment">
+									<label>Client Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</consumer_secret>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</livelogin>
+						<mplogin type="group" translate="label comment">
+							<label>MySpace Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<consumer_key translate="label comment">
+									<label>Consumer Key</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>5</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="http://developer.myspace.com/" target="_bank">Register</a>]]>
+									</comment>
+								</consumer_key>
+								<consumer_secret translate="label comment">
+									<label>Consumer Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</consumer_secret>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</mplogin>
+						<linklogin type="group" translate="label comment">
+							<label>LinkedIn Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<app_id translate="label comment">
+									<label>Client API</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>3</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment>
+										<![CDATA[<a href="https://www.linkedin.com/secure/developer" target="_bank">Register</a>]]>
+									</comment>
+								</app_id>
+								<secret_key translate="label comment">
+									<label>Client Secret</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</secret_key>
+								<!--<user_token translate="label comment">
+									<label>Autho User Token</label>
+									<frontend_type>text</frontend_type>              
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</user_token>
+								<user_secret translate="label comment">
+									<label>Autho User Secret</label>
+									<frontend_type>text</frontend_type>              
+									<sort_order>10</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<comment></comment>
+								</user_secret>-->
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<is_customer_confirm_password translate="label comment">
+									<label>Confirm password</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>21</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_customer_confirm_password>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</linklogin>
+						<openlogin type="group" translate="label comment">
+							<label>MyOpenId Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</openlogin>
+						<ljlogin type="group" translate="label comment">
+							<label>Livejournal Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>0</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</ljlogin>
+						<perlogin type="group" translate="label comment">
+							<label>Persona Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>180</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</perlogin>
+						<selogin type="group" translate="label comment">
+							<label>Stack Enchange Login Configuration</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>190</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<fields>
+								<is_active translate="label comment">
+									<label>Active</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>1</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_active>
+								<is_send_password_to_customer translate="label comment">
+									<label>Send Password To Customer</label>
+									<frontend_type>select</frontend_type>
+									<source_model>adminhtml/system_config_source_yesno</source_model>
+									<sort_order>20</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</is_send_password_to_customer>
+								<sort_order translate="label comment">
+									<label>Sort Order</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>30</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</sort_order>
+							</fields>
+						</selogin>
+					</fields>
+				</sociallogin>
+			</groups>
+		</wsu_networksecurities>
+	</sections>
+</config>

@@ -1,0 +1,264 @@
+ul.wsu_sso-login-social li{background:#fff;border:none;}
+#wsu_sso-popup{
+	width:50% !important;
+	z-index:99999;
+}
+ul.wsu_sso-login-social li.button{
+	padding:0 !important;
+}
+ul.wsu_sso-login-social li.button:hover{
+	background:none !important;
+	padding:0 !important;
+	margin:0;
+	border:none;
+}
+.sociallogin-input-box .input-text{
+	box-shadow: none;
+}
+.sociallogin-other-button-popup li.button{
+	background:none;
+	border:none;
+}
+.sociallogin-other-button-popup li.button:hover{
+	background:none;
+	border:none;
+}
+.other-button{padding:0;}
+.bt-login-social{padding:0;margin:0 !important;}
+.top-container{width:100%;}
+
+#sociallogin_button{
+	float:left;
+	width:100%;
+}
+#sociallogin_button ul li.button{
+	background:none !important;
+	border:none !important;
+}
+#sociallogin_button ul li.button:hover{
+	background:none !important;
+	border:none !important;
+}
+.sociallogin-other-button{
+	_display:block !important;
+	z-index:3000 !important;
+}
+#sociallogin-other-a{
+	display: inline-block;
+	width:100%;
+	text-align:right;
+}
+#sociallogin-other-div{
+	display: inline-block;
+	width:100%;
+	margin:0;
+}
+#sociallogin-other-b{
+	display:block;
+	height:30px;
+	line-height:30px;
+}
+#sociallogin-other-b span{
+	display:block;
+	margin-right:30px;
+	text-align:right;
+}
+#sociallogin-other-button{
+	top:30px;
+}
+
+#wsu_sso-popup{
+	top:100px !important;
+	position:absolute !important;
+	z-index:40020 !important;
+}
+#wsu_sso-login-form .wsu_sso-invalid-email{
+	margin:0;
+}
+.other-button{
+	margin:7px 2px 5px 2px !important;
+}
+
+#bg_fade{
+	z-index:30020 !important;
+	float:left;
+	width:100%;
+	min-height:3000px;
+}
+.active .sociallogin-other-span-img-popup{	
+	float: right;
+	width: 26px;
+	height: 16px;
+	cursor: pointer;        
+	background: url("sociallogin/sub.png") no-repeat right;
+}
+
+@media all and (min-width: 0px) and (max-width: 680px) {}
+@media screen and (max-width:719px) {
+	.top-container{
+		margin:0 auto;
+	}
+	
+	#wsu_sso-login-social{
+		float:left !important;
+		width:100%;
+	}
+	#wsu_sso-login-form{
+		float:left !important;
+		width:100%;
+		margin:0;
+	}
+	.sociallogin-input-box{
+		float:left;
+		width:100%;
+	}
+	.wsu_sso-login-input-box label{float:left;width:100% !important;}
+	.sociallogin-input-box .input-text{
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		width:100%;
+		box-shadow: none;
+		height:30px;
+	}
+	#wsu_sso-create-user{
+		float:left !important;
+		width:100%;
+	}
+	.form-list .sociallogin-field{float:left !important;width:100% !important;}
+	.form-list .sociallogin-field .input-text{
+		float:left;
+		width:100% !important;
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		height:30px;
+	}
+	.sociallogin-field label{float:left;width:100%;}
+	#sociallogin-other-button li.other-button{
+		float:none;
+		margin:0;
+		text-align:center;
+		width:100%;
+	}
+	#sociallogin-other-button-popup li.button{
+		float:none;
+		margin:10px 0 0 0 !important;
+		text-align:center;
+		width:100%;
+	}
+	
+	ul.wsu_sso-login-social li.button{
+		text-align:center !important;
+		width:100%;
+	}
+	
+}
+@media screen and (max-width:479px) {
+	#wsu_sso-forgot-password, #wsu_sso-forgot-back{
+		float:left !important;
+		margin:10px 0 !important;
+		width:100%;
+	}
+	#sociallogin_button ul li.button{
+		margin:0;
+		text-align:center;
+		width:100%;
+	}	
+	#sociallogin-other-button li.other-button{
+		float:none;
+		margin:0;
+		text-align:center;
+		width:100%;
+	}
+	#sociallogin-other-button-popup li.button{
+		float:none;
+		margin:10px 0 0 0 !important;
+		text-align:center;
+		width:100%;
+	}
+}
+@media screen and (min-width: 720px) and (max-width: 985px) {
+	.top-container{
+		margin:0 auto;
+	}
+	#wsu_sso-login-social{
+		float:left !important;
+		width:100%;
+	}
+	#wsu_sso-login-form{
+		float:left !important;
+		width:100%;
+		margin:0;
+	}
+	.sociallogin-input-box{
+		float:left;
+		width:100%;
+	}
+	.wsu_sso-login-input-box label{float:left;width:100% !important;}
+	.sociallogin-input-box .input-text{
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		width:100%;
+		box-shadow: none;
+		height:30px;
+	}
+	#wsu_sso-create-user{
+		float:left !important;
+		width:100%;
+	}
+	.form-list .sociallogin-field{float:left !important;width:100% !important;}
+	.form-list .sociallogin-field .input-text{
+		float:left;
+		width:100% !important;
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		height:30px;
+	}
+	.sociallogin-field label{float:left;width:100%;}
+	#sociallogin-other-button li.other-button{
+		margin-left:65px !important;
+	}
+	ul.wsu_sso-login-social li.button{
+		text-align:center !important;
+		width:100%;
+	}
+}
+@media screen and (min-width: 986px) and (max-width: 1235px) {
+	/* #wsu_sso-popup{border:1px solid blue;} */
+	#wsu_sso-login-social{
+		float:left !important;
+		width:100%;
+	}
+	#wsu_sso-login-form{
+		float:left !important;
+		width:100%;
+		margin:0;
+	}
+	.sociallogin-input-box{
+		float:left;
+		width:100%;
+	}
+	.sociallogin-input-box .input-text{
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		width:100%;
+		box-shadow: none;
+		height:30px;
+	}
+	.wsu_sso-login-input-box label{float:left;width:100% !important;}
+	#wsu_sso-create-user{
+		float:left !important;
+		width:100%;
+	}
+	.form-list .sociallogin-field{float:left !important;width:100% !important;}
+	.form-list .sociallogin-field .input-text{
+		float:left;
+		width:100% !important;
+		-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+		height:30px;
+	}
+	.sociallogin-field label{float:left;width:100%;}
+	button.bt-login-social{padding:0;}
+	#wsu_sso-login-social ul.wsu_sso-login-social li{
+		float:left;
+		padding:0 1% !important;
+	}
+	
+}
+@media screen and (min-width: 1236px) and (max-width: 1585px) {}
+@media screen and (min-width: 1586px) and (max-width: 1890px) {}
+@media screen and (min-width:1891px) {}

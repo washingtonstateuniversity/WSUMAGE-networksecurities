@@ -1,0 +1,25 @@
+<?php
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+?>
+<?php if ($customer->getUsername()):?>
+<div class="box-account box-info">
+    <div class="box-head">
+        <h2><?php echo $this->__('Additional Information') ?></h2>
+    </div>
+    <div class="col2-set">
+        <div class="col-1">
+            <div class="box">
+                <div class="box-title">
+                    <h3><?php echo $this->__('Extra User Information') ?></h3>
+                    <a href="<?php echo $this->getUrl('customer/account/edit') ?>"><?php echo $this->__('Edit') ?></a>
+                </div>
+                <div class="box-content">
+                    <p>
+                        <?php echo $this->__('Username: ') . $this->escapeHtml($customer->getUsername()) ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
