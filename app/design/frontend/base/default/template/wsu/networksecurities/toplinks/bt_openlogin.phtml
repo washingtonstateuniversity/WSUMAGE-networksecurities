@@ -23,7 +23,7 @@ function openLogin(){
 			',top=' + top
 		  );
 
-	newwindow=window.open('<?php echo $this->getSetBlock()?>','Login_by_MyOpenId',features);
+	newwindow=window.open('<?php echo $this->getLoginUrl()?>','Login_by_MyOpenId',features);
 
 	if (window.focus) {
 		newwindow.focus()
