@@ -2134,7 +2134,7 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment>
-										<![CDATA[<a href="http://msdn.microsoft.com/en-us/live//default.aspx" target="_bank">Register</a>]]>
+										<![CDATA[<a href="https://account.live.com/developers/applications/create" target="_bank">Register</a>]]>
 									</comment>
 								</consumer_key>
 								<consumer_secret translate="label comment">
