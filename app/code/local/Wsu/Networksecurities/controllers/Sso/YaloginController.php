@@ -38,7 +38,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 				$user['firstname']=$user['username'];
 			}
 			if(!isset($user['lastname'])){
-				$user['firstname']=$user['username'];
+				$user['lastname']='';
 			}
 			$gender = $profile->gender;
 			
@@ -49,7 +49,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 			if(isset($birthYear)){
 				$user['dob'] = '1/1/'.$birthYear;
 			}
-			var_dump($user);die();
+
 			//get website_id and sote_id of each stores
 			$store_id = Mage::app()->getStore()->getStoreId();
 			$website_id = Mage::app()->getStore()->getWebsiteId();
