@@ -14,6 +14,9 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 			$session = $yalogin->getSession();
 			$userSession = $session->getSessionedUser();
 			$profile = $userSession->loadProfile();
+			
+			var_dump($profile);die();
+			
 			$emails = $profile->emails;
 			$user = array();
 			foreach($emails as $email) {
