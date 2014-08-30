@@ -12,7 +12,8 @@ class Wsu_Networksecurities_Model_Sso_Yalogin extends Mage_Core_Model_Abstract {
 		session_save_path('/tmp/');
 		session_start();
 		$request=Mage::app()->getRequest();
-		if(isset($request->getParam('logout'))) {
+		$logout=$request->getParam('logout');
+		if(isset($logout)) {
 			YahooSession::clearSession();
 		}
 	}
