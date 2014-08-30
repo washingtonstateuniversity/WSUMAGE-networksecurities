@@ -2190,7 +2190,7 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 									<comment>
-										<![CDATA[<a href="http://developer.myspace.com/" target="_bank">Register</a>]]>
+										<![CDATA[<a href="http://developer.myspace.com/" target="_bank">Register (may be dead)</a>]]>
 									</comment>
 								</consumer_key>
 								<consumer_secret translate="label comment">
