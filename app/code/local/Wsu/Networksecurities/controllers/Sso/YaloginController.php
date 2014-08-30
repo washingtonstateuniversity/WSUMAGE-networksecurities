@@ -42,6 +42,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 					$customer->setConfirmation(null);
 					$customer->save();
 				}catch (Exception $e) {
+					Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error').$e->getMessage());
 				}
 	  		}
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
