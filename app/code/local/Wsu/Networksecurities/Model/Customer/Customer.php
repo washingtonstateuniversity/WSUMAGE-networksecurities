@@ -18,7 +18,6 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
 				}
 				return parent::authenticate($username, $password);
 		}*/
-		
 		if(Zend_Validate::is($username, 'EmailAddress')) { 
 			$this->loadByEmail($username); 
 		}else if (Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')) { 

@@ -62,6 +62,16 @@ $installer->getConnection()->addColumn($installer->getTable('admin/user'), 'ldap
     'comment' => 'Ldap user'
 )); 
 
+$installer->getConnection()->addColumn($installer->getTable('admin/user'), 'sso_map', array(
+    'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
+    'length' => 256,
+    'nullable' => true,
+    'default' => null,
+    'comment' => 'SSO map'
+)); 
+
+
+
 
 $installer->getConnection()->addColumn($installer->getTable('sales/quote'), 'customer_username', array(
     'type' => Varien_Db_Ddl_Table::TYPE_TEXT,

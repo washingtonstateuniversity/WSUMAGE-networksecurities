@@ -13,12 +13,12 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 
 	
 	public function appendHoneypot($observer) {
-		echo "TEST!!!!!!!!!!!!!";
+		echo "FOUND appendHoneypot";
 		//$layout=Mage::getSingleton('core/layout');
 		//if($layout!=null && !empty($layout)) {
-			$update = Mage::getSingleton('core/layout')->getUpdate();
-			//$update = $observer->getEvent()->getLayout()->getUpdate();
-            $update->addHandle('networksecurities.honeypot');
+		$update = Mage::getSingleton('core/layout')->getUpdate();
+		//$update = $observer->getEvent()->getLayout()->getUpdate();
+		$update->addHandle('networksecurities.honeypot');
     }
 	
 
