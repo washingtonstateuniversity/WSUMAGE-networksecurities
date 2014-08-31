@@ -7,6 +7,11 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
     protected $_networksecurities = array();	
 
+
+
+
+
+
     public function isPersistentMustBeEnabled () {
         return Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')
             && Mage::helper('core')->isModuleEnabled('persistent')
