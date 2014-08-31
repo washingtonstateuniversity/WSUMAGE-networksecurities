@@ -179,6 +179,9 @@
 				<ldap_user>
 					<to_quote>customer_ldap_user</to_quote>
 				</ldap_user>
+				<sso_map>
+					<to_quote>customer_sso_map</to_quote>
+				</sso_map>
 				<username>
 					<create>1</create>
 					<update>1</update>
@@ -190,6 +193,9 @@
 				<customer_ldap_user>
 					<to_customer>ldap_user</to_customer>
 				</customer_ldap_user>
+				<customer_sso_map>
+					<to_customer>sso_map</to_customer>
+				</customer_sso_map>
 				<customer_username>
 					<to_customer>username</to_customer>
 				</customer_username>

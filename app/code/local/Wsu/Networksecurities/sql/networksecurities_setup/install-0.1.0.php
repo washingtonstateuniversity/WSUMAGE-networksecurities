@@ -62,7 +62,9 @@ $installer->addAttribute('customer', 'sso_map', array(
 	'visible'		=> true,
 	'required'		=> false,
 ));
-
+$attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'sso_map' );
+$attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
+$attr->save();
 
 
 

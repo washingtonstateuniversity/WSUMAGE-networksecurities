@@ -1,17 +1,16 @@
 <?php
 class Wsu_Networksecurities_Model_Customer_Source_Ssooptions extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
-
     const MAIN = 1;
     const OTHER = 2;
     public function getAllOptions() {
         if (is_null($this->_options)) {
             $this->_options = array(
                 array(
-                    'label' => Mage::helper('sourcetype')->__('Main Product'),
+                    'label' => Mage::helper('wsu_networksecurities')->__('Main Product'),
                     'value' =>  self::MAIN
                 ),
                 array(
-                    'label' => Mage::helper('sourcetype')->__('Other Product'),
+                    'label' => Mage::helper('wsu_networksecurities')->__('Other Product'),
                     'value' =>  self::OTHER
                 ),
             );
