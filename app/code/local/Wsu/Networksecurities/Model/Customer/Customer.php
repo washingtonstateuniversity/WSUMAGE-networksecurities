@@ -12,12 +12,12 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
     public function authenticate($username, $password) {
 		//$login = trim(mb_convert_kana($login, 'as'));
 		$actived = trim(Mage::getStoreConfig('wsu_networksecurities/ldap/customerlogin/activeldap'));
-		if (!$actived) { //CHECK MAGENTO CONNECT
+		/*if (!$actived) { //CHECK MAGENTO CONNECT
 		        if (!$this->validatePassword($password)) {
 					Mage::helper('wsu_networksecurities')->setFailedLogin($username,$password);
 				}
 				return parent::authenticate($username, $password);
-		}
+		}*/
 		
 		if(Zend_Validate::is($username, 'EmailAddress')) { 
 			$this->loadByEmail($username); 
