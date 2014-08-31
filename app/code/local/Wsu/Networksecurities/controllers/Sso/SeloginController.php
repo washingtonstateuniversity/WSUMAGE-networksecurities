@@ -50,21 +50,9 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
                     $customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
 					
                     if(!$customer || !$customer->getId()) {
-						$customer = $customer->getCustomerAltSSo($type, $data, $website_id, $store_id);
+						$customer = $customer->getCustomerAltSSo($customer,$data);
 						if(!$customer || !$customer->getId()) {
-							//Login multisite
 							$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-							if (Mage::getStoreConfig('wsu_networksecurities/selogin/is_send_password_to_customer')) {
-								$customer->sendPasswordReminderEmail();
-							}
-							if ($customer->getConfirmation()) {
-								try {
-									$customer->setConfirmation(null);
-									$customer->save();
-								}catch (Exception $e) {
-									Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error'));
-								}
-							}
 						}
                     }
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);

@@ -85,6 +85,18 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		try{
 			$customer->save();
 		}catch(Exception $e) {}
+		
+		if (Mage::getStoreConfig('wsu_networksecurities/selogin/is_send_password_to_customer')) {
+			$customer->sendPasswordReminderEmail();
+		}
+		if ($customer->getConfirmation()) {
+			try {
+				$customer->setConfirmation(null);
+				$customer->save();
+			}catch (Exception $e) {
+				Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error'));
+			}
+		}
 		return $customer;
 	}	
     public function getResponseBody($url) {
