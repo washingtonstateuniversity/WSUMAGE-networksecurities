@@ -54,6 +54,20 @@ $attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'ldap_user
 $attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
 $attr->save();
 
+$installer->addAttribute('customer', 'sso_map', array(
+    'type'			=> 'varchar',
+    'input'			=> 'multiselect',
+    'source'		=> 'wsu_networksecurities/customer_source_ssooptions',
+	'label'			=> 'Used SSO',
+	'visible'		=> true,
+	'required'		=> false,
+));
+
+
+
+
+
+
 $installer->getConnection()->addColumn($installer->getTable('admin/user'), 'ldap_user', array(
     'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
     'length' => 256,
@@ -62,13 +76,6 @@ $installer->getConnection()->addColumn($installer->getTable('admin/user'), 'ldap
     'comment' => 'Ldap user'
 )); 
 
-$installer->getConnection()->addColumn($installer->getTable('admin/user'), 'sso_map', array(
-    'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
-    'length' => 2048,
-    'nullable' => true,
-    'default' => null,
-    'comment' => 'SSO map'
-)); 
 
 
 
