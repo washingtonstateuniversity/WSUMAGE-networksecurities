@@ -20,10 +20,10 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 			$customer->setUsername($data['username']);
 		}
 		if(isset($data['gender'])){
-			$customer->setUsername($data['gender']);
+			$customer->setGender($data['gender']);
 		}
 		if(isset($data['dbo'])){
-			$customer->setUsername($data['dbo']);
+			$customer->setDbo($data['dbo']);
 		}	
 		$newPassword = $customer->generatePassword();
 		$customer->setPassword($newPassword);
@@ -44,10 +44,10 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 			$customer->setUsername($data['username']);
 		}
 		if(isset($data['gender'])){
-			$customer->setUsername($data['gender']);
+			$customer->setGender($data['gender']);
 		}
 		if(isset($data['dbo'])){
-			$customer->setUsername($data['dbo']);
+			$customer->setDbo($data['dbo']);
 		}		
 		$customer->setWebsiteId($website_id);
 		$customer->setStoreId($store_id);
