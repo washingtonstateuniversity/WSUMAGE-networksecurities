@@ -5,6 +5,7 @@ class Wsu_Networksecurities_Model_Customer_Source_Ssooptions extends Mage_Eav_Mo
 		$helper = Mage::helper('wsu_networksecurities');
         if (is_null($this->_options)) {
             $this->_options = array(
+				array('value'=>'aol', 'label'=> $helper->__('Aol')),
 				array('value'=>'facebook', 'label'=> $helper->__('Facebook')),
 				array('value'=>'twitter', 'label'=> $helper->__('Twitter')),
 				array('value'=>'google', 'label'=> $helper->__('Google')),
