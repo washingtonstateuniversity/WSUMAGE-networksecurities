@@ -54,18 +54,23 @@ $attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'ldap_user
 $attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
 $attr->save();
 
+
+//$installer->removeAttribute('customer', 'sso_map');
 $installer->addAttribute('customer', 'sso_map', array(
-    'type'			=> 'varchar',
-    'input'			=> 'multiselect',
-    'source'		=> 'wsu_networksecurities/customer_source_ssooptions',
-	'label'			=> 'Used SSO',
-	'visible'		=> true,
-	'required'		=> false,
+    'type'				=> 'varchar',
+    'input'				=> 'text',
+    //'source'			=> 'wsu_networksecurities/customer_source_ssooptions',
+	'backend'           => 'wsu_networksecurities/customer_backend_ssooptions',
+	'frontend_input_renderer'	=> 'wsu_networksecurities/sso_form_mapper',//
+	'input_renderer'	=> 'wsu_networksecurities/sso_form_mapper',//
+	'renderer'			=> 'wsu_networksecurities/sso_form_mapper',//
+	'label'				=> 'Used SSO',
+	'visible'			=> true,
+	'required'			=> false,
 ));
 $attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'sso_map' );
 $attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
 $attr->save();
-
 
 
 

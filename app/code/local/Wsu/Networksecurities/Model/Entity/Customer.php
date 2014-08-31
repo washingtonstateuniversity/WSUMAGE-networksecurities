@@ -61,7 +61,38 @@ class Wsu_Networksecurities_Model_Entity_Customer extends Mage_Customer_Model_Re
         }
         return $this;
     }
+	
+	
+    public function loadBySso(Mage_Customer_Model_Customer $customer, $data) {
+		$provider=$data['provider'];
+		$uid_name=$data['username'];
+		$uid_email=$data['email'];
 
+		$map_name=$provider.'":"'.$uid_name;
+		$map_email=$provider.'":"'.$uid_email;
+
+
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), array($this->getEntityIdField()))
+            ->joinNatural(array('cev' => $this->getTable('customer_entity_varchar')))
+            ->joinNatural(array('ea' => $this->getTable('eav/attribute')))
+            ->where('ea.attribute_code=\'sso_map\' AND (cev.value LIKE CONCAT(\'%\',?,\'%\') OR cev.value LIKE CONCAT(\'%\',?,\'%\'))',$map_name,$map_email);
+
+        if ($customer->getSharingConfig()->isWebsiteScope()) {
+            if (!$customer->hasData('website_id')) {
+                Mage::throwException(Mage::helper('customer')->__('Customer website ID must be specified when using the website scope.'));
+            }
+            $select->where('website_id=?', (int)$customer->getWebsiteId());
+        }
+
+        if ($id = $this->_getReadAdapter()->fetchOne($select, 'entity_id')) {
+            $this->load($customer, $id);
+        }
+        else {
+            $customer->setData(array());
+        }
+        return $this;
+    }
     /**
      * Check whether there are username duplicates of customers in global scope
      *

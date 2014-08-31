@@ -9,7 +9,13 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		}
 		return $collection->getFirstItem();
 	}
+
 	
+	
+	public function getCustomerAltSSo($type, $data, $website_id, $store_id){
+		//$data['email']
+		
+	}
 	public function createCustomer($data) {
 		$customer = Mage::getModel('customer/customer');
 		$customer->setFirstname( $data['firstname'] );
@@ -24,7 +30,18 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		}
 		if(isset($data['dbo'])){
 			$customer->setDbo( date($data['dbo']) );
-		}	
+		}
+		
+		$map=array();
+		$provider=$data['provider'];
+		if(isset($provider)){
+			$map[$provider]=$data['email'];
+			if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
+				$map[$provider]=$data['username'];
+			}
+		}
+		$customer->setSsoMap( json_encode($map) );		
+
 		$newPassword = $customer->generatePassword();
 		$customer->setPassword($newPassword);
 		try{
@@ -48,7 +65,18 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		}
 		if(isset($data['dbo'])){
 			$customer->setDbo( date($data['dbo']) );
-		}		
+		}
+			
+		$map=array();
+		$provider=$data['provider'];
+		if(isset($provider)){
+			$map[$provider]=$data['email'];
+			if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
+				$map[$provider]=$data['username'];
+			}
+		}
+		$customer->setSsoMap( json_encode($map) );
+				
 		$customer->setWebsiteId($website_id);
 		$customer->setStoreId($store_id);
 		
