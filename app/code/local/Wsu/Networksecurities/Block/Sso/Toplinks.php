@@ -15,7 +15,7 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function isShowFaceBookButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/fblogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/facebook_login/is_active',Mage::app()->getStore()->getId());
 	}
 	
 	public function isShowGmailButton() {
@@ -193,7 +193,7 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}	
 	
 	public function sortOrderFaceBook() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/fblogin/sort_order');
+		return (int) Mage::getStoreConfig('wsu_networksecurities/facebook_login/sort_order');
 	}
 	
 	public function sortOrderGmail() {

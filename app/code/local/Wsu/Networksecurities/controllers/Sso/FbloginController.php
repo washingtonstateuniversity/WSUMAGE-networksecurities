@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_FbloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_FbloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 
     public function loginAction() {            
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
@@ -14,35 +14,32 @@ class Wsu_Networksecurities_Sso_FbloginController extends Mage_Core_Controller_F
 			echo "<script type='text/javascript'>top.location.href = '$loginUrl';</script>";
 			exit;
 		}
- 		$user = Mage::getModel('wsu_networksecurities/sso_fblogin')->getFbUser();
- 
-		if ($isAuth && $user) {
-			$store_id = Mage::app()->getStore()->getStoreId();//add
-			$website_id = Mage::app()->getStore()->getWebsiteId();//add
-			$data =  array('firstname'=>$user['first_name'], 'lastname'=>$user['last_name'], 'email'=>$user['email']);
-			if($data['email']) {
-				$customer = $customerHelper->getCustomerByEmail($data['email'],$website_id );//add edition
-				if(!$customer || !$customer->getId()) {
-					//Login multisite
-					$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-					if(Mage::getStoreConfig('wsu_networksecurities/fblogin/is_send_password_to_customer')) {
-						$customer->sendPasswordReminderEmail();
-					}
-				}
-					// fix confirmation
-				if ($customer->getConfirmation()) {
-					try {
-						$customer->setConfirmation(null);
-						$customer->save();
-					}catch (Exception $e) {
-					}
-				}
-				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-				$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect()); 
-			}else{
-				Mage::getSingleton('core/session')->addError('You provided a email invalid!');			
-				$customerHelper->setJsRedirect(Mage::getBaseUrl());
-			}
+ 		$user_info = Mage::getModel('wsu_networksecurities/sso_fblogin')->getFbUser();
+		if ($isAuth && $user_info) {
+			$user_info['provider']="facebook";
+			$this->handleCustomer($user_info);
+		}else{ 
+			$coreSession->addError($this->__('Login failed as you have not granted access.'));
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
+
 	}
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		$data['provider']=$user_info['provider'];
+		$data['email']=$user_info['email'];
+		$data['firstname']=$user_info['first_name'];
+		$data['lastname']=$user_info['last_name'];
+		
+		$gender = $user_info['gender'];
+		if(isset($gender)){
+			$data['gender'] = $gender=="male" ? '1' : '2';
+		}
+
+		return $data;
+	}
+	//on add user match in getCustomerAltSSo (check first name last name) 
+	//>> if (so but not this sso) ask user if they have a __(machted)__ sso 
+	//>> if use agrees then start login on that sso and then run add sso to account actions 
 }

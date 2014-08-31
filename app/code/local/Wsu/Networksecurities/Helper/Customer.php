@@ -60,7 +60,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		if(isset($data['dbo'])){
 			$customer->setDbo( date($data['dbo']) );
 		}
-			
+		
 		$map=array();
 		$provider=$data['provider'];
 		if(isset($provider)){
@@ -80,7 +80,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 			$customer->save();
 		}catch(Exception $e) {}
 		
-		if (Mage::getStoreConfig('wsu_networksecurities/selogin/is_send_password_to_customer')) {
+		if (Mage::getStoreConfig("wsu_networksecurities/${provider}_login/is_send_password_to_customer")) {
 			$customer->sendPasswordReminderEmail();
 		}
 		if ($customer->getConfirmation()) {
@@ -160,10 +160,10 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/gologin/consumer_secret'));
 	}
 	public function getFbAppId() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/fblogin/app_id'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
 	}
 	public function getFbAppSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/fblogin/app_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_secret'));
 	}
 	public function getAuthUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');

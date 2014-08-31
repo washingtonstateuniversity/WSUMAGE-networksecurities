@@ -16,26 +16,8 @@ class Wsu_Networksecurities_Sso_YaloginController extends Wsu_Networksecurities_
 			$user_info = $userSession->loadProfile();
 			
 			if(count($user_info)) {
-				$data = $this->makeCustomerData($user_info);
-				//get website_id and sote_id of each stores
-				$store_id = Mage::app()->getStore()->getStoreId();//add
-				$website_id = Mage::app()->getStore()->getWebsiteId();//add
-
-				$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
-				
-				if(!$customer || !$customer->getId()) {
-					$customer = $customer->getCustomerAltSSo($customer,$data);
-					if(!$customer || !$customer->getId()) {
-						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-					}
-				}else{
-					$_customer = $customer->getCustomerAltSSo($customer,$data);
-					if(!$_customer || !$_customer->getId()) {
-						$customer = $customer->addSsoMap($customer,$data);
-					}
-				}
-				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-				$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+				$user_info['provider']="yahoo";
+				$this->handleCustomer($user_info);
 			}else{ 
 				$coreSession->addError($this->__('Login failed as you have not granted access.'));
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
@@ -79,7 +61,7 @@ class Wsu_Networksecurities_Sso_YaloginController extends Wsu_Networksecurities_
 			$data['dob'] = '1/1/'.$birthYear;
 		}
 		
-		$data['provider']="yahoo";
+		$data['provider']=$user_info['provider'];
 		$data['email']=$email;
 		$data['firstname']=$frist_name;
 		$data['lastname']=$last_name;
