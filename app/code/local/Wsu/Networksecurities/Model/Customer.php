@@ -13,7 +13,7 @@ class Wsu_Networksecurities_Model_Customer extends Mage_Customer_Model_Customer{
 	 //this may need to move to the wsu_networksecurities/customer/customer model
 	 
 	 
-    public function authenticate($login, $password) {   
+    public function authenticate($login, $password) {   // no sso here
         if(Zend_Validate::is($login, 'EmailAddress')){
             $this->loadByEmail($login);
         }else if (Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')) {
