@@ -1,7 +1,6 @@
 <?php
 
-class Wsu_Networksecurities_Sso_SeloginController extends Wsu_Networksecurities_Sso_Abstract {
-	
+class Wsu_Networksecurities_Sso_SeloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
     public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');

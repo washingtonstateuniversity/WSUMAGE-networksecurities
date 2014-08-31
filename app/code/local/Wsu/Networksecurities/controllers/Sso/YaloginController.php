@@ -1,6 +1,6 @@
 <?php
 
-class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_YaloginController extends Wsu_Networksecurities_Controller_Sso_Abstract{
 	
 	// url to login
     public function loginAction() {
@@ -13,68 +13,81 @@ class Wsu_Networksecurities_Sso_YaloginController extends Mage_Core_Controller_F
 		}else{
 			$session = $yalogin->getSession();
 			$userSession = $session->getSessionedUser();
-			$profile = $userSession->loadProfile();
-			$user = array();
+			$user_info = $userSession->loadProfile();
 			
-			
-			
-			
-			$emails = $profile->emails;
-			if(isset($emails)){
-				foreach($emails as $email) {
-					if($email->primary == 1){
-						$user['email'] = $email->handle;
+			if(count($user_info)) {
+				$data = $this->makeCustomerData($user_info);
+				//get website_id and sote_id of each stores
+				$store_id = Mage::app()->getStore()->getStoreId();//add
+				$website_id = Mage::app()->getStore()->getWebsiteId();//add
+
+				$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
+				
+				if(!$customer || !$customer->getId()) {
+					$customer = $customer->getCustomerAltSSo($customer,$data);
+					if(!$customer || !$customer->getId()) {
+						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
+					}
+				}else{
+					$_customer = $customer->getCustomerAltSSo($customer,$data);
+					if(!$_customer || !$_customer->getId()) {
+						$customer = $customer->addSsoMap($customer,$data);
 					}
 				}
+				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+				$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+			}else{ 
+				$coreSession->addError($this->__('Login failed as you have not granted access.'));
+				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
-			$user['username'] = $profile->nickname;
-			if(!isset($user['email'])){
-				$user['email']=$user['username'].'@yahoo.com';
-			}
-			
-			$user['firstname'] = $profile->givenName;
-			$user['lastname'] = $profile->familyName;
-			if(!isset($user['firstname'])){
-				$user['firstname']=$user['username'];
-			}
-			if(!isset($user['lastname'])){
-				$user['lastname']='';
-			}
-			$gender = $profile->gender;
-			
-			if(isset($gender)){
-				$user['gender'] = $gender=="M" ? '1' : '2';
-			}
-			$birthYear = $profile->birthYear;
-			if(isset($birthYear)){
-				$user['dob'] = '1/1/'.$birthYear;
-			}
-
-			//get website_id and sote_id of each stores
-			$store_id = Mage::app()->getStore()->getStoreId();
-			$website_id = Mage::app()->getStore()->getWebsiteId();
-			
-			$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);
-			if(!$customer || !$customer->getId()) {
-				//Login multisite
-				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-				if (Mage::getStoreConfig('wsu_networksecurities/yalogin/is_send_password_to_customer')) {
-					$customer->sendPasswordReminderEmail();
-				}
-			}
-				// fix confirmation
-			if ($customer->getConfirmation()) {
-				try {
-					$customer->setConfirmation(null);
-					$customer->save();
-				}catch (Exception $e) {
-					Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error').$e->getMessage());
-				}
-	  		}
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
-			//$this->_redirectUrl(Mage::helper('customer')->getDashboardUrl());
 		}
 		
     }
+	
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		$emails = $user_info->emails;
+		if(isset($emails)){
+			foreach($emails as $email) {
+				if($email->primary == 1){
+					$data['email'] = $email->handle;
+				}
+			}
+		}
+		
+		$data['username'] = $user_info->nickname;
+		if(!isset($user['email'])){
+			$data['email']=$data['username'].'@yahoo.com';
+		}
+		
+		$data['firstname'] = $user_info->givenName;
+		$data['lastname'] = $user_info->familyName;
+		if(!isset($data['firstname'])){
+			$data['firstname']=$data['username'];
+		}
+		if(!isset($user['lastname'])){
+			$data['lastname']='';
+		}
+		$gender = $user_info->gender;
+		
+		if(isset($gender)){
+			$data['gender'] = $gender=="M" ? '1' : '2';
+		}
+		$birthYear = $user_info->birthYear;
+		if(isset($birthYear)){
+			$data['dob'] = '1/1/'.$birthYear;
+		}
+		
+		$data['provider']="yahoo";
+		$data['email']=$email;
+		$data['firstname']=$frist_name;
+		$data['lastname']=$last_name;
+
+		return $data;
+	}
+	
+	
+	
+	
 }

@@ -88,7 +88,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 				$customer->setConfirmation(null);
 				$customer->save();
 			}catch (Exception $e) {
-				Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error'));
+				Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error').$e->getMessage());
 			}
 		}
 		return $customer;

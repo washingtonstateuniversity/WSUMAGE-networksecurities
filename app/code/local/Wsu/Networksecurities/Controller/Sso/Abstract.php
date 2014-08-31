@@ -1,6 +1,6 @@
 <?php
 
-class Wsu_Networksecurities_Sso_Abstract extends Mage_Core_Controller_Front_Action {
+class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller_Front_Action {
 	public function makeCustomerData($user_info) {
 		$data = array();
 		$frist_name = isset($user_info['namePerson/first'])?$user_info['namePerson/first']:"";
