@@ -114,4 +114,27 @@ class Wsu_Networksecurities_Model_Entity_Customer extends Mage_Customer_Model_Re
         }
         return $lookup['cnt'] > 1;
     }
+	
+	public function addSsoMap($customer,$data) {
+		$map = $customer->getSsoMap();
+		if(isset($map)){
+			$map = (array)json_decode($map);
+		}
+		$provider=$data['provider'];
+		if(isset($provider)){
+			if(!isset($map[$provider])){
+				$map[$provider]=$data['email'];
+				if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
+					$map[$provider]=$data['username'];
+				}
+			}
+		}
+		$customer->setSsoMap( json_encode($map) );
+		$customer->save();
+		return $customer;
+	}
+	
+	
+	
+	
 }

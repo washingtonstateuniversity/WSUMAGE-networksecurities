@@ -1,6 +1,6 @@
 <?php
 
-class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_SeloginController extends Wsu_Networksecurities_Sso_Abstract {
 	
 	
     public function loginAction() {
@@ -20,29 +20,7 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
 			}else{ 
 				$user_info = $se->getAttributes();   
                 if(count($user_info)) {
-					$data = array();
-					 
-                    $frist_name = isset($user_info['namePerson/first'])?$user_info['namePerson/first']:"";
-                    $last_name = isset($user_info['namePerson/last'])?$user_info['namePerson/last']:"";
-                    $email = $user_info['contact/email'];
-					
-                    if(!$frist_name || !$last_name) {
-                        if(isset($user_info['namePerson/friendly'])) {
-							$frist_name = $user_info['namePerson/friendly'] ; 
-							$last_name = $user_info['namePerson/friendly'];
-							$data['username']=$user_info['namePerson/friendly'];
-                        }else{ $emailpart = explode("@", $email);
-                            $frist_name = $emailpart['0'];
-							$last_name  = $emailpart['0'];
-							$data['username']=$email;
-                        }                   
-                    }
-					
-					$data['provider']="stackexchange";
-					$data['email']=$email;
-					$data['firstname']=$frist_name;
-					$data['lastname']=$last_name;
-					
+					$data = $this->makeCustomerData($user_info);
 					//get website_id and sote_id of each stores
 					$store_id = Mage::app()->getStore()->getStoreId();//add
 					$website_id = Mage::app()->getStore()->getWebsiteId();//add
@@ -54,7 +32,12 @@ class Wsu_Networksecurities_Sso_SeloginController extends Mage_Core_Controller_F
 						if(!$customer || !$customer->getId()) {
 							$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 						}
-                    }
+                    }else{
+						$_customer = $customer->getCustomerAltSSo($customer,$data);
+						if(!$_customer || !$_customer->getId()) {
+							$customer = $customer->addSsoMap($customer,$data);
+						}
+					}
                     Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
                 }else{

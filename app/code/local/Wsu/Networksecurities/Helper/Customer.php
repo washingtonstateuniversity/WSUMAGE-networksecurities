@@ -10,12 +10,6 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		return $collection->getFirstItem();
 	}
 
-	
-	
-	public function getCustomerAltSSo($type, $data, $website_id, $store_id){
-		//$data['email']
-		
-	}
 	public function createCustomer($data) {
 		$customer = Mage::getModel('customer/customer');
 		$customer->setFirstname( $data['firstname'] );
