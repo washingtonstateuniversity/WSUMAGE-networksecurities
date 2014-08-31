@@ -12,18 +12,18 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	
 	public function createCustomer($data) {
 		$customer = Mage::getModel('customer/customer');
-		$customer->setFirstname($data['firstname']);
-		$customer->setLastname($data['lastname']);
-		$customer->setEmail($data['email']);
+		$customer->setFirstname( $data['firstname'] );
+		$customer->setLastname( $data['lastname'] );
+		$customer->setEmail( $data['email'] );
 		
 		if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
 			$customer->setUsername($data['username']);
 		}
 		if(isset($data['gender'])){
-			$customer->setGender($data['gender']);
+			$customer->setGender( $data['gender'] );
 		}
 		if(isset($data['dbo'])){
-			$customer->setDbo($data['dbo']);
+			$customer->setDbo( date($data['dbo']) );
 		}	
 		$newPassword = $customer->generatePassword();
 		$customer->setPassword($newPassword);
@@ -37,17 +37,17 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function createCustomerMultiWebsite($data, $website_id, $store_id) {
 		$customer = Mage::getModel('customer/customer')->setId(null);
 		
-		$customer->setFirstname($data['firstname']);
-		$customer->setLastname($data['lastname']);
-		$customer->setEmail($data['email']);
+		$customer->setFirstname( $data['firstname'] );
+		$customer->setLastname( $data['lastname'] );
+		$customer->setEmail( $data['email'] );
 		if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
-			$customer->setUsername($data['username']);
+			$customer->setUsername( $data['username'] );
 		}
 		if(isset($data['gender'])){
-			$customer->setGender($data['gender']);
+			$customer->setGender( $data['gender'] );
 		}
 		if(isset($data['dbo'])){
-			$customer->setDbo($data['dbo']);
+			$customer->setDbo( date($data['dbo']) );
 		}		
 		$customer->setWebsiteId($website_id);
 		$customer->setStoreId($store_id);
