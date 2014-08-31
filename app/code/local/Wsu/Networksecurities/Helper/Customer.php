@@ -15,7 +15,15 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$customer->setFirstname($data['firstname']);
 		$customer->setLastname($data['lastname']);
 		$customer->setEmail($data['email']);
-
+		if(isset($data['username'])){
+			$customer->setUsername($data['username']);
+		}
+		if(isset($data['gender'])){
+			$customer->setUsername($data['gender']);
+		}
+		if(isset($data['dbo'])){
+			$customer->setUsername($data['dbo']);
+		}	
 		$newPassword = $customer->generatePassword();
 		$customer->setPassword($newPassword);
 		try{
@@ -31,6 +39,15 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$customer->setFirstname($data['firstname']);
 		$customer->setLastname($data['lastname']);
 		$customer->setEmail($data['email']);
+		if(isset($data['username'])){
+			$customer->setUsername($data['username']);
+		}
+		if(isset($data['gender'])){
+			$customer->setUsername($data['gender']);
+		}
+		if(isset($data['dbo'])){
+			$customer->setUsername($data['dbo']);
+		}		
 		$customer->setWebsiteId($website_id);
 		$customer->setStoreId($store_id);
 		
