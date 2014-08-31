@@ -21,6 +21,11 @@
 				</rewrite>
 			</adminhtml>
 		</blocks>
+		<controller>
+			<wsu_networksecurities>
+				<class>Wsu_Networksecurities_Controller</class>
+			</wsu_networksecurities>
+		</controller>
 		<models>
 			<admin>
 				<rewrite>

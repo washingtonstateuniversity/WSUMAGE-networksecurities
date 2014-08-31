@@ -1,6 +1,6 @@
 <?php
 
-class Wsu_Networksecurities_Sso_YaloginController extends Wsu_Networksecurities_Controller_Sso_Abstract{
+class Wsu_Networksecurities_Sso_YaloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
 	// url to login
     public function loginAction() {
