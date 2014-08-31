@@ -15,7 +15,8 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$customer->setFirstname($data['firstname']);
 		$customer->setLastname($data['lastname']);
 		$customer->setEmail($data['email']);
-		if(isset($data['username'])){
+		
+		if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
 			$customer->setUsername($data['username']);
 		}
 		if(isset($data['gender'])){
@@ -39,7 +40,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$customer->setFirstname($data['firstname']);
 		$customer->setLastname($data['lastname']);
 		$customer->setEmail($data['email']);
-		if(isset($data['username'])){
+		if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
 			$customer->setUsername($data['username']);
 		}
 		if(isset($data['gender'])){
