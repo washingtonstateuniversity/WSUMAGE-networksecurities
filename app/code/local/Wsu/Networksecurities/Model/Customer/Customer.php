@@ -21,7 +21,7 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
 		
 		if(Zend_Validate::is($username, 'EmailAddress')) { 
 			$this->loadByEmail($username); 
-		}else if (Mage::getStoreConfigFlag('username/general/enabled')) { 
+		}else if (Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')) { 
 			$this->loadByUsername($username);    
 		} 
 
