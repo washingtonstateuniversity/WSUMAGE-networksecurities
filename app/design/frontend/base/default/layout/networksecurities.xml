@@ -14,18 +14,18 @@
 			</block>
 		</reference>
 	</honeypot>
-	
-	
-	
-	<customer_account_index>
-        <reference name="customer_account_dashboard">
-            <block type="core/template" name="username_information" as="info1">
-                <action method="setTemplate" ifconfig="wsu_networksecurities/general_customer/enabled">
-                    <template>wsu/networksecurities/customer/account/dashboard/info.phtml</template>
-                </action>
-            </block>
+    <add_othersociallogin>
+        <reference name="customer.account.dashboard.info.extra">
+			<block type="wsu_networksecurities/sso_othersociallogin" name="networksecurities.othersociallogin">
+				<action method="setTemplate" >
+					<template>wsu/networksecurities/othersociallogin_block.phtml</template> 
+				</action>
+			</block>
         </reference>
-	</customer_account_index>
+    </add_othersociallogin>	
+	
+	
+
 	
 	<customer_account_login>
 		<reference name="customer_form_login">
@@ -63,35 +63,44 @@
             <action method="setTemplate" helper="wsu_networksecurities/data/isPersistentMustBeEnabled"><template>wsu/networksecurities/persistent/checkout/onepage/login.phtml</template></action>
 		</reference>
 	</checkout_onepage_index>
-	
 
-	
-	
-	
+
+
 	<!-- honeypot forms -->	
 	<!-- contact forms -->
 	<contacts_index_index>
 		<update handle="honeypot"/>
 	</contacts_index_index>
 	<!-- customer forms -->
+
+	<customer_account_index>
+		<update handle="add_othersociallogin" />
+	</customer_account_index>
+	
 	<customer_account_login>
 		<update handle="honeypot"/>
 	</customer_account_login>
+	
 	<customer_account_create>
 		<update handle="honeypot"/>
 	</customer_account_create>
+	
 	<review_product_list>
 		<update handle="honeypot"/>
 	</review_product_list>
+	
 	<customer_account_forgotpassword>
 		<update handle="honeypot"/>
 	</customer_account_forgotpassword>
+	
 	<customer_account_resetpassword>
 		<update handle="honeypot"/>
 	</customer_account_resetpassword>
+	
 	<customer_account_confirmation>
 		<update handle="honeypot"/>
 	</customer_account_confirmation>
+	
 	<customer_account_edit>
 		<update handle="honeypot"/>
 	</customer_account_edit>
@@ -112,8 +121,7 @@
 		</reference>
 	</wsu_networksecurities_error_index>
 
-	
-	
+
 	<default>
 		<reference name="head">
 			<action method="addJs"><script>wsu/networksecurities/lightbox.js</script></action>
@@ -130,7 +138,8 @@
 			</block>
 		</reference>		
 	</default>
-	
+
+
 	<customer_account_login>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_autosociallogin" before="-" name="before.customer.login.sociallogin" >
