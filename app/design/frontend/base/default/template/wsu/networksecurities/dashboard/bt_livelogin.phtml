@@ -1,0 +1,34 @@
+<?php $isLogin = $this->helper('customer')->isLoggedIn()?>
+
+<?php if(!$isLogin){?>
+<button id="bt-loginlive" class="bt-login-social" alt="<?php echo $this->__('Login by Live') ?>" title="<?php echo $this->__('Login by Live') ?>" onclick="liveLogin()" href="javascript:void(0);">
+	<span><span><?php echo $this->__('Live Sign in') ?></span></span>
+</button>
+<script type="text/javascript">
+    var newwindow;
+    var intId;
+    function liveLogin(){
+        var  screenX    = typeof window.screenX != 'undefined' ? window.screenX : window.screenLeft;
+        var	 screenY    = typeof window.screenY != 'undefined' ? window.screenY : window.screenTop;
+        var	 outerWidth = typeof window.outerWidth != 'undefined' ? window.outerWidth : document.body.clientWidth;
+        var	 outerHeight = typeof window.outerHeight != 'undefined' ? window.outerHeight : (document.body.clientHeight - 22);
+        var	 width    = 500;
+        var	 height   = 520;
+        var	 left     = parseInt(screenX + ((outerWidth - width) / 2), 10);
+        var	 top      = parseInt(screenY + ((outerHeight - height) / 2.5), 10);
+        var	 features = (
+                'width=' + width +
+                ',height=' + height +
+                ',left=' + left +
+                ',top=' + top
+              );
+    
+        newwindow=window.open('<?php echo $this->getUrlAuthorCode() ?>','Login_by_live',features);
+    
+        if (window.focus) {
+            newwindow.focus()
+        }
+        return false;
+    }
+    </script>
+<?php }?>

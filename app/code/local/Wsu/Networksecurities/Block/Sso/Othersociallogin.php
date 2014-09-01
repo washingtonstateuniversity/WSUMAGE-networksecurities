@@ -1,14 +1,9 @@
 <?php
 class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Block_Account_Dashboard{
-	
-	/*
-	 * @todo remeber to come back and dry this up
-*/	
-	
-	
+
 	public function __construct() {
 		parent::__construct();
-		//$this->setTemplate('wsu/networksecurities/sociallogin_buttons.phtml');
+		$this->setTemplate('wsu/networksecurities/othersociallogin_block.phtml');
 	}
 	
 	public function isShowFaceBookButton() {
@@ -37,25 +32,25 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
 	public function getFacebookButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_fblogin')
-					->setTemplate('wsu/networksecurities/bt_fblogin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_fblogin.phtml')->toHtml();
 		
 	}
 	
 	public function getGmailButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_gologin')
-					->setTemplate('wsu/networksecurities/bt_gologin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_gologin.phtml')->toHtml();
 	
 	}
 
 	public function getTwitterButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_twlogin')
-					->setTemplate('wsu/networksecurities/bt_twlogin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_twlogin.phtml')->toHtml();
 		
 	}
 
 	public function getYahooButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_yalogin')
-					->setTemplate('wsu/networksecurities/bt_yalogin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_yalogin.phtml')->toHtml();
 	}	
 
 	public function isShowOpenButton() {
@@ -64,7 +59,7 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
 	public function getOpenButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_openlogin')
-					->setTemplate('wsu/networksecurities/bt_openlogin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_openlogin.phtml')->toHtml();
 	}	
 	
 	public function isShowLjButton() {
@@ -73,13 +68,13 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
 	public function getLjButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_ljlogin')
-					->setTemplate('wsu/networksecurities/bt_ljlogin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_ljlogin.phtml')->toHtml();
 	}	
 
 	
 	public function getLinkedButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_linkedlogin')
-					->setTemplate('wsu/networksecurities/bt_linkedlogin.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/dashboard/bt_linkedlogin.phtml')->toHtml();
 	}	
 	
 	public function isShowLinkedButton() {
@@ -115,12 +110,12 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
     public function getAolButton() {        
         return $this->getLayout()->createBlock('wsu_networksecurities/sso_aollogin')
-                ->setTemplate('wsu/networksecurities/bt_aollogin.phtml')->toHtml();
+                ->setTemplate('wsu/networksecurities/dashboard/bt_aollogin.phtml')->toHtml();
     }
     
     public function getWpButton() {
         return $this->getLayout()->createBlock('wsu_networksecurities/sso_wplogin')
-                ->setTemplate('wsu/networksecurities/bt_wplogin.phtml')->toHtml();
+                ->setTemplate('wsu/networksecurities/dashboard/bt_wplogin.phtml')->toHtml();
     }
     
     public function getAuWp() {        
@@ -130,7 +125,7 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
     
 	public function getCalButton() {
         return $this->getLayout()->createBlock('wsu_networksecurities/sso_callogin')
-                ->setTemplate('wsu/networksecurities/bt_callogin.phtml')->toHtml();
+                ->setTemplate('wsu/networksecurities/dashboard/bt_callogin.phtml')->toHtml();
     }
 	
 	public function getAuCal() {        
@@ -140,49 +135,49 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
 	public function getOrgButton() {
         return $this->getLayout()->createBlock('wsu_networksecurities/sso_orglogin')
-                ->setTemplate('wsu/networksecurities/bt_orglogin.phtml')->toHtml();
+                ->setTemplate('wsu/networksecurities/dashboard/bt_orglogin.phtml')->toHtml();
     }
 	
 	public function getFqButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_fqlogin')
-				->setTemplate('wsu/networksecurities/bt_fqlogin.phtml')->toHtml();
+				->setTemplate('wsu/networksecurities/dashboard/bt_fqlogin.phtml')->toHtml();
 	}
     
     public function getLiveButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_livelogin')
-				->setTemplate('wsu/networksecurities/bt_livelogin.phtml')->toHtml();
+				->setTemplate('wsu/networksecurities/dashboard/bt_livelogin.phtml')->toHtml();
 	}
 	
 	public function getMpButton() {	
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_mplogin')
-				->setTemplate('wsu/networksecurities/bt_mplogin.phtml')->toHtml();	
+				->setTemplate('wsu/networksecurities/dashboard/bt_mplogin.phtml')->toHtml();	
 	}
 	public function isShowPerButton() {
 		return (int) Mage::getStoreConfig('wsu_networksecurities/perlogin/is_active',Mage::app()->getStore()->getId());
 	}
 	public function getPerButton() {	
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_perlogin')
-				->setTemplate('wsu/networksecurities/bt_perlogin.phtml')->toHtml();	
+				->setTemplate('wsu/networksecurities/dashboard/bt_perlogin.phtml')->toHtml();	
 	}
 	public function isShowSeButton() {
 		return (int) Mage::getStoreConfig('wsu_networksecurities/selogin/is_active',Mage::app()->getStore()->getId());
 	}
 	public function getSeButton() {	
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_selogin')
-				->setTemplate('wsu/networksecurities/bt_selogin.phtml')->toHtml();	
+				->setTemplate('wsu/networksecurities/dashboard/bt_selogin.phtml')->toHtml();	
 	}
     protected function _beforeToHtml() {
 		if(!$this->getIsActive()) {
-			$this->setTemplate(null);
+		//	$this->setTemplate(null);
 		}
 		if(Mage::getSingleton('customer/session')->isLoggedIn()) {
 		//	$this->setTemplate(null);
 		}
-		
+		$this->getTemplate();
 		if(Mage::registry('shown_sociallogin_button')) {
-			$this->setTemplate(null);
+		//	$this->setTemplate(null);
 		}elseif($this->getTemplate()) {
-			Mage::register('shown_sociallogin_button',true);
+		//	Mage::register('shown_sociallogin_button',true);
 		}
 		
 		return parent::_beforeToHtml();
