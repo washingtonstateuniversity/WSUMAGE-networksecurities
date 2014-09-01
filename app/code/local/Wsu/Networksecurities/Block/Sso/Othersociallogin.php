@@ -5,6 +5,14 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 		parent::__construct();
 		$this->setTemplate('wsu/networksecurities/othersociallogin_block.phtml');
 	}
+
+
+	public function isShowButton($provider) {
+		return (int) Mage::getStoreConfig("wsu_networksecurities/${provider}_login/is_active",Mage::app()->getStore()->getId());
+	}
+
+	
+	
 	
 	public function isShowFaceBookButton() {
 		return (int) Mage::getStoreConfig('wsu_networksecurities/facebook_login/is_active',Mage::app()->getStore()->getId());
@@ -35,16 +43,33 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
 	
 	
+	public function getButton($provider) {
+		$html = "";
+		$html = $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
+					->setData('provider', $provider)
+					->setTemplate('wsu/networksecurities/dashboard/bt.phtml')->toHtml();
+					
+		if( $this->isShowFaceBookButton() ){
+			$out=array(
+					'button'=> $html,
+					'check' =>$this->isShowFaceBookButton(),
+					'id'	=> 'bt-loginfb',
+					'sort'  => $this->sortOrderFaceBook()
+					);
+		}else{
+			$out=array();
+		}
+		return $out;
+	}
 	
 	
 	
-	
-	
+	/*
 	public function getFacebookButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
-					->setData('provider', 'faceboook')
+					->setData('provider', 'facebook')
 					->setTemplate('wsu/networksecurities/dashboard/bt.phtml')->toHtml();
-	}
+	}*/
 	
 	
 	
@@ -266,13 +291,18 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	}
 	public function makeArrayButton() {
 		$buttonArray = array();
+		
+		$providers=Mage::getModel('wsu_networksecurities/customer_source_ssooptions')->getAllOptions();
+		foreach($providers as $provider){
+			if ($this->isShowButton($provider['value'])){
+				$buttonArray[] = $this->getButton($provider['value']);
+			}
+		}
+		
+		
+		
         if ($this->isShowFaceBookButton()){
-			$buttonArray[] = array(
-			'button'=>$this->getFacebookButton(),
-			'check' =>$this->isShowFaceBookButton(),
-			'id'	=> 'bt-loginfb',
-			'sort'  => $this->sortOrderFaceBook()
-			);
+			$buttonArray[] = $this->getButton('facebook');
 		}
         if ($this->isShowGmailButton()){
 			$buttonArray[] = array(
