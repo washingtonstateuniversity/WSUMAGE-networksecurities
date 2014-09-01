@@ -498,9 +498,13 @@
 				<perlogin>
 					<sort_order>15</sort_order>
 				</perlogin>
-				<selogin>
+				<stackexchange_login>
 					<sort_order>16</sort_order>
-				</selogin>
+					<title>Login by StackExchange</title>								
+					<text>StackExchange</text>
+					<width>500</width>
+					<height>520</height>
+				</stackexchange_login>
 			</sociallogin>
 		</wsu_networksecurities>
 	</default>

@@ -2446,7 +2446,7 @@ sociallogin
 								</sort_order>
 							</fields>
 						</perlogin>
-						<selogin type="group" translate="label comment">
+						<stackexchange_login type="group" translate="label comment">
 							<label>Stack Enchange Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>190</sort_order>
@@ -2480,8 +2480,43 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
+
+
 							</fields>
-						</selogin>
+						</stackexchange_login>
 					</fields>
 				</sociallogin>
 			</groups>

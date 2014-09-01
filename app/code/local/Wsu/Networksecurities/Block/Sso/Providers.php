@@ -1,16 +1,16 @@
 <?php
 class Wsu_Networksecurities_Block_Sso_Providers extends Mage_Core_Block_Template {
 
-	public function getLoginUrl() {
-		return $this->getUrl('sociallogin/fblogin/login');
+	public function getLoginUrl($provider) {
+		return $this->getUrl("sociallogin/${provider}login/login");
 	}
 	
 	public function getUser($provider) {
-		return Mage::getModel('wsu_networksecurities/sso_fblogin')->getUser();
+		return Mage::getModel("wsu_networksecurities/sso_${provider}login")->getUser();
 	}
 	
 	public function getBTUrl($provider) {
-		return Mage::getModel('wsu_networksecurities/sso_fblogin')->getLoginUrl();
+		return Mage::getModel("wsu_networksecurities/sso_${provider}login")->getLoginUrl();
 	}
 	
 	public function getDirectLoginUrl($provider) {

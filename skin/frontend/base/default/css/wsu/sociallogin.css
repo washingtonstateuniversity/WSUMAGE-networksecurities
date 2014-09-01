@@ -72,6 +72,13 @@
     display: block;
     float: left;
 }
+#sociallogin_button .bt-login.stackexchange span, .bt-popup.stackexchange span{
+    height: 28px;
+    background: url("sociallogin/stack.png") no-repeat;
+    display: block;
+    float: left;
+	color:#000;
+}
 
 #sociallogin_button #bt-logingo span, #bt-logingo-popup span{
     height: 28px;
@@ -92,13 +99,6 @@
     background: url("sociallogin/twit.png") no-repeat;
     display: block;
     float: left;
-}
-#sociallogin_button #bt-loginse span, #bt-loginse-popup span{
-    height: 28px;
-    background: url("sociallogin/stack.png") no-repeat;
-    display: block;
-    float: left;
-	color:#000;
 }
 
 
