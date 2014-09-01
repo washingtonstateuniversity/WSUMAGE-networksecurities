@@ -1,9 +1,9 @@
 <?php
 class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Block_Account_Dashboard{
-
+ 
 	public function __construct() {
 		parent::__construct();
-		$this->setTemplate('wsu/networksecurities/othersociallogin_block.phtml');
+		$this->setTemplate('wsu/networksecurities/providers_block.phtml');
 	}
 
 

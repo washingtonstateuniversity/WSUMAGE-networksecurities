@@ -130,14 +130,17 @@
                         <action method="addCss"><stylesheet>css/wsu/mobilesociallogin.css</stylesheet></action>
 		</reference>
 		<reference name="before_body_end">			
-            <block type="wsu_networksecurities/sso_toplinks" after="-" name="toplinks.sociallogin" template="wsu/networksecurities/toplinks/toplinks.phtml"/>				
+            <block type="wsu_networksecurities/sso_toplinks" after="-" name="toplinks.sociallogin" template="wsu/networksecurities/toplinks/toplinks.phtml"/>
 		</reference>
 		<reference name="top.container">
 			<block type="wsu_networksecurities/sso_autosociallogin" before="-" name="header.sociallogin">
 				<action method="setBlockPosition"><position>header</position></action>
 			</block>
-		</reference>		
+		</reference>
 	</default>
+
+
+
 
 
 	<customer_account_login>
@@ -161,6 +164,9 @@
 			</block>
 		</reference>
 	</customer_account_create>
+	
+	
+	
 	<sociallogin_openlogin_setblock>
 		<update handle="page_empty" />
 		<reference name="content">
