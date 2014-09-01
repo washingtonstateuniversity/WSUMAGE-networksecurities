@@ -8,7 +8,7 @@ class Wsu_Networksecurities_Model_Sso_Aollogin extends Mage_Core_Model_Abstract 
         return $openid;
 	}
 	public function getAlLoginUrl($name) {
-		$aol_id = $this->newAol();
+		$aol_id = $this->newProvider();
         $aol = $this->setAolIdlogin($aol_id, $name);
         try{
             $loginUrl = $aol->authUrl();

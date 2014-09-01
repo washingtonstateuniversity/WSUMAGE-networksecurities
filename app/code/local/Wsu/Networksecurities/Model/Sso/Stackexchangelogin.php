@@ -1,21 +1,15 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Stackexchangelogin extends Mage_Core_Model_Abstract {
-	public function newSe() {	
+	public function newProvider() {	
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';           
-		}catch(Exception $e) {}					
+		}catch(Exception $e) {}
         
         $openid = new LightOpenID(Mage::getUrl());    
         return $openid;
 	}
-	/*
-	public function getLoginUrl() {
-		return $this->getUrl('sociallogin/stackexchangelogin/login');
-	}
-	*/
-	
 	public function getLoginUrl($name="") {
-		$aol_id = $this->newSe();
+		$aol_id = $this->newProvider();
         $aol = $this->setSeIdlogin($aol_id, $name);
         try{
             $loginUrl = $aol->authUrl();
