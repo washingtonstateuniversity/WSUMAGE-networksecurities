@@ -440,6 +440,10 @@
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>1</sort_order>
+					<title>Login by Facebook</title>								
+					<text>Facebook Sign in</text>
+					<width>500</width>
+					<height>270</height>
 				</facebook_login>
 				<aollogin>
 					<is_active>0</is_active>

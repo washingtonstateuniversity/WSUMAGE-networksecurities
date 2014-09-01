@@ -13,7 +13,7 @@ class Wsu_Networksecurities_Model_Sso_Fblogin extends Mage_Core_Model_Abstract {
 		return $facebook;
 	}
 	
-	public function getFbUser() {
+	public function getUser() {
 		$facebook = $this->newFacebook();
     	$userId = $facebook->getUser();
 		$fbme = NULL;
@@ -27,7 +27,7 @@ class Wsu_Networksecurities_Model_Sso_Fblogin extends Mage_Core_Model_Abstract {
 		return $fbme;	
 	}
 	
-	public function getFbLoginUrl() {
+	public function getLoginUrl() {
 		$facebook = $this->newFacebook();
 		$loginUrl = $facebook->getLoginUrl(
 			array(

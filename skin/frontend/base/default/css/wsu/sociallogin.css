@@ -1,3 +1,58 @@
+/*
+<?php if($this->getDirection() == 'left'):?>
+.bt-login-social{margin:0 5px 0 0;}
+.sociallogin-other-button {
+    background: none repeat scroll 0 0 #666666;
+    border-radius: 9px 9px 9px 9px;
+    left: 0;
+    opacity: 0.96;
+    position: absolute;  
+	padding-right: 4px;
+	z-index:1000;
+}
+
+#sociallogin-other-div {
+    display: block;
+    float: left;
+	margin-left: 3px;
+}
+<?php else: ?>
+.bt-login-social{margin:0 0 0 5px;}
+#sociallogin-other-div {
+    display: block;
+    float: right;
+	margin-right: 3px;
+}
+.sociallogin-other-button{
+	background: none repeat scroll 0 0 #666666;
+    border-radius: 9px;
+    opacity: 0.96;
+    position: absolute;    
+	right:0px;
+	padding-right: 4px;
+	z-index:1000;
+}
+<?php endif;?>
+
+*/
+
+.bt-login-social{margin:0 5px 0 0;}
+.sociallogin-other-button {
+    background: none repeat scroll 0 0 #666666;
+    border-radius: 9px 9px 9px 9px;
+    left: 0;
+    opacity: 0.96;
+    position: absolute;  
+	padding-right: 4px;
+	z-index:1000;
+}
+
+#sociallogin-other-div {
+    display: block;
+    float: left;
+	margin-left: 3px;
+}
+
 
 .clear{
  width:100%;
@@ -11,7 +66,7 @@
 	margin-top:10px;
 }
 
-#sociallogin_button #bt-loginfb span, #bt-loginfb-popup span{
+#sociallogin_button .bt-login-social.sso_login.bt-login.faceboook span, .bt-popup.facebook span{
     height:28px;
     background: url("sociallogin/fb.png") no-repeat;
     display: block;

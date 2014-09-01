@@ -30,11 +30,31 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 		return (int) Mage::getStoreConfig('wsu_networksecurities/general_sso/is_active',Mage::app()->getStore()->getId());
 	}	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function getFacebookButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_fblogin')
-					->setTemplate('wsu/networksecurities/dashboard/bt_fblogin.phtml')->toHtml();
-		
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
+					->setData('provider', 'faceboook')
+					->setTemplate('wsu/networksecurities/dashboard/bt.phtml')->toHtml();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public function getGmailButton() {
 		return $this->getLayout()->createBlock('wsu_networksecurities/sso_gologin')
