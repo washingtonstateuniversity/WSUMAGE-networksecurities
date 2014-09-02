@@ -271,11 +271,11 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 		$ldaped = @ldap_bind(self::$ldaplink, $this->rootDn, $this->rootPassword);
         if (!$ldaped) {
 			$err=ldap_errno(self::$ldaplink);
-			Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERROR);
+			Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERR);
         }
         if (self::$ldaplink) {
         }else{ //echo "Unable to connect to LDAP server";
-			Mage::log("Unable to connect to LDAP server",Zend_Log::ERROR,"adminlog.txt");
+			Mage::log("Unable to connect to LDAP server",Zend_Log::ERR,"adminlog.txt");
             Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 					->setBody("Unable to connect to LDAP server");
         }
@@ -320,7 +320,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 $params = $login . " -- " . $password;
 				
 				$err=ldap_error($r);
-				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERROR);
+				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERR);
             }elseif ($r === true) {
                 if ($this->is_Allowed($login)) {
                     return $this;
@@ -331,7 +331,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             return false;
         }
         catch (Exception $e) {
-			Mage::helper('wsu_networksecurities')->log($e,Zend_Log::ERROR);
+			Mage::helper('wsu_networksecurities')->log($e,Zend_Log::ERR);
             return false;
         }
     }
