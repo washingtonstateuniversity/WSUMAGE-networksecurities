@@ -12,6 +12,9 @@ class Wsu_Networksecurities_Model_Sso_Googlelogin extends Google_Client {
 		$this->_config->setClientId(Mage::helper('wsu_networksecurities/customer')->getGoConsumerKey());
 		$this->_config->setClientSecret(Mage::helper('wsu_networksecurities/customer')->getGoConsumerSecret());
 		$this->_config->setRedirectUri(Mage::getUrl('sociallogin/googlelogin/user',array('_secure'=>true)));		
-	}		 
+	}
+	public function getUser(){}
+	public function getLoginUrl($name="") {}
+    public function setIdlogin($openid) {}
 }
   

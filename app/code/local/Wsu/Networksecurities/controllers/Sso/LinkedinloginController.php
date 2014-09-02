@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_LinkedinloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_LinkedinloginController extends Mage_Core_Controller_Front_Action {
 	
 	public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
@@ -128,4 +128,7 @@ class Wsu_Networksecurities_Sso_LinkedinloginController extends Mage_Core_Contro
         }
         return $token;
     }
+	public function getUser(){}
+	public function getLoginUrl($name="") {}
+    public function setIdlogin($openid) {}
 }

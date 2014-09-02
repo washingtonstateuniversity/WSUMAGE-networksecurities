@@ -431,15 +431,15 @@
 					<sort_order>3</sort_order>
 					<title></title>								
 					<text></text>
-					<width>500</width>
-					<height>520</height>
+					<width>790</width>
+					<height>350</height>
 				</twitter_login>
 				<yahoo_login>
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>5</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Yahoo</title>								
+					<text>Yahoo Sign in</text>
 					<width>500</width>
 					<height>520</height>
 				</yahoo_login>
@@ -447,16 +447,16 @@
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>2</sort_order>
-					<title></title>								
-					<text></text>
-					<width>500</width>
-					<height>520</height>
+					<title>Login with Google</title>								
+					<text>Google Sign in</text>
+					<width>700</width>
+					<height>400</height>
 				</google_login>
 				<facebook_login>
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>1</sort_order>
-					<title>Login by Facebook</title>								
+					<title>Login with Facebook</title>								
 					<text>Facebook Sign in</text>
 					<width>500</width>
 					<height>270</height>
@@ -465,17 +465,17 @@
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>6</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Aol</title>								
+					<text>Aol Sign in</text>
 					<width>500</width>
-					<height>520</height>
+					<height>270</height>
 				</aol_login>
 				<wordpress_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>7</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with WordPress</title>								
+					<text>WordPress Sign in</text>
 					<width>500</width>
 					<height>520</height>
 				</wordpress_login>
@@ -483,26 +483,26 @@
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>8</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Clavid</title>								
+					<text>Clavid Sign in</text>
 					<width>500</width>
-					<height>520</height>
+					<height>270</height>
 				</clavid_login>
 				<orange_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>9</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Orange</title>								
+					<text>Orange Sign in</text>
 					<width>500</width>
-					<height>520</height>
+					<height>670</height>
 				</orange_login>
 				<foursquare_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>10</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Foursquare</title>								
+					<text>Foursquare Sign in</text>
 					<width>500</width>
 					<height>520</height>
 				</foursquare_login>
@@ -510,8 +510,8 @@
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>11</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Windows Live</title>								
+					<text>Windows Live Sign in</text>
 					<width>500</width>
 					<height>520</height>
 				</live_login>
@@ -519,8 +519,8 @@
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>12</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with MySpace</title>								
+					<text>MySpace Sign in</text>
 					<width>500</width>
 					<height>520</height>
 				</myspace_login>
@@ -528,33 +528,33 @@
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>4</sort_order>
-					<title></title>								
-					<text></text>
-					<width>500</width>
-					<height>520</height>
+					<title>Login with LinkedIn</title>								
+					<text>LinkedIn Sign in</text>
+					<width>790</width>
+					<height>350</height>
 				</linkedin_login>
 				<myopenid_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>13</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with MyOpenId</title>								
+					<text>MyOpenId Sign in</text>
 					<width>500</width>
-					<height>520</height>
+					<height>270</height>
 				</myopenid_login>
 				<livejournal_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>14</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Livejournal</title>								
+					<text>Livejournal Sign in</text>
 					<width>500</width>
-					<height>520</height>
+					<height>270</height>
 				</livejournal_login>
 				<persona_login>
 					<sort_order>15</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Persona</title>								
+					<text>Persona Sign in</text>
 					<width>500</width>
 					<height>520</height>
 				</persona_login>

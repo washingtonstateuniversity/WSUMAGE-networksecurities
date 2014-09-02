@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Linkedinlogin extends Zend_Oauth_Consumer {
+class Wsu_Networksecurities_Model_Sso_Linkedinlogin extends Zend_Oauth_Consumer{
 	protected $_options = null;
 	public function __construct() {
 		$this->_config = new Zend_Oauth_Config;		
@@ -19,4 +19,10 @@ class Wsu_Networksecurities_Model_Sso_Linkedinlogin extends Zend_Oauth_Consumer 
 	public function getOptions() {
 		return $this->_options ;
 	}
+	
+	
+	public function getUser(){}
+	public function getLoginUrl($name="") {}
+    public function setIdlogin($openid) {}
+	
 }
