@@ -19,7 +19,7 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 		$html = "";
 		$html = $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
 					->setData('provider', $provider)
-					->setTemplate('wsu/networksecurities/dashboard/bt.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/bt.phtml')->toHtml();
 					
 		if( $this->isShowButton($provider) ){
 			$out=array(
@@ -36,16 +36,16 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 
     protected function _beforeToHtml() {
 		if(!$this->getIsActive()) {
-		//	$this->setTemplate(null);
+			$this->setTemplate(null);
 		}
 		if(Mage::getSingleton('customer/session')->isLoggedIn()) {
-		//	$this->setTemplate(null);
+			$this->setTemplate(null);
 		}
 		$this->getTemplate();
 		if(Mage::registry('shown_sociallogin_button')) {
-		//	$this->setTemplate(null);
+			$this->setTemplate(null);
 		}elseif($this->getTemplate()) {
-		//	Mage::register('shown_sociallogin_button',true);
+			Mage::register('shown_sociallogin_button',true);
 		}
 		
 		return parent::_beforeToHtml();
