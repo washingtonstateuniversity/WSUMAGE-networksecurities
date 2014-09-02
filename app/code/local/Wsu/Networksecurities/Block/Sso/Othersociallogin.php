@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Block_Account_Dashboard{
+class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Block_Account_Dashboard { 
  
 	public function __construct() {
 		parent::__construct();
@@ -39,13 +39,13 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 			$this->setTemplate(null);
 		}
 		if(Mage::getSingleton('customer/session')->isLoggedIn()) {
-			$this->setTemplate(null);
+			//$this->setTemplate(null);
 		}
 		$this->getTemplate();
 		if(Mage::registry('shown_sociallogin_button')) {
-			$this->setTemplate(null);
+			//$this->setTemplate(null);
 		}elseif($this->getTemplate()) {
-			Mage::register('shown_sociallogin_button',true);
+			//Mage::register('shown_sociallogin_button',true);
 		}
 		
 		return parent::_beforeToHtml();

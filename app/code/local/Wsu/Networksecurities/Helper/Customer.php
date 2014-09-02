@@ -169,11 +169,11 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	}
 	public function getAuthUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
-		return $this->_getUrl('sociallogin/fblogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+		return $this->_getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure, 'auth'=>1));
 	}
 	public function getDirectLoginUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
-		return $this->_getUrl('sociallogin/fblogin/login', array('_secure'=>$isSecure));
+		return $this->_getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure));
 	}
 	public function getLoginUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');

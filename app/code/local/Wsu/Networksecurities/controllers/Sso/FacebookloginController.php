@@ -4,7 +4,7 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
     public function loginAction() {            
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
-		$facebook = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->newFacebook();
+		$facebook = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->newProvider();
 		$userId = $facebook->getUser();
 		
 		if($isAuth && !$userId && $this->getRequest()->getParam('error_reason') == 'user_denied') {
@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
 			echo "<script type='text/javascript'>top.location.href = '$loginUrl';</script>";
 			exit;
 		}
- 		$user_info = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getFbUser();
+ 		$user_info = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getUser();
 		if ($isAuth && $user_info) {
 			$user_info['provider']="facebook";
 			$this->handleCustomer($user_info);
