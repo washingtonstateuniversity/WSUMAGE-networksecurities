@@ -1,17 +1,17 @@
 <?php
 
-class Wsu_Networksecurities_Sso_YaloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
+class Wsu_Networksecurities_Sso_YahoologinController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
 	// url to login
     public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$yalogin = Mage::getModel('wsu_networksecurities/sso_yalogin');
-		$hasSession = $yalogin->hasSession();
+		$yahoologin = Mage::getModel('wsu_networksecurities/sso_yahoologin');
+		$hasSession = $yahoologin->hasSession();
 		if($hasSession == FALSE) {
-			$authUrl = $yalogin->getAuthUrl();			
+			$authUrl = $yahoologin->getAuthUrl();			
 			$this->_redirectUrl($authUrl);
 		}else{
-			$session = $yalogin->getSession();
+			$session = $yahoologin->getSession();
 			$userSession = $session->getSessionedUser();
 			$user_info = $userSession->loadProfile();
 			

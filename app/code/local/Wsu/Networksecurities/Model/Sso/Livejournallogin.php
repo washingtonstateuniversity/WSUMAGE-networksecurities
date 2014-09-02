@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Ljlogin extends Mage_Core_Model_Abstract {
-	public function newMy() {
+class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Mage_Core_Model_Abstract {
+	public function newProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -8,7 +8,7 @@ class Wsu_Networksecurities_Model_Sso_Ljlogin extends Mage_Core_Model_Abstract {
 		return $openid;
 	}
 	public function getLjLoginUrl($identity) {
-		$my_id = $this->newMy();
+		$my_id = $this->newProvider();
         $my = $this->setLjIdlogin($my_id,$identity);
 		$loginUrl = $my->authUrl();
 		return $loginUrl;
@@ -21,7 +21,7 @@ class Wsu_Networksecurities_Model_Sso_Ljlogin extends Mage_Core_Model_Abstract {
 			'namePerson/friendly',
 			'contact/email'
         );
-        $openid->returnUrl = Mage::getUrl('sociallogin/ljlogin/login');
+        $openid->returnUrl = Mage::getUrl('sociallogin/livejournallogin/login');
 		return $openid;
     }
 }

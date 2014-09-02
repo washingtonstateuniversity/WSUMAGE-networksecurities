@@ -5,7 +5,7 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
         $code = $this->getRequest()->getParam('code');
-        $live = Mage::getModel('wsu_networksecurities/sso_livelogin')->newLive();        
+        $live = Mage::getModel('wsu_networksecurities/sso_livelogin')->newProvider();        
 		try{
 			$json = $live->authenticate($code);
 			$user = $live->get("me", $live->param);	

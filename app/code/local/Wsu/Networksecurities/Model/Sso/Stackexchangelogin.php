@@ -10,7 +10,7 @@ class Wsu_Networksecurities_Model_Sso_Stackexchangelogin extends Mage_Core_Model
 	}
 	public function getLoginUrl($name="") {
 		$aol_id = $this->newProvider();
-        $aol = $this->setSeIdlogin($aol_id, $name);
+        $aol = $this->setIdlogin($aol_id, $name);
         try{
             $loginUrl = $aol->authUrl();
             return $loginUrl;
@@ -18,7 +18,7 @@ class Wsu_Networksecurities_Model_Sso_Stackexchangelogin extends Mage_Core_Model
             return null;
         }
 	}
-    public function setSeIdlogin($openid) {
+    public function setIdlogin($openid) {
         $openid->identity = 'https://openid.stackexchange.com';
         $openid->required = array(
 			'namePerson/first',

@@ -18,7 +18,7 @@
         <reference name="customer.account.dashboard.info.extra">
 			<block type="wsu_networksecurities/sso_othersociallogin" name="networksecurities.othersociallogin">
 				<action method="setTemplate" >
-					<template>wsu/networksecurities/othersociallogin_block.phtml</template> 
+					<template>wsu/networksecurities/providers_block.phtml</template> 
 				</action>
 			</block>
         </reference>
@@ -167,35 +167,35 @@
 	
 	
 	
-	<sociallogin_openlogin_setblock>
+	<sociallogin_myopenidlogin_setblock>
 		<update handle="page_empty" />
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_openlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_op.phtml"/>
+			<block type="wsu_networksecurities/sso_myopenidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_op.phtml"/>
 		</reference>
-	</sociallogin_openlogin_setblock>
-	<sociallogin_ljlogin_setblock>
+	</sociallogin_myopenidlogin_setblock>
+	<sociallogin_livejournallogin_setblock>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_ljlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_lj.phtml"/>
+			<block type="wsu_networksecurities/sso_livejournallogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_lj.phtml"/>
 		</reference>
-	</sociallogin_ljlogin_setblock>
+	</sociallogin_livejournallogin_setblock>
 	<sociallogin_allogin_setblock>
 		<update handle="page_empty"/>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_aollogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_al.phtml"/>
 		</reference>
 	</sociallogin_allogin_setblock>
-	<sociallogin_callogin_setblock>
+	<sociallogin_clavidlogin_setblock>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_callogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_cal.phtml"/>
+			<block type="wsu_networksecurities/sso_clavidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_cal.phtml"/>
 		</reference>
-	</sociallogin_callogin_setblock>
-	<sociallogin_wplogin_setblock>
+	</sociallogin_clavidlogin_setblock>
+	<sociallogin_wordpresslogin_setblock>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_wplogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_wp.phtml"/>
+			<block type="wsu_networksecurities/sso_wordpresslogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_wp.phtml"/>
 		</reference>
-	</sociallogin_wplogin_setblock>
+	</sociallogin_wordpresslogin_setblock>
 	
 </layout>

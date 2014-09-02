@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_GoogleloginController extends Mage_Core_Controller_Front_Action{
 	
 	public function loginAction() {		
 		
@@ -13,14 +13,14 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 	
 	public function userAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$gologin = Mage::getModel('wsu_networksecurities/sso_gologin');
-		$oauth2 = new Google_Oauth2Service($gologin);
+		$googlelogin = Mage::getModel('wsu_networksecurities/sso_googlelogin');
+		$oauth2 = new Google_Oauth2Service($googlelogin);
 		$code = $this->getRequest()->getParam('code');
 		if(!$code) {
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());	
 		}
-		$accessToken = $gologin->authenticate($code);						
+		$accessToken = $googlelogin->authenticate($code);						
 		$client = $oauth2->userinfo->get();
 		
 		$user = array();		
@@ -39,7 +39,7 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 		if(!$customer || !$customer->getId()) {
 			//Login multisite
 			$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-			if (Mage::getStoreConfig('wsu_networksecurities/gologin/is_send_password_to_customer')) {
+			if (Mage::getStoreConfig('wsu_networksecurities/googlelogin/is_send_password_to_customer')) {
 				$customer->sendPasswordReminderEmail();
 			}
 		}
@@ -70,10 +70,10 @@ class Wsu_Networksecurities_Sso_GologinController extends Mage_Core_Controller_F
 					'https://www.googleapis.com/auth/userinfo.profile',
 					'https://www.googleapis.com/auth/userinfo.email'
 				 );		
-		$gologin = Mage::getModel('wsu_networksecurities/sso_gologin');        			
-		$gologin->setScopes($scope); 		
-		$gologin->authenticate();					
-		$authUrl = $gologin->createAuthUrl();
+		$googlelogin = Mage::getModel('wsu_networksecurities/sso_googlelogin');        			
+		$googlelogin->setScopes($scope); 		
+		$googlelogin->authenticate();					
+		$authUrl = $googlelogin->createAuthUrl();
 		header('Localtion: '.$authUrl);
 		die(0);
     }

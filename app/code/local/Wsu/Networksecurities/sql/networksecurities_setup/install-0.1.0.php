@@ -108,7 +108,7 @@ $installer->getConnection()->addColumn($installer->getTable('sales/order'), 'cus
 $installer->getConnection()->dropTable($this->getTable('wsu_spamlog'));
 $installer->getConnection()->dropTable($this->getTable('wsu_failedlogin_log'));
 $installer->getConnection()->dropTable($this->getTable('wsu_blacklist'));
-$installer->getConnection()->dropTable($this->getTable('twlogin_customer'));
+$installer->getConnection()->dropTable($this->getTable('twitterlogin_customer'));
 $installer->getConnection()->dropTable($this->getTable('authorlogin_customer'));
 
 $table_spamlog = $installer->getTable('wsu_spamlog');
@@ -160,9 +160,9 @@ CREATE TABLE `{$table_blacklist}` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     ");
 
-$twlogin_customer = $installer->getTable('twlogin_customer');
+$twitterlogin_customer = $installer->getTable('twitterlogin_customer');
 $installer->run("
-CREATE TABLE {$twlogin_customer} (
+CREATE TABLE {$twitterlogin_customer} (
 	`twitter_customer_id` int(11) unsigned NOT NULL auto_increment,
 	`twitter_id` int(11) unsigned NOT NULL,
 	`customer_id` int(10) unsigned NOT NULL,

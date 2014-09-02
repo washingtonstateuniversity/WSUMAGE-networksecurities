@@ -8,12 +8,12 @@ class Wsu_Networksecurities_Sso_StackexchangeloginController extends Wsu_Network
 		$userId = $se->mode;
 		$coreSession = Mage::getSingleton('core/session');	
 		if(!$userId) {
-			$se_session = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->setSeIdlogin($se);
+			$se_session = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->setIdlogin($se);
 			$url = $se_session->authUrl();
 			$this->_redirectUrl($url);
 		}else{ 
 			if (!$se->validate()) {
-				$se_session = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->setSeIdlogin($se);
+				$se_session = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->setIdlogin($se);
 				$url = $se_session->authUrl();
 				$this->_redirectUrl($url);
 			}else{ 

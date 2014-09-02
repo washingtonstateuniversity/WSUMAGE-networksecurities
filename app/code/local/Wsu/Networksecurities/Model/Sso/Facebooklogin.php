@@ -1,6 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abstract {
-	public function newFacebook() {
+	public function newProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Facebook'.DS.'facebook.php';
 		}catch(Exception $e) {}
@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 	}
 	
 	public function getUser() {
-		$facebook = $this->newFacebook();
+		$facebook = $this->newProvider();
     	$userId = $facebook->getUser();
 		$fbme = NULL;
 
@@ -28,7 +28,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 	}
 	
 	public function getLoginUrl() {
-		$facebook = $this->newFacebook();
+		$facebook = $this->newProvider();
 		$loginUrl = $facebook->getLoginUrl(
 			array(
 				'display'   => 'popup',

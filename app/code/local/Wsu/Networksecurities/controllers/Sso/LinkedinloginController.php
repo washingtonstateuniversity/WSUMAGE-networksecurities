@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_LinkedinloginController extends Mage_Core_Controller_Front_Action{
 	
 	public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
@@ -18,7 +18,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 	
 	public function userAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$linkedlogin = Mage::getModel('wsu_networksecurities/sso_linkedlogin');
+		$linkedinlogin = Mage::getModel('wsu_networksecurities/sso_linkedinlogin');
 		
 		$oauth_data = array(
 			'oauth_token' => $this->getRequest()->getParam('oauth_token'),
@@ -27,12 +27,12 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 		 
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken(array('scope' =>'r_emailaddress'));
 		try{
-			$accessToken = $linkedlogin ->getAccessToken($oauth_data, unserialize($requestToken));
+			$accessToken = $linkedinlogin ->getAccessToken($oauth_data, unserialize($requestToken));
 		}catch(Exception $e) {
 			Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());	
 		}
-		$oauthOptions = $linkedlogin->getOptions();
+		$oauthOptions = $linkedinlogin->getOptions();
 		$options = $oauthOptions;
 		$client = $accessToken->getHttpClient($options);
 		$client->setUri('http://api.linkedin.com/v1/people/~');
@@ -66,7 +66,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 		if(!$customer || !$customer->getId()) {
 			//Login multisite
 				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-				if (Mage::getStoreConfig('wsu_networksecurities/linklogin/is_send_password_to_customer')) {
+				if (Mage::getStoreConfig('wsu_networksecurities/linkedin_login/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
 			
@@ -81,7 +81,7 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 		}else{
-			$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/linklogin/is_customer_confirm_password');
+			$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/linkedin_login/is_customer_confirm_password');
 			if($getConfirmPassword) {
 				$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 					->setBody("<script type=\"text/javascript\">var email = '$email';window.opener.opensocialLogin();window.opener.document.getElementById('wsu_sso-sociallogin-popup-email').value = email;window.close();</script>  ");
@@ -111,8 +111,8 @@ class Wsu_Networksecurities_Sso_LinkedloginController extends Mage_Core_Controll
 	// if not exit access token
     public function getAuthorization() {
 	 	$scope = 'r_emailaddress';
-        $olinked = Mage::getModel('wsu_networksecurities/sso_linkedlogin');
-        $olinked ->setCallbackUrl(Mage::getUrl('sociallogin/linkedlogin/user'));        
+        $olinked = Mage::getModel('wsu_networksecurities/sso_linkedinlogin');
+        $olinked ->setCallbackUrl(Mage::getUrl('sociallogin/linkedinlogin/user'));        
         if (!is_null($this->getRequest()->getParam('oauth_token')) && !is_null($this->getRequest()->getParam('oauth_verifier'))) {
             $oauth_data = array(
                 'oauth_token' => $this->_getRequest()->getParam('oauth_token'),

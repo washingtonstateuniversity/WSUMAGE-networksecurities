@@ -74,7 +74,7 @@
 						<table>wsu_spamlog</table>
 					</spam_log>
 					<customer>
-						<table>twlogin_customer</table>
+						<table>twitterlogin_customer</table>
 					</customer>
 					<authorlogin>
 						<table>authorlogin_customer</table>
@@ -418,24 +418,40 @@
 					<position>header,popup</position>
 					<direction>right</direction>
 					<number_show>5</number_show>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
 				</general_sso>
-				<twlogin>
+				<twitter_login>
 					<is_active>1</is_active>
 					<connecting_notice>
 						<![CDATA[If you have a account on {{store}}, please login else register a new account to connect twitter account]]>
 					</connecting_notice>
 					<sort_order>3</sort_order>
-				</twlogin>
-				<yalogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</twitter_login>
+				<yahoo_login>
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>5</sort_order>
-				</yalogin>
-				<gologin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</yahoo_login>
+				<google_login>
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>2</sort_order>
-				</gologin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</google_login>
 				<facebook_login>
 					<is_active>1</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
@@ -445,59 +461,103 @@
 					<width>500</width>
 					<height>270</height>
 				</facebook_login>
-				<aollogin>
+				<aol_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>6</sort_order>
-				</aollogin>
-				<wplogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</aol_login>
+				<wordpress_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>7</sort_order>
-				</wplogin>
-				<callogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</wordpress_login>
+				<clavid_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>8</sort_order>
-				</callogin>
-				<orglogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</clavid_login>
+				<orange_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>9</sort_order>
-				</orglogin>
-				<fqlogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</orange_login>
+				<foursquare_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>10</sort_order>
-				</fqlogin>
-				<livelogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</foursquare_login>
+				<live_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>11</sort_order>
-				</livelogin>
-				<mplogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</live_login>
+				<myspace_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>12</sort_order>
-				</mplogin>
-				<linklogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</myspace_login>
+				<linkedin_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>4</sort_order>
-				</linklogin>
-				<openlogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</linkedin_login>
+				<myopenid_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>13</sort_order>
-				</openlogin>
-				<ljlogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</myopenid_login>
+				<livejournal_login>
 					<is_active>0</is_active>
 					<is_send_password_to_customer>0</is_send_password_to_customer>
 					<sort_order>14</sort_order>
-				</ljlogin>
-				<perlogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</livejournal_login>
+				<persona_login>
 					<sort_order>15</sort_order>
-				</perlogin>
+					<title></title>								
+					<text></text>
+					<width>500</width>
+					<height>520</height>
+				</persona_login>
 				<stackexchange_login>
 					<sort_order>16</sort_order>
 					<title>Login by StackExchange</title>								

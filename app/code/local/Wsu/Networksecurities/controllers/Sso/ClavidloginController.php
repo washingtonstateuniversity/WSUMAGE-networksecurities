@@ -1,16 +1,16 @@
 <?php
-class Wsu_Networksecurities_Sso_CalloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_ClavidloginController extends Mage_Core_Controller_Front_Action{
 	
 	/**
 	* getToken and call profile user Clavid
 	**/
     public function loginAction($name_blog) {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$cal = Mage::getModel('wsu_networksecurities/sso_callogin')->newCal();       
+		$cal = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->newProvider();       
 		$userId = $cal->mode;        
 		$coreSession = Mage::getSingleton('core/session');
 		if(!$userId) {
-            $cal_session = Mage::getModel('wsu_networksecurities/sso_callogin')->setcalIdlogin($aol, $name_blog);
+            $cal_session = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->setcalIdlogin($aol, $name_blog);
             $url = $cal_session->authUrl();
 			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 			exit;
@@ -43,7 +43,7 @@ class Wsu_Networksecurities_Sso_CalloginController extends Mage_Core_Controller_
                     if(!$customer || !$customer->getId()) {
 						//Login multisite
 						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-						if (Mage::getStoreConfig('wsu_networksecurities/callogin/is_send_password_to_customer')) {
+						if (Mage::getStoreConfig('wsu_networksecurities/clavidlogin/is_send_password_to_customer')) {
 							$customer->sendPasswordReminderEmail();
 						}
                     }
@@ -66,7 +66,7 @@ class Wsu_Networksecurities_Sso_CalloginController extends Mage_Core_Controller_
     }
     
     public function setBlockAction() {             
-        /*$template =  $this->getLayout()->createBlock('sociallogin/callogin')
+        /*$template =  $this->getLayout()->createBlock('sociallogin/clavidlogin')
                 ->setTemplate('sociallogin/au_cal.phtml')->toHtml();
         echo $template;*/
 		$this->loadLayout();
@@ -77,7 +77,7 @@ class Wsu_Networksecurities_Sso_CalloginController extends Mage_Core_Controller_
         $data = $this->getRequest()->getPost();
         if($data) {
             $name = $data['name'];
-            $url = Mage::getModel('wsu_networksecurities/sso_callogin')->getCalLoginUrl($name);
+            $url = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->getCalLoginUrl($name);
             $this->_redirectUrl($url);
         }else{ 
 			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	

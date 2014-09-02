@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_FqloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_FoursquareloginController extends Mage_Core_Controller_Front_Action{
 
 	/**
 	* getToken and call profile user FoursQuare
@@ -7,7 +7,7 @@ class Wsu_Networksecurities_Sso_FqloginController extends Mage_Core_Controller_F
     public function loginAction() {            		
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
-		$foursquare = Mage::getModel('wsu_networksecurities/sso_fqlogin')->newFoursquare();
+		$foursquare = Mage::getModel('wsu_networksecurities/sso_foursquarelogin')->newProvider();
 		$code = $_REQUEST['code'];	
 		$date = date('Y-m-d');
 		$date = str_replace('-', '', $date);
@@ -40,7 +40,7 @@ class Wsu_Networksecurities_Sso_FqloginController extends Mage_Core_Controller_F
 			if(!$customer || !$customer->getId()) { //if customer not exist
 				//Login multisite
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-				if(Mage::getStoreConfig('wsu_networksecurities/fqlogin/is_send_password_to_customer')) {
+				if(Mage::getStoreConfig('wsu_networksecurities/foursquare_login/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
 				// fix confirmation
@@ -54,7 +54,7 @@ class Wsu_Networksecurities_Sso_FqloginController extends Mage_Core_Controller_F
 				Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 				$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());			
 			}else{ //if customer exist
-				$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/fqlogin/is_customer_confirm_password');
+				$getConfirmPassword = (int)Mage::getStoreConfig('wsu_networksecurities/foursquare_login/is_customer_confirm_password');
 				if($getConfirmPassword) {
 					$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 					->setBody("<script type=\"text/javascript\">var email = '$email';window.opener.opensocialLogin();window.opener.document.getElementById('wsu_sso-sociallogin-popup-email').value = email;window.close();</script>  ");

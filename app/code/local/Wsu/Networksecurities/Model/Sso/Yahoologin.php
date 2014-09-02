@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Yalogin extends Mage_Core_Model_Abstract {
+class Wsu_Networksecurities_Model_Sso_Yahoologin extends Mage_Core_Model_Abstract {
 	public function __construct() {
 		require Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc';
 		error_reporting(E_ALL | E_NOTICE); # do not show notices as library is php4 compatable
@@ -40,15 +40,15 @@ class Wsu_Networksecurities_Model_Sso_Yalogin extends Mage_Core_Model_Abstract {
 	}
 	
 	public function getConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_key'));
 	}
 	
 	public function getConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_secret'));
 	}
 	
 	public function getAppId() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/app_id'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/app_id'));
 	}
 	
 }

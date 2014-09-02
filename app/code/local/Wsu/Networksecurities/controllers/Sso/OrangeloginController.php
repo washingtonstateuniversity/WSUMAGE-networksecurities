@@ -1,12 +1,12 @@
 <?php
-class Wsu_Networksecurities_Sso_OrgloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_OrangeloginController extends Mage_Core_Controller_Front_Action{
 
 	/**
 	* getToken and call profile user Orange
 	**/
     public function loginAction() {     
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$org = Mage::getModel('wsu_networksecurities/sso_orglogin')->newOrg();            
+		$org = Mage::getModel('wsu_networksecurities/sso_orangelogin')->newProvider();            
 		$coreSession = Mage::getSingleton('core/session');                      
 		$user_info = $org->data;                 
 		if(count($user_info)) {
@@ -24,7 +24,7 @@ class Wsu_Networksecurities_Sso_OrgloginController extends Mage_Core_Controller_
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-				if (Mage::getStoreConfig('wsu_networksecurities/orglogin/is_send_password_to_customer')) {
+				if (Mage::getStoreConfig('wsu_networksecurities/orangelogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
 			}

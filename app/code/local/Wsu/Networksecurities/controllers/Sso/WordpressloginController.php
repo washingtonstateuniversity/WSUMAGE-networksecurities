@@ -1,22 +1,22 @@
 <?php
-class Wsu_Networksecurities_Sso_WploginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Controller_Front_Action{
 
 	/**
 	* getToken and call profile user WordPress
 	**/
     public function loginAction($name_blog) {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$wp = Mage::getModel('wsu_networksecurities/sso_wplogin')->newWp();       
+		$wp = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->newProvider();       
 		$userId = $wp->mode;        
 		$coreSession = Mage::getSingleton('core/session');
 		if(!$userId) {
-            $wp_session = Mage::getModel('wsu_networksecurities/sso_wplogin')->setWpIdlogin($aol, $name_blog);
+            $wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setWpIdlogin($aol, $name_blog);
             $url = $wp_session->authUrl();
 			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 			exit;
 		}else{ 
 			if (!$wp->validate()) {                
-				$wp_session = Mage::getModel('wsu_networksecurities/sso_wplogin')->setWpIdlogin($aol, $name_blog);
+				$wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setWpIdlogin($aol, $name_blog);
 				$url = $wp_session->authUrl();
 				echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 				exit;
@@ -46,7 +46,7 @@ class Wsu_Networksecurities_Sso_WploginController extends Mage_Core_Controller_F
                     if(!$customer || !$customer->getId()) {
 						//Login multisite
 						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-						if (Mage::getStoreConfig('wsu_networksecurities/wplogin/is_send_password_to_customer')) {
+						if (Mage::getStoreConfig('wsu_networksecurities/wordpresslogin/is_send_password_to_customer')) {
 							$customer->sendPasswordReminderEmail();
 						}
                     }
@@ -69,7 +69,7 @@ class Wsu_Networksecurities_Sso_WploginController extends Mage_Core_Controller_F
     }
     
     public function setBlockAction() {             
-        /*$template =  $this->getLayout()->createBlock('sociallogin/wplogin')
+        /*$template =  $this->getLayout()->createBlock('sociallogin/wordpresslogin')
                 ->setTemplate('sociallogin/au_wp.phtml')->toHtml();
         echo $template;*/
 		$this->loadLayout();
@@ -80,7 +80,7 @@ class Wsu_Networksecurities_Sso_WploginController extends Mage_Core_Controller_F
         $data = $this->getRequest()->getPost();		
 		$name = $data['name'];
         if($name) {            
-            $url = Mage::getModel('wsu_networksecurities/sso_wplogin')->getWpLoginUrl($name);			
+            $url = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->getWpLoginUrl($name);			
             $this->_redirectUrl($url);
         }else{ 
 			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	

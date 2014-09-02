@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Wplogin extends Mage_Core_Model_Abstract {
-	public function newWp() {	
+class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Mage_Core_Model_Abstract {
+	public function newProvider() {	
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -9,7 +9,7 @@ class Wsu_Networksecurities_Model_Sso_Wplogin extends Mage_Core_Model_Abstract {
 		return $openid;
 	}
 	public function getWpLoginUrl($name_blog) {
-		$wp_id = $this->newWp();
+		$wp_id = $this->newProvider();
         $wp = $this->setWpIdlogin($wp_id, $name_blog);		
         try{
             $loginUrl = $wp->authUrl();
@@ -27,7 +27,7 @@ class Wsu_Networksecurities_Model_Sso_Wplogin extends Mage_Core_Model_Abstract {
 			'namePerson/friendly',
 			'contact/email',
         );
-        $openid->returnUrl = Mage::getUrl('sociallogin/wplogin/login');
+        $openid->returnUrl = Mage::getUrl('sociallogin/wordpresslogin/login');
 		return $openid;
     }      
 }

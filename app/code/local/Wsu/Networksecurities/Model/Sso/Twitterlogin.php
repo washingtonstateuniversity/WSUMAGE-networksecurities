@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Twlogin extends Zend_Oauth_Consumer {
+class Wsu_Networksecurities_Model_Sso_Twitterlogin extends Zend_Oauth_Consumer {
 
 	protected $_options = null;
 	public function __construct() {

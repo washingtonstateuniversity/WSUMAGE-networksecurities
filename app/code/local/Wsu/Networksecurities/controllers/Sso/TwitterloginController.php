@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_TwitterloginController extends Mage_Core_Controller_Front_Action{
 	// url to login
 	
     public function loginAction() {
@@ -15,7 +15,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 	//url after authorize
 	public function userAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$otwitter = Mage::getModel('wsu_networksecurities/sso_twlogin');
+		$otwitter = Mage::getModel('wsu_networksecurities/sso_twitterlogin');
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken();
 		
 		$oauth_data = array(
@@ -80,7 +80,7 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);							
 			$this->setAuthorCustomer($twitterId, $customer->getId());	
 			Mage::getSingleton('core/session')->setCustomerIdSocialLogin($twitterId);						
-			if (Mage::getStoreConfig('wsu_networksecurities/mplogin/is_send_password_to_customer')) {
+			if (Mage::getStoreConfig('wsu_networksecurities/myspacelogin/is_send_password_to_customer')) {
 				$customer->sendPasswordReminderEmail();
 			}			
 			$nextUrl = Mage::helper('wsu_networksecurities/customer')->getEditUrl();	
@@ -113,9 +113,9 @@ class Wsu_Networksecurities_Sso_TwloginController extends Mage_Core_Controller_F
      
 	// if not exit access token
     public function getAuthorization() {
-        $otwitter = Mage::getModel('wsu_networksecurities/sso_twlogin');		
+        $otwitter = Mage::getModel('wsu_networksecurities/sso_twitterlogin');		
         /* @var $otwitter Twitter_Model_Consumer */
-        $otwitter->setCallbackUrl(Mage::getUrl('sociallogin/twlogin/user',array('_secure'=>true)));        
+        $otwitter->setCallbackUrl(Mage::getUrl('sociallogin/twitterlogin/user',array('_secure'=>true)));        
         if (!is_null($this->getRequest()->getParam('oauth_token')) && !is_null($this->getRequest()->getParam('oauth_verifier'))) {
             $oauth_data = array(
                 'oauth_token' => $this->_getRequest()->getParam('oauth_token'),

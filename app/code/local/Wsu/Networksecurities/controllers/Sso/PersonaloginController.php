@@ -1,6 +1,6 @@
 <?php
 
-class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_PersonaloginController extends Mage_Core_Controller_Front_Action{
 	
     public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
@@ -35,7 +35,7 @@ class Wsu_Networksecurities_Sso_PerloginController extends Mage_Core_Controller_
 			if(!$customer || !$customer->getId()) {
 				//Login multisite
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-				if(Mage::getStoreConfig('wsu_networksecurities/perlogin/is_send_password_to_customer')) {
+				if(Mage::getStoreConfig('wsu_networksecurities/personalogin/is_send_password_to_customer')) {
 					$customer->sendPasswordReminderEmail();
 				}
 				if ($customer->getConfirmation()) {

@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_MyspaceloginController extends Mage_Core_Controller_Front_Action{
 	/**
 	* getToken and call profile user myspace
 	**/
@@ -7,7 +7,7 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 		$customerHelper = Mage::helper('wsu_networksecurities/customer'); 
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken();
 		
-		$mp = Mage::getModel('wsu_networksecurities/sso_mplogin')->newMp($requestToken);
+		$mp = Mage::getModel('wsu_networksecurities/sso_myspacelogin')->newProvider($requestToken);
 		$oauth_token = $this->getRequest()->getParam('oauth_token');
         $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');		
 		$accessToken = $mp->accessToken($oauth_verifier, urldecode ($oauth_token));
@@ -45,7 +45,7 @@ class Wsu_Networksecurities_Sso_MploginController extends Mage_Core_Controller_F
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);							
 			Mage::getSingleton('core/session')->setCustomerIdSocialLogin($userId);			
 			$this->setAuthorCustomer($userId, $customer->getId());				
-			if (Mage::getStoreConfig('wsu_networksecurities/mplogin/is_send_password_to_customer')) {
+			if (Mage::getStoreConfig('wsu_networksecurities/myspacelogin/is_send_password_to_customer')) {
 				$customer->sendPasswordReminderEmail();
 			} 
 			$nextUrl = $customerHelper->getEditUrl();

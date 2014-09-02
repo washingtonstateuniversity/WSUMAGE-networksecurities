@@ -19,15 +19,15 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function isShowGmailButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/gologin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/googlelogin/is_active',Mage::app()->getStore()->getId());
 	}
 	
 	public function isShowTwitterButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/twlogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/twitterlogin/is_active',Mage::app()->getStore()->getId());
 	}
 	
 	public function isShowYahooButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/yalogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/yahoologin/is_active',Mage::app()->getStore()->getId());
 	}		  
 	
 	public function getDirection() {
@@ -45,48 +45,48 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function getGmailButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_gologin')
-					->setTemplate('wsu/networksecurities/toplinks/bt_gologin.phtml')->toHtml();
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_googlelogin')
+					->setTemplate('wsu/networksecurities/toplinks/bt_googlelogin.phtml')->toHtml();
 	
 	}
 
 	public function getTwitterButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_twlogin')
-					->setTemplate('wsu/networksecurities/toplinks/bt_twlogin.phtml')->toHtml();
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_twitterlogin')
+					->setTemplate('wsu/networksecurities/toplinks/bt_twitterlogin.phtml')->toHtml();
 		
 	}
 
 	public function getYahooButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_yalogin')
-					->setTemplate('wsu/networksecurities/toplinks/bt_yalogin.phtml')->toHtml();
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_yahoologin')
+					->setTemplate('wsu/networksecurities/toplinks/bt_yahoologin.phtml')->toHtml();
 	}	
 
 	public function isShowOpenButton() {
-        return (int) Mage::getStoreConfig('wsu_networksecurities/openlogin/is_active',Mage::app()->getStore()->getId());
+        return (int) Mage::getStoreConfig('wsu_networksecurities/myopenidlogin/is_active',Mage::app()->getStore()->getId());
     }
 	
 	public function getOpenButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_openlogin')
-					->setTemplate('wsu/networksecurities/toplinks/bt_openlogin.phtml')->toHtml();
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_myopenidlogin')
+					->setTemplate('wsu/networksecurities/toplinks/bt_myopenidlogin.phtml')->toHtml();
 	}	
 	
 	public function isShowLjButton() {
-        return (int) Mage::getStoreConfig('wsu_networksecurities/ljlogin/is_active',Mage::app()->getStore()->getId());
+        return (int) Mage::getStoreConfig('wsu_networksecurities/livejournallogin/is_active',Mage::app()->getStore()->getId());
     }
 	
 	public function getLjButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_ljlogin')
-					->setTemplate('wsu/networksecurities/toplinks/bt_ljlogin.phtml')->toHtml();
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_livejournallogin')
+					->setTemplate('wsu/networksecurities/toplinks/bt_livejournallogin.phtml')->toHtml();
 	}	
 
 	
 	public function getLinkedButton() {
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_linkedlogin')
-					->setTemplate('wsu/networksecurities/toplinks/bt_linkedlogin.phtml')->toHtml();
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_linkedinlogin')
+					->setTemplate('wsu/networksecurities/toplinks/bt_linkedinlogin.phtml')->toHtml();
 	}	
 	
 	public function isShowLinkedButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/linklogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/linkedin_login/is_active',Mage::app()->getStore()->getId());
 	}
 	
 	public function isShowAolButton() {
@@ -94,15 +94,15 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
     }
     
     public function isShowWpButton() {
-        return (int) Mage::getStoreConfig('wsu_networksecurities/wplogin/is_active',Mage::app()->getStore()->getId());
+        return (int) Mage::getStoreConfig('wsu_networksecurities/wordpresslogin/is_active',Mage::app()->getStore()->getId());
     }
 	
 	public function isShowCalButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/callogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/clavidlogin/is_active',Mage::app()->getStore()->getId());
 	}
 	
 	public function isShowOrgButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/orglogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/orangelogin/is_active',Mage::app()->getStore()->getId());
 	}
 	
 	public function isShowFqButton() {
@@ -114,7 +114,7 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function isShowMpButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/mplogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/myspacelogin/is_active',Mage::app()->getStore()->getId());
 	}
 	
     public function getAolButton() {        
@@ -123,18 +123,18 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
     }
     
     public function getWpButton() {
-        return $this->getLayout()->createBlock('wsu_networksecurities/sso_wplogin')
-                ->setTemplate('wsu/networksecurities/toplinks/bt_wplogin.phtml')->toHtml();
+        return $this->getLayout()->createBlock('wsu_networksecurities/sso_wordpresslogin')
+                ->setTemplate('wsu/networksecurities/toplinks/bt_wordpresslogin.phtml')->toHtml();
     }
     
     public function getAuWp() {        
-        return $this->getLayout()->createBlock('wsu_networksecurities/sso_wplogin')
+        return $this->getLayout()->createBlock('wsu_networksecurities/sso_wordpresslogin')
                 ->setTemplate('wsu/networksecurities/toplinks/au_wp.phtml')->toHtml();
     }
     
 	public function getCalButton() {
-        return $this->getLayout()->createBlock('wsu_networksecurities/sso_callogin')
-                ->setTemplate('wsu/networksecurities/toplinks/bt_callogin.phtml')->toHtml();
+        return $this->getLayout()->createBlock('wsu_networksecurities/sso_clavidlogin')
+                ->setTemplate('wsu/networksecurities/toplinks/bt_clavidlogin.phtml')->toHtml();
     }
 	
 	public function getAuCal() {        
@@ -143,8 +143,8 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
     }
 	
 	public function getOrgButton() {
-        return $this->getLayout()->createBlock('wsu_networksecurities/sso_orglogin')
-                ->setTemplate('wsu/networksecurities/toplinks/bt_orglogin.phtml')->toHtml();
+        return $this->getLayout()->createBlock('wsu_networksecurities/sso_orangelogin')
+                ->setTemplate('wsu/networksecurities/toplinks/bt_orangelogin.phtml')->toHtml();
     }
 	
 	public function getFqButton() {
@@ -158,16 +158,16 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function getMpButton() {	
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_mplogin')
-				->setTemplate('wsu/networksecurities/toplinks/bt_mplogin.phtml')->toHtml();	
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_myspacelogin')
+				->setTemplate('wsu/networksecurities/toplinks/bt_myspacelogin.phtml')->toHtml();	
 	}
 
 	public function isShowPerButton() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/perlogin/is_active',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/personalogin/is_active',Mage::app()->getStore()->getId());
 	}
 	public function getPerButton() {	
-		return $this->getLayout()->createBlock('wsu_networksecurities/sso_perlogin')
-				->setTemplate('wsu/networksecurities/toplinks/bt_perlogin.phtml')->toHtml();	
+		return $this->getLayout()->createBlock('wsu_networksecurities/sso_personalogin')
+				->setTemplate('wsu/networksecurities/toplinks/bt_personalogin.phtml')->toHtml();	
 	}
 	public function isShowSeButton() {
 		return (int) Mage::getStoreConfig('wsu_networksecurities/selogin/is_active',Mage::app()->getStore()->getId());
@@ -197,27 +197,27 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function sortOrderGmail() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/gologin/sort_order');
+		return (int) Mage::getStoreConfig('wsu_networksecurities/googlelogin/sort_order');
 	}
 	
 	public function sortOrderTwitter() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/twlogin/sort_order');
+		return (int) Mage::getStoreConfig('wsu_networksecurities/twitterlogin/sort_order');
 	}
 	
 	public function sortOrderYahoo() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/yalogin/sort_order');
+		return (int) Mage::getStoreConfig('wsu_networksecurities/yahoologin/sort_order');
 	}	
 	
 	public function sortOrderOpen() {
-        return (int) Mage::getStoreConfig('wsu_networksecurities/openlogin/sort_order');
+        return (int) Mage::getStoreConfig('wsu_networksecurities/myopenidlogin/sort_order');
     }
 	
 	public function sortOrderLj() {
-        return (int) Mage::getStoreConfig('wsu_networksecurities/ljlogin/sort_order');
+        return (int) Mage::getStoreConfig('wsu_networksecurities/livejournallogin/sort_order');
     }
 	
 	public function sortOrderLinked() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/linklogin/sort_order');
+		return (int) Mage::getStoreConfig('wsu_networksecurities/linkedin_login/sort_order');
 	}
 	
 	public function sortOrderAol() {
@@ -225,15 +225,15 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
     }
     
     public function sortOrderWp() {
-        return (int) Mage::getStoreConfig('wsu_networksecurities/wplogin/sort_order',Mage::app()->getStore()->getId());
+        return (int) Mage::getStoreConfig('wsu_networksecurities/wordpresslogin/sort_order',Mage::app()->getStore()->getId());
     }
 	
 	public function sortOrderCal() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/callogin/sort_order',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/clavidlogin/sort_order',Mage::app()->getStore()->getId());
 	}
 	
 	public function sortOrderOrg() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/orglogin/sort_order',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/orangelogin/sort_order',Mage::app()->getStore()->getId());
 	}
 	
 	public function sortOrderFq() {
@@ -245,11 +245,11 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 	}
 	
 	public function sortOrderMp() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/mplogin/sort_order',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/myspacelogin/sort_order',Mage::app()->getStore()->getId());
 	}
 	
 	public function sortOrderPer() {
-		return (int) Mage::getStoreConfig('wsu_networksecurities/perlogin/sort_order',Mage::app()->getStore()->getId());
+		return (int) Mage::getStoreConfig('wsu_networksecurities/personalogin/sort_order',Mage::app()->getStore()->getId());
 	}
 	public function sortOrderSe() {
 		return (int) Mage::getStoreConfig('wsu_networksecurities/selogin/sort_order',Mage::app()->getStore()->getId());

@@ -1642,7 +1642,7 @@ sociallogin
 								</number_show>
 							</fields>
 						</general_sso>
-						<twlogin type="group" translate="label comment">
+						<twitter_login type="group" translate="label comment">
 							<label>Twitter Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>20</sort_order>
@@ -1706,9 +1706,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</twlogin>
-						<gologin type="group" translate="label comment">
+						</twitter_login>
+						<google_login type="group" translate="label comment">
 							<label>Google Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>30</sort_order>
@@ -1777,8 +1810,41 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</gologin>
+						</google_login>
 						<facebook_login type="group" translate="label comment">
 							<label>Facebook Login Configuration</label>
 							<frontend_type>text</frontend_type>
@@ -1869,7 +1935,7 @@ sociallogin
 
 							</fields>
 						</facebook_login>
-						<yalogin type="group" translate="label comment">
+						<yahoo_login type="group" translate="label comment">
 							<label>Yahoo Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>40</sort_order>
@@ -1932,9 +1998,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</yalogin>
-						<aollogin type="group" translate="label comment">
+						</yahoo_login>
+						<aol_login type="group" translate="label comment">
 							<label>Aol Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>50</sort_order>
@@ -1968,9 +2067,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</aollogin>
-						<wplogin type="group" translate="label comment">
+						</aol_login>
+						<wordpress_login type="group" translate="label comment">
 							<label>Wordpress Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>60</sort_order>
@@ -2004,9 +2136,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</wplogin>
-						<callogin type="group" translate="label comment">
+						</wordpress_login>
+						<clavid_login type="group" translate="label comment">
 							<label>Clavid Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>70</sort_order>
@@ -2040,9 +2205,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</callogin>
-						<orglogin type="group" translate="label comment">
+						</clavid_login>
+						<orange_login type="group" translate="label comment">
 							<label>Orange Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>80</sort_order>
@@ -2076,9 +2274,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</orglogin>
-						<fqlogin type="group" translate="label comment">
+						</orange_login>
+						<foursquare_login type="group" translate="label comment">
 							<label>FoursQuare Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>90</sort_order>
@@ -2141,9 +2372,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</fqlogin>
-						<livelogin type="group" translate="label comment">
+						</foursquare_login>
+						<live_login type="group" translate="label comment">
 							<label>Windows Live Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>100</sort_order>
@@ -2197,9 +2461,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</livelogin>
-						<mplogin type="group" translate="label comment">
+						</live_login>
+						<myspace_login type="group" translate="label comment">
 							<label>MySpace Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>110</sort_order>
@@ -2253,9 +2550,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</mplogin>
-						<linklogin type="group" translate="label comment">
+						</myspace_login>
+						<linkedin_login type="group" translate="label comment">
 							<label>LinkedIn Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>40</sort_order>
@@ -2336,9 +2666,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</linklogin>
-						<openlogin type="group" translate="label comment">
+						</linkedin_login>
+						<myopenid_login type="group" translate="label comment">
 							<label>MyOpenId Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>70</sort_order>
@@ -2372,9 +2735,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</openlogin>
-						<ljlogin type="group" translate="label comment">
+						</myopenid_login>
+						<livejournal_login type="group" translate="label comment">
 							<label>Livejournal Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>70</sort_order>
@@ -2408,9 +2804,42 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</ljlogin>
-						<perlogin type="group" translate="label comment">
+						</livejournal_login>
+						<persona_login type="group" translate="label comment">
 							<label>Persona Login Configuration</label>
 							<frontend_type>text</frontend_type>
 							<sort_order>180</sort_order>
@@ -2444,8 +2873,41 @@ sociallogin
 									<show_in_website>1</show_in_website>
 									<show_in_store>1</show_in_store>
 								</sort_order>
+	<!-- title -->							
+								<title translate="label comment">
+									<label>title</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</title>								
+								<text translate="label comment">
+									<label>Button Text</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</text>
+								<width translate="label comment">
+									<label>Window width</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</width>
+								<height translate="label comment">
+									<label>Window height</label>
+									<frontend_type>text</frontend_type>
+									<sort_order>40</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+								</height>
 							</fields>
-						</perlogin>
+						</persona_login>
 						<stackexchange_login type="group" translate="label comment">
 							<label>Stack Enchange Login Configuration</label>
 							<frontend_type>text</frontend_type>

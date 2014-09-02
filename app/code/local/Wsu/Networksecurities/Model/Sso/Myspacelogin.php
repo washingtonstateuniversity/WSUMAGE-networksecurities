@@ -1,7 +1,7 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Mplogin extends Mage_Core_Model_Abstract {      
+class Wsu_Networksecurities_Model_Sso_Myspacelogin extends Mage_Core_Model_Abstract {      
 	//static public $token;	
-    public function newMp($token = null) {
+    public function newProvider($token = null) {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Author'.DS.'OAuth.php';
             require_once Mage::getBaseDir('base').DS.'lib'.DS.'Author'.DS.'OAuth1Client.php';
@@ -28,7 +28,7 @@ class Wsu_Networksecurities_Model_Sso_Mplogin extends Mage_Core_Model_Abstract {
         }catch(Exception $e) {}
     }
     public function getUrlAuthorCode() {
-        $mp = $this->newMp();		
+        $mp = $this->newProvider();		
         $token = $mp->requestToken(Mage::helper('wsu_networksecurities/customer')->getAuthUrlMp());			
 		Mage::getSingleton('core/session')->setRequestToken($token);
 		return  $mp->authorizeUrl($token);		

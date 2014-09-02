@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Openlogin extends Mage_Core_Model_Abstract {
-	public function newMy() {
+class Wsu_Networksecurities_Model_Sso_Myopenidlogin extends Mage_Core_Model_Abstract {
+	public function newProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -8,7 +8,7 @@ class Wsu_Networksecurities_Model_Sso_Openlogin extends Mage_Core_Model_Abstract
 		return $openid;
 	}
 	public function getOpenLoginUrl($identity) {
-		$my_id = $this->newMy();
+		$my_id = $this->newProvider();
         $my = $this->setOpenIdlogin($my_id,$identity);
 		$loginUrl = $my->authUrl();
 		return $loginUrl;
@@ -22,7 +22,7 @@ class Wsu_Networksecurities_Model_Sso_Openlogin extends Mage_Core_Model_Abstract
 			'contact/email',
 			'namePerson' 
         );
-        $openid->returnUrl = Mage::getUrl('sociallogin/openlogin/login');
+        $openid->returnUrl = Mage::getUrl('sociallogin/myopenidlogin/login');
 		return $openid;
     }
 }

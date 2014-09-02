@@ -138,28 +138,28 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	
 	//get config values
 	public function getTwConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/twlogin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/twitterlogin/consumer_key'));
 	}
 	public function getTwConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/twlogin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/twitterlogin/consumer_secret'));
 	}
 	/*public function getTwConnectingNotice() {
-		return Mage::getStoreConfig('wsu_networksecurities/twlogin/connecting_notice');
+		return Mage::getStoreConfig('wsu_networksecurities/twitterlogin/connecting_notice');
 	}*/
 	public function getYaAppId() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/app_id'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/app_id'));
 	}
 	public function getYaConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_key'));
 	}
 	public function getYaConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yalogin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_secret'));
 	}
 	public function getGoConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/gologin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_key'));
 	}
 	public function getGoConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/gologin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_secret'));
 	}
 	public function getFbAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
@@ -196,10 +196,10 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/livelogin/consumer_secret'));
 	}
 	public function getMpConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/mplogin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/myspacelogin/consumer_key'));
 	}
 	public function getMpConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/mplogin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/myspacelogin/consumer_secret'));
 	}
 	public function getAuthUrlFq() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
@@ -211,13 +211,13 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	}
 	public function getAuthUrlMp() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
-		return $this->_getUrl('sociallogin/mplogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+		return $this->_getUrl('sociallogin/myspacelogin/login', array('_secure'=>$isSecure, 'auth'=>1));
 	}
 	public function getLinkedConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/linklogin/app_id'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/linkedin_login/app_id'));
 	}
 	public function getLinkedConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/linklogin/secret_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/linkedin_login/secret_key'));
 	}
 	
 	

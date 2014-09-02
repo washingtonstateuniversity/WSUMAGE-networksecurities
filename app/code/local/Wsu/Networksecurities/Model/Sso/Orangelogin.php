@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Orglogin extends Mage_Core_Model_Abstract {
-	public function newOrg() {	
+class Wsu_Networksecurities_Model_Sso_Orangelogin extends Mage_Core_Model_Abstract {
+	public function newProvider() {	
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -9,7 +9,7 @@ class Wsu_Networksecurities_Model_Sso_Orglogin extends Mage_Core_Model_Abstract 
 		return $openid;
 	}
 	public function getOrgLoginUrl() {
-		$aol_id = $this->newOrg();
+		$aol_id = $this->newProvider();
         $aol = $this->setOrgIdlogin($aol_id);
         try{
             $loginUrl = $aol->authUrl();
@@ -27,7 +27,7 @@ class Wsu_Networksecurities_Model_Sso_Orglogin extends Mage_Core_Model_Abstract 
 			'namePerson/friendly',
 			'contact/email'
         );
-        $openid->returnUrl = Mage::getUrl('sociallogin/orglogin/login');
+        $openid->returnUrl = Mage::getUrl('sociallogin/orangelogin/login');
 		return $openid;
     }
 }

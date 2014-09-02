@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Callogin extends Mage_Core_Model_Abstract {
-	public function newCal() {	
+class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Mage_Core_Model_Abstract {
+	public function newProvider() {	
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -9,7 +9,7 @@ class Wsu_Networksecurities_Model_Sso_Callogin extends Mage_Core_Model_Abstract 
 		return $openid;
 	}
 	public function getCalLoginUrl($name_blog) {
-		$cal_id = $this->newCal();
+		$cal_id = $this->newProvider();
         $cal = $this->setCalIdlogin($cal_id, $name_blog);
         try{
             $loginUrl = $cal->authUrl();
@@ -28,12 +28,12 @@ class Wsu_Networksecurities_Model_Sso_Callogin extends Mage_Core_Model_Abstract 
 			'contact/email',
         );
         
-        $openid->returnUrl = Mage::getUrl('sociallogin/callogin/login');
+        $openid->returnUrl = Mage::getUrl('sociallogin/clavidlogin/login');
 		return $openid;
     }
     
     public function getIndexAllogin() {
-        return Mage::getUrl('sociallogin/callogin/setUserdomain');
+        return Mage::getUrl('sociallogin/clavidlogin/setUserdomain');
     }
 }
   
