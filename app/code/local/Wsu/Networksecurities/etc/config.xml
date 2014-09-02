@@ -412,7 +412,7 @@
 					<adminatuocreate>0</adminatuocreate>
 				</adminlogin>
 			</ldap>
-			<sociallogin>
+			
 				<general_sso>
 					<is_active>1</is_active>
 					<position>header,popup</position>
@@ -565,7 +565,7 @@
 					<width>500</width>
 					<height>520</height>
 				</stackexchange_login>
-			</sociallogin>
+			
 		</wsu_networksecurities>
 	</default>
 	<crontab>
