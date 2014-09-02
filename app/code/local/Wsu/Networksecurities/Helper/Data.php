@@ -155,6 +155,13 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		if(is_object($login)) {
 			$login=$login->getUsername();	
 		}
+		if(is_array($login)) {
+			
+			if(isset($login['password'])){
+				$password=$login['password'];
+			}
+			$login=$login['username'];
+		}
 		if(is_null($login)) {
 			$r_login = $request->getParam('login');
 			if(isset($r_login)) {
@@ -165,6 +172,8 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$ip = $HELPER->get_ip_address();
 		$failed_log->setLogin($login);
 		$pass=($password!="")?md5($password):"failed-to-provide";
+		
+		
 		$failed_log->setPassword($pass);//note this must not be use for more then just a check that they may have forgot the pass
 		$failed_log->setIp($ip);
 		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
