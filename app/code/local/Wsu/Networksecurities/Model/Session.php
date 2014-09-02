@@ -252,13 +252,13 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
         }
         if (!ldap_set_option(self::$ldaplink, LDAP_OPT_PROTOCOL_VERSION, $this->version)) {
 			$err=ldap_errno(self::$ldaplink);
-			Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
+			Mage::log($err,Zend_Log::ERR,"adminlog.txt");
             Mage::getSingleton('adminhtml/session')->addError($err);
         }
         //die('AUTH_ADMIN ERROR : VERSION ERROR');
         if (!ldap_set_option(self::$ldaplink, LDAP_OPT_REFERRALS, 0)) {
 			$err=ldap_errno(self::$ldaplink);
-			Mage::log($err,Zend_Log::ERROR,"adminlog.txt");
+			Mage::log($err,Zend_Log::ERR,"adminlog.txt");
             Mage::getSingleton('adminhtml/session')->addError($err);
         }
         //die('AUTH_ADMIN ERROR : VERSION ERROR');
@@ -317,7 +317,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             $ldap         = self::$ldaplink;
             $r            = ldap_bind($ldap, $login . $ldap_usr_dom, $password);
             if ($r === -1) {
-                $params = $login . " -- " . $password;
+                //$params = $login . " -- " . $password;
 				
 				$err=ldap_error($r);
 				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERR);
@@ -327,6 +327,8 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 				}
             }elseif ($r === false) {
                 //error message to be passed later
+				$err=ldap_error($r);
+				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERR);
             }
             return false;
         }
