@@ -1,32 +1,32 @@
 <?php
-class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_MyopenidloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
    
 	public function loginAction() {    
 		$customerHelper = Mage::helper('wsu_networksecurities/customer'); 
 		$identity = $this->getRequest()->getPost('identity');
-		$my = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->newProvider();  
+		$provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->getProvider();  
 		Mage::getSingleton('core/session')->setData('identity',$identity);		
-		$userId = $my->mode;
+		$userId = $provider->mode;
 		if(!$userId) {
-			$my = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($my,$identity);
+			$provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($provider,$identity);
 			try{
-				$url = $my->authUrl();
+				$url = $provider->authUrl();
 			}catch(Exception $e) {
 				Mage::getSingleton('core/session')->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 			$this->_redirectUrl($url);
-		}else{ if (!$my->validate()) {                
-                $my = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($my,$identity);
+		}else{ if (!$provider->validate()) {                
+                $provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($provider,$identity);
                 try{
-					$url = $my->authUrl();
+					$url = $provider->authUrl();
 				}catch(Exception $e) {
 					Mage::getSingleton('core/session')->addError('Username not exacted');
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
                 $customerHelper->setJsRedirect(Mage::getBaseUrl());
             }else{ //$user_info = $my->getAttributes(); 
-				$user_info = $my->data;
+				$user_info = $provider->data;
 				if(count($user_info)) {
 					$user_info['provider']="myopenid";
 					$this->handleCustomer($user_info);

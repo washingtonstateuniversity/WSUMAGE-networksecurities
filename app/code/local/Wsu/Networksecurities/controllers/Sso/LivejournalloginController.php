@@ -26,7 +26,7 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Wsu_Networkse
 			$this->_redirectUrl($url);
 		}else{ 
 			if (!$provider->validate()) { 
-               $my_session = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setIdlogin($provider,$identity);
+               $provider = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setIdlogin($provider,$identity);
                 try{
 					$url = $provider->authUrl();
 				}catch(Exception $e) {
