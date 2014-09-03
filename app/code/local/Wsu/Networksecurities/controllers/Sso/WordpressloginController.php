@@ -10,56 +10,18 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Contr
 		$userId = $wp->mode;        
 		$coreSession = Mage::getSingleton('core/session');
 		if(!$userId) {
-            $wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setWpIdlogin($aol, $name_blog);
+            $wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setIdlogin($wp, $name_blog);
             $url = $wp_session->authUrl();
-			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-			exit;
+			$this->_redirectUrl($url);
 		}else{ 
 			if (!$wp->validate()) {                
-				$wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setWpIdlogin($aol, $name_blog);
+				$wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setIdlogin($wp, $name_blog);
 				$url = $wp_session->authUrl();
-				echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-				exit;
+				$this->_redirectUrl($url);
             }else{ $user_info = $wp->getAttributes();                 
                 if(count($user_info)) {
-                    $frist_name = $user_info['namePerson/first'];
-                    $last_name = $user_info['namePerson/last'];
-                    $email = $user_info['contact/email'];
-					
-					//get website_id and sote_id of each stores
-					$store_id = Mage::app()->getStore()->getStoreId();
-					$website_id = Mage::app()->getStore()->getWebsiteId();
-					
-                    if(!$frist_name) {
-                        if($user_info['namePerson/friendly']) {
-                        	$frist_name = $user_info['namePerson/friendly'] ;   
-                        }else{ $email = explode("@", $email);
-                            $frist_name = $email['0'];
-                        }                   
-                    }
-
-                    if(!$last_name) {
-                        $last_name = '_wp';
-                    }
-                    $data = array('firstname'=>$frist_name, 'lastname'=>$last_name, 'email'=>$user_info['contact/email']);
-                    $customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
-                    if(!$customer || !$customer->getId()) {
-						//Login multisite
-						$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-						if (Mage::getStoreConfig('wsu_networksecurities/wordpresslogin/is_send_password_to_customer')) {
-							$customer->sendPasswordReminderEmail();
-						}
-                    }
-						// fix confirmation
-					if ($customer->getConfirmation()) {
-						try {
-							$customer->setConfirmation(null);
-							$customer->save();
-						}catch (Exception $e) {
-						}
-					}
-                    Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+					$user_info['provider']="wordpress";
+					$this->handleCustomer($user_info);
                 }else{ 
 					$coreSession->addError('Login failed as you have not granted access.');			
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
@@ -68,6 +30,36 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Contr
         }
     }
     
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		$frist_name = $user_info['namePerson/first'];
+		$last_name = $user_info['namePerson/last'];
+		$email = $user_info['contact/email'];
+
+		if(!$frist_name) {
+			if($user_info['namePerson/friendly']) {
+				$frist_name = $user_info['namePerson/friendly'] ;   
+			}else{ $email = explode("@", $email);
+				$frist_name = $email['0'];
+			}                   
+		}
+
+		if(!$last_name) {
+			$last_name = '_wp';
+		}
+		
+		$data['provider']=$user_info['provider'];
+		$data['email']=$email;
+		$data['firstname']=$frist_name;
+		$data['lastname']=$last_name;
+
+		return $data;
+	}	
+	
+	
+	
+	
     public function setBlockAction() {             
         /*$template =  $this->getLayout()->createBlock('sociallogin/wordpresslogin')
                 ->setTemplate('sociallogin/au_wp.phtml')->toHtml();
@@ -80,7 +72,7 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Contr
         $data = $this->getRequest()->getPost();		
 		$name = $data['name'];
         if($name) {            
-            $url = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->getWpLoginUrl($name);			
+            $url = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->getLoginUrl($name);			
             $this->_redirectUrl($url);
         }else{ 
 			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	
