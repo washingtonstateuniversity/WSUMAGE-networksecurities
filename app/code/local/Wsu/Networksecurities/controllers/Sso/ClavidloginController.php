@@ -6,7 +6,7 @@ class Wsu_Networksecurities_Sso_ClavidloginController extends Wsu_Networksecurit
 	**/
     public function loginAction($name_blog) {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$cal = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->newProvider();       
+		$cal = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->getProvider();       
 		$userId = $cal->mode;        
 		$coreSession = Mage::getSingleton('core/session');
 		if(!$userId) {

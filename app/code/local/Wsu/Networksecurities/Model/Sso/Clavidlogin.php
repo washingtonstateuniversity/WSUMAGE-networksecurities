@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Mage_Core_Model_Abstract {
-	public function newProvider() {	
+class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	public function createProvider() {	
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -9,7 +9,7 @@ class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Mage_Core_Model_Abstra
 		return $openid;
 	}
 	public function getLoginUrl($name_blog="") {
-		$cal_id = $this->newProvider();
+		$cal_id = $this->getProvider();
         $cal = $this->setIdlogin($cal_id, $name_blog);
         try{
             $loginUrl = $cal->authUrl();
