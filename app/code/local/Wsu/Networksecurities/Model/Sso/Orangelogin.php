@@ -1,6 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Orangelogin extends Mage_Core_Model_Abstract {
-	public function newProvider() {	
+class Wsu_Networksecurities_Model_Sso_Orangelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	public function createProvider() {	
 		try{
 			Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -9,7 +9,7 @@ class Wsu_Networksecurities_Model_Sso_Orangelogin extends Mage_Core_Model_Abstra
 		return $openid;
 	}
 	public function getLoginUrl() {
-		$aol_id = $this->newProvider();
+		$aol_id = $this->getProvider();
         $aol = $this->setIdlogin($aol_id);
         try{
             $loginUrl = $aol->authUrl();

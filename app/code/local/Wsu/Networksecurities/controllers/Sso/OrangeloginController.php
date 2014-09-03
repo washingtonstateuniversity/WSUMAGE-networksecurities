@@ -1,11 +1,11 @@
 <?php
-class Wsu_Networksecurities_Sso_OrangeloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_OrangeloginController extends Wsu_Networksecurities_Controller_Sso_Abstract{
 
 	/**
 	* getToken and call profile user Orange
 	**/
     public function loginAction() {     
-		$org = Mage::getModel('wsu_networksecurities/sso_orangelogin')->newProvider();                                  
+		$org = Mage::getModel('wsu_networksecurities/sso_orangelogin')->getProvider();                                  
 		$user_info = $org->data;                 
 		if(count($user_info)) {
 			$user_info['provider']="myopenid";
