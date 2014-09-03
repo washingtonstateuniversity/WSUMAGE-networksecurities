@@ -1,8 +1,11 @@
 <?php
 
 class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller_Front_Action {
+	
+	/*
+	 * This is a general oAuth set up here, but some providers will need to over write this
+	 */
 	public function makeCustomerData($user_info) {
-		//var_dump($user_info);die();
 		$data = array();
 		$frist_name = isset($user_info['namePerson/first'])?$user_info['namePerson/first']:"";
 		$last_name = isset($user_info['namePerson/last'])?$user_info['namePerson/last']:"";
