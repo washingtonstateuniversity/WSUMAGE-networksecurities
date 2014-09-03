@@ -429,8 +429,8 @@
 						<![CDATA[If you have a account on {{store}}, please login else register a new account to connect twitter account]]>
 					</connecting_notice>
 					<sort_order>3</sort_order>
-					<title></title>								
-					<text></text>
+					<title>Login with Twitter</title>								
+					<text>Twitter Sign in</text>
 					<width>790</width>
 					<height>350</height>
 				</twitter_login>
