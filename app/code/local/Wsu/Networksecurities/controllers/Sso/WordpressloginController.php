@@ -1,11 +1,11 @@
 <?php
-class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_WordpressloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 
 	/**
 	* getToken and call profile user WordPress
 	**/
     public function loginAction($name_blog) {
-		$wp = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->newProvider();       
+		$wp = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->getProvider();       
 		$userId = $wp->mode;
 		if(!$userId) {
             $wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setIdlogin($wp, $name_blog);

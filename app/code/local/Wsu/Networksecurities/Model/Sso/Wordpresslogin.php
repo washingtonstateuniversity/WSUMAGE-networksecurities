@@ -1,15 +1,15 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Mage_Core_Model_Abstract {
-	public function newProvider() {	
+class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	public function createProvider() {	
 		try{
-			Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php';
+			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');
 		}catch(Exception $e) {}
 		
 		$openid = new LightOpenID(Mage::getUrl());       
 		return $openid;
 	}
 	public function getLoginUrl($name_blog) {
-		$wp_id = $this->newProvider();
+		$wp_id = $this->getProvider();
         $wp = $this->setIdlogin($wp_id, $name_blog);		
         try{
             $loginUrl = $wp->authUrl();

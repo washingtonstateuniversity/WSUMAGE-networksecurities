@@ -1,9 +1,9 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Yahoologin extends Mage_Core_Model_Abstract {
+class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_Model_Sso_Abstract {
 	
 	public function createProvider() {
 		try{
-			require_once Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc';
+			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
 		}catch(Exception $e) {}
 		
 		$google = new Google_Client;
@@ -16,7 +16,7 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Mage_Core_Model_Abstrac
 	
 	
 	public function __construct() {
-		require_once Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc';
+		require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
 		//error_reporting(E_ALL | E_NOTICE); # do not show notices as library is php4 compatable
 		//ini_set('display_errors', true);
 		YahooLogger::setDebug(true);

@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Model_Sso_Foursquarelogin extends Wsu_Networksecurit
 	
 	public function createProvider() {
 		try{
-			Mage::getBaseDir('lib').DS.'Foursquare'.DS.'FoursquareAPI.class.php';
+			require_once(Mage::getBaseDir('lib').DS.'Foursquare'.DS.'FoursquareAPI.class.php');
 		}catch(Exception $e) {}
 		
 		$foursquare = new FoursquareApi(

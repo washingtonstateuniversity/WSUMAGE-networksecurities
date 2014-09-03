@@ -14,8 +14,8 @@ class Wsu_Networksecurities_Model_Sso_Myspacelogin extends Wsu_Networksecurities
 	
     public function createProvider($token = null) {
 		try{
-			Mage::getBaseDir('lib').DS.'Author'.DS.'OAuth.php';
-            Mage::getBaseDir('lib').DS.'Author'.DS.'OAuth1Client.php';
+			require_once(Mage::getBaseDir('lib').DS.'Author'.DS.'OAuth.php');
+			require_once(Mage::getBaseDir('lib').DS.'Author'.DS.'OAuth1Client.php');
 		}catch(Exception $e) {}
         try{
 			if ($token) {

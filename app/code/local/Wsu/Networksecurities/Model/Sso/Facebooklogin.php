@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 	
 	public function createProvider() {
 		try{
-			Mage::getBaseDir('lib').DS.'Facebook'.DS.'facebook.php';
+			require_once(Mage::getBaseDir('lib').DS.'Facebook'.DS.'facebook.php');
 		}catch(Exception $e) {}
 		
 		$facebook = new Facebook(array(

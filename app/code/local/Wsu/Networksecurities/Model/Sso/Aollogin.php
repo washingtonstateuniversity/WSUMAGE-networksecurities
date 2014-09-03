@@ -4,7 +4,7 @@ class Wsu_Networksecurities_Model_Sso_Aollogin extends Wsu_Networksecurities_Mod
 
 	public function createProvider() {
 		try{
-			Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php';    
+			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');    
 		}catch(Exception $e) {}
 		$openid = new LightOpenID(Mage::getUrl());    
         return $openid;

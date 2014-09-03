@@ -2,7 +2,7 @@
 class Wsu_Networksecurities_Model_Sso_Stackexchangelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
 	public function createProvider() {	
 		try{
-			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');;           
+			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');           
 		}catch(Exception $e) {}
         
         $openid = new LightOpenID(Mage::getUrl());    
