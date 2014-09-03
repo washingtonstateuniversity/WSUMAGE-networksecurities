@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_LivejournalloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
 	public function loginAction() {  
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');    

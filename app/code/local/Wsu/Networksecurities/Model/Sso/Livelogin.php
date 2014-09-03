@@ -1,6 +1,7 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Livelogin extends Mage_Core_Model_Abstract {      
-    public function newProvider() {
+class Wsu_Networksecurities_Model_Sso_Livelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	      
+    public function createProvider() {
 		try{			
             require_once Mage::getBaseDir('base').DS.'lib'.DS.'Author'.DS.'OAuth2Client.php';
 		}catch(Exception $e) {}
@@ -17,8 +18,9 @@ class Wsu_Networksecurities_Model_Sso_Livelogin extends Mage_Core_Model_Abstract
             return $live;
         }catch(Exception $e) {}
     }
+	
     public function getUrlAuthorCode() {
-        $live = $this->newProvider();
+        $live = $this->getProvider();
         return $live->authorizeUrl();
     }
 }

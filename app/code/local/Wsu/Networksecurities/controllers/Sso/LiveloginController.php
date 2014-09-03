@@ -1,11 +1,11 @@
 <?php
-class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_LiveloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 
 	public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
         $code = $this->getRequest()->getParam('code');
-        $live = Mage::getModel('wsu_networksecurities/sso_livelogin')->newProvider();        
+        $live = Mage::getModel('wsu_networksecurities/sso_livelogin')->getProvider();        
 		try{
 			$json = $live->authenticate($code);
 			$user = $live->get("me", $live->param);

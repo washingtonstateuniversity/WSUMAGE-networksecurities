@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_FoursquareloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_FoursquareloginController extends Wsu_Networksecurities_Controller_Sso_Abstract{
 
 	/**
 	* getToken and call profile user FoursQuare

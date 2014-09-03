@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Mage_Core_Model_Abstract {
+class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Wsu_Networksecurities_Model_Sso_Abstract {
 	public function createProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
