@@ -1,5 +1,18 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_Model_Sso_Abstract {
+
+	public function getConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_key'));
+	}
+	
+	public function getConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_secret'));
+	}
+	
+	public function getAppId() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/app_id'));
+	}
+
 	
 	public function createProvider() {
 		try{
@@ -54,16 +67,6 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 		return YahooSession::requireSession($consumerKey, $consumerSecret, $appId);
 	}
 	
-	public function getConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_key'));
-	}
-	
-	public function getConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_secret'));
-	}
-	
-	public function getAppId() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/app_id'));
-	}
-	
+
+
 }

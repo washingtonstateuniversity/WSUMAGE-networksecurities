@@ -1,13 +1,23 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Twitterlogin extends Zend_Oauth_Consumer {
 
+	public function getConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/twitter_login/consumer_key'));
+	}
+	public function getConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/twitter_login/consumer_secret'));
+	}
+	/*public function getTwConnectingNotice() {
+		return Mage::getStoreConfig('wsu_networksecurities/twitterlogin/connecting_notice');
+	}*/
+
+
 	protected $_options = null;
 	public function __construct() {
 		$this->_config = new Zend_Oauth_Config;		
 		$this->_options = array(
-			'consumerKey'       => Mage::helper('wsu_networksecurities/customer')->getTwConsumerKey(),
-			'consumerSecret'    => Mage::helper('wsu_networksecurities/customer')->getTwConsumerSecret(),
-			//'siteUrl'           => 'http://localhost/oss/magento14_3/index.php',
+			'consumerKey'       => $this->getConsumerKey(),
+			'consumerSecret'    => $this->getConsumerSecret(),
 			'signatureMethod'   => 'HMAC-SHA1',
 			'version'           => '1.1',
 			'requestTokenUrl'   => 'https://api.twitter.com/oauth/request_token',
