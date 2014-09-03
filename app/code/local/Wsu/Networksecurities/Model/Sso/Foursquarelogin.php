@@ -1,6 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Foursquarelogin extends Mage_Core_Model_Abstract {
-	public function newProvider() {
+	public function createProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Foursquare'.DS.'FoursquareAPI.class.php';
 		}catch(Exception $e) {}
@@ -13,7 +13,7 @@ class Wsu_Networksecurities_Model_Sso_Foursquarelogin extends Mage_Core_Model_Ab
 		return $foursquare;
 	}
 	public function getLoginUrl() {
-		$foursquare = $this->newProvider();
+		$foursquare = $this->getProvider();
 		$loginUrl = $foursquare->AuthenticationLink();
 		return $loginUrl;
 	}

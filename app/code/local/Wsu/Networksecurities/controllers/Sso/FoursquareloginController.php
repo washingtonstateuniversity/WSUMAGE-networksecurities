@@ -7,7 +7,7 @@ class Wsu_Networksecurities_Sso_FoursquareloginController extends Mage_Core_Cont
     public function loginAction() {            		
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
-		$foursquare = Mage::getModel('wsu_networksecurities/sso_foursquarelogin')->newProvider();
+		$foursquare = Mage::getModel('wsu_networksecurities/sso_foursquarelogin')->getProvider();
 		$code = $_REQUEST['code'];	
 		$date = date('Y-m-d');
 		$date = str_replace('-', '', $date);

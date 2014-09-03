@@ -1,10 +1,11 @@
 <?php
 class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Controller_Front_Action{
+	
 	public function loginAction() {  
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');    
 		$identity = $this->getRequest()->getPost('identity');
 		Mage::getSingleton('core/session')->setData('identity',$identity);
-		$my = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->newProvider();
+		$provider = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->getProvider();
 		/*$my->required = array(
         'namePerson/first',
         'namePerson/last',
@@ -13,63 +14,31 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
 		'namePerson' 
         );*/
 		Mage::getSingleton('core/session')->setData('identity',$identity);
-		$userId = $my->mode;       	
+		$userId = $provider->mode;       	
 		if(!$userId) {
-            $my = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setLjIdlogin($my,$identity);
+            $provider = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setIdlogin($provider,$identity);
 			try{
-				$url = $my->authUrl();
+				$url = $provider->authUrl();
 			}catch(Exception $e) {
 				Mage::getSingleton('core/session')->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 			$this->_redirectUrl($url);
-		}else{ if (!$my->validate()) { 
-               $my_session = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setLjIdlogin($my,$identity);
+		}else{ 
+			if (!$provider->validate()) { 
+               $my_session = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setIdlogin($provider,$identity);
                 try{
-					$url = $my->authUrl();
+					$url = $provider->authUrl();
 				}catch(Exception $e) {
 					Mage::getSingleton('core/session')->addError('Username not exacted');			
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
                 $this->_redirectUrl($url);
             }else{ // $user_info = $my->getAttributes();
-				$user_info = $my->data;
+				$user_info = $provider->data;
                 if(count($user_info)) {
-					$user = array();
-					$identity = $user_info['openid_identity'];
-					$length = strlen($identity);
-					$httpLen = strlen("http://");
-					$userAccount = substr($identity,$httpLen,$length-1-$httpLen);
-					$userArray = explode( '.', $userAccount,2);
-					$firstname = $userArray[0];
-					$lastname ="";
-					$email = $firtname."@".$userArray[1];
-					$user['firstname'] = $firstname;
-					$user['lastname'] = $lastname;
-					$user['email'] = $email;
-					$authorId = $email;
-					//get website_id and sote_id of each stores
-					$store_id = Mage::app()->getStore()->getStoreId();//add
-					$website_id = Mage::app()->getStore()->getWebsiteId();//add	
-					$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);//add edtition
-					if(!$customer || !$customer->getId()) {
-						//Login multisite
-						$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-					}
-					Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($authorId);
- 					if (Mage::getStoreConfig('wsu_networksecurities/livejournallogin/is_send_password_to_customer')) {
-						$customer->sendPasswordReminderEmail();
-					} 
-							// fix confirmation
-					if ($customer->getConfirmation()) {
-						try {
-							$customer->setConfirmation(null);
-							$customer->save();
-						}catch (Exception $e) {
-						}
-					}
-					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
+					$user_info['provider']="livejournallogin";
+					$this->handleCustomer($user_info);
                 }else{ 
 					Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');			
 					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
@@ -77,6 +46,28 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
             }           
         }
     }
+
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		$identity = $user_info['openid_identity'];
+		$length = strlen($identity);
+		$httpLen = strlen("http://");
+		$userAccount = substr($identity,$httpLen,$length-1-$httpLen);
+		$userArray = explode( '.', $userAccount,2);
+		$firstname = $userArray[0];
+		$lastname ="";
+		$email = $firtname."@".$userArray[1];
+
+		$data['provider']=$user_info['provider'];
+		$data['email']=$email;
+		$data['firstname']=$firstname;
+		$data['lastname']=$lastname;
+		$data['authorId']=$email;
+
+		return $data;
+	}
+
 	
 	/**
 	* return template au_wp.phtml

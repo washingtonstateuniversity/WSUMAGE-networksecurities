@@ -1,6 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Mage_Core_Model_Abstract {
-	public function newProvider() {
+	public function createProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
@@ -8,7 +8,7 @@ class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Mage_Core_Model_A
 		return $openid;
 	}
 	public function getLoginUrl($identity) {
-		$my_id = $this->newProvider();
+		$my_id = $this->getProvider();
         $my = $this->setIdlogin($my_id,$identity);
 		$loginUrl = $my->authUrl();
 		return $loginUrl;
