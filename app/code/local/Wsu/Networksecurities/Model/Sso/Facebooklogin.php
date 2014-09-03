@@ -1,6 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abstract {
-	
+	var $_provider;
 	
 	public function getAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
@@ -10,7 +10,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 	}	
 	public function getAuthUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
-		return $this->_getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+		return Mage::getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure, 'auth'=>1));
 	}
 	
 	public function newProvider() {
@@ -26,12 +26,18 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 		return $facebook;
 	}
 
-	
-	public function getUser() {
-		$facebook = $this->newProvider();
-    	$userId = $facebook->getUser();
-		$fbme = NULL;
+	public function getProvider() {
+		if(!isset($this->_provider)){
+			$this->_provider = $this->newProvider();
+		}
+		return $this->_provider;
+	}
 
+	public function getUser() {
+		$facebook = $this->getProvider();
+    	$userId = $facebook->getUser();
+		
+		$fbme = NULL;
 		if ($userId) {
 			try {
 				$fbme = $facebook->api('/me');
@@ -39,12 +45,11 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 				Mage::getSingleton('core/session')->addError($this->__('ERR:'.$e->getMessage()));
 			}
 		}
-		
 		return $fbme;	
 	}
 	
 	public function getLoginUrl() {
-		$facebook = $this->newProvider();
+		$facebook = $this->getProvider();
 		$loginUrl = $facebook->getLoginUrl(
 			array(
 				'display'   => 'popup',

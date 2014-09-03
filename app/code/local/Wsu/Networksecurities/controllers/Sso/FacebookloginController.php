@@ -4,22 +4,22 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
     public function loginAction() {            
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$isAuth = $this->getRequest()->getParam('auth');
-		$facebook = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->newProvider();
+		$facebook = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getProvider();
 		$userId = $facebook->getUser();
-		
+
 		if($isAuth && !$userId && $this->getRequest()->getParam('error_reason') == 'user_denied') {
 			echo("<script>window.close()</script>");
-		}elseif ($isAuth && !$userId) {
-			$loginUrl = $facebook->getLoginUrl(array('scope' => 'email'));
-			$this->_redirectUrl($loginUrl);
+		}elseif (($isAuth && !$userId) || $userId==0) {
+			$loginUrl = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getLoginUrl();
+			echo "<script type='text/javascript'>top.location.href = '$loginUrl';</script>"; 
+ 			exit; 
 		}
  		$user_info = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getUser();
-		var_dump($user_info);
-		if ($isAuth && $user_info) {
+		if ($user_info && isset($user_info['id'])) {
 			$user_info['provider']="facebook";
 			$this->handleCustomer($user_info);
 		}else{ 
-			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
+			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access. Try login out of facebook, if you beleive this is an error.  For more help see %s','<a href="" target="_blank">this</a>'));
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
 
