@@ -1,15 +1,15 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Stackexchangelogin extends Mage_Core_Model_Abstract {
-	public function newProvider() {	
+class Wsu_Networksecurities_Model_Sso_Stackexchangelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	public function createProvider() {	
 		try{
-			Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php';           
+			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');;           
 		}catch(Exception $e) {}
         
         $openid = new LightOpenID(Mage::getUrl());    
         return $openid;
 	}
 	public function getLoginUrl($name="") {
-		$aol_id = $this->newProvider();
+		$aol_id = $this->getProvider();
         $aol = $this->setIdlogin($aol_id, $name);
         try{
             $loginUrl = $aol->authUrl();

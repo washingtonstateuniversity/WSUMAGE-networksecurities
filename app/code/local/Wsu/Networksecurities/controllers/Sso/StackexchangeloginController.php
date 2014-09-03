@@ -3,7 +3,7 @@
 class Wsu_Networksecurities_Sso_StackexchangeloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
     public function loginAction() {
-		$se = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->newProvider(); 	
+		$se = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->getProvider(); 	
 		$userId = $se->mode;
 		if(!$userId) {
 			$se_session = Mage::getModel('wsu_networksecurities/sso_stackexchangelogin')->setIdlogin($se);
