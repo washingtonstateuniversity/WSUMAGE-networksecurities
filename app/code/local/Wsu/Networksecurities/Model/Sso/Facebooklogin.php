@@ -1,7 +1,6 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abstract {
-	var $_provider;
-	
+class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+
 	public function getAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
 	}
@@ -13,7 +12,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 		return Mage::getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure, 'auth'=>1));
 	}
 	
-	public function newProvider() {
+	public function createProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Facebook'.DS.'facebook.php';
 		}catch(Exception $e) {}
@@ -26,12 +25,6 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Mage_Core_Model_Abst
 		return $facebook;
 	}
 
-	public function getProvider() {
-		if(!isset($this->_provider)){
-			$this->_provider = $this->newProvider();
-		}
-		return $this->_provider;
-	}
 
 	public function getUser() {
 		$facebook = $this->getProvider();

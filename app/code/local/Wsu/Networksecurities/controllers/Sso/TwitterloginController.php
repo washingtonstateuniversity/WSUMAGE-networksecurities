@@ -22,7 +22,7 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Mage_Core_Control
                 'oauth_token' => $this->getRequest()->getParam('oauth_token'),
                 'oauth_verifier' => $this->getRequest()->getParam('oauth_verifier')
          );
-		// fixed by Hai Ta 
+
 		try{
 			 $token = $otwitter->getAccessToken($oauth_data, unserialize($requestToken));
 		}catch(Exception $e) {

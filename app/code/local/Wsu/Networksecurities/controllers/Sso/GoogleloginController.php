@@ -30,7 +30,6 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Wsu_Networksecurit
 	
 	public function makeCustomerData($user_info) {
 		$data = array();
-
 		
 		$email = $user_info['email'];		
 		$name = $user_info['name'];
@@ -46,8 +45,7 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Wsu_Networksecurit
 
 		return $data;
 	}
-	
-	
+
 	// if exit access token
 	public function getAuthorizedToken() {
         $token = false;

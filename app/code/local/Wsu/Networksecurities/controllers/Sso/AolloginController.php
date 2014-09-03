@@ -2,7 +2,7 @@
 class Wsu_Networksecurities_Sso_AolloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
     public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$aol = Mage::getModel('wsu_networksecurities/sso_aollogin')->newProvider();       
+		$aol = Mage::getModel('wsu_networksecurities/sso_aollogin')->getProvider();       
 		$userId = $aol->mode;        
 
 		if (!$userId || !$aol->validate()) {                

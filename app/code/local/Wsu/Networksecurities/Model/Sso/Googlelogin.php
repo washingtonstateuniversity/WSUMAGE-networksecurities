@@ -21,10 +21,9 @@ class Wsu_Networksecurities_Model_Sso_Googlelogin extends Mage_Core_Model_Abstra
 		}catch(Exception $e) {}
 		
 		$google = new Google_Client;
-		$google->setClientId($this->getConsumerKey());
-		$google->setClientSecret($this->getConsumerSecret());
-		$google->setRedirectUri($this->getRedirectUri());
-
+		$google->setClientId($this->getConsumerKey())
+				->setClientSecret($this->getConsumerSecret())
+				->setRedirectUri($this->getRedirectUri());
 		return $google;
 	}
 
