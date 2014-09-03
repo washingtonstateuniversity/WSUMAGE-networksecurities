@@ -23,8 +23,7 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
 				$coreSession->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
-			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-			exit;
+			$this->_redirectUrl($url);
 		}else{ if (!$my->validate()) { 
                $my_session = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setLjIdlogin($my,$identity);
                 try{
@@ -33,8 +32,7 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
 					$coreSession->addError('Username not exacted');			
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
-                echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-                exit;
+                $this->_redirectUrl($url);
             }else{ // $user_info = $my->getAttributes();
 				$user_info = $my->data;
                 if(count($user_info)) {

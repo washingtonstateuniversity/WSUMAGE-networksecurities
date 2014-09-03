@@ -16,8 +16,7 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
 				$coreSession->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
-			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-			exit;
+			$this->_redirectUrl($url);
 		}else{ if (!$my->validate()) {                
                 $my = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($my,$identity);
                 try{
@@ -26,8 +25,7 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
 					$coreSession->addError('Username not exacted');
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
-                echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-                exit;
+                $customerHelper->setJsRedirect(Mage::getBaseUrl());
             }else{ //$user_info = $my->getAttributes(); 
 				$user_info = $my->data;
 				if(count($user_info)) {
