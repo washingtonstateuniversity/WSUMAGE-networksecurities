@@ -213,12 +213,12 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
 		return $this->_getUrl('sociallogin/myspacelogin/login', array('_secure'=>$isSecure, 'auth'=>1));
 	}*/
-	public function getLinkedConsumerKey() {
+/*	public function getLinkedConsumerKey() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/linkedin_login/app_id'));
 	}
 	public function getLinkedConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/linkedin_login/secret_key'));
-	}
+	}*/
 	
 	
 	public function setJsRedirect($url=null){
