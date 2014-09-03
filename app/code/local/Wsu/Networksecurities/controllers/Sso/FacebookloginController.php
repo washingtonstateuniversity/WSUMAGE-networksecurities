@@ -14,6 +14,7 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
 			$this->_redirectUrl($loginUrl);
 		}
  		$user_info = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getUser();
+		var_dump($user_info);
 		if ($isAuth && $user_info) {
 			$user_info['provider']="facebook";
 			$this->handleCustomer($user_info);

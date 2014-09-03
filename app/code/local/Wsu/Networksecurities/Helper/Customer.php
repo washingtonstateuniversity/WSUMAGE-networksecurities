@@ -161,7 +161,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function getGoConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_secret'));
 	}
-	public function getFbAppId() {
+	/*public function getFbAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
 	}
 	public function getFbAppSecret() {
@@ -170,7 +170,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function getAuthUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
 		return $this->_getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure, 'auth'=>1));
-	}
+	}*/
 	public function getDirectLoginUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
 		return $this->_getUrl('sociallogin/facebooklogin/login', array('_secure'=>$isSecure));

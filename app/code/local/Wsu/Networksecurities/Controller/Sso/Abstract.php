@@ -36,6 +36,7 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 	}
 	
 	public function handleCustomer($user_info){
+		
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$data = $this->makeCustomerData($user_info);
 		//get website_id and sote_id of each stores
