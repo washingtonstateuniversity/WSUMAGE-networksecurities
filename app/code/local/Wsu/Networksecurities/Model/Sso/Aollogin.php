@@ -7,9 +7,9 @@ class Wsu_Networksecurities_Model_Sso_Aollogin extends Mage_Core_Model_Abstract 
         $openid = new LightOpenID(Mage::getUrl());    
         return $openid;
 	}
-	public function getAlLoginUrl($name) {
+	public function getLoginUrl($name="") {
 		$aol_id = $this->newProvider();
-        $aol = $this->setAolIdlogin($aol_id, $name);
+        $aol = $this->setIdlogin($aol_id, $name);
         try{
             $loginUrl = $aol->authUrl();
             return $loginUrl;
@@ -17,7 +17,7 @@ class Wsu_Networksecurities_Model_Sso_Aollogin extends Mage_Core_Model_Abstract 
             return null;
         }
 	}
-    public function setAolIdlogin($openid, $name) {
+    public function setIdlogin($openid, $name) {
         $openid->identity = 'https://openid.aol.com/'.$name;
         $openid->required = array(
 			'namePerson/first',
@@ -42,7 +42,7 @@ class Wsu_Networksecurities_Model_Sso_Aollogin extends Mage_Core_Model_Abstract 
         $data = $this->getRequest()->getPost();		
 		$name = $data['name'];
         if($name) {            
-            $url = Mage::getModel('wsu_networksecurities/sso_allogin')->getAlLoginUrl($name);			
+            $url = Mage::getModel('wsu_networksecurities/sso_allogin')->getLoginUrl($name);			
             $this->_redirectUrl($url);
         }else{ 
 			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	

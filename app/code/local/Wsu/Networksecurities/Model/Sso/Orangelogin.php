@@ -8,9 +8,9 @@ class Wsu_Networksecurities_Model_Sso_Orangelogin extends Mage_Core_Model_Abstra
 		$openid = new LightOpenID(Mage::getUrl());       
 		return $openid;
 	}
-	public function getOrgLoginUrl() {
+	public function getLoginUrl() {
 		$aol_id = $this->newProvider();
-        $aol = $this->setOrgIdlogin($aol_id);
+        $aol = $this->setIdlogin($aol_id);
         try{
             $loginUrl = $aol->authUrl();
             return $loginUrl;
@@ -18,7 +18,7 @@ class Wsu_Networksecurities_Model_Sso_Orangelogin extends Mage_Core_Model_Abstra
             return null;
         }		
 	}
-    public function setOrgIdlogin($openid) {
+    public function setIdlogin($openid) {
         
         $openid->identity = 'https://www.orange.fr';
         $openid->required = array(

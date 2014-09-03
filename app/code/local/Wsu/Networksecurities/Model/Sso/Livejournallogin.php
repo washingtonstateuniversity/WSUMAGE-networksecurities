@@ -7,13 +7,13 @@ class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Mage_Core_Model_A
 		$openid = new LightOpenID(Mage::getUrl());       
 		return $openid;
 	}
-	public function getLjLoginUrl($identity) {
+	public function getLoginUrl($identity) {
 		$my_id = $this->newProvider();
-        $my = $this->setLjIdlogin($my_id,$identity);
+        $my = $this->setIdlogin($my_id,$identity);
 		$loginUrl = $my->authUrl();
 		return $loginUrl;
 	}
-	public function setLjIdlogin($openid,$identity) {
+	public function setIdlogin($openid,$identity) {
         $openid->identity = "http://".$identity.".livejournal.com";
         $openid->required = array(
 			'namePerson/first',

@@ -8,9 +8,9 @@ class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Mage_Core_Model_Abs
 		$openid = new LightOpenID(Mage::getUrl());       
 		return $openid;
 	}
-	public function getWpLoginUrl($name_blog) {
+	public function getLoginUrl($name_blog) {
 		$wp_id = $this->newProvider();
-        $wp = $this->setWpIdlogin($wp_id, $name_blog);		
+        $wp = $this->setIdlogin($wp_id, $name_blog);		
         try{
             $loginUrl = $wp->authUrl();
             return $loginUrl;            
@@ -18,7 +18,7 @@ class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Mage_Core_Model_Abs
             return null;
         }		
 	}
-    public function setWpIdlogin($openid, $name_blog) {
+    public function setIdlogin($openid, $name_blog) {
         
         $openid->identity = 'http://'. $name_blog . '.wordpress.com';
         $openid->required = array(

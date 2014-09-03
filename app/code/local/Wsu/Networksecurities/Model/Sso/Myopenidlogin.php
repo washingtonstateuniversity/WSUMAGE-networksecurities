@@ -7,13 +7,13 @@ class Wsu_Networksecurities_Model_Sso_Myopenidlogin extends Mage_Core_Model_Abst
 		$openid = new LightOpenID(Mage::getUrl());       
 		return $openid;
 	}
-	public function getOpenLoginUrl($identity) {
+	public function getLoginUrl($identity="") {
 		$my_id = $this->newProvider();
-        $my = $this->setOpenIdlogin($my_id,$identity);
+        $my = $this->setIdlogin($my_id,$identity);
 		$loginUrl = $my->authUrl();
 		return $loginUrl;
 	}
-	public function setOpenIdlogin($openid,$identity) {
+	public function setIdlogin($openid,$identity) {
         $openid->identity = "http://".$identity.".myopenid.com";
         $openid->required = array(
 			'namePerson/first',

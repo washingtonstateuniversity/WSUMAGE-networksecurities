@@ -8,9 +8,9 @@ class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Mage_Core_Model_Abstra
 		$openid = new LightOpenID(Mage::getUrl());       
 		return $openid;
 	}
-	public function getCalLoginUrl($name_blog) {
+	public function getLoginUrl($name_blog="") {
 		$cal_id = $this->newProvider();
-        $cal = $this->setCalIdlogin($cal_id, $name_blog);
+        $cal = $this->setIdlogin($cal_id, $name_blog);
         try{
             $loginUrl = $cal->authUrl();
             return $loginUrl;
@@ -18,7 +18,7 @@ class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Mage_Core_Model_Abstra
             return null;
         }
 	}
-    public function setCalIdlogin($openid, $name_blog) {
+    public function setIdlogin($openid, $name_blog) {
         
         $openid->identity = 'https://'.$name_blog.'.clavid.com';
         $openid->required = array(
