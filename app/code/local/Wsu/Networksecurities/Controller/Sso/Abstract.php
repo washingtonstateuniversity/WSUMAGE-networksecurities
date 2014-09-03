@@ -1,6 +1,10 @@
 <?php
 
 class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller_Front_Action {
+
+
+
+
 	
 	/*
 	 * This is a general oAuth set up here, but some providers will need to over write this

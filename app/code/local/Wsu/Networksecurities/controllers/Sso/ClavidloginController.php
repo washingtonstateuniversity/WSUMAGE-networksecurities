@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_ClavidloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_ClavidloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
 	/**
 	* getToken and call profile user Clavid
@@ -10,7 +10,7 @@ class Wsu_Networksecurities_Sso_ClavidloginController extends Mage_Core_Controll
 		$userId = $cal->mode;        
 		$coreSession = Mage::getSingleton('core/session');
 		if(!$userId) {
-            $cal_session = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->setcalIdlogin($cal, $name_blog);
+            $cal_session = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->setIdlogin($cal, $name_blog);
             $url = $cal_session->authUrl();
 			$this->_redirectUrl($url);
 		}else{ if (!$cal->validate()) {                

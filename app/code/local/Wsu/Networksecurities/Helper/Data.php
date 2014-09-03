@@ -36,7 +36,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 		$logFile="adminlog.txt";
 		
-		if( $level == Zend_Log::ERR && in_array( $logging, array('light','full') ) ) {
+		if( $level == Zend_Log::ERR ){//&& in_array( $logging, array('light','full') ) ) {
 			Mage::log($data,$level,$logFile);
 			Mage::getSingleton('adminhtml/session')->addError($data);
 		}
