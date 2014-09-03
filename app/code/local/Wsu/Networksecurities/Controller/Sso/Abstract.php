@@ -49,6 +49,9 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 			if(!$customer || !$customer->getId()) {
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 			}
+			if(isset($data['authorId'])){
+				Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($data['authorId']);
+			}
 		}else{
 			$_customer = $customer->getCustomerAltSSo($customer,$data);
 			if(!$_customer || !$_customer->getId()) {

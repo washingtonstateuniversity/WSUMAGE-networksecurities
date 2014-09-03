@@ -31,43 +31,8 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
             }else{ //$user_info = $my->getAttributes(); 
 				$user_info = $my->data;
 				if(count($user_info)) {
-					$user = array();
-					$identity = $user_info['openid_identity'];
-					$length = strlen($identity);
-					$httpLen = strlen("http://");
-					$userAccount = substr($identity,$httpLen,$length-1-$httpLen);
-					$userArray = explode( '.', $userAccount,2);
-					$firstname = $userArray[0];
-					$lastname ="";
-					$email = $firstname."@".$userArray[1];
-					$authorId = $email;
-					$user['firstname'] = $firstname;
-					$user['lastname'] = $lastname;
-					$user['email'] = $email;
-					//get website_id and sote_id of each stores
-					$store_id = Mage::app()->getStore()->getStoreId();
-					$website_id = Mage::app()->getStore()->getWebsiteId();
-					$customer = $customerHelper->getCustomerByEmail($email, $website_id);
-					if(!$customer || !$customer->getId()) {
-						//Login multisite
-						$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-					}
-					Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($authorId);
-					if (Mage::getStoreConfig('wsu_networksecurities/oplogin/is_send_password_to_customer')) {
-						$customer->sendPasswordReminderEmail();
-					} 
-					// fix confirmation
-					if ($customer->getConfirmation()) {
-						try {
-							$customer->setConfirmation(null);
-							$customer->save();
-						}catch (Exception $e) {
-						}
-					}
-					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-					$nextUrl = $customerHelper->getEditUrl();						
-					$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
-						->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
+					$user_info['provider']="myopenid";
+					$this->handleCustomer($user_info);
                 }else{
                    $coreSession->addError('User has not shared information so login fail!');			
                    $customerHelper->setJsRedirect(Mage::getBaseUrl());
@@ -76,6 +41,26 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
         }
     }
 	
+	public function makeCustomerData($user_info) {
+		$data = array();
+		$identity = $user_info['openid_identity'];
+		$length = strlen($identity);
+		$httpLen = strlen("http://");
+		$userAccount = substr($identity,$httpLen,$length-1-$httpLen);
+		$userArray = explode( '.', $userAccount,2);
+		$firstname = $userArray[0];
+		$lastname ="";
+		$email = $firstname."@".$userArray[1];
+		$authorId = $email;
+		
+		$data['provider']=$user_info['provider'];
+		$data['email']=$email;
+		$data['firstname']=$frist_name;
+		$data['lastname']=$last_name;
+		$data['authorId']=$authorId;
+
+		return $data;
+	}	
 	/**
 	* return template au_wp.phtml
 	**/
