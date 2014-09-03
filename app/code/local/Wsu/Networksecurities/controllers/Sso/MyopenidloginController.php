@@ -8,16 +8,17 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Wsu_Networksecur
 		Mage::getSingleton('core/session')->setData('identity',$identity);		
 		$userId = $provider->mode;
 		if(!$userId) {
-			$provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($provider,$identity);
+			$provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setIdlogin($provider,$identity);
 			try{
 				$url = $provider->authUrl();
+				$this->_redirectUrl($url);
 			}catch(Exception $e) {
 				Mage::getSingleton('core/session')->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
-			$this->_redirectUrl($url);
+			
 		}else{ if (!$provider->validate()) {                
-                $provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($provider,$identity);
+                $provider = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setIdlogin($provider,$identity);
                 try{
 					$url = $provider->authUrl();
 				}catch(Exception $e) {
