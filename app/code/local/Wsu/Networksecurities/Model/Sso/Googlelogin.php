@@ -1,17 +1,18 @@
 <?php
+class Wsu_Networksecurities_Model_Sso_Googlelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
 
-
-
-class Wsu_Networksecurities_Model_Sso_Googlelogin extends Mage_Core_Model_Abstract {
-	protected $_options = null;
-	protected $_config = null;
-	var $_provider;
-	
-	public function __construct() {
-
+	public function getConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_key'));
 	}
-	
-	public function newProvider() {
+	public function getConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_secret'));
+	}
+	public function getRedirectUri() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return Mage::getUrl('sociallogin/googlelogin/user',array('_secure'=>$isSecure));
+	}
+
+	public function createProvider() {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Oauth2'.DS.'service'.DS.'Google_ServiceResource.php';
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Oauth2'.DS.'service'.DS.'Google_Service.php';
@@ -25,27 +26,6 @@ class Wsu_Networksecurities_Model_Sso_Googlelogin extends Mage_Core_Model_Abstra
 				->setClientSecret($this->getConsumerSecret())
 				->setRedirectUri($this->getRedirectUri());
 		return $google;
-	}
-
-	public function getProvider() {
-		if(!isset($this->_provider)){
-			$this->_provider = $this->newProvider();
-		}
-		return $this->_provider;
-	}
-
-	
-	
-	
-	public function getConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_key'));
-	}
-	public function getConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_secret'));
-	}
-	public function getRedirectUri() {
-		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
-		return Mage::getUrl('sociallogin/googlelogin/user',array('_secure'=>$isSecure));
 	}
 }
   
