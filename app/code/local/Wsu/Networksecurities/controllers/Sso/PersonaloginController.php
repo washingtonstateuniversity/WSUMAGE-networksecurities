@@ -23,39 +23,31 @@ class Wsu_Networksecurities_Sso_PersonaloginController extends Mage_Core_Control
 		curl_close($ch);
 		$status = $customerHelper->getPerResultStatus($result);
 		if($status=='okay') {
-		
-			//get website_id and sote_id of each stores
-			$store_id = Mage::app()->getStore()->getStoreId();
-			$website_id = Mage::app()->getStore()->getWebsiteId();
-			
-			$email= Mage::helper('wsu_networksecurities/customer')->getPerEmail($result);
-			$name=explode("@", $email);
-			$data =  array('firstname'=>$name[0], 'lastname'=>$name[0], 'email'=>$email);
-			$customer = $customerHelper->getCustomerByEmail($email, $website_id);
-			if(!$customer || !$customer->getId()) {
-				//Login multisite
-				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-				if(Mage::getStoreConfig('wsu_networksecurities/personalogin/is_send_password_to_customer')) {
-					$customer->sendPasswordReminderEmail();
-				}
-				if ($customer->getConfirmation()) {
-					try {
-						$customer->setConfirmation(null);
-						$customer->save();
-					}catch (Exception $e) {
-						Mage::getSingleton('core/session')->addError(Mage::helper('wsu_networksecurities')->__('Error'));
-					}
-				}
-			}
-			
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			/*die("<script type=\"text/javascript\">try{window.opener.location.href=\"".$this->_loginPostRedirect()."\";}catch(e) {window.opener.location.reload(true);} window.close();</script>");*/
-			//$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
-			$this->_redirectUrl($this->_loginPostRedirect());
+			$user_info['email']= Mage::helper('wsu_networksecurities/customer')->getPerEmail($result);
+			$user_info['provider']="persona";
+			$this->handleCustomer($user_info);
 		}else{
-			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
-			$this->_redirect();
-			//Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+			$coreSession->addError('Login failed as you have not granted access.');			
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
     }
+	
+	
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		$email = $user_info['email'];
+		$name=explode("@", $email);
+		$frist_name = $name[0];
+		$last_name = $name[0];
+		
+		$data['provider']=$user_info['provider'];
+		$data['email']=$email;
+		$data['firstname']=$frist_name;
+		$data['lastname']=$last_name;
+
+		return $data;
+	}	
+	
+	
 }
