@@ -26,10 +26,7 @@ class Wsu_Networksecurities_Sso_ClavidloginController extends Wsu_Networksecurit
         }
     }
 
-    public function setBlockAction() {             
-        /*$template =  $this->getLayout()->createBlock('sociallogin/clavidlogin')
-                ->setTemplate('sociallogin/au_cal.phtml')->toHtml();
-        echo $template;*/
+    public function formAction() {
 		$this->loadLayout();
 		$this->renderLayout();
     }

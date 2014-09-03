@@ -1,5 +1,8 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+		
+	var $_providerName = 'clavid';
+	
 	public function createProvider() {	
 		try{
 			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');
@@ -35,5 +38,9 @@ class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Wsu_Networksecurities_
     public function getIndexAllogin() {
         return Mage::getUrl('sociallogin/clavidlogin/setUserdomain');
     }
+	
+	public function getLaunchUrl() {
+		return Mage::getUrl("sociallogin/clavidlogin/form");
+	}
 }
   

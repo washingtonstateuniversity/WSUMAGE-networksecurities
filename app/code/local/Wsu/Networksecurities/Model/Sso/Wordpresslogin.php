@@ -1,5 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	var $_providerName = 'wordpress';
 	public function createProvider() {	
 		try{
 			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');
@@ -29,6 +30,9 @@ class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Wsu_Networksecuriti
         );
         $openid->returnUrl = Mage::getUrl('sociallogin/wordpresslogin/login');
 		return $openid;
-    }      
+    }
+	public function getLaunchUrl() {
+		return Mage::getUrl("sociallogin/wordpresslogin/form");
+	}
 }
   

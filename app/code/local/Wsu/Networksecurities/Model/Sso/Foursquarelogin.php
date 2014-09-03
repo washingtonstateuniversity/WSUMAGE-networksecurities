@@ -1,15 +1,16 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Foursquarelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	var $_providerName = 'foursquare';	
 	
 	public function getAppkey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/fqlogin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/foursquare_login/consumer_key'));
 	}
 	public function getAppSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/fqlogin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/foursquare_login/consumer_secret'));
 	}
 	public function getAuthUrl() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
-		return Mage::getUrl('sociallogin/fqlogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+		return Mage::getUrl('sociallogin/foursquarelogin/login', array('_secure'=>$isSecure, 'auth'=>1));
 	}
 	
 	public function createProvider() {

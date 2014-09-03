@@ -2,7 +2,7 @@
 class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template {
 	public function __construct() {
 		parent::__construct();
-		$this->setTemplate('wsu/networksecurities/providers_block.phtml');
+		$this->setTemplate('wsu/networksecurities/sso/providers_block.phtml');
 	}
 
 
@@ -18,7 +18,7 @@ class Wsu_Networksecurities_Block_Sso_Toplinks extends Mage_Core_Block_Template 
 		$html = "";
 		$html = $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
 					->setData('provider', $provider)
-					->setTemplate('wsu/networksecurities/bt.phtml')->toHtml();
+					->setTemplate('wsu/networksecurities/sso/bt.phtml')->toHtml();
 					
 		if( $this->isShowButton($provider) ){
 			$out=array(

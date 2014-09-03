@@ -1,6 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Livelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
-
+	var $_providerName = 'live';
 	public function getAppkey() {	
 		return trim(Mage::getStoreConfig('wsu_networksecurities/live_login/consumer_key'));
 	}

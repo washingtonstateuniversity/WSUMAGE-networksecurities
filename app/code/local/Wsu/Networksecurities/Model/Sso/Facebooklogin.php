@@ -1,6 +1,8 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecurities_Model_Sso_Abstract {
-
+	
+	var $_providerName = 'facebook';
+	
 	public function getAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
 	}

@@ -1,5 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Myopenidlogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	var $_providerName = 'myopenid';
 	public function createProvider() {
 		try{
 			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');
@@ -25,5 +26,8 @@ class Wsu_Networksecurities_Model_Sso_Myopenidlogin extends Wsu_Networksecuritie
         $openid->returnUrl = Mage::getUrl('sociallogin/myopenidlogin/login');
 		return $openid;
     }
+	public function getLaunchUrl() {
+		return Mage::getUrl("sociallogin/myopenidlogin/form");
+	}
 }
   

@@ -1,11 +1,12 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Googlelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
-
+	var $_providerName = 'google';	
+	
 	public function getConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/google_login/consumer_key'));
 	}
 	public function getConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/google_login/consumer_secret'));
 	}
 	public function getRedirectUri() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');

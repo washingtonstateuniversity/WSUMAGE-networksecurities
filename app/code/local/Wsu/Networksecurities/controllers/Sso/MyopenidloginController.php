@@ -59,14 +59,10 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Wsu_Networksecur
 
 		return $data;
 	}	
-	/**
-	* return template au_wp.phtml
-	**/
-    public function setBlockAction() {             
+
+
+    public function formAction() {             
 		$this->loadLayout();
 		$this->renderLayout();
-        /*$template =  $this->getLayout()->createBlock('sociallogin/myopenidlogin')
-                ->setTemplate('sociallogin/au_op.phtml')->toHtml();
-        echo $template;*/
     }
 }

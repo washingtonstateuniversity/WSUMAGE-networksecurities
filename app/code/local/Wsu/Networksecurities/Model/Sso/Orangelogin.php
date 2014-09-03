@@ -1,5 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Orangelogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	var $_providerName = 'orange';
 	public function createProvider() {	
 		try{
 			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');

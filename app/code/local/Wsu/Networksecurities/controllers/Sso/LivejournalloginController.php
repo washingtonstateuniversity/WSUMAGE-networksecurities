@@ -68,14 +68,7 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Wsu_Networkse
 		return $data;
 	}
 
-	
-	/**
-	* return template au_wp.phtml
-	**/
-    public function setBlockAction() {             
-        /*$template =  $this->getLayout()->createBlock('sociallogin/livejournallogin')
-                ->setTemplate('sociallogin/au_lj.phtml')->toHtml();
-        echo $template;*/
+    public function formAction() {
 		$this->loadLayout();
 		$this->renderLayout();
     }

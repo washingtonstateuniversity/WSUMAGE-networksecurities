@@ -18,7 +18,7 @@
         <reference name="customer.account.dashboard.info.extra">
 			<block type="wsu_networksecurities/sso_othersociallogin" name="networksecurities.othersociallogin">
 				<action method="setTemplate" >
-					<template>wsu/networksecurities/providers_block.phtml</template> 
+					<template>wsu/networksecurities/sso/providers_block.phtml</template> 
 				</action>
 			</block>
         </reference>
@@ -127,7 +127,7 @@
 			<action method="addJs"><script>wsu/networksecurities/lightbox.js</script></action>
 			<action method="addJs"><script>wsu/networksecurities/sociallogin.js</script></action>
 			<action method="addCss"><stylesheet>css/wsu/sociallogin.css</stylesheet></action>
-                        <action method="addCss"><stylesheet>css/wsu/mobilesociallogin.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/wsu/mobilesociallogin.css</stylesheet></action>
 		</reference>
 		<reference name="before_body_end">			
             <block type="wsu_networksecurities/sso_toplinks" after="-" name="toplinks.sociallogin" template="wsu/networksecurities/toplinks/toplinks.phtml"/>
@@ -170,31 +170,31 @@
 	<sociallogin_myopenidlogin_form>
 		<update handle="page_empty" />
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_myopenidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_op.phtml"/>
+			<block type="wsu_networksecurities/sso_myopenidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/myopenid.phtml"/>
 		</reference>
 	</sociallogin_myopenidlogin_form>
 	<sociallogin_livejournallogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_livejournallogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_lj.phtml"/>
+			<block type="wsu_networksecurities/sso_livejournallogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/livejournal.phtml"/>
 		</reference>
 	</sociallogin_livejournallogin_form>
 	<sociallogin_aollogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_aollogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_al.phtml"/>
+			<block type="wsu_networksecurities/sso_aollogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/aol.phtml"/>
 		</reference>
 	</sociallogin_aollogin_form>
 	<sociallogin_clavidlogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_clavidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_cal.phtml"/>
+			<block type="wsu_networksecurities/sso_clavidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/clavid.phtml"/>
 		</reference>
 	</sociallogin_clavidlogin_form>
 	<sociallogin_wordpresslogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_wordpresslogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_wp.phtml"/>
+			<block type="wsu_networksecurities/sso_wordpresslogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/wordpress.phtml"/>
 		</reference>
 	</sociallogin_wordpresslogin_form>
 	

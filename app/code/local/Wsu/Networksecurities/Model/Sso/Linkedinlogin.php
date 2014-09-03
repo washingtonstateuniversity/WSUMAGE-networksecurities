@@ -2,6 +2,7 @@
 class Wsu_Networksecurities_Model_Sso_Linkedinlogin extends Zend_Oauth_Consumer{
 	protected $_options = null;
 	
+	var $_providerName = 'linkedin';		
 	public function getConsumerKey() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/linkedin_login/app_id'));
 	}
@@ -27,7 +28,10 @@ class Wsu_Networksecurities_Model_Sso_Linkedinlogin extends Zend_Oauth_Consumer{
 	public function getOptions() {
 		return $this->_options ;
 	}
-	
+	public function getLaunchUrl() {
+		$provider = $this->_providerName;
+		return Mage::getUrl("sociallogin/linkedinlogin/login");
+	}
 	
 	public function getUser(){}
 	public function getLoginUrl($name="") {}

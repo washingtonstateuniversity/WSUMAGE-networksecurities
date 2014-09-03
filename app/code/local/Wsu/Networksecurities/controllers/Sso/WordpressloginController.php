@@ -55,13 +55,7 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Wsu_Networksecu
 		return $data;
 	}	
 	
-	
-	
-	
-    public function setBlockAction() {             
-        /*$template =  $this->getLayout()->createBlock('sociallogin/wordpresslogin')
-                ->setTemplate('sociallogin/au_wp.phtml')->toHtml();
-        echo $template;*/
+    public function formAction() {
 		$this->loadLayout();
 		$this->renderLayout();
     }

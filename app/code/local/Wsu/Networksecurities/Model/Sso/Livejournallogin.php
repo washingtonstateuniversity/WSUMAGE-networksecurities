@@ -1,5 +1,7 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Wsu_Networksecurities_Model_Sso_Abstract {
+	var $_providerName = 'linkedin';
+	
 	public function createProvider() {
 		try{
 			require_once(Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php');
@@ -24,5 +26,8 @@ class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Wsu_Networksecuri
         $openid->returnUrl = Mage::getUrl('sociallogin/livejournallogin/login');
 		return $openid;
     }
+	public function getLaunchUrl() {
+		return Mage::getUrl("sociallogin/livejournallogin/form");
+	}
 }
   

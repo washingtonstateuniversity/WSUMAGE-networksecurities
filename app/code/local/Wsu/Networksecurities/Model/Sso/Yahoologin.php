@@ -1,21 +1,24 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_Model_Sso_Abstract {
-
+	var $_providerName = 'yahoo';
 	public function getConsumerKey() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_key'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoo_login/consumer_key'));
 	}
 	
 	public function getConsumerSecret() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_secret'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoo_login/consumer_secret'));
 	}
 	
 	public function getAppId() {
-		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/app_id'));
+		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoo_login/app_id'));
 	}
 
 	
 	public function createProvider() {
 		try{
+		if(!class_exists("OAuthConsumer")) {
+			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
+		}
 			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
 		}catch(Exception $e) {}
 		
@@ -29,20 +32,25 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 	
 	
 	public function __construct() {
+		/*if(!class_exists("OAuthConsumer")) {
+			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
+		}
+		
+		
 		require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
 		//error_reporting(E_ALL | E_NOTICE); # do not show notices as library is php4 compatable
 		//ini_set('display_errors', true);
 		YahooLogger::setDebug(true);
 		YahooLogger::setDebugDestination('LOG');
-		
+		*/
 		// use memcache to store oauth credentials via php native sessions
-		ini_set('session.save_handler', 'files');
-		session_save_path('/tmp/');
-		session_start();
+		//ini_set('session.save_handler', 'files');
+		//session_save_path('/tmp/');
+		//session_start();
 		$request=Mage::app()->getRequest();
 		$logout=$request->getParam('logout');
 		if(isset($logout)) {
-			YahooSession::clearSession();
+			//YahooSession::clearSession();
 		}
 	}
 	

@@ -1,6 +1,6 @@
 <?php
 class Wsu_Networksecurities_Model_Sso_Twitterlogin extends Zend_Oauth_Consumer {
-
+	var $_providerName = 'twitter';
 	public function getConsumerKey() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/twitter_login/consumer_key'));
 	}
@@ -31,5 +31,10 @@ class Wsu_Networksecurities_Model_Sso_Twitterlogin extends Zend_Oauth_Consumer {
 	public function setCallbackUrl($url) {
 		$this->_config->setCallbackUrl($url);
 	}
+	public function getLaunchUrl() {
+		$provider = $this->_providerName;
+		return Mage::getUrl("sociallogin/twitterlogin/login");
+	}
+	
 }
   
