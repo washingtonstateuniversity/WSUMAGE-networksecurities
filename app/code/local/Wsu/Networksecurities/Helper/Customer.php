@@ -183,12 +183,12 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
 		return $this->_getUrl('customer/account/edit', array('_secure'=>$isSecure));
 	}
-	public function getFqAppkey() {
+/*	public function getFqAppkey() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/fqlogin/consumer_key'));
 	}
 	public function getFqAppSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/fqlogin/consumer_secret'));
-	}
+	}*/
 	public function getLiveAppkey() {	
 		return trim(Mage::getStoreConfig('wsu_networksecurities/livelogin/consumer_key'));
 	}
@@ -201,10 +201,10 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function getMpConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/myspacelogin/consumer_secret'));
 	}*/
-	public function getAuthUrlFq() {
+/*	public function getAuthUrlFq() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
 		return $this->_getUrl('sociallogin/fqlogin/login', array('_secure'=>$isSecure, 'auth'=>1));
-	}
+	}*/
     public function getAuthUrlLive() {
 		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
 		return $this->_getUrl('sociallogin/livelogin/login', array('_secure'=>$isSecure, 'auth'=>1));
