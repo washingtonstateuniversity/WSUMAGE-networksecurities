@@ -2,7 +2,7 @@
 class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Mage_Core_Model_Abstract {
 	public function newProvider() {	
 		try{
-			require_once Mage::getBaseDir('base').DS.'lib'.DS.'OpenId'.DS.'openid.php';
+			Mage::getBaseDir('lib').DS.'OpenId'.DS.'openid.php';
 		}catch(Exception $e) {}
 		
 		$openid = new LightOpenID(Mage::getUrl());       

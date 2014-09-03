@@ -3,7 +3,7 @@ class Wsu_Networksecurities_Model_Sso_Livelogin extends Wsu_Networksecurities_Mo
 	      
     public function createProvider() {
 		try{			
-            require_once Mage::getBaseDir('base').DS.'lib'.DS.'Author'.DS.'OAuth2Client.php';
+            Mage::getBaseDir('lib').DS.'Author'.DS.'OAuth2Client.php';
 		}catch(Exception $e) {}
         try{
             $live = new OAuth2Client(
