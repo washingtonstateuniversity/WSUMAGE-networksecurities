@@ -5,7 +5,8 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Mage_Core_Controll
 		
 		if (!$this->getAuthorizedToken()) {
 			$token = $this->getAuthorization();
-		}else{ $token = $this->getAuthorizedToken();
+		}else{ 
+			$token = $this->getAuthorizedToken();
 		}
 		
         return $token;

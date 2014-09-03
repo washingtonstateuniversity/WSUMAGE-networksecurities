@@ -8,38 +8,31 @@ class Wsu_Networksecurities_Sso_LiveloginController extends Mage_Core_Controller
         $live = Mage::getModel('wsu_networksecurities/sso_livelogin')->newProvider();        
 		try{
 			$json = $live->authenticate($code);
-			$user = $live->get("me", $live->param);	
+			$user = $live->get("me", $live->param);
+			if ($isAuth) {
+				$user_info['provider']="live";
+				$user_info['user']=$user;
+				$this->handleCustomer($user_info);
+			}
 		}catch(Exception $e) {
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());
-		}		
-        $first_name = $user->first_name;
-		$last_name = $user->last_name;
-		$email = $user->emails->account;	
-		//get website_id and sote_id of each stores
-		$store_id = Mage::app()->getStore()->getStoreId();//add
-		$website_id = Mage::app()->getStore()->getWebsiteId();//add		
+		}
+	}
+	
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+        $first_name = $user_info['user']->first_name;
+		$last_name = $user_info['user']->last_name;
+		$email = $user_info['user']->emails->account;
 		
-		if ($isAuth) {
-			$data =  array('firstname'=>$first_name, 'lastname'=>$last_name, 'email'=>$email);		
-			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);//add edtition
-			if(!$customer || !$customer->getId()) {
-				//Login multisite
-				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
-				if (Mage::getStoreConfig('wsu_networksecurities/livelogin/is_send_password_to_customer')) {
-					$customer->sendPasswordReminderEmail();
-				}
-			}
-				// fix confirmation
-			if ($customer->getConfirmation()) {
-				try {
-					$customer->setConfirmation(null);
-					$customer->save();
-				}catch (Exception $e) {
-				}
-	  		}
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
-    	}
-	}          
+		$data['provider']=$user_info['provider'];
+		$data['email']=$email;
+		$data['firstname']=$frist_name;
+		$data['lastname']=$last_name;
+
+		return $data;
+	}
+	
 }
