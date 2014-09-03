@@ -167,35 +167,35 @@
 	
 	
 	
-	<sociallogin_myopenidlogin_setblock>
+	<sociallogin_myopenidlogin_form>
 		<update handle="page_empty" />
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_myopenidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_op.phtml"/>
 		</reference>
-	</sociallogin_myopenidlogin_setblock>
-	<sociallogin_livejournallogin_setblock>
+	</sociallogin_myopenidlogin_form>
+	<sociallogin_livejournallogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_livejournallogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_lj.phtml"/>
 		</reference>
-	</sociallogin_livejournallogin_setblock>
-	<sociallogin_allogin_setblock>
+	</sociallogin_livejournallogin_form>
+	<sociallogin_aollogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_aollogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_al.phtml"/>
 		</reference>
-	</sociallogin_allogin_setblock>
-	<sociallogin_clavidlogin_setblock>
+	</sociallogin_aollogin_form>
+	<sociallogin_clavidlogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_clavidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_cal.phtml"/>
 		</reference>
-	</sociallogin_clavidlogin_setblock>
-	<sociallogin_wordpresslogin_setblock>
+	</sociallogin_clavidlogin_form>
+	<sociallogin_wordpresslogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_wordpresslogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_wp.phtml"/>
 		</reference>
-	</sociallogin_wordpresslogin_setblock>
+	</sociallogin_wordpresslogin_form>
 	
 </layout>

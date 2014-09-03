@@ -20,4 +20,19 @@ class Wsu_Networksecurities_Sso_AolloginController extends Wsu_Networksecurities
 			}
 		}
     }
+	public function formAction() {
+		$this->loadLayout();
+		$this->renderLayout();
+    }
+    public function setScreenNameAction() {
+        $data = $this->getRequest()->getPost();		
+		$name = $data['name'];
+        if($name) {            
+            $url = Mage::getModel('wsu_networksecurities/sso_allogin')->getLoginUrl($name);			
+            $this->_redirectUrl($url);
+        }else{ 
+			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
+        }
+    }
 }
