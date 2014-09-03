@@ -1,38 +1,53 @@
 <?php
-class Wsu_Networksecurities_Model_Sso_Myspacelogin extends Mage_Core_Model_Abstract {      
-	//static public $token;	
-    public function newProvider($token = null) {
+class Wsu_Networksecurities_Model_Sso_Myspacelogin extends Wsu_Networksecurities_Model_Sso_Abstract {      
+
+	public function getConsumerKey() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/myspace_login/consumer_key'));
+	}
+	public function getConsumerSecret() {
+		return trim(Mage::getStoreConfig('wsu_networksecurities/myspace_login/consumer_secret'));
+	}
+	public function getAuthUr() {
+		$isSecure = Mage::getStoreConfig('web/secure/use_in_frontend');
+		return Mage::getUrl('sociallogin/myspacelogin/login', array('_secure'=>$isSecure, 'auth'=>1));
+	}
+	
+    public function createProvider($token = null) {
 		try{
 			require_once Mage::getBaseDir('base').DS.'lib'.DS.'Author'.DS.'OAuth.php';
             require_once Mage::getBaseDir('base').DS.'lib'.DS.'Author'.DS.'OAuth1Client.php';
 		}catch(Exception $e) {}
         try{
 			if ($token) {
-				$mp = new OAuth1Client(
-                    Mage::helper('wsu_networksecurities/customer')->getMpConsumerKey(), 					
-                    Mage::helper('wsu_networksecurities/customer')->getMpConsumerSecret(),                    
+				$provider = new OAuth1Client(
+                    $this->getConsumerKey(), 					
+                    $this->getConsumerSecret(),                    
 					$token['oauth_token'],
 					$token['oauth_token_secret']
                 );    
 			}else{
-				$mp = new OAuth1Client(
-                    Mage::helper('wsu_networksecurities/customer')->getMpConsumerKey(), 					
-                    Mage::helper('wsu_networksecurities/customer')->getMpConsumerSecret()                  					
+				$provider = new OAuth1Client(
+                    $this->getConsumerKey(), 					
+                    $this->getConsumerSecret()                  					
                 ); 
 			} 
-			$mp->api_base_url          = "http://api.myspace.com/v1/";
-			$mp->authorize_url         = "http://api.myspace.com/authorize";			
-			$mp->request_token_url     = "http://api.myspace.com/request_token";
-			$mp->access_token_url      = "http://api.myspace.com/access_token";
+			$provider->api_base_url          = "http://api.myspace.com/v1/";
+			$provider->authorize_url         = "http://api.myspace.com/authorize";			
+			$provider->request_token_url     = "http://api.myspace.com/request_token";
+			$provider->access_token_url      = "http://api.myspace.com/access_token";
             return $mp;
         }catch(Exception $e) {}
     }
+	
     public function getUrlAuthorCode() {
-        $mp = $this->newProvider();		
-        $token = $mp->requestToken(Mage::helper('wsu_networksecurities/customer')->getAuthUrlMp());			
+        $provider = $this->getProvider();		
+        $token = $provider->requestToken($this->getAuthUr());			
 		Mage::getSingleton('core/session')->setRequestToken($token);
-		return  $mp->authorizeUrl($token);		
-    }	
+		return  $provider->authorizeUrl($token);		
+    }
+	
+
+	
 }
 
   

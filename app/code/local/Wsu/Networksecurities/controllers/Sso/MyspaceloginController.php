@@ -1,13 +1,12 @@
 <?php
-class Wsu_Networksecurities_Sso_MyspaceloginController extends Mage_Core_Controller_Front_Action{
-	/**
-	* getToken and call profile user myspace
-	**/
+class Wsu_Networksecurities_Sso_MyspaceloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
+
+
     public function loginAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer'); 
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken();
 		
-		$mp = Mage::getModel('wsu_networksecurities/sso_myspacelogin')->newProvider($requestToken);
+		$mp = Mage::getModel('wsu_networksecurities/sso_myspacelogin')->getProvider($requestToken);
 		$oauth_token = $this->getRequest()->getParam('oauth_token');
         $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');		
 		$accessToken = $mp->accessToken($oauth_verifier, urldecode ($oauth_token));
