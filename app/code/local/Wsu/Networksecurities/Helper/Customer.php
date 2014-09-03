@@ -155,13 +155,13 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 	public function getYaConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/yahoologin/consumer_secret'));
 	}
-	public function getGoConsumerKey() {
+	/*public function getGoConsumerKey() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_key'));
 	}
 	public function getGoConsumerSecret() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/googlelogin/consumer_secret'));
 	}
-	/*public function getFbAppId() {
+	public function getFbAppId() {
 		return trim(Mage::getStoreConfig('wsu_networksecurities/facebook_login/app_id'));
 	}
 	public function getFbAppSecret() {

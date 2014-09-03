@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_GoogleloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_GoogleloginController extends Wsu_Networksecurities_Controller_Sso_Abstract {
 	
 	public function loginAction() {		
 		
@@ -14,7 +14,7 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Mage_Core_Controll
 	
 	public function userAction() {
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$googlelogin = Mage::getModel('wsu_networksecurities/sso_googlelogin');
+		$googlelogin = Mage::getModel('wsu_networksecurities/sso_googlelogin')->getProvider();
 		$oauth2 = new Google_Oauth2Service($googlelogin);
 		$code = $this->getRequest()->getParam('code');
 		if(!$code) {
@@ -22,39 +22,31 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Mage_Core_Controll
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());	
 		}
 		$accessToken = $googlelogin->authenticate($code);						
-		$client = $oauth2->userinfo->get();
+		$user_info = $oauth2->userinfo->get();
 		
-		$user = array();		
-		$email = $client['email'];		
-		$name = $client['name'];
-		$arrName = explode(' ', $name, 2);
-		$user['firstname'] = $arrName[0];
-		$user['lastname'] = $arrName[1];			
-		$user['email'] = $email;
-		
-		//get website_id and sote_id of each stores
-		$store_id = Mage::app()->getStore()->getStoreId();//add
-		$website_id = Mage::app()->getStore()->getWebsiteId();//add
-		
-		$customer = $customerHelper->getCustomerByEmail($user['email'],$website_id );//add edition
-		if(!$customer || !$customer->getId()) {
-			//Login multisite
-			$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-			if (Mage::getStoreConfig('wsu_networksecurities/googlelogin/is_send_password_to_customer')) {
-				$customer->sendPasswordReminderEmail();
-			}
-		}
-		// fix confirmation
-		if ($customer->getConfirmation()) {
-			try {
-				$customer->setConfirmation(null);
-				$customer->save();
-			}catch (Exception $e) {
-			}
-		}
-		Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-		$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());	
+		$user_info['provider']="google";
+		$this->handleCustomer($user_info);
     }
+	
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		
+		$email = $user_info['email'];		
+		$name = $user_info['name'];
+		$arrName = explode(' ', $name, 2);
+		$firstname = $arrName[0];
+		$lastname = $arrName[1];			
+		$user['email'] = $email;
+
+		$data['provider']=$user_info['provider'];
+		$data['email']= $email;
+		$data['firstname']=$firstname;
+		$data['lastname']=$lastname;
+
+		return $data;
+	}
+	
 	
 	// if exit access token
 	public function getAuthorizedToken() {
@@ -71,10 +63,13 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Mage_Core_Controll
 					'https://www.googleapis.com/auth/userinfo.profile',
 					'https://www.googleapis.com/auth/userinfo.email'
 				 );		
-		$googlelogin = Mage::getModel('wsu_networksecurities/sso_googlelogin');        			
-		$googlelogin->setScopes($scope); 		
-		$googlelogin->authenticate();					
-		$authUrl = $googlelogin->createAuthUrl();
+		$google = Mage::getModel('wsu_networksecurities/sso_googlelogin')->getProvider();
+		$google->setScopes($scope); 		
+		$google->authenticate();					
+		$authUrl = $google->createAuthUrl();
+				var_dump($google);
+				var_dump($authUrl);
+		die();
 		header('Localtion: '.$authUrl);
 		die(0);
     }
