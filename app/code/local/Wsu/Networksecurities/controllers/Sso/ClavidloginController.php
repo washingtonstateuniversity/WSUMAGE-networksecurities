@@ -12,8 +12,7 @@ class Wsu_Networksecurities_Sso_ClavidloginController extends Mage_Core_Controll
 		if(!$userId) {
             $cal_session = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->setcalIdlogin($aol, $name_blog);
             $url = $cal_session->authUrl();
-			echo "<script type='text/javascript'>top.location.href = '$url';</script>";
-			exit;
+			$this->_redirectUrl($url);
 		}else{ if (!$cal->validate()) {                
                $coreSession->addError('Login failed as you have not granted access.');			
                $customerHelper->setJsRedirect(Mage::getBaseUrl());
