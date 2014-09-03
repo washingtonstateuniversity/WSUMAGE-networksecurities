@@ -14,13 +14,12 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
         );*/
 		Mage::getSingleton('core/session')->setData('identity',$identity);
 		$userId = $my->mode;       	
-		$coreSession = Mage::getSingleton('core/session');
 		if(!$userId) {
             $my = Mage::getModel('wsu_networksecurities/sso_livejournallogin')->setLjIdlogin($my,$identity);
 			try{
 				$url = $my->authUrl();
 			}catch(Exception $e) {
-				$coreSession->addError('Username not exacted');
+				Mage::getSingleton('core/session')->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 			$this->_redirectUrl($url);
@@ -29,7 +28,7 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
                 try{
 					$url = $my->authUrl();
 				}catch(Exception $e) {
-					$coreSession->addError('Username not exacted');			
+					Mage::getSingleton('core/session')->addError('Username not exacted');			
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
                 $this->_redirectUrl($url);
@@ -72,7 +71,7 @@ class Wsu_Networksecurities_Sso_LivejournalloginController extends Mage_Core_Con
 					Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 					$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
                 }else{ 
-					$coreSession->addError('User has not shared information so login fail!');			
+					Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');			
 					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           

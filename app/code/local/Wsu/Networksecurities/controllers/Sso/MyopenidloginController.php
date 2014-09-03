@@ -6,14 +6,13 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
 		$identity = $this->getRequest()->getPost('identity');
 		$my = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->newProvider();  
 		Mage::getSingleton('core/session')->setData('identity',$identity);		
-		$userId = $my->mode;       	
-		$coreSession = Mage::getSingleton('core/session');
+		$userId = $my->mode;
 		if(!$userId) {
 			$my = Mage::getModel('wsu_networksecurities/sso_myopenidlogin')->setOpenIdlogin($my,$identity);
 			try{
 				$url = $my->authUrl();
 			}catch(Exception $e) {
-				$coreSession->addError('Username not exacted');
+				Mage::getSingleton('core/session')->addError('Username not exacted');
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 			$this->_redirectUrl($url);
@@ -22,7 +21,7 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
                 try{
 					$url = $my->authUrl();
 				}catch(Exception $e) {
-					$coreSession->addError('Username not exacted');
+					Mage::getSingleton('core/session')->addError('Username not exacted');
 					$customerHelper->setJsRedirect(Mage::getBaseUrl());
 				}
                 $customerHelper->setJsRedirect(Mage::getBaseUrl());
@@ -32,7 +31,7 @@ class Wsu_Networksecurities_Sso_MyopenidloginController extends Mage_Core_Contro
 					$user_info['provider']="myopenid";
 					$this->handleCustomer($user_info);
                 }else{
-                   $coreSession->addError('User has not shared information so login fail!');			
+                   Mage::getSingleton('core/session')->addError('User has not shared information so login fail!');			
                    $customerHelper->setJsRedirect(Mage::getBaseUrl());
                 }
             }           

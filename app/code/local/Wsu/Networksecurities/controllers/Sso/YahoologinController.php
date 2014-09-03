@@ -19,7 +19,7 @@ class Wsu_Networksecurities_Sso_YahoologinController extends Wsu_Networksecuriti
 				$user_info['provider']="yahoo";
 				$this->handleCustomer($user_info);
 			}else{ 
-				$coreSession->addError($this->__('Login failed as you have not granted access.'));
+				Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 		}

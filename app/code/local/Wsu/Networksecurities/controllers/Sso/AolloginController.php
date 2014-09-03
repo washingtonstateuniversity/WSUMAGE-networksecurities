@@ -4,7 +4,6 @@ class Wsu_Networksecurities_Sso_AolloginController extends Wsu_Networksecurities
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$aol = Mage::getModel('wsu_networksecurities/sso_aollogin')->newProvider();       
 		$userId = $aol->mode;        
-		$coreSession = Mage::getSingleton('core/session');		
 
 		if (!$userId || !$aol->validate()) {                
 			$aol_session = Mage::getModel('wsu_networksecurities/sso_aollogin')->setIdlogin($aol);
@@ -16,7 +15,7 @@ class Wsu_Networksecurities_Sso_AolloginController extends Wsu_Networksecurities
 				$user_info['provider']="aol";
 				$this->handleCustomer($user_info);
 			}else{ 
-				$coreSession->addError($this->__('Login failed as you have not granted access.'));
+				Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
 				$customerHelper->setJsRedirect(Mage::getBaseUrl());
 			}
 		}

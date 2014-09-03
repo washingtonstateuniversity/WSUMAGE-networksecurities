@@ -27,7 +27,7 @@ class Wsu_Networksecurities_Sso_PersonaloginController extends Mage_Core_Control
 			$user_info['provider']="persona";
 			$this->handleCustomer($user_info);
 		}else{
-			$coreSession->addError('Login failed as you have not granted access.');			
+			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
     }

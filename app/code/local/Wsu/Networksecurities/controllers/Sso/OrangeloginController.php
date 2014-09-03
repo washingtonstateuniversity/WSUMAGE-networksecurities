@@ -5,16 +5,14 @@ class Wsu_Networksecurities_Sso_OrangeloginController extends Mage_Core_Controll
 	* getToken and call profile user Orange
 	**/
     public function loginAction() {     
-		$customerHelper = Mage::helper('wsu_networksecurities/customer');
-		$org = Mage::getModel('wsu_networksecurities/sso_orangelogin')->newProvider();            
-		$coreSession = Mage::getSingleton('core/session');                      
+		$org = Mage::getModel('wsu_networksecurities/sso_orangelogin')->newProvider();                                  
 		$user_info = $org->data;                 
 		if(count($user_info)) {
 			$user_info['provider']="myopenid";
 			$this->handleCustomer($user_info);
 		}else{ 
-			$coreSession->addError('Login failed as you have not granted access.');			
-			$customerHelper->setJsRedirect(Mage::getBaseUrl());
+			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
+			Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
 		}           
     }
 	

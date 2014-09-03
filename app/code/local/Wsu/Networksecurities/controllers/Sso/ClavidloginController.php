@@ -13,19 +13,16 @@ class Wsu_Networksecurities_Sso_ClavidloginController extends Wsu_Networksecurit
             $cal_session = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->setIdlogin($cal, $name_blog);
             $url = $cal_session->authUrl();
 			$this->_redirectUrl($url);
-		}else{ if (!$cal->validate()) {                
-               $coreSession->addError('Login failed as you have not granted access.');			
-               $customerHelper->setJsRedirect(Mage::getBaseUrl());
-            }else{ 
+		}else{ 
+			if ($cal->validate()) {                
 				$user_info = $cal->getAttributes();                 
                 if(count($user_info)) {
 					$user_info['provider']="clavid";
 					$this->handleCustomer($user_info);
-                }else{ 
-					$coreSession->addError($this->__('Login failed as you have not granted access.'));
-					$customerHelper->setJsRedirect(Mage::getBaseUrl());
                 }
-            }           
+            }
+			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());          
         }
     }
 

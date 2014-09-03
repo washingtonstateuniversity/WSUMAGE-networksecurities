@@ -21,8 +21,7 @@ class Wsu_Networksecurities_Sso_FoursquareloginController extends Mage_Core_Cont
 		try{
 			$json = $customerHelper->getResponseBody($url);
 		}catch( Exception $e) {
-			$coreSession = Mage::getSingleton('core/session');
-			$coreSession->addError('Login fail!');			
+			Mage::getSingleton('core/session')->addError('Login fail!');			
             $customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}		
 		$string = $foursquare->getResponseFromJsonString($json);		

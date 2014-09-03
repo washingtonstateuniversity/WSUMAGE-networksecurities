@@ -5,10 +5,8 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Contr
 	* getToken and call profile user WordPress
 	**/
     public function loginAction($name_blog) {
-		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$wp = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->newProvider();       
-		$userId = $wp->mode;        
-		$coreSession = Mage::getSingleton('core/session');
+		$userId = $wp->mode;
 		if(!$userId) {
             $wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setIdlogin($wp, $name_blog);
             $url = $wp_session->authUrl();
@@ -23,8 +21,8 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Mage_Core_Contr
 					$user_info['provider']="wordpress";
 					$this->handleCustomer($user_info);
                 }else{ 
-					$coreSession->addError('Login failed as you have not granted access.');			
-					$customerHelper->setJsRedirect(Mage::getBaseUrl());
+					Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
+					Mage::helper('wsu_networksecurities/customer')->setJsRedirect(Mage::getBaseUrl());
                 }
             }           
         }

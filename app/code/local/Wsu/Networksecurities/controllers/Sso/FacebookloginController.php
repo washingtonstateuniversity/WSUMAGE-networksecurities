@@ -11,15 +11,14 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
 			echo("<script>window.close()</script>");
 		}elseif ($isAuth && !$userId) {
 			$loginUrl = $facebook->getLoginUrl(array('scope' => 'email'));
-			echo "<script type='text/javascript'>top.location.href = '$loginUrl';</script>";
-			exit;
+			$this->_redirectUrl($loginUrl);
 		}
  		$user_info = Mage::getModel('wsu_networksecurities/sso_facebooklogin')->getUser();
 		if ($isAuth && $user_info) {
 			$user_info['provider']="facebook";
 			$this->handleCustomer($user_info);
 		}else{ 
-			$coreSession->addError($this->__('Login failed as you have not granted access.'));
+			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
 
