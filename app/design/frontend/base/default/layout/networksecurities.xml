@@ -73,6 +73,9 @@
 	</contacts_index_index>
 	<!-- customer forms -->
 
+	<customer_account>
+		<update handle="add_othersociallogin" />
+	</customer_account>
 	<customer_account_index>
 		<update handle="add_othersociallogin" />
 	</customer_account_index>
