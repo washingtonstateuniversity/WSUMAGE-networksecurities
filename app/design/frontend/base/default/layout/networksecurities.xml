@@ -126,6 +126,7 @@
 		<reference name="head">
 			<action method="addJs"><script>wsu/networksecurities/lightbox.js</script></action>
 			<action method="addJs"><script>wsu/networksecurities/sociallogin.js</script></action>
+			<action method="addJs"><script>wsu/networksecurities/networksecurities.js</script></action>
 			<action method="addCss"><stylesheet>css/wsu/sociallogin.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/wsu/mobilesociallogin.css</stylesheet></action>
 		</reference>
