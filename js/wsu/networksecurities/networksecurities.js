@@ -3,8 +3,123 @@ document.observe('dom:loaded', function () {
     //$('url').hide();
 });
 
+(function($,undefined){
+	var capState = undefined;
+	var methods = {
+		init : function(options) {
+			var settings = $.extend({}, options);// No defaults yet
+			
+			// Some systems will always return uppercase characters if Caps Lock is on. 
+			var capsLockForcedUppercase = /MacPPC|MacIntel/.test(window.navigator.platform) === true;
+
+			var helpers = {
+				isCapslockOn : function(e) {
+					var shiftOn = false;
+					if (e.shiftKey) { // determines whether or not the shift key was held
+						shiftOn = e.shiftKey; // stores shiftOn as true or false
+					} else if (e.modifiers) { // determines whether or not shift, alt or ctrl were held
+						shiftOn = !!(e.modifiers & 4);
+					}
+					var keyString = String.fromCharCode(e.which);
+					if (keyString.toUpperCase() === keyString.toLowerCase()) {
+						// We can't determine the state for these keys
+					} else if (keyString.toUpperCase() === keyString) {
+						if (capsLockForcedUppercase === true && shiftOn) {
+							// We can't determine the state for these keys
+						} else {
+							capState = !shiftOn;
+						}
+					} else if (keyString.toLowerCase() === keyString) {
+						capState = shiftOn;
+					}
+					return capState;
+				},
+
+				isCapslockKey : function(e) {
+					var keyCode = e.which;
+					if (keyCode === 20) {
+						if (capState !== undefined) {
+							capState = !capState;
+						}
+					}
+					return capState;
+				},
+
+				hasStateChange : function(previousState, currentState) {
+					if (previousState !== currentState) {
+						$('body').trigger("capsChanged");
+						if (currentState === true) {
+							$('body').trigger("capsOn");
+						} else if (currentState === false) {
+							$('body').trigger("capsOff");
+						} else if (currentState === undefined) {
+							$('body').trigger("capsUnknown");
+						}
+					}
+				}
+			};
+			$('body').on("keypress.capState", function(event) {// Check all keys
+				var previousState = capState;
+				capState = helpers.isCapslockOn(event);
+				helpers.hasStateChange(previousState, capState);
+			});
+			$('body').on("keydown.capState", function(event) {// Check if key was Caps Lock key
+				var previousState = capState;
+				capState = helpers.isCapslockKey(event);
+				helpers.hasStateChange(previousState, capState);
+			});
+			$(window).on("focus.capState", function() {// If the window loses focus then we no longer know the state
+				var previousState = capState;
+				capState = undefined;
+				helpers.hasStateChange(previousState, capState);
+			});
+			helpers.hasStateChange(null, undefined);// Trigger events on initial load of plugin
+			return this.each(function() {});// Maintain chainability
+		},
+		state : function() {
+			return capsLockState;
+		},
+		destroy : function() {
+			return this.each(function() {
+				$('body').unbind('.capState');
+				$(window).unbind('.capState');
+			})
+		}
+	}
+	jQuery.fn.capState = function(method) {
+		if (methods[method]) {
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+		} else if (typeof method === 'object' || !method) {
+			return methods.init.apply(this, arguments);
+		} else {
+			$.error('Method ' + method + ' does not exist on jQuery.capState');
+		}
+	};
+})(jQuery,undefined);
+
+
+
+
+
 (function($){
 	$(function(){
+        $(window).capslockstate();
+			$(window).bind("capsOn", function(event) {
+				if ($("#txtPassword:focus").length > 0) {
+					$('#divMayus').style.visibility = 'visible';
+				}
+			});
+			$(window).bind("capsOff capsUnknown", function(event) {
+				$('#divMayus').style.visibility = 'hidden';
+			});
+			$("#txtPassword").bind("focusout", function(event) {
+				$('#divMayus').style.visibility = 'hidden';
+			});
+			$("#txtPassword").bind("focusin", function(event) {
+				if ($(window).capState("state") === true) {
+					$('#divMayus').style.visibility = 'visible';
+				}
+			});
 		$('.sso_login').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
