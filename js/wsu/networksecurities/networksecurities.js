@@ -4,23 +4,32 @@ document.observe('dom:loaded', function () {
 });
 
 (function($,undefined){
-	var capState = undefined;
-	var methods = {
+	var capState,methods;
+	
+	capState = undefined;
+	methods = {
 		init : function(options) {
-			var settings = $.extend({}, options);// No defaults yet
+			var settings,capsLockForcedUppercase,helpers;
+			
+			settings = $.extend({}, options);// No defaults yet
 			
 			// Some systems will always return uppercase characters if Caps Lock is on. 
-			var capsLockForcedUppercase = /MacPPC|MacIntel/.test(window.navigator.platform) === true;
+			capsLockForcedUppercase = /MacPPC|MacIntel/.test(window.navigator.platform) === true;
 
-			var helpers = {
+			helpers = {
 				isCapslockOn : function(e) {
-					var shiftOn = false;
+					var shiftOn,keyString;
+					
+					shiftOn = false;
+					
 					if (e.shiftKey) { // determines whether or not the shift key was held
 						shiftOn = e.shiftKey; // stores shiftOn as true or false
 					} else if (e.modifiers) { // determines whether or not shift, alt or ctrl were held
 						shiftOn = !!(e.modifiers & 4);
 					}
-					var keyString = String.fromCharCode(e.which);
+					
+					keyString = String.fromCharCode(e.which);
+					
 					if (keyString.toUpperCase() === keyString.toLowerCase()) {
 						// We can't determine the state for these keys
 					} else if (keyString.toUpperCase() === keyString) {
@@ -36,7 +45,8 @@ document.observe('dom:loaded', function () {
 				},
 
 				isCapslockKey : function(e) {
-					var keyCode = e.which;
+					var keyCode;
+					keyCode = e.which;
 					if (keyCode === 20) {
 						if (capState !== undefined) {
 							capState = !capState;
@@ -56,20 +66,24 @@ document.observe('dom:loaded', function () {
 							$('body').trigger("capsUnknown");
 						}
 					}
-				}
+				},
+
 			};
 			$('body').on("keypress.capState", function(event) {// Check all keys
-				var previousState = capState;
+				var previousState;
+				previousState = capState;
 				capState = helpers.isCapslockOn(event);
 				helpers.hasStateChange(previousState, capState);
 			});
 			$('body').on("keydown.capState", function(event) {// Check if key was Caps Lock key
-				var previousState = capState;
+				var previousState;
+				previousState = capState;
 				capState = helpers.isCapslockKey(event);
 				helpers.hasStateChange(previousState, capState);
 			});
 			$(window).on("focus.capState", function() {// If the window loses focus then we no longer know the state
-				var previousState = capState;
+				var previousState;
+				previousState = capState;
 				capState = undefined;
 				helpers.hasStateChange(previousState, capState);
 			});
@@ -77,12 +91,12 @@ document.observe('dom:loaded', function () {
 			return this.each(function() {});// Maintain chainability
 		},
 		state : function() {
-			return capsLockState;
+			return capState;
 		},
 		destroy : function() {
 			return this.each(function() {
-				$('body').unbind('.capState');
-				$(window).unbind('.capState');
+				$('body').off('.capState');
+				$(window).off('.capState');
 			})
 		}
 	}
@@ -103,23 +117,32 @@ document.observe('dom:loaded', function () {
 
 (function($){
 	$(function(){
-        $(window).capslockstate();
-			$(window).bind("capsOn", function(event) {
-				if ($("#txtPassword:focus").length > 0) {
-					$('#divMayus').style.visibility = 'visible';
-				}
+		
+		var stateId,stateMessage;
+		if( $("input[type='password']").length ){
+			$(window).capState();
+			stateId = "capState";
+			stateMessage = '<div id="'+stateId+'">Caps lock is on</div>';
+			
+			$("input[type='password']").wrap('<div id="capMessages">');
+
+			$(window).on("capsOn", function(event) {
+				$('#capMessages').append(stateMessage);
 			});
-			$(window).bind("capsOff capsUnknown", function(event) {
-				$('#divMayus').style.visibility = 'hidden';
+			$(window).on("capsOff capsUnknown", function(event) {
+				$('#capMessages #'+stateId+'').remove();
 			});
-			$("#txtPassword").bind("focusout", function(event) {
-				$('#divMayus').style.visibility = 'hidden';
-			});
-			$("#txtPassword").bind("focusin", function(event) {
+			$("input").on("change", function(event) {
 				if ($(window).capState("state") === true) {
-					$('#divMayus').style.visibility = 'visible';
+					if($('#capMessages #'+stateId+'').length<=0){
+						$('#capMessages').append(stateMessage);
+					}
+				}else{
+					$('#capMessages #'+stateId+'').remove();
 				}
 			});
+		}
+		
 		$('.sso_login').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation();
