@@ -33,8 +33,12 @@ class Wsu_Networksecurities_Model_Sso_Aollogin extends Wsu_Networksecurities_Mod
         $openid->returnUrl = Mage::getUrl('sociallogin/aollogin/login');
 		return $openid;
     }
-	public function getLaunchUrl() {
-		return Mage::getUrl("sociallogin/aollogin/form");
+	public function getLaunchUrl($account=null) {
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/aollogin/form",$queries);
 	}
 }
   

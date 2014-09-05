@@ -26,8 +26,12 @@ class Wsu_Networksecurities_Model_Sso_Myopenidlogin extends Wsu_Networksecuritie
         $openid->returnUrl = Mage::getUrl('sociallogin/myopenidlogin/login');
 		return $openid;
     }
-	public function getLaunchUrl() {
-		return Mage::getUrl("sociallogin/myopenidlogin/form");
+	public function getLaunchUrl($account=null) {
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/myopenidlogin/form",$queries);
 	}
 }
   

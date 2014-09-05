@@ -35,7 +35,7 @@ class Wsu_Networksecurities_Sso_ClavidloginController extends Wsu_Networksecurit
         $data = $this->getRequest()->getPost();
         if($data) {
             $name = $data['name'];
-            $url = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->getCalLoginUrl($name);
+            $url = Mage::getModel('wsu_networksecurities/sso_clavidlogin')->getLoginUrl($name);
             $this->_redirectUrl($url);
         }else{ 
 			Mage::getSingleton('core/session')->addError('Please enter Blog name!');	

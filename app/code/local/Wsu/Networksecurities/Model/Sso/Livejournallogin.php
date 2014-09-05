@@ -26,8 +26,12 @@ class Wsu_Networksecurities_Model_Sso_Livejournallogin extends Wsu_Networksecuri
         $openid->returnUrl = Mage::getUrl('sociallogin/livejournallogin/login');
 		return $openid;
     }
-	public function getLaunchUrl() {
-		return Mage::getUrl("sociallogin/livejournallogin/form");
+	public function getLaunchUrl($account=null) {
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/livejournallogin/form",$queries);
 	}
 }
   

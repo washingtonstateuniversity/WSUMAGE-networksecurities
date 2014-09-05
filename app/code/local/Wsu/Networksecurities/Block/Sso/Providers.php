@@ -6,8 +6,8 @@ class Wsu_Networksecurities_Block_Sso_Providers extends Mage_Core_Block_Template
 		return Mage::getModel("wsu_networksecurities/sso_${provider}login")->getUser();
 	}
 	
-	public function getBTUrl($provider) {
-		return Mage::getModel("wsu_networksecurities/sso_${provider}login")->getLaunchUrl();
+	public function getBTUrl($provider,$account=null) {
+		return Mage::getModel("wsu_networksecurities/sso_${provider}login")->getLaunchUrl($account);
 	}
 	
 	public function getDirectLoginUrl($provider) {

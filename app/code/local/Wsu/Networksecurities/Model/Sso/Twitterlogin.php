@@ -31,9 +31,12 @@ class Wsu_Networksecurities_Model_Sso_Twitterlogin extends Zend_Oauth_Consumer {
 	public function setCallbackUrl($url) {
 		$this->_config->setCallbackUrl($url);
 	}
-	public function getLaunchUrl() {
-		$provider = $this->_providerName;
-		return Mage::getUrl("sociallogin/twitterlogin/login");
+	public function getLaunchUrl($account=null) {
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/twitterlogin/login",$queries);
 	}
 	
 }

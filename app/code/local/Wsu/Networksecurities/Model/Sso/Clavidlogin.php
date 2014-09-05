@@ -39,8 +39,12 @@ class Wsu_Networksecurities_Model_Sso_Clavidlogin extends Wsu_Networksecurities_
         return Mage::getUrl('sociallogin/clavidlogin/setUserdomain');
     }
 	
-	public function getLaunchUrl() {
-		return Mage::getUrl("sociallogin/clavidlogin/form");
+	public function getLaunchUrl($account=null) {
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/clavidlogin/form",$queries);
 	}
 }
   

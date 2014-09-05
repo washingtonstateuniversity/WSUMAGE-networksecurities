@@ -31,8 +31,12 @@ class Wsu_Networksecurities_Model_Sso_Wordpresslogin extends Wsu_Networksecuriti
         $openid->returnUrl = Mage::getUrl('sociallogin/wordpresslogin/login');
 		return $openid;
     }
-	public function getLaunchUrl() {
-		return Mage::getUrl("sociallogin/wordpresslogin/form");
+	public function getLaunchUrl($account=null) {
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/wordpresslogin/form",$queries);
 	}
 }
   

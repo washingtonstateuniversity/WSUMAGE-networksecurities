@@ -36,6 +36,14 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 	}
 	
 	public function handleCustomer($user_info){
+		$cID=0;
+		if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+			 $customerData = Mage::getSingleton('customer/session')->getCustomer();
+			 $cID = $customerData->getId();
+		}//note we would want to take the passed account id adn match it but for now we are just going to use what is set already
+		
+		
+		
 		
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$data = $this->makeCustomerData($user_info);
@@ -43,7 +51,14 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 		$store_id = Mage::app()->getStore()->getStoreId();//add
 		$website_id = Mage::app()->getStore()->getWebsiteId();//add
 
-		$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
+		if($cID>0){
+			$customer = Mage::getModel('customer/customer')->load($cID);
+		}else{
+			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
+		}
+		
+		
+		
 		
 		if(!$customer || !$customer->getId()) {
 			$customer = $customer->getCustomerAltSSo($customer,$data);

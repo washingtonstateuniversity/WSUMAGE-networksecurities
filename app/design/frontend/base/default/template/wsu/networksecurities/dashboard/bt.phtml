@@ -7,14 +7,14 @@
 	$data=$this->getData();
 	$provider = $data['provider'];
 	$account = $data['account'];
-	
+	var_dump($account);die();
 	//$provider = $this->getData('provider');//$this->getProvider();// note should be $provider->getUser(); etc..
 	$user = $this->getUser($provider);
 	$title = $this->__($this->getTitle($provider));
 	$text = $this->__($this->getText($provider));
 	$width = $this->getWidth($provider);
 	$height = $this->getHeight($provider);
-	$url = $this->getBTUrl($provider).'&account='.$account;
+	$url = $this->getBTUrl($provider,$account);
 ?>
 <button class="bt-login-social sso_login bt-login <?=$provider?>" data-url="<?=$url?>" data-width="<?=$width?>" data-height="<?=$height?>" href="#" alt="<?=$title?>" title="<?=$title?>" >
 	<span><span><?=$text?></span></span>

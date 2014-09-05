@@ -10,9 +10,13 @@ class Wsu_Networksecurities_Model_Sso_Abstract extends Mage_Core_Model_Abstract 
 		}
 		return $this->_provider;
 	}
-	public function getLaunchUrl() {
+	public function getLaunchUrl($account=null) {
 		$provider = $this->_providerName;
-		return Mage::getUrl("sociallogin/${provider}login/login");
+		$queries = array();
+		if(isset($account)){
+			$queries['account']=$account;
+		}
+		return Mage::getUrl("sociallogin/${provider}login/login",$queries);
 	}
 	
 }
