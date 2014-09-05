@@ -1,20 +1,34 @@
+<?php //die('in block');?>
+<?php 
+	$arrayButton = $this->makeArrayButton(); 
+	$temp = $arrayButton;
+	$numberShow = $this->getNumberShow();
+	$countAll = 0;
+	$countMain = 0;
+	$count = 0;
 
-<?php $arrayButton = $this->makeArrayButton(); $temp = $arrayButton; ?>
-<?php $numberShow = $this->getNumberShow();?>
-<?php $countAll = 0;?>
-<?php $countMain = 0;?>
-<?php $count = 0;?>
+	$data=$this->getData();
+	$isOther = $data['isOther'];
+
+?>
 
 <div id="sociallogin_button"  class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">	
+
+
+
+<?php if($isOther): ?>
+
+	<h2>Would you like to sign in with other providers?</h2>
+	<h4>Allowing other providers to sign up through can help you access the site easier while providing the security you want with your account.</h4>
+
+<?php endif; ?>
+
+
 	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
 	<?php foreach($arrayButton as $key => $button):?>	
 		<?php $check =$button['check'];?>
 		<?php if($check): unset($temp[$key]);?>					
-			<li class="button left"> <?php echo $button['button']?> </li>
-			<!--<script type="text/javascript">
-				$('<?php echo $button['id'] ?>').addClassName('visible');
-				$('<?php echo $button['id'] ?>' ).setStyle('min-width: 80px');
-			</script>-->	
+			<li class="button left"> <?php echo $button['button']?> </li>	
 			<?php ++$countMain ;?>			
 		<?php endif;?>
 		<?php if($countMain == $numberShow){break;} ?>
@@ -40,28 +54,13 @@
 					<?php foreach($temp as $button):?>				
 						<?php $check = $button['check']; ?>
 						<?php if($check): $count ++;?>				
-							<li class="button left other-button"> <?php echo $button['button'] ?> </li>	
-							<!--<script type="text/javascript">
-								$('<?php echo $button['id'] ?>').addClassName('non-visible');
-							</script>-->			
+							<li class="button left other-button"> <?php echo $button['button'] ?> </li>		
 						<?php endif;?>			
 					<?php endforeach;?>  
 					</ul>
 			
 			</div>
-		</div>	
-			<!--<script type="text/javascript">
-				$("sociallogin-other-a").observe('click', function() {
-							if(this.hasClassName('active')){
-								this.removeClassName('active');
-								$('sociallogin-other-button').style.display = 'none';
-							}else{ 
-								this.addClassName('active');
-								$('sociallogin-other-button').style.display = 'block';
-							}
-						});
-				
-			</script>-->
+		</div>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>

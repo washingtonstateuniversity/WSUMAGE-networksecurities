@@ -14,15 +14,7 @@
 			</block>
 		</reference>
 	</honeypot>
-    <add_othersociallogin>
-        <reference name="customer.account.dashboard.info.extra">
-			<block type="wsu_networksecurities/sso_othersociallogin" name="networksecurities.othersociallogin">
-				<action method="setTemplate" >
-					<template>wsu/networksecurities/sso/providers_block.phtml</template> 
-				</action>
-			</block>
-        </reference>
-    </add_othersociallogin>	
+
 	
 	
 
@@ -73,12 +65,7 @@
 	</contacts_index_index>
 	<!-- customer forms -->
 
-	<customer_account>
-		<update handle="add_othersociallogin" />
-	</customer_account>
-	<customer_account_index>
-		<update handle="add_othersociallogin" />
-	</customer_account_index>
+
 	
 	<customer_account_login>
 		<update handle="honeypot"/>
@@ -169,6 +156,18 @@
 		</reference>
 	</customer_account_create>
 	
+    <add_othersociallogin>
+        <reference name="my.account.wrapper"><!--customer.account.dashboard.info.extra">-->
+			<block type="wsu_networksecurities/sso_othersociallogin" name="networksecurities.othersociallogin">
+				<action method="setTemplate" >
+					<template>wsu/networksecurities/sso/providers_block.phtml</template> 
+				</action>
+			</block>
+        </reference>
+    </add_othersociallogin>	
+	<customer_account_index>
+		<update handle="add_othersociallogin" />
+	</customer_account_index>	
 	
 	
 	<sociallogin_myopenidlogin_form>

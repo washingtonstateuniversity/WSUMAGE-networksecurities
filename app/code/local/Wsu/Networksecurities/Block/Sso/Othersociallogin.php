@@ -1,9 +1,9 @@
 <?php
-class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Block_Account_Dashboard { 
+class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Core_Block_Template { 
  
 	public function __construct() {
 		parent::__construct();
-		$this->setTemplate('wsu/networksecurities/sso/providers_block.phtml');
+		$this->setData('isOther', true)->setTemplate('wsu/networksecurities/sso/providers_block.phtml');
 	}
 
 
@@ -15,12 +15,11 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 		return (int) Mage::getStoreConfig('wsu_networksecurities/general_sso/is_active',Mage::app()->getStore()->getId());
 	}	
 
-	public function getButton($provider) {
+	public function getButton($provider) {//die('getButton');
 		$html = "";
 		$html = $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
 					->setData('provider', $provider)
 					->setTemplate('wsu/networksecurities/sso/bt.phtml')->toHtml();
-					
 		if( $this->isShowButton($provider) ){
 			$out=array(
 					'button'=> $html,
@@ -34,7 +33,7 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 		return $out;
 	}
 
-    protected function _beforeToHtml() {
+    protected function _beforeToHtml() {//die('_beforeToHtml');
 		if(!$this->getIsActive()) {
 			$this->setTemplate(null);
 		}
@@ -57,6 +56,7 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Customer_Blo
 	
 	public function makeArrayButton() {
 		$buttonArray = array();
+		$_excludeSso=array();
 		$providers=Mage::getModel('wsu_networksecurities/customer_source_ssooptions')->getAllOptions();
 		foreach($providers as $provider){
 			if ($this->isShowButton($provider['value'])){
