@@ -71,17 +71,17 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
     }
 
 	public function hasSsoMap($customer,$data) {
-		$map = $customer->getSsoMap();
-		if(isset($map)){
+		if(!$customer->getId()){
+			return false;	
+		}
+		$_customer=Mage::getModel('customer/customer')->load($customer->getId());
+		$ssomap=$_customer->getSsoMap();
+        $map = isset($ssomap) ? $ssomap : array();
+		if(is_string($map)){
 			$map = (array)json_decode($map);
 		}
 		$provider=$data['provider'];
-		if(isset($provider)){
-			if(!isset($map[$provider])){
-				return false;
-			}
-		}
-		return true;
+		return isset($provider) && isset($map[$provider]);
 	}
 
 	

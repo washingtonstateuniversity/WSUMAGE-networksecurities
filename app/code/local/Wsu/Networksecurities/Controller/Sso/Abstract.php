@@ -44,6 +44,7 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$data = $this->makeCustomerData($user_info);
+		
 		//get website_id and sote_id of each stores
 		$store_id = Mage::app()->getStore()->getStoreId();//add
 		$website_id = Mage::app()->getStore()->getWebsiteId();//add
@@ -52,10 +53,20 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 			$customer = Mage::getModel('customer/customer')->load($cID);
 		}else{
 			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
+			if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && (!$customer || !$customer->getId())){
+				if($data['username']){
+					$customer = $customerHelper->loadByUsername($data['username']);
+				}
+				if(!$customer || !$customer->getId()){
+					$customer = $customerHelper->loadByUsername($data['email']);
+				}
+			}
+			if(!$customer || !$customer->getId()){
+				$customer = $customerHelper->getCustomerByAltSSo($data);
+			}
 		}
 
-		if(!$customer || !$customer->getId()) {
-			$customer = $customerHelper->getCustomerByAltSSo($data);
+		if(!$customer || !$customer->getId()) {die("didn't find user");
 			if(!$customer || !$customer->getId()) {die('should not have made this');
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 			}
@@ -63,7 +74,7 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 				Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($data['authorId']);
 			}
 		}else{
-			if(!$customer->hasSsoMap($customer,$data)) {
+			if($customer->hasSsoMap($customer,$data)==false) {
 				$customer = $customer->addSsoMap($customer,$data);
 			}
 		}

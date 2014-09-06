@@ -1,8 +1,3 @@
-<?php $isLogin = $this->helper('customer')->isLoggedIn()?>
-
-<?php if(!$isLogin){?>
-<?php }?>
-
 <?php
 	$data=$this->getData();
 	$provider = $data['provider'];
@@ -16,13 +11,12 @@
 
 	$width = 'data-width="'.$this->getWidth($provider).'"';
 	$height ='data-height="'.$this->getHeight($provider).'"';
-	$url = ($skipUrl!==false)?'data-url="'.$this->getBTUrl($provider,$account).'"':"";
+	$url = ($skipUrl!=true)?'data-url="'.$this->getBTUrl($provider,$account).'"':"";
 	
-	if($url!=""){
+	if($url==""){
 		$text = str_replace('Sign in','',$text);
 	}
-	
 ?>
-<button class="bt-login-social sso_login bt-login <?=$provider?> <?=($url!=""?"unlinked":$url)?>" <?=$url?> <?=$width?> <?=$height?> href="#" alt="<?=$title?>" title="<?=$title?>" >
+<button class="bt-login-social sso_login bt-login <?=$provider?> <?=($url==""?"unlinked":$url)?>" <?=$url?> <?=$width?> <?=$height?> href="#" alt="<?=$title?>" title="<?=$title?>" >
 	<span><span><?=$text?></span></span>
 </button>

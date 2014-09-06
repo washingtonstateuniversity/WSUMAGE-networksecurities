@@ -1,7 +1,6 @@
 <?php //die('in block');?>
 <?php 
 	$unusedButton = $this->getSsoBtns();
-	$usedButtons = $this->getUsedSsoBtns(); 
 	$temp = $unusedButton;
 	$numberShow = $this->getNumberShow();
 	$countAll = 0;
@@ -18,7 +17,7 @@
 
 
 <?php if($isOther): ?>
-
+	<?php $usedButtons = $this->getUsedSsoBtns(); ?>
 	<h3>Soical Logins attached to your account:</h3>
 	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
 		<?php foreach($usedButtons as $button):?>		

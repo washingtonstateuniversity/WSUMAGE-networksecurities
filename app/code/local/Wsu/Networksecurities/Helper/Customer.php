@@ -39,7 +39,10 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 			}
 			
 			$collection->getSelect()->Where('( '.$loopUpMap.' )');
-			return $collection->getFirstItem();
+			$returning = $collection->getFirstItem();
+			//print((string)$collection->getSelect());
+			//var_dump($returning);die();
+			return $returning;
 		}
 		return null;
 	}
