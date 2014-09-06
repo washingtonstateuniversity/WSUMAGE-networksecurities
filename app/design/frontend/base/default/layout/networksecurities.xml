@@ -168,7 +168,9 @@
 	<customer_account_index>
 		<update handle="add_othersociallogin" />
 	</customer_account_index>	
-	
+	<customer_account_edit>
+		<update handle="add_othersociallogin" />
+	</customer_account_edit>		
 	
 	<sociallogin_myopenidlogin_form>
 		<update handle="page_empty" />
