@@ -16,7 +16,6 @@ class Wsu_Networksecurities_Sso_YahoologinController extends Wsu_Networksecuriti
 			$user_info = $userSession->loadProfile();
 			
 			if(count($user_info)) {
-				$user_info['provider']="yahoo";
 				$this->handleCustomer($user_info);
 			}else{ 
 				Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
@@ -61,7 +60,7 @@ class Wsu_Networksecurities_Sso_YahoologinController extends Wsu_Networksecuriti
 			$data['dob'] = '1/1/'.$birthYear;
 		}
 		
-		$data['provider']=$user_info['provider'];
+		$data['provider']="yahoo";
 		$data['email']=$email;
 		$data['firstname']=$frist_name;
 		$data['lastname']=$last_name;
