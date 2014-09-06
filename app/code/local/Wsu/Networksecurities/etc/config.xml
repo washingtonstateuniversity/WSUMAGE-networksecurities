@@ -440,8 +440,8 @@
 					<sort_order>5</sort_order>
 					<title>Login with Yahoo</title>								
 					<text>Yahoo Sign in</text>
-					<width>500</width>
-					<height>520</height>
+					<width>560</width>
+					<height>576</height>
 				</yahoo_login>
 				<google_login>
 					<is_active>1</is_active>
