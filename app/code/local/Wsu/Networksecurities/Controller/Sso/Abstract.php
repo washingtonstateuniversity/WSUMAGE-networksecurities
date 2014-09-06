@@ -41,10 +41,7 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 			 $customerData = Mage::getSingleton('customer/session')->getCustomer();
 			 $cID = $customerData->getId();
 		}//note we would want to take the passed account id adn match it but for now we are just going to use what is set already
-		
-		
-		
-		
+
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$data = $this->makeCustomerData($user_info);
 		//get website_id and sote_id of each stores
@@ -56,21 +53,17 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 		}else{
 			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
 		}
-		
-		
-		
-		
+
 		if(!$customer || !$customer->getId()) {
-			$customer = $customer->getCustomerAltSSo($customer,$data);
-			if(!$customer || !$customer->getId()) {
+			$customer = $customerHelper->getCustomerByAltSSo($data);
+			if(!$customer || !$customer->getId()) {die('should not have made this');
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 			}
 			if(isset($data['authorId'])){
 				Mage::getModel('wsu_networksecurities/sso_authorlogin')->addCustomer($data['authorId']);
 			}
 		}else{
-			$_customer = $customer->getCustomerAltSSo($customer,$data);
-			if(!$_customer || !$_customer->getId()) {
+			if(!$customer->hasSsoMap($customer,$data)) {
 				$customer = $customer->addSsoMap($customer,$data);
 			}
 		}

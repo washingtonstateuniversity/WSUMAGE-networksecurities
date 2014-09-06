@@ -8,7 +8,7 @@
 	$count = 0;
 
 	$data=$this->getData();
-	$isOther = $data['isOther'];
+	$isOther = isset($data['isOther'])?$data['isOther']:false;
 
 ?>
 

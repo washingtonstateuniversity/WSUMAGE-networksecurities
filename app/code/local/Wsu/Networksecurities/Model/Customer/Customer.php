@@ -69,6 +69,21 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
         }
         return false;
     }
+
+	public function hasSsoMap($customer,$data) {
+		$map = $customer->getSsoMap();
+		if(isset($map)){
+			$map = (array)json_decode($map);
+		}
+		$provider=$data['provider'];
+		if(isset($provider)){
+			if(!isset($map[$provider])){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	
 	public function addSsoMap($customer,$data) {
 		$map = $customer->getSsoMap();
@@ -88,5 +103,5 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
 		$customer->save();
 		return $customer;
 	}
-
+	
 }

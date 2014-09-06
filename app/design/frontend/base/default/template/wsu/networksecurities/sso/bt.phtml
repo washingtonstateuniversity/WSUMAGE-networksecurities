@@ -6,7 +6,7 @@
 <?php
 	$data=$this->getData();
 	$provider = $data['provider'];
-	$account = $data['account'];
+	$account = isset($data['account']) ? $data['account'] : null;
 	//var_dump($account);die();
 	$title = $this->__($this->getTitle($provider));
 	$text = $this->__($this->getText($provider));

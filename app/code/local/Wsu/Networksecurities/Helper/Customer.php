@@ -12,6 +12,40 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 
 
 
+	public function getCustomerByAltSSo($data) {
+		$provider=isset($data['provider'])?$data['provider']:null;
+		if(isset($provider)){
+			$collection = Mage::getModel('customer/customer')->getCollection();
+			$collection->addAttributeToSelect('sso_map'); 
+			if (Mage::getStoreConfig('customer/account_share/scope') && $website_id!=null) {
+				$collection->addFieldToFilter('website_id',$website_id);
+			}
+			
+			$sso_map = Mage::getModel('eav/entity_attribute')->loadByCode('1', 'sso_map');
+			
+			$collection->getSelect()
+				->join(array('cus' => 'customer_entity_varchar'), 'cus.entity_id=e.entity_id')
+    			->Where('cus.attribute_id='.$sso_map->getAttributeId());
+				
+			$username=isset($data['username'])?$data['username']:null;
+			$email=isset($data['email'])?$data['email']:null;
+
+			$loopUpMap = "";
+			if(isset($username)){
+				$loopUpMap .=sprintf("cus.value LIKE %s","CONCAT('%','".$provider.'":"'.$username."','%')");
+			}
+			if(isset($email)){
+				$loopUpMap .= ($loopUpMap==""?"":" OR ").sprintf("cus.value LIKE %s","CONCAT('%','".$provider.'":"'.$email."','%')");
+			}
+			
+			$collection->getSelect()->Where('( '.$loopUpMap.' )');
+			return $collection->getFirstItem();
+		}
+		return null;
+	}
+
+
+
 	public function createCustomer($data) {
 		$customer = Mage::getModel('customer/customer');
 		$customer->setFirstname( $data['firstname'] );
