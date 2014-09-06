@@ -23,11 +23,12 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Core_Block_T
 		return (int) Mage::getStoreConfig('wsu_networksecurities/general_sso/is_active',Mage::app()->getStore()->getId());
 	}	
 
-	public function getButton($provider) {//die('getButton');
+	public function getButton($provider,$skipUrls=false) {//die('getButton');
 		$html = "";
 		$html = $this->getLayout()->createBlock('wsu_networksecurities/sso_providers')
 					->setData('provider', $provider)
 					->setData('account', $this->_cID)
+					->setData('skipUrl', $skipUrls)
 					->setTemplate('wsu/networksecurities/sso/bt.phtml')->toHtml();
 		if( $this->isShowButton($provider) ){
 			$out=array(
@@ -63,7 +64,28 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Core_Block_T
 		return (int) Mage::getStoreConfig("wsu_networksecurities/${provider}_login/sort_order",Mage::app()->getStore()->getId());
 	}
 	
-	public function makeArrayButton() {
+
+	public function getUsedSsoBtns() {
+		$buttonArray = array();
+		
+		$_excludeSso=array();
+		
+		$_ssoMap=$this->_customerData->getSsoMap();
+		if(isset($_ssoMap)){
+			$_excludeSso = (array)json_decode($_ssoMap);	
+		}
+		$providers=Mage::getModel('wsu_networksecurities/customer_source_ssooptions')->getAllOptions();
+		foreach($providers as $provider){
+			$providerKey = $provider['value'];
+			if ($this->isShowButton($providerKey) && isset($_excludeSso[$providerKey])){
+				$buttonArray[] = $this->getButton($providerKey,true);
+			}
+		}
+
+		usort($buttonArray, array($this, 'compareSortOrder'));
+		return $buttonArray;
+	}
+	public function getSsoBtns($skipUrls=false) {
 		$buttonArray = array();
 		
 		$_excludeSso=array();
@@ -76,7 +98,7 @@ class Wsu_Networksecurities_Block_Sso_Othersociallogin extends Mage_Core_Block_T
 		foreach($providers as $provider){
 			$providerKey = $provider['value'];
 			if ($this->isShowButton($providerKey) && !isset($_excludeSso[$providerKey])){
-				$buttonArray[] = $this->getButton($providerKey);
+				$buttonArray[] = $this->getButton($providerKey,$skipUrls);
 			}
 		}
 

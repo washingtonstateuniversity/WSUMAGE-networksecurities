@@ -1,7 +1,8 @@
 <?php //die('in block');?>
 <?php 
-	$arrayButton = $this->makeArrayButton(); 
-	$temp = $arrayButton;
+	$unusedButton = $this->getSsoBtns();
+	$usedButtons = $this->getUsedSsoBtns(); 
+	$temp = $unusedButton;
 	$numberShow = $this->getNumberShow();
 	$countAll = 0;
 	$countMain = 0;
@@ -18,14 +19,22 @@
 
 <?php if($isOther): ?>
 
-	<h2>Would you like to sign in with other providers?</h2>
-	<h4>Allowing other providers to sign up through can help you access the site easier while providing the security you want with your account.</h4>
+	<h3>Soical Logins attached to your account:</h3>
+	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
+		<?php foreach($usedButtons as $button):?>		
+			<li class="button left"> <?=$button['button']?> </li>		
+		<?php endforeach;?>  		
+	</ul>
+
+
+	<h4>Would you like to sign in with other providers?</h4>
+	<p>Allowing other providers to sign up through can help you access the site easier while providing the security you want with your account.</p>
 
 <?php endif; ?>
 
 
 	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
-	<?php foreach($arrayButton as $key => $button):?>	
+	<?php foreach($unusedButton as $key => $button):?>	
 		<?php $check =$button['check'];?>
 		<?php if($check): unset($temp[$key]);?>					
 			<li class="button left"> <?php echo $button['button']?> </li>	

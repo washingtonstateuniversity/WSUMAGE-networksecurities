@@ -55,7 +55,7 @@ class Wsu_Networksecurities_Block_Sso_Sociallogin extends Mage_Core_Block_Templa
 		return (int) Mage::getStoreConfig("wsu_networksecurities/${provider}_login/sort_order",Mage::app()->getStore()->getId());
 	}
 	
-	public function makeArrayButton() {
+	public function getSsoBtns() {
 		$buttonArray = array();
 		$providers=Mage::getModel('wsu_networksecurities/customer_source_ssooptions')->getAllOptions();
 		foreach($providers as $provider){
