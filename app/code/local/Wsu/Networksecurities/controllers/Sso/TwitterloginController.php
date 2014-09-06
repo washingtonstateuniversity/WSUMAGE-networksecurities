@@ -3,12 +3,11 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Wsu_Networksecuri
 	// url to login
 	
     public function loginAction() {
-		
 		if (!$this->getAuthorizedToken()) {
 			$token = $this->getAuthorization();
-		}else{ $token = $this->getAuthorizedToken();
+		}else{
+			$token = $this->getAuthorizedToken();
 		}
-		
         return $token;
     }
 	
@@ -19,8 +18,8 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Wsu_Networksecuri
 		$requestToken = Mage::getSingleton('core/session')->getRequestToken();
 		
 		$oauth_data = array(
-                'oauth_token' => $this->getRequest()->getParam('oauth_token'),
-                'oauth_verifier' => $this->getRequest()->getParam('oauth_verifier')
+			'oauth_token' => $this->getRequest()->getParam('oauth_token'),
+			'oauth_verifier' => $this->getRequest()->getParam('oauth_verifier')
          );
 
 		try{
@@ -29,40 +28,13 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Wsu_Networksecuri
 			Mage::getSingleton('core/session')->addError('Login failed as you have not granted access.');			
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
-       	//end fixed	
-		/*$params = array(
-			'consumerKey'=> $customerHelper->getConsumerKey(), 
-			'consumerSecret'=> $customerHelper->getConsumerSecret(), 
-			'accessToken'=>$token,
-		);*/
-		// $twitter = new Zend_Service_Twitter($params);
-		// $twitter = new Wsu_Networksecurities_Sso_Model_Twitter($params);
-		// $response = $twitter->userShow($token->user_id);
-		// $twitterId = (string)$response->id;// get twitter account ID		
-		/*$twitterId = $token->user_id;// get twitter account ID				
-		$customerId = $this->getCustomerId($twitterId);
-		
-		if($customerId) { //login
-			$customer = Mage::getModel('customer/customer')->load($customerId);
-				// fix confirmation
-			if ($customer->getConfirmation()) {
-				try {
-					$customer->setConfirmation(null);
-					$customer->save();
-				}catch (Exception $e) {
-				}
-	  		}
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
-			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
-			
-		}else{	// redirect to login page*/
-		
-			if(isset($token)) {
-				$this->handleCustomer($token);
-			}else{ 
-				Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
-				$customerHelper->setJsRedirect(Mage::getBaseUrl());
-			}		
+
+		if(isset($token)) {
+			$this->handleCustomer($token);
+		}else{ 
+			Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
+			$customerHelper->setJsRedirect(Mage::getBaseUrl());
+		}
     }
 	
 	public function makeCustomerData($user_info) {
@@ -78,24 +50,6 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Wsu_Networksecuri
 	
 		$data['username'] = $name;
 		return $data;
-	}
-	
-	
-	
-	
-	
-	
-	
-	//get customer id from twitter account if user connected
-	public function getCustomerId($twitterId) {
-		$user = Mage::getModel('wsu_networksecurities/sso_customer')->getCollection()
-						->addFieldToFilter('twitter_id', $twitterId)
-						->getFirstItem();
-		if($user){
-			return $user->getCustomerId();
-		}else{
-			return NULL;
-		}
 	}
 	
 	// if exit access token
@@ -120,32 +74,11 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Wsu_Networksecuri
             $token = $otwitter->getAccessToken($oauth_data, unserialize(Mage::getSingleton('core/session')->getRequestToken()));
             Mage::getSingleton('core/session')->setAccessToken(serialize($token));
             $otwitter->redirect();
-        }else{ 
+        }else{
 			$token = $otwitter->getRequestToken();
             Mage::getSingleton('core/session')->setRequestToken(serialize($token));
             $otwitter->redirect();
         }
         return $token;
-    }	
-	
-	/**
-	* input: 
-	*	@mpId
-	*	@customerid	
-	**/
-	public function setAuthorCustomer($twId, $customerId) {
-		$mod = Mage::getModel('wsu_networksecurities/sso_customer');
-		$mod->setData('twitter_id', $twId);		
-		$mod->setData('customer_id', $customerId);		
-		$mod->save();		
-		return ;
-	}
-	
-	/**
-	* return @collectin in model customer
-	**/
-	public function getCustomer ($id) {
-		$collection = Mage::getModel('customer/customer')->load($id);
-		return $collection;
-	}
+    }
 }
