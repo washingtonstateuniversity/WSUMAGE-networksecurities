@@ -64,6 +64,9 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Wsu_Networksecurit
 		$google = Mage::getModel('wsu_networksecurities/sso_googlelogin')->getProvider();
 		$google->setScopes($scope); 	
 		$google->setApplicationName(Mage::app()->getStore()->getName()." sign in");	
+var_dump($google);
+
+		die();
 		$google->authenticate();					
 		$authUrl = $google->createAuthUrl();
 			var_dump($google);
