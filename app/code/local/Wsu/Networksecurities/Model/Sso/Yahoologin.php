@@ -32,7 +32,7 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 	
 	
 	public function __construct() {
-		/*if(!class_exists("OAuthConsumer")) {
+		if(!class_exists("OAuthConsumer")) {
 			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
 		}
 		
@@ -42,7 +42,7 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 		//ini_set('display_errors', true);
 		YahooLogger::setDebug(true);
 		YahooLogger::setDebugDestination('LOG');
-		*/
+		
 		// use memcache to store oauth credentials via php native sessions
 		//ini_set('session.save_handler', 'files');
 		//session_save_path('/tmp/');
@@ -50,7 +50,7 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 		$request=Mage::app()->getRequest();
 		$logout=$request->getParam('logout');
 		if(isset($logout)) {
-			//YahooSession::clearSession();
+			YahooSession::clearSession();
 		}
 	}
 	
