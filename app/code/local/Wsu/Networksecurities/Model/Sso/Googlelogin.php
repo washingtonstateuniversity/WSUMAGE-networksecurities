@@ -14,14 +14,13 @@ class Wsu_Networksecurities_Model_Sso_Googlelogin extends Wsu_Networksecurities_
 	}
 
 	public function createProvider() {
-		try{
-			require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'service'.DS.'Google_ServiceResource.php');
-			require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'service'.DS.'Google_Service.php');
-			require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'service'.DS.'Google_Model.php');
-			require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'contrib'.DS.'Google_Oauth2Service.php');
-			require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'Google_Client.php');
-		}catch(Exception $e) {}
-		
+
+		require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'service'.DS.'Google_ServiceResource.php');
+		require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'service'.DS.'Google_Service.php');
+		require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'service'.DS.'Google_Model.php');
+		require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'contrib'.DS.'Google_Oauth2Service.php');
+		require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'Google_Client.php');
+
 		$google = new Google_Client;
 		$google->setClientId($this->getConsumerKey())
 				->setClientSecret($this->getConsumerSecret())
