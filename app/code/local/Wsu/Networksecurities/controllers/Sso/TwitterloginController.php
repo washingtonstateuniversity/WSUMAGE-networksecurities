@@ -30,16 +30,16 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Mage_Core_Control
 			$customerHelper->setJsRedirect(Mage::getBaseUrl());
 		}
        	//end fixed	
-		$params = array(
-			'consumerKey'=> $customerHelper->getTwConsumerKey(), 
-			'consumerSecret'=> $customerHelper->getTwConsumerSecret(), 
+		/*$params = array(
+			'consumerKey'=> $customerHelper->getConsumerKey(), 
+			'consumerSecret'=> $customerHelper->getConsumerSecret(), 
 			'accessToken'=>$token,
-		);
+		);*/
 		// $twitter = new Zend_Service_Twitter($params);
 		// $twitter = new Wsu_Networksecurities_Sso_Model_Twitter($params);
 		// $response = $twitter->userShow($token->user_id);
 		// $twitterId = (string)$response->id;// get twitter account ID		
-		$twitterId = $token->user_id;// get twitter account ID				
+		/*$twitterId = $token->user_id;// get twitter account ID				
 		$customerId = $this->getCustomerId($twitterId);
 		
 		if($customerId) { //login
@@ -55,40 +55,36 @@ class Wsu_Networksecurities_Sso_TwitterloginController extends Mage_Core_Control
 			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
 			$customerHelper->setJsRedirect($customerHelper->_loginPostRedirect());
 			
-		}else{	// redirect to login page
-			$name = (string)$token->screen_name;		
-			$email = $name . '@twitter.com';
-			$user['firstname'] = $name;
-			$user['lastname'] = $name;			
-			$user['email'] = $email;
-			//get website_id and sote_id of each stores
-			$store_id = Mage::app()->getStore()->getStoreId();
-			$website_id = Mage::app()->getStore()->getWebsiteId();
-			$customer = $customerHelper->getCustomerByEmail($user['email'], $website_id);//add edtition	
-			if(!$customer || !$customer->getId()) {
-				//Login multisite
-				$customer = $customerHelper->createCustomerMultiWebsite($user, $website_id, $store_id );
-			}	
-				// fix confirmation
-			if ($customer->getConfirmation()) {
-				try {
-					$customer->setConfirmation(null);
-					$customer->save();
-				}catch (Exception $e) {
-				}
-	  		}	
-			Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);							
-			$this->setAuthorCustomer($twitterId, $customer->getId());	
-			Mage::getSingleton('core/session')->setCustomerIdSocialLogin($twitterId);						
-			if (Mage::getStoreConfig('wsu_networksecurities/myspacelogin/is_send_password_to_customer')) {
-				$customer->sendPasswordReminderEmail();
-			}			
-			$nextUrl = Mage::helper('wsu_networksecurities/customer')->getEditUrl();	
-			Mage::getSingleton('core/session')->addNotice('Please enter your contact detail.');			
-			$this->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
-				->setBody("<script>window.close();window.opener.location = '$nextUrl';</script>");
-		}
+		}else{	// redirect to login page*/
+		
+			if(isset($token)) {
+				$this->handleCustomer($token);
+			}else{ 
+				Mage::getSingleton('core/session')->addError($this->__('Login failed as you have not granted access.'));
+				$customerHelper->setJsRedirect(Mage::getBaseUrl());
+			}		
     }
+	
+	public function makeCustomerData($user_info) {
+		$data = array();
+
+		$name = (string)$user_info->screen_name;		
+		$email = $name . '@twitter.com';
+		
+		$data['provider']="twitter";
+		$data['firstname'] = $name;
+		$data['lastname'] = $name;			
+		$data['email'] = $email;
+	
+		$data['username'] = $name;
+		return $data;
+	}
+	
+	
+	
+	
+	
+	
 	
 	//get customer id from twitter account if user connected
 	public function getCustomerId($twitterId) {
