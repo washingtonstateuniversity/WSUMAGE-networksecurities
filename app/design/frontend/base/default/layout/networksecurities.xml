@@ -164,7 +164,7 @@
 				</action>
 			</block>
         </reference>
-    </add_othersociallogin>	
+    </add_othersociallogin>
 	<customer_account_index>
 		<update handle="add_othersociallogin" />
 	</customer_account_index>	

@@ -6,7 +6,8 @@
             <codePool>local</codePool>
 			<depends>
 				<Mage_Customer />
+				<Wsu_Storeutilities/>
 			</depends>
         </Wsu_Networksecurities>
     </modules>
-</config> 
+</config>
