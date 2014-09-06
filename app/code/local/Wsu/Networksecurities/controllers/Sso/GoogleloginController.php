@@ -62,11 +62,12 @@ class Wsu_Networksecurities_Sso_GoogleloginController extends Wsu_Networksecurit
 					'https://www.googleapis.com/auth/userinfo.email'
 				 );		
 		$google = Mage::getModel('wsu_networksecurities/sso_googlelogin')->getProvider();
-		$google->setScopes($scope); 		
+		$google->setScopes($scope); 	
+		$google->setApplicationName(Mage::app()->getStore()->getName()." sign in");	
 		$google->authenticate();					
 		$authUrl = $google->createAuthUrl();
-				var_dump($google);
-				var_dump($authUrl);
+			var_dump($google);
+			var_dump($authUrl);
 		die();
 		header('Localtion: '.$authUrl);
 		die(0);

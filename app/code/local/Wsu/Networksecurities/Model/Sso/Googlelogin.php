@@ -88,7 +88,7 @@ class Wsu_Networksecurities_Model_Sso_Googlelogin extends Wsu_Networksecurities_
 		$google->setClientId($this->getConsumerKey());
 		$google->setClientSecret($this->getConsumerSecret());
 		$google->setRedirectUri($this->getRedirectUri());
-		$google->setApplicationName(Mage::app()->getStore()->getName()." sign in");
+		
 		//var_dump($google);die();
 		return $google;
 	}
