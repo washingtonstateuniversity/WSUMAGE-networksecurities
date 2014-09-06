@@ -1,5 +1,5 @@
 <?php
-class Wsu_Networksecurities_Sso_TwitterloginController extends Mage_Core_Controller_Front_Action{
+class Wsu_Networksecurities_Sso_TwitterloginController extends Wsu_Networksecurities_Controller_Sso_Abstract{
 	// url to login
 	
     public function loginAction() {
