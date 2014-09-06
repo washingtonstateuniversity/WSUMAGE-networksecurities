@@ -55,10 +55,10 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
 			if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && (!$customer || !$customer->getId())){
 				if($data['username']){
-					$customer = $customerHelper->loadByUsername($data['username']);
+					$customer = Mage::getModel('customer/customer')->loadByUsername($data['username']);
 				}
 				if(!$customer || !$customer->getId()){
-					$customer = $customerHelper->loadByUsername($data['email']);
+					$customer = Mage::getModel('customer/customer')->loadByUsername($data['email']);
 				}
 			}
 			if(!$customer || !$customer->getId()){
