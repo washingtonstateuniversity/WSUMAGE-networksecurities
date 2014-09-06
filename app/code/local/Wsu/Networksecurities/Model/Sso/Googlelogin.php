@@ -22,6 +22,7 @@ class Wsu_Networksecurities_Model_Sso_Googlelogin extends Wsu_Networksecurities_
 		require_once(Mage::getBaseDir('lib').DS.'Oauth2'.DS.'Google_Client.php');
 
 		$google = new Google_Client;
+		var_dump($google);die();
 		$google->setClientId($this->getConsumerKey())
 				->setClientSecret($this->getConsumerSecret())
 				->setRedirectUri($this->getRedirectUri());
