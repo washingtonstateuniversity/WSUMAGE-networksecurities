@@ -23,7 +23,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 			
 			$sso_map = Mage::getModel('eav/entity_attribute')->loadByCode('1', 'sso_map');
 			$collection->getSelect()
-				->join(array('cus' => Mage::getSingleton(‘core/resource’)->getTableName('customer_entity_varchar')), 'cus.entity_id=e.entity_id')
+				->join(array('cus' => Mage::getSingleton('core/resource')->getTableName('customer_entity_varchar')), 'cus.entity_id=e.entity_id')
     			->Where('cus.attribute_id='.$sso_map->getAttributeId());
 				
 			$username=isset($data['username'])?$data['username']:null;
