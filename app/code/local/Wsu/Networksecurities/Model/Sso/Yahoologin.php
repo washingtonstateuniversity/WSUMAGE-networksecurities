@@ -16,9 +16,9 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 	
 	public function createProvider() {
 		try{
-		if(!class_exists("OAuthConsumer")) {
-			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
-		}
+			if(!class_exists("OAuthConsumer")) {
+				require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
+			}
 			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
 		}catch(Exception $e) {}
 		
@@ -32,16 +32,18 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 	
 	
 	public function __construct() {
-		if(!class_exists("OAuthConsumer")) {
-			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
-		}
-		
-		
-		require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
+		try{
+			if(!@class_exists("OAuthConsumer")) {
+				require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'OAuth.php');
+			}
+			//var_dump(Mage::getBaseDir('lib'));die();
+			require_once(Mage::getBaseDir('lib').DS.'Yahoo'.DS.'Yahoo.inc');
+		}catch(Exception $e) {}
 		//error_reporting(E_ALL | E_NOTICE); # do not show notices as library is php4 compatable
 		//ini_set('display_errors', true);
-		YahooLogger::setDebug(true);
-		YahooLogger::setDebugDestination('LOG');
+		$yLog = new YahooLogger();
+		$yLog->setDebug(true);
+		$yLog->setDebugDestination('LOG');
 		
 		// use memcache to store oauth credentials via php native sessions
 		//ini_set('session.save_handler', 'files');
@@ -50,7 +52,7 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 		$request=Mage::app()->getRequest();
 		$logout=$request->getParam('logout');
 		if(isset($logout)) {
-			YahooSession::clearSession();
+			@YahooSession::clearSession();
 		}
 	}
 	
@@ -58,21 +60,21 @@ class Wsu_Networksecurities_Model_Sso_Yahoologin extends Wsu_Networksecurities_M
 		$consumerKey = $this->getConsumerKey();
 		$consumerSecret = $this->getConsumerSecret();
 		$appId = $this->getAppId();
-		return YahooSession::hasSession($consumerKey, $consumerSecret, $appId);
+		return @YahooSession::hasSession($consumerKey, $consumerSecret, $appId);
 	}
 	
 	public function getAuthUrl() {
 		$consumerKey = $this->getConsumerKey();
 		$consumerSecret = $this->getConsumerSecret();
-		$callback = YahooUtil::current_url().'?in_popup';
-		return YahooSession::createAuthorizationUrl($consumerKey, $consumerSecret, $callback);
+		$callback = @YahooUtil::current_url().'?in_popup';
+		return @YahooSession::createAuthorizationUrl($consumerKey, $consumerSecret, $callback);
 	}
 	
 	public function getSession() {
 		$consumerKey = $this->getConsumerKey();
 		$consumerSecret = $this->getConsumerSecret();
 		$appId = $this->getAppId();
-		return YahooSession::requireSession($consumerKey, $consumerSecret, $appId);
+		return @YahooSession::requireSession($consumerKey, $consumerSecret, $appId);
 	}
 	
 
