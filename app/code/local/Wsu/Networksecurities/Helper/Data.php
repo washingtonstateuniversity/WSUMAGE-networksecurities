@@ -8,7 +8,30 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
     protected $_networksecurities = array();	
 
 
-
+	public function adminInFrontend(){
+		//check if adminhtml cookie is set
+		if(array_key_exists('adminhtml', $_COOKIE)){
+		   //get session path and add dir seperator and content field of cookie as data name with magento "sess_" prefix
+		   $sessionFilePath = Mage::getBaseDir('session').DS.'sess_'.$_COOKIE['adminhtml'];
+		   //write content of file in var
+		   $sessionFile = file_get_contents($sessionFilePath);
+		
+		   //save old session
+		   $oldSession = $_SESSION;
+		   //decode adminhtml session
+		   session_decode($sessionFile);
+		   //save session data from $_SESSION
+		   $adminSessionData = $_SESSION;
+		   //set old session back to current session
+		   $_SESSION = $oldSession;
+		   if(array_key_exists('user', $adminSessionData['admin'])){
+			  //save Mage_Admin_Model_User object in var
+			  $adminUserObj = $adminSessionData['admin']['user'];
+			  return true;
+		   }
+		}	
+		return false;
+	}
 
 
 
