@@ -16,7 +16,8 @@ class Wsu_Networksecurities_Sso_WordpressloginController extends Wsu_Networksecu
 				$wp_session = Mage::getModel('wsu_networksecurities/sso_wordpresslogin')->setIdlogin($wp, $name_blog);
 				$url = $wp_session->authUrl();
 				$this->_redirectUrl($url);
-            }else{ $user_info = $wp->getAttributes();                 
+            }else{ 
+				$user_info = $wp->getAttributes();                 
                 if(count($user_info)) {
 					$user_info['provider']="wordpress";
 					$this->handleCustomer($user_info);
