@@ -217,7 +217,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 		#this is to send wouldbe level hackers on a runaround
 		$cookie->set('userpasshash', md5(time()).":".$count ,time()+86400,'/');
-		$pastatempts = $failed_log ->getCollection()
+		$pastattempts = $failed_log ->getCollection()
 			->addFieldToSelect('*')
     		->addFieldToFilter('ip', $ip)
 			->getSize();
@@ -227,7 +227,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
 		if($useblacklist) {
 			$limit = $HELPER->getConfig('blacklist/limiter');
-			if( $pastatempts>=$limit ) {
+			if( $pastattempts>=$limit ) {
 				$this->setBlacklist($ip);
 			}
 		}

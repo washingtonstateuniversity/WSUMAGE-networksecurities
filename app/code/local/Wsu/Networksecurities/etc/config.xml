@@ -262,6 +262,16 @@
 					</username_grid>
 				</observers>
 			</core_block_abstract_to_html_before>
+			
+			<blacklist_removed>
+				<observers>
+					<username_grid>
+						<type>singleton</type>
+						<class>wsu_networksecurities/observer</class>
+						<method>unsetFailedLogins</method>
+					</username_grid>
+				</observers>
+			</blacklist_removed>			
 		</events>
 		<menu>
 			<system>

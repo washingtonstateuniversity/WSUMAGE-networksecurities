@@ -367,7 +367,22 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}	
 	
-
+	public function unsetFailedLogins($event) {
+		$ip = $event->getIp();
+		if(isset($ip)){
+			$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
+			$pastattempts = $failed_log->getCollection()
+				->addFieldToSelect('*')
+				->addFieldToFilter('ip', $ip)
+				->getSize();
+				
+			foreach($pastattempts as $attempt){
+				$item->delete();
+			}
+			Mage::helper('wsu_networksecurities')->__('Cleared all failed logins for '.$ip.'');
+		}
+		return $this;
+	}
 	
 
 	// called directed and also from the event admin_session_user_login_failed
