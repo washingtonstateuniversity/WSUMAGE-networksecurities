@@ -37,7 +37,26 @@ class Wsu_Networksecurities_Adminhtml_BlacklistController extends Mage_Adminhtml
 			$this->_redirect('*/*/');
 		}
 	}	
-	
+    public function massRemoveAction() {
+        $blacklist_ids = $this->getRequest()->getParam('blacklist_ids');
+        if(!is_array($blacklist_ids)) {
+			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select item(s)'));
+        } else {
+            try {
+                foreach ($blacklist_ids as $id) {
+					$this->removeAction($id);
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__(
+                        'Total of %d record(s) were successfully removed', count($id)
+                    )
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/index');
+    }
 	
 	
 	

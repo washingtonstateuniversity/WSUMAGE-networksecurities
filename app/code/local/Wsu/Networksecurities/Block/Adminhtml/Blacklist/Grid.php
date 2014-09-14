@@ -30,20 +30,33 @@ class Wsu_Networksecurities_Block_Adminhtml_Networksecurities_Grid extends Mage_
 		  'index'     => 'log_at',
 		));
 		$this->addColumn('action',array(
-			'header'    => Mage::helper('sales')->__('Actions'),
+			'header'    => Mage::helper('wsu_networksecurities')->__('Actions'),
 			'type'      => 'action',
 			'getter'     => 'getId',
 			'actions'   => array(
 				array(
-					'caption' => Mage::helper('sales')->__('Delete'),
+					'caption' => Mage::helper('wsu_networksecurities')->__('Delete'),
 					'url'     => array('base'=>'*/*/remove'),
 					'confirm' => true
 				),
 			),
 			'filter'    => false,
 			'sortable'  => false,
+			'index'     => 'blacklist_id',
 			'is_system' => true,
 		));
 		return parent::_prepareColumns();
 	}
+	protected function _prepareMassaction(){
+        $this->setMassactionIdField('blacklist_id');
+        $this->getMassactionBlock()->setFormFieldName('blacklist_ids');
+		
+        $this->getMassactionBlock()->addItem('resort_blacklist', array(
+             'label'    => Mage::helper('wsu_networksecurities')->__('Delete'),
+             'url'      => $this->getUrl('*/*/massRemove'),
+             'confirm'  => Mage::helper('wsu_networksecurities')->__('Are you sure?')
+        ));
+        return $this;
+    }
+	
 }
