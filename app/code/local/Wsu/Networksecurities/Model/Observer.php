@@ -373,14 +373,15 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 			$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 			$pastattempts = $failed_log->getCollection()
 				->addFieldToSelect('*')
-				->addFieldToFilter('ip', $ip)
-				->getSize();
-			if(count($pastattempts)>0){	
+				->addFieldToFilter('ip', $ip);
+			if(!empty($pastattempts)){	
 				foreach($pastattempts as $attempt){
-					$item->delete();
+					$attempt->delete();
 				}
 			}
-			Mage::helper('wsu_networksecurities')->__('Cleared all failed logins for '.$ip.'');
+			Mage::getSingleton('adminhtml/session')->addSuccess(
+				Mage::helper('wsu_networksecurities')->__('Cleared all failed logins for '.$ip.'')
+			);
 		}
 		return $this;
 	}

@@ -31,7 +31,21 @@ class Wsu_Networksecurities_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtm
 		  'type'		=> 'datetime',
 		  'index'		=> 'log_at',
 		));
-
+		
+		$link = Mage::helper('adminhtml')->getUrl('networksecurities/adminhtml_blacklist/remove/') .'id/$blacklist_id';
+		$this->addColumn('action_delete',array(
+			'header'	=> Mage::helper('wsu_networksecurities')->__('Actions'),
+			'type'		=> 'action',
+			'actions'	=> array(
+				array(
+					'caption' => Mage::helper('wsu_networksecurities')->__('Delete'),
+					'url'     => $link,
+					'confirm' => Mage::helper('wsu_networksecurities')->__('Are you sure?')
+				),
+			),
+			'filter'    => false,
+			'sortable'  => false,
+		));
 		return parent::_prepareColumns();
 	}
 	protected function _prepareMassaction(){

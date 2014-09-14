@@ -15,20 +15,39 @@ class Wsu_Networksecurities_Block_Adminhtml_Failedlogin_Grid extends Mage_Adminh
 	}
 	protected function _prepareColumns() {  
 		$this->addColumn('failedlogin_id', array(
-		'header'    => Mage::helper('wsu_networksecurities')->__('Login ID'),
-		'align'     =>'left',
-		'index'     => 'failedlogin_id',
+			'header'    => Mage::helper('wsu_networksecurities')->__('Login ID'),
+			'align'     =>'left',
+			'index'     => 'failedlogin_id',
 		));
-		$this->addColumn('password', array(
-		'header'    => Mage::helper('wsu_networksecurities')->__('Password'),
-		'align'     =>'left',
-		'index'     => 'password',
+		$this->addColumn('ip', array(
+		  'header'    => Mage::helper('wsu_networksecurities')->__('IP'),
+		  'align'     => 'left',
+		  'index'     => 'ip',
+		));
+		$this->addColumn('login', array(
+		  'header'    => Mage::helper('wsu_networksecurities')->__('Login'),
+		  'align'     => 'left',
+		  'index'     => 'login',
 		));
 		$this->addColumn('created_at', array(
-		'header'    => Mage::helper('wsu_networksecurities')->__('Failed Date'),
-		'align'     =>'left',
-		'type' => 'datetime',
-		'index'     => 'created_at',
+			'header'    => Mage::helper('wsu_networksecurities')->__('Failed On'),
+			'align'     =>'left',
+			'type' => 'datetime',
+			'index'     => 'created_at',
+		));
+		$link = Mage::helper('adminhtml')->getUrl('networksecurities/adminhtml_failedlogin/remove/') .'id/$failedlogin_id';
+		$this->addColumn('action_delete',array(
+			'header'	=> Mage::helper('wsu_networksecurities')->__('Actions'),
+			'type'		=> 'action',
+			'actions'	=> array(
+				array(
+					'caption' => Mage::helper('wsu_networksecurities')->__('Delete'),
+					'url'     => $link,
+					'confirm' => Mage::helper('wsu_networksecurities')->__('Are you sure?')
+				),
+			),
+			'filter'    => false,
+			'sortable'  => false,
 		));
 		return parent::_prepareColumns();
 	}
