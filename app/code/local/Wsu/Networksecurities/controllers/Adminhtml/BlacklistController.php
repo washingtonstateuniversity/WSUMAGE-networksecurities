@@ -25,6 +25,8 @@ class Wsu_Networksecurities_Adminhtml_BlacklistController extends Mage_Adminhtml
 						Mage::helper('wsu_networksecurities')->__('Removed '.$ip.' from the blacklisting')
 					);
 				}
+				$data = array( 'ip' => $ip );
+				Mage::dispatchEvent('blacklist_removed', $data);
 				$this->_redirect('*/*/');
 			} catch (Exception $e) {
 				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
