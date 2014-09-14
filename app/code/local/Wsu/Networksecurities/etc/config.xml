@@ -263,6 +263,26 @@
 				</observers>
 			</core_block_abstract_to_html_before>
 		</events>
+		<menu>
+			<system>
+				<children>
+					<tools>
+						<children>
+							<failedlogin translate="title" module="wsu_networksecurities">
+								<title>Failed logins</title>
+								<action>adminhtml_failedlogin/index</action>
+								<sort_order>0</sort_order>
+							</failedlogin>
+							<blacklist translate="title" module="wsu_networksecurities">
+								<title>Blacklisted</title>
+								<action>adminhtml_blacklist/index</action>
+								<sort_order>0</sort_order>
+							</blacklist>
+						</children>
+					</tools>
+				</children>
+			</system>
+		</menu>
 	</adminhtml>
 	<admin>
 		<layout>
@@ -412,160 +432,158 @@
 					<adminatuocreate>0</adminatuocreate>
 				</adminlogin>
 			</ldap>
-			
-				<general_sso>
-					<is_active>1</is_active>
-					<position>header,popup</position>
-					<direction>right</direction>
-					<number_show>5</number_show>
-					<title></title>								
-					<text></text>
-					<width>500</width>
-					<height>520</height>
-				</general_sso>
-				<twitter_login>
-					<is_active>1</is_active>
-					<connecting_notice>
-						<![CDATA[If you have a account on {{store}}, please login else register a new account to connect twitter account]]>
-					</connecting_notice>
-					<sort_order>3</sort_order>
-					<title>Login with Twitter</title>								
-					<text>Twitter Sign in</text>
-					<width>790</width>
-					<height>350</height>
-				</twitter_login>
-				<yahoo_login>
-					<is_active>1</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>5</sort_order>
-					<title>Login with Yahoo</title>								
-					<text>Yahoo Sign in</text>
-					<width>560</width>
-					<height>576</height>
-				</yahoo_login>
-				<google_login>
-					<is_active>1</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>2</sort_order>
-					<title>Login with Google</title>								
-					<text>Google Sign in</text>
-					<width>700</width>
-					<height>400</height>
-				</google_login>
-				<facebook_login>
-					<is_active>1</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>1</sort_order>
-					<title>Login with Facebook</title>								
-					<text>Facebook Sign in</text>
-					<width>500</width>
-					<height>270</height>
-				</facebook_login>
-				<aol_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>6</sort_order>
-					<title>Login with Aol</title>								
-					<text>Aol Sign in</text>
-					<width>500</width>
-					<height>270</height>
-				</aol_login>
-				<wordpress_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>7</sort_order>
-					<title>Login with WordPress</title>								
-					<text>WordPress Sign in</text>
-					<width>500</width>
-					<height>520</height>
-				</wordpress_login>
-				<clavid_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>8</sort_order>
-					<title>Login with Clavid</title>								
-					<text>Clavid Sign in</text>
-					<width>500</width>
-					<height>270</height>
-				</clavid_login>
-				<orange_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>9</sort_order>
-					<title>Login with Orange</title>								
-					<text>Orange Sign in</text>
-					<width>500</width>
-					<height>670</height>
-				</orange_login>
-				<foursquare_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>10</sort_order>
-					<title>Login with Foursquare</title>								
-					<text>Foursquare Sign in</text>
-					<width>500</width>
-					<height>520</height>
-				</foursquare_login>
-				<live_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>11</sort_order>
-					<title>Login with Windows Live</title>								
-					<text>Windows Live Sign in</text>
-					<width>500</width>
-					<height>520</height>
-				</live_login>
-				<myspace_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>12</sort_order>
-					<title>Login with MySpace</title>								
-					<text>MySpace Sign in</text>
-					<width>500</width>
-					<height>520</height>
-				</myspace_login>
-				<linkedin_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>4</sort_order>
-					<title>Login with LinkedIn</title>								
-					<text>LinkedIn Sign in</text>
-					<width>790</width>
-					<height>350</height>
-				</linkedin_login>
-				<myopenid_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>13</sort_order>
-					<title>Login with MyOpenId</title>								
-					<text>MyOpenId Sign in</text>
-					<width>500</width>
-					<height>270</height>
-				</myopenid_login>
-				<livejournal_login>
-					<is_active>0</is_active>
-					<is_send_password_to_customer>0</is_send_password_to_customer>
-					<sort_order>14</sort_order>
-					<title>Login with Livejournal</title>								
-					<text>Livejournal Sign in</text>
-					<width>500</width>
-					<height>270</height>
-				</livejournal_login>
-				<persona_login>
-					<sort_order>15</sort_order>
-					<title>Login with Persona</title>								
-					<text>Persona Sign in</text>
-					<width>500</width>
-					<height>520</height>
-				</persona_login>
-				<stackexchange_login>
-					<sort_order>16</sort_order>
-					<title>Login by StackExchange</title>								
-					<text>StackExchange</text>
-					<width>500</width>
-					<height>520</height>
-				</stackexchange_login>
-			
+			<general_sso>
+				<is_active>1</is_active>
+				<position>header,popup</position>
+				<direction>right</direction>
+				<number_show>5</number_show>
+				<title></title>
+				<text></text>
+				<width>500</width>
+				<height>520</height>
+			</general_sso>
+			<twitter_login>
+				<is_active>1</is_active>
+				<connecting_notice>
+					<![CDATA[If you have a account on {{store}}, please login else register a new account to connect twitter account]]>
+				</connecting_notice>
+				<sort_order>3</sort_order>
+				<title>Login with Twitter</title>
+				<text>Twitter Sign in</text>
+				<width>790</width>
+				<height>350</height>
+			</twitter_login>
+			<yahoo_login>
+				<is_active>1</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>5</sort_order>
+				<title>Login with Yahoo</title>
+				<text>Yahoo Sign in</text>
+				<width>560</width>
+				<height>576</height>
+			</yahoo_login>
+			<google_login>
+				<is_active>1</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>2</sort_order>
+				<title>Login with Google</title>
+				<text>Google Sign in</text>
+				<width>700</width>
+				<height>400</height>
+			</google_login>
+			<facebook_login>
+				<is_active>1</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>1</sort_order>
+				<title>Login with Facebook</title>
+				<text>Facebook Sign in</text>
+				<width>500</width>
+				<height>270</height>
+			</facebook_login>
+			<aol_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>6</sort_order>
+				<title>Login with Aol</title>
+				<text>Aol Sign in</text>
+				<width>500</width>
+				<height>270</height>
+			</aol_login>
+			<wordpress_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>7</sort_order>
+				<title>Login with WordPress</title>
+				<text>WordPress Sign in</text>
+				<width>500</width>
+				<height>520</height>
+			</wordpress_login>
+			<clavid_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>8</sort_order>
+				<title>Login with Clavid</title>
+				<text>Clavid Sign in</text>
+				<width>500</width>
+				<height>270</height>
+			</clavid_login>
+			<orange_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>9</sort_order>
+				<title>Login with Orange</title>
+				<text>Orange Sign in</text>
+				<width>500</width>
+				<height>670</height>
+			</orange_login>
+			<foursquare_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>10</sort_order>
+				<title>Login with Foursquare</title>
+				<text>Foursquare Sign in</text>
+				<width>500</width>
+				<height>520</height>
+			</foursquare_login>
+			<live_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>11</sort_order>
+				<title>Login with Windows Live</title>
+				<text>Windows Live Sign in</text>
+				<width>500</width>
+				<height>520</height>
+			</live_login>
+			<myspace_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>12</sort_order>
+				<title>Login with MySpace</title>
+				<text>MySpace Sign in</text>
+				<width>500</width>
+				<height>520</height>
+			</myspace_login>
+			<linkedin_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>4</sort_order>
+				<title>Login with LinkedIn</title>
+				<text>LinkedIn Sign in</text>
+				<width>790</width>
+				<height>350</height>
+			</linkedin_login>
+			<myopenid_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>13</sort_order>
+				<title>Login with MyOpenId</title>
+				<text>MyOpenId Sign in</text>
+				<width>500</width>
+				<height>270</height>
+			</myopenid_login>
+			<livejournal_login>
+				<is_active>0</is_active>
+				<is_send_password_to_customer>0</is_send_password_to_customer>
+				<sort_order>14</sort_order>
+				<title>Login with Livejournal</title>
+				<text>Livejournal Sign in</text>
+				<width>500</width>
+				<height>270</height>
+			</livejournal_login>
+			<persona_login>
+				<sort_order>15</sort_order>
+				<title>Login with Persona</title>
+				<text>Persona Sign in</text>
+				<width>500</width>
+				<height>520</height>
+			</persona_login>
+			<stackexchange_login>
+				<sort_order>16</sort_order>
+				<title>Login by StackExchange</title>
+				<text>StackExchange</text>
+				<width>500</width>
+				<height>520</height>
+			</stackexchange_login>
 		</wsu_networksecurities>
 	</default>
 	<crontab>
