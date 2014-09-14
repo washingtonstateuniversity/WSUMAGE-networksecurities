@@ -1,8 +1,8 @@
 <?php
-class Wsu_Networksecurities_Block_Adminhtml_Networksecurities_Grid extends Mage_Adminhtml_Block_Widget_Grid {
+class Wsu_Networksecurities_Block_Adminhtml_Failedlogin_Grid extends Mage_Adminhtml_Block_Widget_Grid {
   public function __construct() {
       parent::__construct();
-      $this->setId('networksecuritiesGrid');
+      $this->setId('failedloginGrid');
       $this->setDefaultSort('created_at');
       $this->setDefaultDir('DESC');
       $this->setSaveParametersInSession(true);

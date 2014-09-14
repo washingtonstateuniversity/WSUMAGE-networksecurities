@@ -2,7 +2,7 @@
 class Wsu_Networksecurities_Block_Sso_Providers extends Mage_Core_Block_Template {
 	
 	public function getUser($provider) {
-		print("wsu_networksecurities/sso_${provider}login");
+		//print("wsu_networksecurities/sso_${provider}login");
 		return Mage::getModel("wsu_networksecurities/sso_${provider}login")->getUser();
 	}
 	
