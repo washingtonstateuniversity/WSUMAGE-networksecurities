@@ -304,21 +304,17 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
         return true;
     }
     public function authentify($login = null, $password = null) {
-        if (is_null($login) || is_null($password))
+        if (is_null($login) || is_null($password)){
             return false;
+		}
         $ds    = $this->get_Link();
-        //$login=$dn = $this->cmpAttr.'='.$login.','.$this->userDn;
         $attr  = $this->pwdAttr;
         $value = $password;
         try {
-            $ldap_usr_dom = $this->ldap_usr_dom;//"@wsu.edu"; //fix this fool
-            //$r=ldap_bind( $ds, $dn, $password );
-            //$r=ldap_compare($ds, $dn, $attr, $value);
+            $ldap_usr_dom = strpos('@',$login)!==false?"":$this->ldap_usr_dom;
             $ldap         = self::$ldaplink;
             $r            = ldap_bind($ldap, $login . $ldap_usr_dom, $password);
             if ($r === -1) {
-                //$params = $login . " -- " . $password;
-				
 				$err=ldap_error($r);
 				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERR,false);
             }elseif ($r === true) {
@@ -326,7 +322,6 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     return $this;
 				}
             }elseif ($r === false) {
-                //error message to be passed later
 				$err=ldap_error($r);
 				Mage::helper('wsu_networksecurities')->log($err,Zend_Log::ERR,false);
             }
