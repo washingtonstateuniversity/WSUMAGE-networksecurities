@@ -276,7 +276,8 @@
 		<menu>
 			<system>
 				<children>
-					<tools>
+					<auditing>
+						<title>Auditing</title>
 						<children>
 							<failedlogin translate="title" module="wsu_networksecurities">
 								<title>Failed logins</title>
@@ -289,7 +290,7 @@
 								<sort_order>0</sort_order>
 							</blacklist>
 						</children>
-					</tools>
+					</auditing>
 				</children>
 			</system>
 		</menu>
