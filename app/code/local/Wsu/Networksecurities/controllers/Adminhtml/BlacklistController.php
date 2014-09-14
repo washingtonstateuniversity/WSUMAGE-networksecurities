@@ -1,14 +1,27 @@
 <?php
 class Wsu_Networksecurities_Adminhtml_BlacklistController extends Mage_Adminhtml_Controller_Action {
-	protected function _initAction() {
+	/*protected function _initAction() {
 		$this->loadLayout()
 			->_setActiveMenu('tools/blacklist')
 			->_addBreadcrumb(Mage::helper('adminhtml')->__('Tools'), Mage::helper('adminhtml')->__('Blacklist'));
 		return $this;
-	}
+	}*/
 	public function indexAction() {
-		$this->_initAction()->renderLayout();
+        $this->_title($this->__('networksecurities'))->_title($this->__('Blacklist'));
+        $this->loadLayout();
+        $this->_setActiveMenu('tools/blacklist');
+        $this->_addContent($this->getLayout()->createBlock('wsu_networksecurities/adminhtml_blacklist'));
+        $this->renderLayout();
 	}
+    public function gridAction() {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('wsu_networksecurities/adminhtml_blacklist_grid')->toHtml()
+        );
+    }
+	
+	
+	
 	public function removeAction($id=0) {
 		$requestId = $this->getRequest()->getParam('id');
 		$blacklist_id = ($id > 0) ? $id : $requestId;

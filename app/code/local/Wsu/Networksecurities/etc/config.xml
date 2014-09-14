@@ -280,12 +280,12 @@
 						<children>
 							<failedlogin translate="title" module="wsu_networksecurities">
 								<title>Failed logins</title>
-								<action>adminhtml_failedlogin/index</action>
+								<action>networksecurities/adminhtml_failedlogin</action>
 								<sort_order>0</sort_order>
 							</failedlogin>
 							<blacklist translate="title" module="wsu_networksecurities">
 								<title>Blacklisted</title>
-								<action>adminhtml_blacklist/index</action>
+								<action>networksecurities/adminhtml_blacklist</action>
 								<sort_order>0</sort_order>
 							</blacklist>
 						</children>
