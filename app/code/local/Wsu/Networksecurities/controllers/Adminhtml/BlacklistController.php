@@ -9,4 +9,34 @@ class Wsu_Networksecurities_Adminhtml_BlacklistController extends Mage_Adminhtml
 	public function indexAction() {
 		$this->_initAction()->renderLayout();
 	}
+	public function removeAction($id=0) {
+		$requestId = $this->getRequest()->getParam('id');
+		$blacklist_id = ($id > 0) ? $id : $requestId;
+		$affected = array();
+		$starting = 1;
+		if( $blacklist_id > 0 ) {
+				$model = Mage::getModel('wsu_networksecurities/blacklist');
+				$model->load($blacklist_id);			
+				$ip = $model->getIp();
+			try {
+				$model->delete();
+				if($requestId>0){
+					Mage::getSingleton('adminhtml/session')->addSuccess(
+						Mage::helper('wsu_networksecurities')->__('Removed '.$ip.' from the blacklisting')
+					);
+				}
+				$this->_redirect('*/*/');
+			} catch (Exception $e) {
+				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+				$this->_redirect('*/*/');
+			}
+		}else{
+			Mage::getSingleton('adminhtml/session')->addError("failed to get key");
+			$this->_redirect('*/*/');
+		}
+	}	
+	
+	
+	
+	
 }
