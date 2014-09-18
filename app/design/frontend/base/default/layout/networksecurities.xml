@@ -14,18 +14,10 @@
 			</block>
 		</reference>
 	</honeypot>
+
 	
 	
-	
-	<customer_account_index>
-        <reference name="customer_account_dashboard">
-            <block type="core/template" name="username_information" as="info1">
-                <action method="setTemplate" ifconfig="wsu_networksecurities/general_customer/enabled">
-                    <template>wsu/networksecurities/customer/account/dashboard/info.phtml</template>
-                </action>
-            </block>
-        </reference>
-	</customer_account_index>
+
 	
 	<customer_account_login>
 		<reference name="customer_form_login">
@@ -63,35 +55,42 @@
             <action method="setTemplate" helper="wsu_networksecurities/data/isPersistentMustBeEnabled"><template>wsu/networksecurities/persistent/checkout/onepage/login.phtml</template></action>
 		</reference>
 	</checkout_onepage_index>
-	
 
-	
-	
-	
+
+
 	<!-- honeypot forms -->	
 	<!-- contact forms -->
 	<contacts_index_index>
 		<update handle="honeypot"/>
 	</contacts_index_index>
 	<!-- customer forms -->
+
+
+	
 	<customer_account_login>
 		<update handle="honeypot"/>
 	</customer_account_login>
+	
 	<customer_account_create>
 		<update handle="honeypot"/>
 	</customer_account_create>
+	
 	<review_product_list>
 		<update handle="honeypot"/>
 	</review_product_list>
+	
 	<customer_account_forgotpassword>
 		<update handle="honeypot"/>
 	</customer_account_forgotpassword>
+	
 	<customer_account_resetpassword>
 		<update handle="honeypot"/>
 	</customer_account_resetpassword>
+	
 	<customer_account_confirmation>
 		<update handle="honeypot"/>
 	</customer_account_confirmation>
+	
 	<customer_account_edit>
 		<update handle="honeypot"/>
 	</customer_account_edit>
@@ -112,25 +111,29 @@
 		</reference>
 	</wsu_networksecurities_error_index>
 
-	
-	
+
 	<default>
 		<reference name="head">
 			<action method="addJs"><script>wsu/networksecurities/lightbox.js</script></action>
 			<action method="addJs"><script>wsu/networksecurities/sociallogin.js</script></action>
+			<action method="addJs"><script>wsu/networksecurities/networksecurities.js</script></action>
 			<action method="addCss"><stylesheet>css/wsu/sociallogin.css</stylesheet></action>
-                        <action method="addCss"><stylesheet>css/wsu/mobilesociallogin.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/wsu/mobilesociallogin.css</stylesheet></action>
 		</reference>
 		<reference name="before_body_end">			
-            <block type="wsu_networksecurities/sso_toplinks" after="-" name="toplinks.sociallogin" template="wsu/networksecurities/toplinks/toplinks.phtml"/>				
+            <block type="wsu_networksecurities/sso_toplinks" after="-" name="toplinks.sociallogin" template="wsu/networksecurities/toplinks/toplinks.phtml"/>
 		</reference>
 		<reference name="top.container">
 			<block type="wsu_networksecurities/sso_autosociallogin" before="-" name="header.sociallogin">
 				<action method="setBlockPosition"><position>header</position></action>
 			</block>
-		</reference>		
+		</reference>
 	</default>
-	
+
+
+
+
+
 	<customer_account_login>
 		<reference name="content">
 			<block type="wsu_networksecurities/sso_autosociallogin" before="-" name="before.customer.login.sociallogin" >
@@ -152,35 +155,52 @@
 			</block>
 		</reference>
 	</customer_account_create>
-	<sociallogin_openlogin_setblock>
+	
+    <add_othersociallogin>
+        <reference name="my.account.wrapper"><!--customer.account.dashboard.info.extra">-->
+			<block type="wsu_networksecurities/sso_othersociallogin" name="networksecurities.othersociallogin">
+				<action method="setTemplate" >
+					<template>wsu/networksecurities/sso/providers_block.phtml</template> 
+				</action>
+			</block>
+        </reference>
+    </add_othersociallogin>
+	<customer_account_index>
+		<update handle="add_othersociallogin" />
+	</customer_account_index>	
+	<customer_account_edit>
+		<update handle="add_othersociallogin" />
+	</customer_account_edit>		
+	
+	<sociallogin_myopenidlogin_form>
 		<update handle="page_empty" />
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_openlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_op.phtml"/>
+			<block type="wsu_networksecurities/sso_myopenidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/myopenid.phtml"/>
 		</reference>
-	</sociallogin_openlogin_setblock>
-	<sociallogin_ljlogin_setblock>
+	</sociallogin_myopenidlogin_form>
+	<sociallogin_livejournallogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_ljlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_lj.phtml"/>
+			<block type="wsu_networksecurities/sso_livejournallogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/livejournal.phtml"/>
 		</reference>
-	</sociallogin_ljlogin_setblock>
-	<sociallogin_allogin_setblock>
+	</sociallogin_livejournallogin_form>
+	<sociallogin_aollogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_aollogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_al.phtml"/>
+			<block type="wsu_networksecurities/sso_aollogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/aol.phtml"/>
 		</reference>
-	</sociallogin_allogin_setblock>
-	<sociallogin_callogin_setblock>
+	</sociallogin_aollogin_form>
+	<sociallogin_clavidlogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_callogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_cal.phtml"/>
+			<block type="wsu_networksecurities/sso_clavidlogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/clavid.phtml"/>
 		</reference>
-	</sociallogin_callogin_setblock>
-	<sociallogin_wplogin_setblock>
+	</sociallogin_clavidlogin_form>
+	<sociallogin_wordpresslogin_form>
 		<update handle="page_empty"/>
 		<reference name="content">
-			<block type="wsu_networksecurities/sso_wplogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/au_wp.phtml"/>
+			<block type="wsu_networksecurities/sso_wordpresslogin" after="-" name="after.customer.login.sociallogin" template="wsu/networksecurities/sso/forms/wordpress.phtml"/>
 		</reference>
-	</sociallogin_wplogin_setblock>
+	</sociallogin_wordpresslogin_form>
 	
 </layout>

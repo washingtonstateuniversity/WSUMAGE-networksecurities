@@ -7,6 +7,34 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	
     protected $_networksecurities = array();	
 
+
+	public function adminInFrontend(){
+		//check if adminhtml cookie is set
+		if(array_key_exists('adminhtml', $_COOKIE)){
+		   //get session path and add dir seperator and content field of cookie as data name with magento "sess_" prefix
+		   $sessionFilePath = Mage::getBaseDir('session').DS.'sess_'.$_COOKIE['adminhtml'];
+		   //write content of file in var
+		   $sessionFile = file_get_contents($sessionFilePath);
+		
+		   //save old session
+		   $oldSession = $_SESSION;
+		   //decode adminhtml session
+		   session_decode($sessionFile);
+		   //save session data from $_SESSION
+		   $adminSessionData = $_SESSION;
+		   //set old session back to current session
+		   $_SESSION = $oldSession;
+		   if(array_key_exists('user', $adminSessionData['admin'])){
+			  //save Mage_Admin_Model_User object in var
+			  $adminUserObj = $adminSessionData['admin']['user'];
+			  return true;
+		   }
+		}	
+		return false;
+	}
+
+
+
     public function isPersistentMustBeEnabled () {
         return Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')
             && Mage::helper('core')->isModuleEnabled('persistent')
@@ -24,24 +52,30 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$name=Mage::getStoreConfig('wsu_networksecurities/honeypot/honeypotName');
         return $theme."__".md5($name.date("l") );
     }	
-    public function log($data,$level=Zend_Log::NOTICE) {
+    public function log($data,$level=Zend_Log::NOTICE,$display=true) {
 		$logging=$this->getConfig("general/logging",null,"full");
         if (is_array($data) || is_object($data)) {
             $data = print_r($data, true);
         }
 		$logFile="adminlog.txt";
 		
-		if( $level == Zend_Log::ERR && in_array( $logging, array('light','full') ) ) {
+		if( $level == Zend_Log::ERR ){//&& in_array( $logging, array('light','full') ) ) {
 			Mage::log($data,$level,$logFile);
-			Mage::getSingleton('adminhtml/session')->addError($data);
+			if($display){
+				Mage::getSingleton('adminhtml/session')->addError($data);
+			}
 		}
 		if($level == Zend_Log::NOTICE && in_array( $logging, array('full') ) ) {
 			Mage::log($data,$level,$logFile);
-			Mage::getSingleton('adminhtml/session')->addNotice($data);
+			if($display){
+				Mage::getSingleton('adminhtml/session')->addNotice($data);
+			}
 		}
 		if($level == Zend_Log::WARN && in_array( $logging, array('full') ) ) {
 			Mage::log($data,$level,$logFile);
-			Mage::getSingleton('adminhtml/session')->addWarning($data);
+			if($display){
+				Mage::getSingleton('adminhtml/session')->addWarning($data);
+			}
 		}
 
     }
@@ -150,6 +184,13 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		if(is_object($login)) {
 			$login=$login->getUsername();	
 		}
+		if(is_array($login)) {
+			
+			if(isset($login['password'])){
+				$password=$login['password'];
+			}
+			$login=$login['username'];
+		}
 		if(is_null($login)) {
 			$r_login = $request->getParam('login');
 			if(isset($r_login)) {
@@ -160,6 +201,8 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$ip = $HELPER->get_ip_address();
 		$failed_log->setLogin($login);
 		$pass=($password!="")?md5($password):"failed-to-provide";
+		
+		
 		$failed_log->setPassword($pass);//note this must not be use for more then just a check that they may have forgot the pass
 		$failed_log->setIp($ip);
 		$failed_log->setUserAgent($_SERVER['HTTP_USER_AGENT']);
@@ -174,7 +217,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 		#this is to send wouldbe level hackers on a runaround
 		$cookie->set('userpasshash', md5(time()).":".$count ,time()+86400,'/');
-		$pastatempts = $failed_log ->getCollection()
+		$pastattempts = $failed_log ->getCollection()
 			->addFieldToSelect('*')
     		->addFieldToFilter('ip', $ip)
 			->getSize();
@@ -184,7 +227,7 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$useblacklist = $HELPER->getConfig('blacklist/useblacklist');
 		if($useblacklist) {
 			$limit = $HELPER->getConfig('blacklist/limiter');
-			if( $pastatempts>=$limit ) {
+			if( $pastattempts>=$limit ) {
 				$this->setBlacklist($ip);
 			}
 		}

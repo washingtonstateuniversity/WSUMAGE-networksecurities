@@ -12,16 +12,15 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
     public function authenticate($username, $password) {
 		//$login = trim(mb_convert_kana($login, 'as'));
 		$actived = trim(Mage::getStoreConfig('wsu_networksecurities/ldap/customerlogin/activeldap'));
-		if (!$actived) { //CHECK MAGENTO CONNECT
+		/*if (!$actived) { //CHECK MAGENTO CONNECT
 		        if (!$this->validatePassword($password)) {
 					Mage::helper('wsu_networksecurities')->setFailedLogin($username,$password);
 				}
 				return parent::authenticate($username, $password);
-		}
-		
+		}*/
 		if(Zend_Validate::is($username, 'EmailAddress')) { 
 			$this->loadByEmail($username); 
-		}else if (Mage::getStoreConfigFlag('username/general/enabled')) { 
+		}else if (Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled')) { 
 			$this->loadByUsername($username);    
 		} 
 
@@ -71,5 +70,38 @@ class Wsu_Networksecurities_Model_Customer_Customer extends Mage_Customer_Model_
         return false;
     }
 
+	public function hasSsoMap($customer,$data) {
+		if(!$customer->getId()){
+			return false;	
+		}
+		$_customer=Mage::getModel('customer/customer')->load($customer->getId());
+		$ssomap=$_customer->getSsoMap();
+        $map = isset($ssomap) ? $ssomap : array();
+		if(is_string($map)){
+			$map = (array)json_decode($map);
+		}
+		$provider=$data['provider'];
+		return isset($provider) && isset($map[$provider]);
+	}
 
+	
+	public function addSsoMap($customer,$data) {
+		$map = $customer->getSsoMap();
+		if(isset($map)){
+			$map = (array)json_decode($map);
+		}
+		$provider=$data['provider'];
+		if(isset($provider)){
+			if(!isset($map[$provider])){
+				$map[$provider]=$data['email'];
+				if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && isset($data['username'])){
+					$map[$provider]=$data['username'];
+				}
+			}
+		}
+		$customer->setSsoMap( json_encode($map) );
+		$customer->save();
+		return $customer;
+	}
+	
 }

@@ -13,12 +13,12 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 
 	
 	public function appendHoneypot($observer) {
-		echo "TEST!!!!!!!!!!!!!";
+		echo "FOUND appendHoneypot";
 		//$layout=Mage::getSingleton('core/layout');
 		//if($layout!=null && !empty($layout)) {
-			$update = Mage::getSingleton('core/layout')->getUpdate();
-			//$update = $observer->getEvent()->getLayout()->getUpdate();
-            $update->addHandle('networksecurities.honeypot');
+		$update = Mage::getSingleton('core/layout')->getUpdate();
+		//$update = $observer->getEvent()->getLayout()->getUpdate();
+		$update->addHandle('networksecurities.honeypot');
     }
 	
 
@@ -367,7 +367,24 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}	
 	
-
+	public function unsetFailedLogins($event) {
+		$ip = $event->getIp();
+		if(isset($ip)){
+			$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
+			$pastattempts = $failed_log->getCollection()
+				->addFieldToSelect('*')
+				->addFieldToFilter('ip', $ip);
+			if(!empty($pastattempts)){	
+				foreach($pastattempts as $attempt){
+					$attempt->delete();
+				}
+			}
+			Mage::getSingleton('adminhtml/session')->addSuccess(
+				Mage::helper('wsu_networksecurities')->__('Cleared all failed logins for '.$ip.'')
+			);
+		}
+		return $this;
+	}
 	
 
 	// called directed and also from the event admin_session_user_login_failed

@@ -25,6 +25,9 @@ ul.wsu_sso-login-social li.button:hover{
 }
 .other-button{padding:0;}
 .bt-login-social{padding:0;margin:0 !important;}
+
+.bt-login-social.unlinked{ cursor:default; }
+
 .top-container{width:100%;}
 
 #sociallogin_button{

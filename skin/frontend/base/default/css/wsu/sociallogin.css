@@ -1,3 +1,58 @@
+/*
+<?php if($this->getDirection() == 'left'):?>
+.bt-login-social{margin:0 5px 0 0;}
+.sociallogin-other-button {
+    background: none repeat scroll 0 0 #666666;
+    border-radius: 9px 9px 9px 9px;
+    left: 0;
+    opacity: 0.96;
+    position: absolute;  
+	padding-right: 4px;
+	z-index:1000;
+}
+
+#sociallogin-other-div {
+    display: block;
+    float: left;
+	margin-left: 3px;
+}
+<?php else: ?>
+.bt-login-social{margin:0 0 0 5px;}
+#sociallogin-other-div {
+    display: block;
+    float: right;
+	margin-right: 3px;
+}
+.sociallogin-other-button{
+	background: none repeat scroll 0 0 #666666;
+    border-radius: 9px;
+    opacity: 0.96;
+    position: absolute;    
+	right:0px;
+	padding-right: 4px;
+	z-index:1000;
+}
+<?php endif;?>
+
+*/
+
+.bt-login-social{margin:0 5px 0 0;}
+.sociallogin-other-button {
+    background: none repeat scroll 0 0 #666666;
+    border-radius: 9px 9px 9px 9px;
+    left: 0;
+    opacity: 0.96;
+    position: absolute;  
+	padding-right: 4px;
+	z-index:1000;
+}
+
+#sociallogin-other-div {
+    display: block;
+    float: left;
+	margin-left: 3px;
+}
+
 
 .clear{
  width:100%;
@@ -11,21 +66,28 @@
 	margin-top:10px;
 }
 
-#sociallogin_button #bt-loginfb span, #bt-loginfb-popup span{
+#sociallogin_button .bt-login.facebook span, .bt-popup.facebook span{
     height:28px;
     background: url("sociallogin/fb.png") no-repeat;
     display: block;
     float: left;
 }
+#sociallogin_button .bt-login.stackexchange span, .bt-popup.stackexchange span{
+    height: 28px;
+    background: url("sociallogin/stack.png") no-repeat;
+    display: block;
+    float: left;
+	color:#000;
+}
 
-#sociallogin_button #bt-logingo span, #bt-logingo-popup span{
+#sociallogin_button .bt-login.google span, .bt-popup.google span{
     height: 28px;
     background: url("sociallogin/google.png") no-repeat;
     display: block;
     float: left;
 }
 #wsu_sso-popup  .input-box{width:100%;}
-#sociallogin_button #bt-loginper span, #bt-loginper-popup span{
+#sociallogin_button .bt-login.persona span, .bt-popup.persona span{
     height: 28px;
     background: url("sociallogin/persional.png") no-repeat;
     display: block;
@@ -38,66 +100,57 @@
     display: block;
     float: left;
 }
-#sociallogin_button #bt-loginse span, #bt-loginse-popup span{
-    height: 28px;
-    background: url("sociallogin/stack.png") no-repeat;
-    display: block;
-    float: left;
-	color:#000;
-}
 
 
-#sociallogin_button #bt-logintw span, #bt-loginaol-popup span{
+#sociallogin_button .bt-login.twitter span, .bt-popup.twitter span{
     height: 28px;
 	background: url("sociallogin/twit.png") no-repeat;
     display: block;
     float: left;
 }
-#sociallogin_button #bt-loginwp span, #bt-loginwp-popup span{   
+#sociallogin_button .bt-login.wordpress span, .bt-popup.wordpress span{   
 	background: url("sociallogin/wpress.png") no-repeat;  
 }
-#sociallogin_button #bt-loginya span, #bt-loginya-popup span{
+#sociallogin_button .bt-login.yahoo span, .bt-popup.yahoo span{
     height: 28px;
 	background: url("sociallogin/yh.png") no-repeat;
     display: block;
     float: left;
 	color:#fff;
 }
-/* by Hai Ta */
-#sociallogin_button #bt-loginaol span, #bt-loginaol-popup span{    
+
+#sociallogin_button .bt-login.aol span, .bt-popup.aol span{    
 	background: url("sociallogin/aol.png") no-repeat;  
 	color:#000;
 }
-#sociallogin_button #bt-loginwp span, #bt-loginwp-popup span{   
-	background: url("sociallogin/wpress.png") no-repeat;  
-}
-#sociallogin_button #bt-logincal span, #bt-logincal-popup span{    
+
+#sociallogin_button .bt-login.clavid span, .bt-popup.clavid span{    
 	background: url("sociallogin/clavid.png") no-repeat;    
 }
-#sociallogin_button #bt-loginorg span, #bt-loginorg-popup span{    
+#sociallogin_button .bt-login.orange span, .bt-popup.orange span{    
 	background: url("sociallogin/orange.png") no-repeat;    
 }
-#sociallogin_button #bt-loginmp span, #bt-loginmp-popup span{    
+#sociallogin_button .bt-login.myspace span, .bt-popup.myspace span{    
 	background: url("sociallogin/mysp.png") no-repeat;    
 }
-#sociallogin_button #bt-loginlive span, #bt-loginlive-popup span{    
+#sociallogin_button .bt-login.live span, .bt-popup.live span{    
 	background: url("sociallogin/live.png") no-repeat;
 	color:#000;
 }
-#sociallogin_button #bt-loginfq span, #bt-loginfq-popup span{    
+#sociallogin_button .bt-login.foursquare span, .bt-popup.foursquare span{    
 	background: url("sociallogin/fq.png") no-repeat;   
 }
 
-#sociallogin_button #bt-loginlinked span, #bt-loginlinked-popup span{    
+#sociallogin_button .bt-login.linkedin span, .bt-popup.linkedin span{    
 	background: url("sociallogin/linked.png") no-repeat;   
 }
 
-#sociallogin_button #bt-loginopen span, #bt-loginopen-popup span{    
+#sociallogin_button .bt-login.myopenid span, .bt-popup.myopenid span{    
 	background: url("sociallogin/myop.png") no-repeat;
 	color:#000;
 }
 
-#sociallogin_button #bt-loginlj span, #bt-loginlj-popup span{    
+#sociallogin_button .bt-login.livejournal span, .bt-popup.livejournal span{    
 	background: url("sociallogin/liveJ.png") no-repeat;   
 }
 

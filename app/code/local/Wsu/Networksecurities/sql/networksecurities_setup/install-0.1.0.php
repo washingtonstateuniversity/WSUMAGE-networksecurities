@@ -54,6 +54,27 @@ $attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'ldap_user
 $attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
 $attr->save();
 
+
+//$installer->removeAttribute('customer', 'sso_map');
+$installer->addAttribute('customer', 'sso_map', array(
+    'type'				=> 'varchar',
+    'input'				=> 'text',
+    //'source'			=> 'wsu_networksecurities/customer_source_ssooptions',
+	'backend'           => 'wsu_networksecurities/customer_backend_ssooptions',
+	'frontend_input_renderer'	=> 'wsu_networksecurities/sso_form_mapper',//
+	'input_renderer'	=> 'wsu_networksecurities/sso_form_mapper',//
+	'renderer'			=> 'wsu_networksecurities/sso_form_mapper',//
+	'label'				=> 'Used SSO',
+	'visible'			=> true,
+	'required'			=> false,
+));
+$attr = Mage::getSingleton( 'eav/config' )->getAttribute( 'customer', 'sso_map' );
+$attr->setData( 'used_in_forms', array( 'adminhtml_customer' ) );
+$attr->save();
+
+
+
+
 $installer->getConnection()->addColumn($installer->getTable('admin/user'), 'ldap_user', array(
     'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
     'length' => 256,
@@ -61,6 +82,9 @@ $installer->getConnection()->addColumn($installer->getTable('admin/user'), 'ldap
     'default' => null,
     'comment' => 'Ldap user'
 )); 
+
+
+
 
 
 $installer->getConnection()->addColumn($installer->getTable('sales/quote'), 'customer_username', array(
@@ -84,7 +108,7 @@ $installer->getConnection()->addColumn($installer->getTable('sales/order'), 'cus
 $installer->getConnection()->dropTable($this->getTable('wsu_spamlog'));
 $installer->getConnection()->dropTable($this->getTable('wsu_failedlogin_log'));
 $installer->getConnection()->dropTable($this->getTable('wsu_blacklist'));
-$installer->getConnection()->dropTable($this->getTable('twlogin_customer'));
+$installer->getConnection()->dropTable($this->getTable('twitterlogin_customer'));
 $installer->getConnection()->dropTable($this->getTable('authorlogin_customer'));
 
 $table_spamlog = $installer->getTable('wsu_spamlog');
@@ -136,9 +160,9 @@ CREATE TABLE `{$table_blacklist}` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     ");
 
-$twlogin_customer = $installer->getTable('twlogin_customer');
+$twitterlogin_customer = $installer->getTable('twitterlogin_customer');
 $installer->run("
-CREATE TABLE {$twlogin_customer} (
+CREATE TABLE {$twitterlogin_customer} (
 	`twitter_customer_id` int(11) unsigned NOT NULL auto_increment,
 	`twitter_id` int(11) unsigned NOT NULL,
 	`customer_id` int(10) unsigned NOT NULL,
