@@ -71,12 +71,12 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             $user->login($username, $password);
             $logedin = ($user->getId())?true:false;
 
-            var_dump($username);
-			var_dump($password);
-			var_dump(md5($password));
-			var_dump(Mage::helper('core')->getHash($password, Mage_Admin_Model_User::HASH_SALT_LENGTH));
-			var_dump($user->getPassword());
-			var_dump($logedin);
+            //var_dump($username);
+			//var_dump($password);
+			//var_dump(md5($password));
+			//var_dump(Mage::helper('core')->getHash($password, Mage_Admin_Model_User::HASH_SALT_LENGTH));
+			//var_dump($user->getPassword());
+			//var_dump($logedin);
             if (!$logedin) {
 				Mage::helper('wsu_networksecurities')->log("passed Ldap but wasn't logedin",Zend_Log::NOTICE);
                 $exitsinguser = $user->load($username, 'username');
@@ -87,7 +87,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     	//$exitsinguser->setNewPassword($password);
 						//$exitsinguser->setPasswordConfirmation($password);
 						//$exitsinguser->save();
-						var_dump("saved new LDAP password");
+						//var_dump("saved new LDAP password");
 						Mage::helper('wsu_networksecurities')->log("saved new LDAP password",Zend_Log::NOTICE);
 					}
 					$exitsinguser->setLdapUser(1)->save();
@@ -98,8 +98,8 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 				}
             }
 			
-			var_dump($logedin);
-			die('was logged in too');
+			//var_dump($logedin);
+			//die('was logged in too');
 
             if ($logedin) { 
 				// Auth SUCCESSFUL on Magento (user & pass match)
