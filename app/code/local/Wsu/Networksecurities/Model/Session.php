@@ -60,6 +60,8 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                 }
                 return parent::login($username, $password, $request); //process normally with out ldap
             }
+			
+			
 			Mage::helper('wsu_networksecurities')->log("passed Ldap",Zend_Log::NOTICE);
 			//it is assumed that if you are here that you have passes ldap
             // Auth SUCCESSFUL
@@ -68,18 +70,19 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
             $logedin = ($user->getId())?true:false;
-            
 
+            
             if (!$logedin) {
 				Mage::helper('wsu_networksecurities')->log("passed Ldap but wasn't logedin",Zend_Log::NOTICE);
                 $exitsinguser = $user->load($username, 'username');
                 if ($exitsinguser->getId()) {
                     //User {$username} already exists
                     //lets update the systems password to match LDAP
-					if( $exitsinguser->getPassword() != $password ) {
+					if( $exitsinguser->getPassword() != Mage::helper('core')->getHash($password, Mage_Admin_Model_User::HASH_SALT_LENGTH) ) {
                     	$exitsinguser->setNewPassword($password);
 						$exitsinguser->setPasswordConfirmation($password);
 						$exitsinguser->save();
+						//var_dump("saved new LDAP password");
 						Mage::helper('wsu_networksecurities')->log("saved new LDAP password",Zend_Log::NOTICE);
 					}
 					$exitsinguser->setLdapUser(1)->save();
@@ -89,7 +92,8 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 					$logedin = true;
 				}
             }
-
+			
+			
             if ($logedin) { 
 				// Auth SUCCESSFUL on Magento (user & pass match)
 				Mage::helper('wsu_networksecurities')->log("User passed ldap and was logged in",Zend_Log::NOTICE);
