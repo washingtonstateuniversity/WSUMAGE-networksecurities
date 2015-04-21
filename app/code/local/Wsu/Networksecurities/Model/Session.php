@@ -70,7 +70,6 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
             $user = Mage::getModel('admin/user');
             $user->login($username, $password);
             $logedin = ($user->getId())?true:false;
-
             //var_dump($username);
 			//var_dump($password);
 			//var_dump(md5($password));
