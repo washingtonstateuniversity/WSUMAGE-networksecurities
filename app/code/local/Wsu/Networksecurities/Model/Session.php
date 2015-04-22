@@ -85,9 +85,9 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     //User {$username} already exists
                     //lets update the systems password to match LDAP
 					if( is_array( $exitsinguser->validateCurrentPassword($password) ) ) {
-                    	$exitsinguser->setNewPassword($password);
-						$exitsinguser->setPasswordConfirmation($password);
-						$exitsinguser->save();
+                    	//$exitsinguser->setNewPassword($password);
+						//$exitsinguser->setPasswordConfirmation($password);
+						//$exitsinguser->save();
 						//var_dump("saved new LDAP password");
 						Mage::helper('wsu_networksecurities')->log("saved new LDAP password",Zend_Log::NOTICE);
 					}
