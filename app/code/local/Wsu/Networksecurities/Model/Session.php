@@ -68,8 +68,8 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 			
 			
             $user = Mage::getModel('admin/user');
-			
-            $user->login($username, $password);
+			$user->load($username, 'username');
+            //$user->login($username, $password);
             $logedin = ($user->getId())?true:false;
 
             //var_dump($username);
@@ -78,7 +78,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 			//var_dump($user->validateCurrentPassword($password));
 			//var_dump($user->getPassword());
 			//var_dump($logedin);
-            if (!$logedin) {
+            /*if (!$logedin) {
 				Mage::helper('wsu_networksecurities')->log("passed Ldap but wasn't logedin",Zend_Log::NOTICE);
                 $exitsinguser = $user->load($username, 'username');
                 if ($exitsinguser->getId()) {
@@ -93,16 +93,30 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
 					}
 					$exitsinguser->setLdapUser(1)->save();
                 }
-				$user->login($username, $password);
+				//$user->login($username, $password);
 				if ($user->getId()) {
 					$logedin = true;
 				}
-            }
+            }*/
 			
 			//var_dump($logedin);
 			//die('should be logged in');
-
-            if ($logedin) { 
+			/*
+			Mage::getSingleton('core/session', array('name' => 'adminhtml'));	
+			
+			$user = Mage::getModel('admin/user')->loadByUsername('admin'); // Here admin is the Username
+			if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
+			  Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+			}
+				
+			$session = Mage::getSingleton('admin/session');
+			$session->setIsFirstVisit(true);
+			$session->setUser($user);
+			$session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+			
+			Mage::dispatchEvent('admin_session_user_login_success',array('user'=>$user));
+			*/
+            if ($logedin) {
 				// Auth SUCCESSFUL on Magento (user & pass match)
 				Mage::helper('wsu_networksecurities')->log("User passed ldap and was logged in",Zend_Log::NOTICE);
                 $this->renewSession();
@@ -123,7 +137,7 @@ class Wsu_Networksecurities_Model_Session extends Mage_Admin_Model_Session {
                     header('Location: ' . $requestUri);
                     exit;
                 }
-            }else{ // Does not exist in magento, exists on Ldap
+             }else{ // Does not exist in magento, exists on Ldap
                 if ($this->autocreate) {
                     try {
                         $exist = false;
