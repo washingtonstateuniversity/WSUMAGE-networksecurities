@@ -93,14 +93,18 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                 $customerErrors = $customerForm->validateData($customerData);
                 if ($customerErrors !== true) {
                     $errors = array_merge($customerErrors, $errors);
-                }else{ $customerForm->compactData($customerData);
+                }else{ 
+
+					$customerForm->compactData($customerData);
                     $customer->setPassword($request->getPost('password'));
                     $customer->setConfirmation($request->getPost('confirmation'));
+					$customer->setPasswordConfirmation($request->getPost('confirmation'));					
                     $customerErrors = $customer->validate();
                     if (is_array($customerErrors)) {
                         $errors = array_merge($customerErrors, $errors);
                     }
                 }
+									
                 $validationResult = count($errors) == 0;
                 if (true === $validationResult) {
                     $customer->save();
