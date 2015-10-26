@@ -21,7 +21,7 @@
 	<h3>Soical Logins attached to your account:</h3>
 	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
 		<?php foreach($usedButtons as $button):?>		
-			<li class="button left"> <?=$button['button']?> </li>		
+			<li class="button left bare"> <?=$button['button']?> </li>		
 		<?php endforeach;?>  		
 	</ul>
 
@@ -36,7 +36,7 @@
 	<?php foreach($unusedButton as $key => $button):?>	
 		<?php $check =$button['check'];?>
 		<?php if($check): unset($temp[$key]);?>					
-			<li class="button left"> <?php echo $button['button']?> </li>	
+			<li class="button left bare"> <?php echo $button['button']?> </li>	
 			<?php ++$countMain ;?>			
 		<?php endif;?>
 		<?php if($countMain == $numberShow){break;} ?>
