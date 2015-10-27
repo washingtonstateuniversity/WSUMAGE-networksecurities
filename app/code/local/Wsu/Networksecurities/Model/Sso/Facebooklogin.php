@@ -35,7 +35,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 		$fbme = NULL;
 		if ($userId) {
 			try {
-				$fbme = $facebook->api('/me?fields=email,first_name,last_name');
+				$fbme = $facebook->api('/me');
 			} catch (FacebookApiException $e) {
 				Mage::getSingleton('core/session')->addError($this->__('ERR:'.$e->getMessage()));
 			}
@@ -52,6 +52,8 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 				'scope' => 'email',
 			)
   		);
+		var_dump($loginUrl);
+			die();
 		return $loginUrl;
 	}
 }
