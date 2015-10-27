@@ -41,7 +41,8 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 			 $customerData = Mage::getSingleton('customer/session')->getCustomer();
 			 $cID = $customerData->getId();
 		}//note we would want to take the passed account id and match it but for now we are just going to use what is set already
-
+			var_dump($user_info);
+			die();
 		$customerHelper = Mage::helper('wsu_networksecurities/customer');
 		$data = $this->makeCustomerData($user_info);
 		
@@ -52,8 +53,7 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 		if($cID>0){
 			$customer = Mage::getModel('customer/customer')->load($cID);
 		}else{
-			var_dump($data);
-			die();
+
 			$customer = $customerHelper->getCustomerByEmail($data['email'], $website_id);
 			if(Mage::getStoreConfigFlag('wsu_networksecurities/general_customer/enabled') && (!$customer || !$customer->getId())){
 				if($data['username']){
