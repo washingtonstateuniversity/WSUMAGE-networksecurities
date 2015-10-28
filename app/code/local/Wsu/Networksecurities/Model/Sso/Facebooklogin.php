@@ -35,7 +35,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 		$fbme = NULL;
 		if ($userId) {
 			try {
-				$fbme = $facebook->api('/me');
+				$fbme = $facebook->api('/me?fields=id,name,public_profile,email,user_friends');
 			} catch (FacebookApiException $e) {
 				Mage::getSingleton('core/session')->addError($this->__('ERR:'.$e->getMessage()));
 			}
