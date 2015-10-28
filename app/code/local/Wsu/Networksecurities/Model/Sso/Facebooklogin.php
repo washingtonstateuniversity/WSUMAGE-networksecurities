@@ -40,8 +40,6 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 				Mage::getSingleton('core/session')->addError($this->__('ERR:'.$e->getMessage()));
 			}
 		}
-		var_dump($fbme);
-			die();
 		return $fbme;	
 	}
 	

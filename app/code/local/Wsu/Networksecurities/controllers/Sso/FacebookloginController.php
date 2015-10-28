@@ -36,7 +36,7 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
 		if(isset($gender)){
 			$data['gender'] = $gender=="male" ? '1' : '2';
 		}
-
+		var_dump($data);die();
 		return $data;
 	}
 	//on add user match in getCustomerAltSSo (check first name last name) 

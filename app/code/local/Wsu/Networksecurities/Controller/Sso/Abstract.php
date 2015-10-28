@@ -31,7 +31,7 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 		$data['email']=$email;
 		$data['firstname']=$frist_name;
 		$data['lastname']=$last_name;
-		var_dump($data);die();
+		
 		return $data;
 	}
 	
