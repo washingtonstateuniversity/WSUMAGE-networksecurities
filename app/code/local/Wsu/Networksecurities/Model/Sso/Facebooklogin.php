@@ -40,6 +40,8 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 				Mage::getSingleton('core/session')->addError($this->__('ERR:'.$e->getMessage()));
 			}
 		}
+		var_dump($fbme);
+			die();
 		return $fbme;	
 	}
 	
@@ -52,8 +54,6 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 				'scope' => 'public_profile,email,user_likes,user_friends',
 			)
   		);
-		var_dump($loginUrl);
-			die();
 		return $loginUrl;
 	}
 }
