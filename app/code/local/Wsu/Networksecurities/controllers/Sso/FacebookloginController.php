@@ -29,9 +29,20 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
 
 		$data['provider']=$user_info['provider'];
 		$data['email']=$user_info['email'];
-		$data['firstname']=$user_info['first_name'];
-		$data['lastname']=$user_info['last_name'];
 		
+		$first_name=null;
+		$lastname=null;
+		if(isset($user_info['name'])){
+			$name_parts = explode(' ',$user_info['name']);
+			$first_name=$name_parts[0];
+			$set = count($name_parts);
+			$lastname= ($set>1 ? $name_parts[($set-1)] : '');
+		}else{
+			$first_name=$user_info['first_name'];
+			$lastname=$user_info['last_name'];
+		}
+		$data['firstname']=$first_name;
+		$data['lastname']=$lastname;
 		$gender = $user_info['gender'];
 		if(isset($gender)){
 			$data['gender'] = $gender=="male" ? '1' : '2';
