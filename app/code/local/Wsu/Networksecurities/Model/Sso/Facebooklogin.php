@@ -49,7 +49,7 @@ class Wsu_Networksecurities_Model_Sso_Facebooklogin extends Wsu_Networksecuritie
 			array(
 				'display'   => 'popup',
 				'redirect_uri' => $this->getAuthUrl(),
-				'scope' => 'email',
+				'scope' => 'public_profile,email,user_likes,user_friends',
 			)
   		);
 		var_dump($loginUrl);
