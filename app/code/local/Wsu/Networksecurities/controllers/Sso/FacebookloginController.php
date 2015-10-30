@@ -43,9 +43,9 @@ class Wsu_Networksecurities_Sso_FacebookloginController extends Wsu_Networksecur
 		}
 		$data['firstname']=$first_name;
 		$data['lastname']=$lastname;
-		$gender = $user_info['gender'];
-		if(isset($gender)){
-			$data['gender'] = $gender=="male" ? '1' : '2';
+		
+		if(isset($user_info['gender'])){
+			$data['gender'] = $user_info['gender']=="male" ? '1' : '2';
 		}
 
 		return $data;
