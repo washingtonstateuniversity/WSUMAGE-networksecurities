@@ -18,15 +18,18 @@
 
 <?php if($isOther): ?>
 	<?php $usedButtons = $this->getUsedSsoBtns(); ?>
-	<h3>Soical Logins attached to your account:</h3>
+	<h4>Soical Logins attached to your account:</h4>
 	<ul class="<?php echo ($this->getDirection() == 'left') ? "left" : "right" ?>">
 		<?php foreach($usedButtons as $button):?>		
 			<li class="button left bare"> <?=$button['button']?> </li>		
 		<?php endforeach;?>  		
 	</ul>
-
+	<?php if(count($usedButtons)>0): ?>
+		<h6>Removing accounts:</h6>
+		<p>To remove the accounts that are tied this account here, go to the provider (ex: Facebook) and revoke access from there.</p>
+	<?php endif; ?>
 	<?php if(count($unusedButton)>0): ?>
-		<h4>Would you like to sign in with other providers?</h4>
+		<h5>Would you like to sign in with other providers?</h5>
 		<p>Allowing other providers to sign up through can help you access the site easier while providing the security you want with your account.</p>
 	<?php endif; ?>
 <?php endif; ?>
