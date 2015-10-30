@@ -25,10 +25,10 @@
 		<?php endforeach;?>  		
 	</ul>
 
-
-	<h4>Would you like to sign in with other providers?</h4>
-	<p>Allowing other providers to sign up through can help you access the site easier while providing the security you want with your account.</p>
-
+	<?php if(count($unusedButton)>0): ?>
+		<h4>Would you like to sign in with other providers?</h4>
+		<p>Allowing other providers to sign up through can help you access the site easier while providing the security you want with your account.</p>
+	<?php endif; ?>
 <?php endif; ?>
 
 
