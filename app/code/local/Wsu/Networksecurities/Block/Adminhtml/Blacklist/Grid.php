@@ -32,7 +32,7 @@ class Wsu_Networksecurities_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtm
 		  'index'		=> 'log_at',
 		));
 		
-		$link = Mage::helper('adminhtml')->getUrl('networksecurities/adminhtml_blacklist/remove/') .'id/$blacklist_id';
+		$link = Mage::helper('adminhtml')->getUrl('adminhtml/blacklist/remove/') .'id/$blacklist_id';
 		$this->addColumn('action_delete',array(
 			'header'	=> Mage::helper('wsu_networksecurities')->__('Actions'),
 			'type'		=> 'action',
