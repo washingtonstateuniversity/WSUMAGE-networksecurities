@@ -1,11 +1,20 @@
 <?php
 class Wsu_Networksecurities_Adminhtml_BlacklistController extends Mage_Adminhtml_Controller_Action {
-	/*protected function _initAction() {
-		$this->loadLayout()
-			->_setActiveMenu('tools/blacklist')
-			->_addBreadcrumb(Mage::helper('adminhtml')->__('Tools'), Mage::helper('adminhtml')->__('Blacklist'));
-		return $this;
-	}*/
+    /**
+     * Inits the layout, the active menu tab and the breadcrumbs
+     *
+     * @return Wsu_Auditing_Adminhtml_HistoryController
+     */
+    protected function _initAction() {
+        $this->loadLayout();
+        $this->_setActiveMenu('auditing/blacklist');
+        $this->_addBreadcrumb(
+            Mage::helper('wsu_networksecurities')->__('Admin Monitoring'),
+            Mage::helper('wsu_networksecurities')->__('Blacklist')
+        );
+
+        return $this;
+    }
 	public function indexAction() {
         $this->_title($this->__('networksecurities'))->_title($this->__('Blacklist'));
         $this->loadLayout();

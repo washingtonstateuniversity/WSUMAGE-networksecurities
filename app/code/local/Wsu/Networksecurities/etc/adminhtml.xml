@@ -14,6 +14,21 @@
 									</wsu_networksecurities>
 								</children>
 							</config>
+							<auditing>
+								<title>Auditing</title>
+								<children>
+									<failedlogin translate="title" module="wsu_networksecurities">
+										<title>Failed logins</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/failedlogin/index</action>
+									</failedlogin>
+									<blacklist translate="title" module="wsu_networksecurities">
+										<title>Blacklisted</title>
+										<sort_order>0</sort_order>
+										<action>adminhtml/blacklist/index</action>
+									</blacklist>
+								</children>
+							</auditing>
 						</children>
 					</system>
 				</children>
