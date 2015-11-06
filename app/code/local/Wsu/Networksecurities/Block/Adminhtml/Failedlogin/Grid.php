@@ -35,7 +35,7 @@ class Wsu_Networksecurities_Block_Adminhtml_Failedlogin_Grid extends Mage_Adminh
 			'type' => 'datetime',
 			'index'     => 'created_at',
 		));
-		$link = Mage::helper('adminhtml')->getUrl('networksecurities/adminhtml_failedlogin/remove/') .'id/$failedlogin_id';
+		$link = Mage::helper('adminhtml')->getUrl('adminhtml/failedlogin/remove/') .'id/$failedlogin_id';
 		$this->addColumn('action_delete',array(
 			'header'	=> Mage::helper('wsu_networksecurities')->__('Actions'),
 			'type'		=> 'action',
