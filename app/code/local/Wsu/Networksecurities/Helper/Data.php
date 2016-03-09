@@ -271,7 +271,16 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			return $list;	
 	}
 	public function getBlackListMessage(){
-		$html="You must contact an admin to get unblocked.  There is no time limit";
+		Mage::app()->loadArea('adminhtml');
+		
+		$layout = Mage::getSingleton('core/layout');
+		
+		$block = $layout->createBlock('core/template');
+		
+		$block->setTemplate('wsu/networksecurities/admin/login-failed.phtml');
+		$block->assign(array('myvar'=>'value','anothervar'=>true));
+		$block->setMyvar("foo");
+		$html = $block->toHtml();
 		return $html;
 	}
 	

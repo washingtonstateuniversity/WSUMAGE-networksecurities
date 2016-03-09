@@ -398,7 +398,7 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 			->getSize();
 		if($status>0) {
 			//die('You must contact an admin to get unblocked.  There is no time limit');
-			$html= Mage::helper('wsu_networksecurities')->getBlackListMessage();
+			$html = Mage::helper('wsu_networksecurities')->getBlackListMessage();
 			Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
 			->setBody($html);
 		}
