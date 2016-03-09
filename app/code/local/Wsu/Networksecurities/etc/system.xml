@@ -352,6 +352,50 @@ blacklist
 								<useblacklist>1</useblacklist>
 							</depends>
 						</limiter>
+						<sender_email translate="label comment">
+							<label>Sender Email for blacklist email</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<useblacklist>1</useblacklist>
+							</depends>
+						</sender_email>
+						<sender_name translate="label comment">
+							<label>Sender name for blacklist email</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<useblacklist>1</useblacklist>
+							</depends>
+						</sender_name>
+						<to_email translate="label comment">
+							<label>Email name to for blacklist email</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<useblacklist>1</useblacklist>
+							</depends>
+						</to_email>
+						<to_name translate="label comment">
+							<label>Email name to for blacklist email</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<useblacklist>1</useblacklist>
+							</depends>
+						</to_name>
 					</fields>
 				</blacklist>
 				<!--******************************************************************************************************************

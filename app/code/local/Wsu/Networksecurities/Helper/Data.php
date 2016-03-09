@@ -283,6 +283,24 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$html = $block->toHtml();
 		return $html;
 	}
+	public function sendBlackListEmail($ip){
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$emailTemplate  = Mage::getModel('core/email_template')
+						->loadDefault('blacklist_custom_email');
+		$emailTemplateVariables = array();
+		
+		$store = Mage::app()->getStore();
+		$storeName = $store->getFrontendName();
+		$emailTemplateVariables['storeName'] = $storeName;
+		$emailTemplateVariables['ip'] = $ip;
+		$emailTemplateVariables['bypassUrl'] = Mage::helper("adminhtml")->getUrl("adminhtml/index/index",array("ns_bl_bypass"=>"1"));
+
+		$emailTemplate->setSenderName( $HELPER->getConfig('blacklist/sender_name',$store->getId(),'Magento Blacklisting for ' .$storeName) );
+		$emailTemplate->setSenderEmail( $HELPER->getConfig('blacklist/sender_email') );
+		$processedTemplate = $emailTemplate->getProcessedTemplate($emailTemplateVariables);
+		
+		$emailTemplate->send( $HELPER->getConfig('blacklist/to_email'), $HELPER->getConfig('blacklist/to_name'), $emailTemplateVariables);
+	}
 	
 	public function deleteFailed($params) {}
 	public function deleteBlacklist($params) {}

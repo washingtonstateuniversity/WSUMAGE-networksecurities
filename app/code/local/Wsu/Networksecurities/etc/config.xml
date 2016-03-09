@@ -227,6 +227,15 @@
 				</customer_username>
 			</sales_convert_order>
 		</fieldsets>
+		<template>
+			<email>
+				<blacklist_custom_email module="wsu_networksecurities">
+					<label>Blacklist Template</label>
+					<file>blacklist_custom_email.html</file>
+					<type>html</type>
+				</blacklist_custom_email>
+			</email>
+		</template>
 	</global>
 	<adminhtml>
 		<layout>
@@ -415,6 +424,7 @@
 			<blacklist>
 				<useblacklist>1</useblacklist>
 				<limiter>3</limiter>
+				<sender_email>no-reply@wsu.edu</sender_email>
 			</blacklist>
 			<ldap>
 				<adminlogin>
