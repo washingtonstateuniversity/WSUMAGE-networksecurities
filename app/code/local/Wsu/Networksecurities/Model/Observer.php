@@ -389,18 +389,22 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 
 	// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
-	public function testBlacklist() {
-		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
-		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
-		$status = $blacklist ->getCollection()
-			->addFieldToSelect('*')
-    		->addFieldToFilter('ip', $ip)
-			->getSize();
-		if($status>0) {
-			//die('You must contact an admin to get unblocked.  There is no time limit');
-			$html = Mage::helper('wsu_networksecurities')->getBlackListMessage();
-			Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
-			->setBody($html);
+	public function testBlacklist()
+	{
+		$HELPER = Mage::helper('wsu_networksecurities');
+        if ( 0 < $HELPER->getConfig('blacklist/useblacklist')) {
+			$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
+			$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
+			$status = $blacklist ->getCollection()
+				->addFieldToSelect('*')
+				->addFieldToFilter('ip', $ip)
+				->getSize();
+			if($status>0) {
+				//die('You must contact an admin to get unblocked.  There is no time limit');
+				$html = Mage::helper('wsu_networksecurities')->getBlackListMessage();
+				Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+				->setBody($html);
+			}
 		}
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}	
