@@ -272,14 +272,14 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	}
 	public function getBlackListMessage(){
 		Mage::app()->loadArea('adminhtml');
-		
+		$HELPER = Mage::helper('wsu_networksecurities');
 		$layout = Mage::getSingleton('core/layout');
 		
 		$block = $layout->createBlock('core/template');
 		
 		$block->setTemplate('wsu/networksecurities/admin/login-failed.phtml');
 		$block->assign(array('myvar'=>'value','anothervar'=>true));
-		$block->setMyvar("foo");
+		$block->setLimit($HELPER->getConfig('blacklist/limiter'));
 		$html = $block->toHtml();
 		return $html;
 	}

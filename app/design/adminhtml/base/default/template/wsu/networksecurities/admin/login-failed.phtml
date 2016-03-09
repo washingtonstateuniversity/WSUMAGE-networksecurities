@@ -55,8 +55,9 @@
                         <?php echo $this->getMessagesBlock()->toHtml() ?>
                     </div>
                     <div style=" width: 80%;  padding: 0px 10%;">
-						<h1>You must contact an admin to get unblocked.</h1>
-						<?php echo $this->myvar ?>
+						<h1>You have reached the incorrect attempt limit of <?=$this->getLimit()?> tries.</h1>
+						<h3>Your access is blocked till further notice for security reasons.</h3>
+						<h4>An email has been sent out to the admin of the site.  You may also contact an admin to get unblocked for faster service.</h4>
 					</div>
                 </div>
                 <p class="legal"><?php echo Mage::helper('adminhtml')->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
