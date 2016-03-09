@@ -152,7 +152,14 @@
                 </observers>
             </admin_session_user_login_success>
 			-->
-			
+            <admin_session_user_login_success>
+                <observers>
+                    <networksecurities_reset_attempt>
+                        <class>wsu_networksecurities/observer</class>
+                        <method>resetAttemptForBackend</method>
+                    </networksecurities_reset_attempt>
+                </observers>
+            </admin_session_user_login_success>			
 			<http_response_send_before><!--<controller_front_init_before> it may be better on this but trying to account for FPC -->
 				<observers>
 					<networksecurities_testBlacklist>

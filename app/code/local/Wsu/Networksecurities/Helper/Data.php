@@ -253,7 +253,28 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$cookie->set('userBLhash', md5(time()).":".$count ,time()+86400,'/');
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
-
+	public function deleteUserAttempts($username) {
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$ip=$HELPER->get_ip_address();
+		$collection_failed = $HELPER->getFailed($ip);
+		foreach ($collection_failed as $listing) {
+			$listing->delete();
+		}
+		$collection_blacklist = $HELPER->getBlacklist($ip);
+		foreach ($collection_blacklist as $listing) {
+			$listing->delete();
+		}
+	}
+	public function deleteExpiredLog() {
+		$now = Mage::getModel('core/date')->timestamp(time());
+		$now = new Zend_Date($now);
+		$now->subDay(7);
+		
+		$db = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$tabel = Mage::getSingleton('core/resource')->getTableName('wsu_failedlogin_log');
+		$sql = "DELETE FROM {$tabel} WHERE log_at < ?";
+		$db->query($sql, array($now->toString('yyyy-MM-dd')));
+	}
 	public function getFailed($ip) {
 		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		$list = $failed_log ->getCollection()
