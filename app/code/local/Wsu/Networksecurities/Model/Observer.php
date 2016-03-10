@@ -322,7 +322,9 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
      * @return Wsu_Networksecurities_Model_Observer
      */
     public function resetAttemptForBackend($observer) {
-        return $this->_resetAttempt($observer->getUser()->getUsername());
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$HELPER->deleteUserAttempts($observer->getUser()->getUsername());
+        return $this;
     }
     /**
      * Delete Unnecessary logged attempts
@@ -389,20 +391,42 @@ class Wsu_Networksecurities_Model_Observer extends Mage_Admin_Model_Observer {
 
 	// called directed and also from the event admin_session_user_login_failed
 	// should be called with the customer too	
-	public function testBlacklist() {
-		$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
-		$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
-		$status = $blacklist ->getCollection()
-			->addFieldToSelect('*')
-    		->addFieldToFilter('ip', $ip)
-			->getSize();
-		if($status>0) {
-			//die('You must contact an admin to get unblocked.  There is no time limit');
-			$html= Mage::helper('wsu_networksecurities')->getBlackListMessage();
-			Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
-			->setBody($html);
-		}
-		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
+	public function testBlacklist()
+	{
+		$HELPER = Mage::helper('wsu_networksecurities');
+		if($HELPER->isAdmin()){
+			Mage::getSingleton('core/session', array('name'=>'adminhtml'));
+			$session_admin = Mage::getSingleton('admin/session');
+			
+			//verify if the user is logged in to the backend
+			if(!$session_admin->isLoggedIn()){
+				
+				if ( 0 < $HELPER->getConfig('blacklist/useblacklist')) {
+					
+					$request = Mage::app()->getRequest();
+					$ns_bl_bypass = $request->getParam('ns_bl_bypass');
+					
+					if( 1 != $ns_bl_bypass){
+						$blacklist = Mage::getModel('wsu_networksecurities/blacklist');
+						$ip = Mage::helper('wsu_networksecurities')->get_ip_address();
+						$status = $blacklist ->getCollection()
+							->addFieldToSelect('*')
+							->addFieldToFilter('ip', $ip)
+							->getSize();
+						if($status>0) {
+							//die('You must contact an admin to get unblocked.  There is no time limit');
+							$html = Mage::helper('wsu_networksecurities')->getBlackListMessage();
+							Mage::helper('wsu_networksecurities')->sendBlackListEmail($ip);
+							Mage::app()->getResponse()->clearHeaders()->setHeader('Content-Type', 'text/html')
+							->setBody($html);
+						}
+					}
+				}
+			}else{
+				$admin =$session_admin->getUser();
+				$HELPER->deleteUserAttempts($admin->getUsername());
+			}
+		}//note there is no front end check at this time.. should check for user fails!!
 	}	
 	
 	public function customer_edit($observer) {

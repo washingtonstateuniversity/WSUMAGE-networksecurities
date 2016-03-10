@@ -253,12 +253,42 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$cookie->set('userBLhash', md5(time()).":".$count ,time()+86400,'/');
 		//Mage::log(Mage::helper('customer')->__('Invalid login or password.'),Zend_Log::WARN);
 	}
-
+	public function deleteUserAttempts($username) {
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$ip=$HELPER->get_ip_address();
+		$collection_failed = $HELPER->getFailed($ip);
+		foreach ($collection_failed as $listing) {
+			$failedlogin = Mage::getModel('wsu_networksecurities/failedlogin')->load($listing->getID());
+			$failedlogin->setCleared(true);
+			$failedlogin->save();
+		}
+		$collection_blacklist = $HELPER->getBlacklist($ip);
+		foreach ($collection_blacklist as $listing) {
+			$listing->delete();
+		}
+	}
+	public function deleteExpiredLog() {
+		$now = Mage::getModel('core/date')->timestamp(time());
+		$now = new Zend_Date($now);
+		$now->subDay(7);
+		
+		$db = Mage::getSingleton('core/resource')->getConnection('core_write');
+		$tabel = Mage::getSingleton('core/resource')->getTableName('wsu_failedlogin_log');
+		$sql = "DELETE FROM {$tabel} WHERE log_at < ?";
+		$db->query($sql, array($now->toString('yyyy-MM-dd')));
+	}
 	public function getFailed($ip) {
 		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		$list = $failed_log ->getCollection()
 			->addFieldToSelect('*')
-    		->addFieldToFilter('ip', $ip);
+    		->addFieldToFilter('ip', $ip)
+			->addFieldToFilter(
+				array('cleared','cleared'),
+				array(
+					array('eq' => 0),
+					array('null' => true)
+				)
+			);
 			
 			return $list;
 	}
@@ -271,15 +301,55 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 			return $list;	
 	}
 	public function getBlackListMessage(){
-		$html="You must contact an admin to get unblocked.  There is no time limit";
+		Mage::app()->loadArea('adminhtml');
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$layout = Mage::getSingleton('core/layout');
+		
+		$block = $layout->createBlock('core/template');
+		
+		$block->setTemplate('wsu/networksecurities/admin/login-failed.phtml');
+		$block->assign(array('myvar'=>'value','anothervar'=>true));
+		$block->setLimit($HELPER->getConfig('blacklist/limiter'));
+		$html = $block->toHtml();
 		return $html;
+	}
+	public function sendBlackListEmail($ip){
+		$HELPER = Mage::helper('wsu_networksecurities');
+		$emailTemplate  = Mage::getModel('core/email_template')
+						->loadDefault('blacklist_custom_email');
+		$emailTemplateVariables = array();
+		
+		$store = Mage::app()->getStore();
+		$storeName = $store->getFrontendName();
+		$emailTemplateVariables['storeName'] = $storeName;
+		$emailTemplateVariables['ip'] = $ip;
+		$emailTemplateVariables['bypassUrl'] = Mage::helper("adminhtml")->getUrl("adminhtml/index/index",array("ns_bl_bypass"=>"1"));
+
+		$emailTemplate->setSenderName( $HELPER->getConfig('blacklist/sender_name',$store->getId(),'Magento Blacklisting for ' .$storeName) );
+		$emailTemplate->setSenderEmail( $HELPER->getConfig('blacklist/sender_email') );
+		$processedTemplate = $emailTemplate->getProcessedTemplate($emailTemplateVariables);
+		
+		$emailTemplate->send( $HELPER->getConfig('blacklist/to_email'), $HELPER->getConfig('blacklist/to_name'), $emailTemplateVariables);
 	}
 	
 	public function deleteFailed($params) {}
 	public function deleteBlacklist($params) {}
 	
 	
-	
+    public function isAdmin()
+    {
+        if(Mage::app()->getStore()->isAdmin())
+        {
+            return true;
+        }
+
+        if(Mage::getDesign()->getArea() == 'adminhtml')
+        {
+            return true;
+        }
+
+        return false;
+    }
 	public function get_ip_address() {
 		$ip_keys = array(
 			'HTTP_X_FORWARDED_FOR',
