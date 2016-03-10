@@ -258,7 +258,9 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$ip=$HELPER->get_ip_address();
 		$collection_failed = $HELPER->getFailed($ip);
 		foreach ($collection_failed as $listing) {
-			$listing->delete();
+			$failedlogin = Mage::getModel('wsu_networksecurities/failedlogin')->load($listing->getID());
+			$failedlogin->setCleared(true);
+			$failedlogin->save();
 		}
 		$collection_blacklist = $HELPER->getBlacklist($ip);
 		foreach ($collection_blacklist as $listing) {
@@ -279,7 +281,14 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 		$failed_log = Mage::getModel('wsu_networksecurities/failedlogin');
 		$list = $failed_log ->getCollection()
 			->addFieldToSelect('*')
-    		->addFieldToFilter('ip', $ip);
+    		->addFieldToFilter('ip', $ip)
+			->addFieldToFilter(
+				array('cleared','cleared'),
+				array(
+					array('eq' => 0),
+					array('null' => true)
+				)
+			);
 			
 			return $list;
 	}
