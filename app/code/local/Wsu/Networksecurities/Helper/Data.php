@@ -336,7 +336,20 @@ class Wsu_Networksecurities_Helper_Data extends Mage_Core_Helper_Abstract {
 	public function deleteBlacklist($params) {}
 	
 	
-	
+    public function isAdmin()
+    {
+        if(Mage::app()->getStore()->isAdmin())
+        {
+            return true;
+        }
+
+        if(Mage::getDesign()->getArea() == 'adminhtml')
+        {
+            return true;
+        }
+
+        return false;
+    }
 	public function get_ip_address() {
 		$ip_keys = array(
 			'HTTP_X_FORWARDED_FOR',
