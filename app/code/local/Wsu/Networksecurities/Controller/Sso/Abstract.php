@@ -66,8 +66,8 @@ class Wsu_Networksecurities_Controller_Sso_Abstract extends Mage_Core_Controller
 			}
 		}
 
-		if(!$customer || !$customer->getId()) {die("didn't find user");
-			if(!$customer || !$customer->getId()) {die('should not have made this');
+		if(!$customer || !$customer->getId()) {//die("didn't find user");
+			if(!$customer || !$customer->getId()) {//die('should not have made this');
 				$customer = $customerHelper->createCustomerMultiWebsite($data, $website_id, $store_id );
 			}
 			if(isset($data['authorId'])){
