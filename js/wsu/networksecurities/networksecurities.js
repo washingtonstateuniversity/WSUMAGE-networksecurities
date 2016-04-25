@@ -66,7 +66,7 @@ document.observe('dom:loaded', function () {
 							$('body').trigger("capsUnknown");
 						}
 					}
-				},
+				}
 
 			};
 			$('body').on("keypress.capState", function(event) {// Check all keys
