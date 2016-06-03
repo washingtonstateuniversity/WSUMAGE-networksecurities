@@ -12,7 +12,7 @@ class Wsu_Networksecurities_Helper_Customer extends Mage_Core_Helper_Abstract {
 
 
 
-	public function getCustomerByAltSSo($data) {
+	public function getCustomerByAltSSo($data, $website_id=null) {
 		$provider=isset($data['provider'])?$data['provider']:null;
 		if(isset($provider)){
 			$collection = Mage::getModel('customer/customer')->getCollection();
