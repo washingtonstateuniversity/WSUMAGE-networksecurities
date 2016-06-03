@@ -19,12 +19,12 @@
 	
 
 	
-	<customer_account_login>
+	<!--<customer_account_login>
 		<reference name="customer_form_login">
             <action method="setTemplate" ifconfig="wsu_networksecurities/general_customer/enabled"><template>wsu/networksecurities/customer/form/login.phtml</template></action>
             <action method="setTemplate" helper="wsu_networksecurities/data/isPersistentMustBeEnabled"><template>wsu/networksecurities/persistent/customer/form/login.phtml</template></action>
 		</reference>
-	</customer_account_login>
+	</customer_account_login>-->
 	
 	<customer_account_edit>
 		<reference name="customer_edit">
