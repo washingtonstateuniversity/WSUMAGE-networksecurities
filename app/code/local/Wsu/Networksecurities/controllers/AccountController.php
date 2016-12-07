@@ -27,10 +27,10 @@ class Wsu_Networksecurities_AccountController extends Mage_Customer_AccountContr
                             $message = Mage::helper('customer')->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value);
                             break;
                         case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD:
-                            $message = $e->getMessage()."TEST!!";
+                            $message = $e->getMessage()." The email or password is invaild.";
                             break;
                         default:
-                            $message = $e->getMessage()."TEST!!";
+                            $message = $e->getMessage()." - please contact support.";
                     }
                     $session->addError($message);
                     $session->setUsername($login['username']);
